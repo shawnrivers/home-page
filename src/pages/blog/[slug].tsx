@@ -11,7 +11,7 @@ import getPageData from '../../lib/notion/getPageData'
 import React, { CSSProperties, useEffect } from 'react'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import getNotionUsers from '../../lib/notion/getNotionUsers'
-import { getBlogLink, getDateStr } from '../../lib/blog-helpers'
+import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers'
 
 // Get the data for each blog post
 export async function getStaticProps({ params: { slug }, preview }) {
@@ -21,7 +21,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
 
   // if we can't find the post or if it is unpublished and
   // viewed without preview mode then we just redirect to /blog
-  if (!post || (post.Published !== 'Yes' && !preview)) {
+  if (!post || (!postIsVisible(post) && !preview)) {
     console.log(`Failed to find post for slug: ${slug}`)
     return {
       props: {

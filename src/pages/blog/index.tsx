@@ -7,7 +7,7 @@ import sharedStyles from '../../styles/shared.module.css'
 import {
   getBlogLink,
   getDateStr,
-  postIsPublished,
+  postIsVisible,
 } from '../../lib/blog-helpers'
 import { textBlock } from '../../lib/notion/renderers'
 import getNotionUsers from '../../lib/notion/getNotionUsers'
@@ -21,7 +21,7 @@ export async function getStaticProps({ preview }) {
     .map(slug => {
       const post = postsTable[slug]
       // remove draft posts in production
-      if (!preview && !postIsPublished(post)) {
+      if (!preview && !postIsVisible(post)) {
         return null
       }
       post.Authors = post.Authors || []
