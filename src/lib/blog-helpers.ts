@@ -21,8 +21,8 @@ export const postIsVisible = (post: any): boolean => {
 export const normalizeSlug = slug => {
   if (typeof slug !== 'string') return slug
 
-  let startingSlash = slug.startsWith('/')
-  let endingSlash = slug.endsWith('/')
+  const startingSlash = slug.startsWith('/')
+  const endingSlash = slug.endsWith('/')
 
   if (startingSlash) {
     slug = slug.substr(1)

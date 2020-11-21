@@ -103,7 +103,7 @@ const RenderPost = ({ post, redirect, preview }) => {
     // client navigation
     if (post && post.hasTweet) {
       if ((window as any)?.twttr?.widgets) {
-        ;(window as any).twttr.widgets.load()
+        (window as any).twttr.widgets.load()
       } else if (!document.querySelector(`script[src="${twitterSrc}"]`)) {
         const script = document.createElement('script')
         script.async = true
@@ -170,7 +170,7 @@ const RenderPost = ({ post, redirect, preview }) => {
           const { type, properties, id, parent_id } = value
           const isLast = blockIdx === post.content.length - 1
           const isList = listTypes.has(type)
-          let toRender = []
+          const toRender = []
 
           if (isList) {
             listTagName = components[type === 'bulleted_list' ? 'ul' : 'ol']
