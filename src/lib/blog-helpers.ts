@@ -14,8 +14,8 @@ export const postIsPublished = (post: any) => {
   return post.Published === 'Yes'
 }
 
-export const postIsVisible = (post: any) => {
-  return process.env.ONLY_SHOW_PUBLISHED ? postIsPublished(post) : true
+export const postIsVisible = (post: any): boolean => {
+  return process.env.SHOW_DRAFT_POST === 'true' || postIsPublished(post)
 }
 
 export const normalizeSlug = slug => {
