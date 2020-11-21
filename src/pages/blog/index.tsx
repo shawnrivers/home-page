@@ -1,42 +1,38 @@
-import Link from 'next/link'
-import Header from '../../components/header'
+import Link from 'next/link';
+import Header from '../../components/header';
 
-import blogStyles from '../../styles/blog.module.css'
-import sharedStyles from '../../styles/shared.module.css'
+import blogStyles from '../../styles/blog.module.css';
+import sharedStyles from '../../styles/shared.module.css';
 
-import {
-  getBlogLink,
-  getDateStr,
-  postIsVisible,
-} from '../../lib/blog-helpers'
-import { textBlock } from '../../lib/notion/renderers'
-import getNotionUsers from '../../lib/notion/getNotionUsers'
-import getBlogIndex from '../../lib/notion/getBlogIndex'
+import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
+import { textBlock } from '../../lib/notion/renderers';
+import getNotionUsers from '../../lib/notion/getNotionUsers';
+import getBlogIndex from '../../lib/notion/getBlogIndex';
 
 export async function getStaticProps({ preview }) {
-  const postsTable = await getBlogIndex()
+  const postsTable = await getBlogIndex();
 
-  const authorsToGet: Set<string> = new Set()
+  const authorsToGet: Set<string> = new Set();
   const posts: any[] = Object.keys(postsTable)
-    .map(slug => {
-      const post = postsTable[slug]
+    .map((slug) => {
+      const post = postsTable[slug];
       // remove draft posts in production
       if (!preview && !postIsVisible(post)) {
-        return null
+        return null;
       }
-      post.Authors = post.Authors || []
+      post.Authors = post.Authors || [];
       for (const author of post.Authors) {
-        authorsToGet.add(author)
+        authorsToGet.add(author);
       }
-      return post
+      return post;
     })
-    .filter(Boolean)
+    .filter(Boolean);
 
-  const { users } = await getNotionUsers([...authorsToGet])
+  const { users } = await getNotionUsers([...authorsToGet]);
 
-  posts.map(post => {
-    post.Authors = post.Authors.map(id => users[id].full_name)
-  })
+  posts.map((post) => {
+    post.Authors = post.Authors.map((id) => users[id].full_name);
+  });
 
   return {
     props: {
@@ -44,7 +40,7 @@ export async function getStaticProps({ preview }) {
       posts,
     },
     unstable_revalidate: 10,
-  }
+  };
 }
 
 export default ({ posts = [], preview }) => {
@@ -67,7 +63,7 @@ export default ({ posts = [], preview }) => {
         {posts.length === 0 && (
           <p className={blogStyles.noPosts}>There are no posts yet</p>
         )}
-        {posts.map(post => {
+        {posts.map((post) => {
           return (
             <div className={blogStyles.postPreview} key={post.Slug}>
               <h3>
@@ -90,13 +86,13 @@ export default ({ posts = [], preview }) => {
                 {(!post.preview || post.preview.length === 0) &&
                   'No preview available'}
                 {(post.preview || []).map((block, idx) =>
-                  textBlock(block, true, `${post.Slug}${idx}`)
+                  textBlock(block, true, `${post.Slug}${idx}`),
                 )}
               </p>
             </div>
-          )
+          );
         })}
       </div>
     </>
-  )
-}
+  );
+};

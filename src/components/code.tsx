@@ -1,5 +1,5 @@
-import Prism from 'prismjs'
-import 'prismjs/components/prism-jsx'
+import Prism from 'prismjs';
+import 'prismjs/components/prism-jsx';
 
 const Code = ({ children, language = 'javascript' }) => {
   return (
@@ -10,7 +10,7 @@ const Code = ({ children, language = 'javascript' }) => {
             __html: Prism.highlight(
               children,
               Prism.languages[language.toLowerCase()] ||
-                Prism.languages.javascript
+                Prism.languages.javascript,
             ),
           }}
         />
@@ -32,7 +32,7 @@ const Code = ({ children, language = 'javascript' }) => {
         }
       `}</style>
     </>
-  )
-}
+  );
+};
 
-export default Code
+export default Code;

@@ -1,4 +1,4 @@
-export default props => (
+export default (props) => (
   <svg
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -14,4 +14,4 @@ export default props => (
     <path d="M8.53 16.11a6 6 0 016.95 0" />
     <path d="M12 20h.01" />
   </svg>
-)
+);
