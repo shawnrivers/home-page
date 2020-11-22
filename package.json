@@ -2,8 +2,8 @@
   "name": "notion-blog",
   "version": "0.1.0",
   "scripts": {
-    "dev": "next dev",
-    "start": "next start",
+    "dev": "next dev -p 4000",
+    "start": "next start -p 4001",
     "build": "next build && node .next/serverless/scripts/build-rss.js",
     "format": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\" --ignore-path .gitignore",
     "lint": "eslint . --ext .ts,.tsx",
