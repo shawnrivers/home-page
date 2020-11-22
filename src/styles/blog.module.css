@@ -74,23 +74,48 @@
 
 .postPreview h3,
 .post h1 {
-  margin-bottom: 0;
+  margin-bottom: 1rem;
 }
 
 .post h1 {
   margin-top: 0;
 }
 
-.post :global(h2),
-.post :global(h3) {
-  margin: 3rem 0 1.5rem 0;
+.post h2 {
+  margin: 2rem 0 1.5rem 0;
+  position: relative;
+  display: inline-block;
+}
+
+.post h2::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--blue-4);
+  height: 0.8em;
+  top: 0.65em;
+  left: 0.5rem;
+  z-index: -1;
+}
+
+.post h3 {
+  margin: 1.5rem 0 1.5rem 0;
+}
+
+.post li {
+  margin: 0.5rem 0;
+}
+
+.post p {
+  margin: 0.75rem 0;
 }
 
 .post :global(video),
 .post :global(img),
 .post :global(.asset-wrapper) {
   margin: 2rem auto;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3); */
   max-width: 100%;
   display: block;
 }
@@ -101,7 +126,7 @@
 }
 
 .post :global(.callout) {
-  padding: 16px 16px 16px 12px;
+  padding: 1rem 1rem 1rem 0.75rem;
   display: flex;
   width: 100%;
   border-radius: 3px;
@@ -109,10 +134,11 @@
   border-style: solid;
   border-color: transparent;
   background: rgba(235, 236, 237, 0.6);
+  line-height: 1.5;
 }
 
 .post :global(.callout .text) {
-  margin-left: 8px;
+  margin-left: 0.75rem;
 }
 
 .post :global(.underline) {
