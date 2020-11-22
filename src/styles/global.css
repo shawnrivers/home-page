@@ -11,6 +11,57 @@
   --accents-3: #888;
   --geist-foreground: #000;
 
+  --blue-1: #04a4e9;
+  --blue-2: #2ab1eb;
+  --blue-3: #5bc0eb;
+  --blue-4: #80c6e4;
+  --blue-5: #a3cee0;
+  --yellow-1: #b6a102;
+  --yellow-2: #dec402;
+  --yellow-3: #fde10d;
+  --yellow-4: #fde635;
+  --yellow-5: #fde74c;
+  --orange-1: #bb5e1b;
+  --orange-2: #bd6a2e;
+  --orange-3: #be743e;
+  --orange-4: #BE7C4D;
+  --orange-5: #c08962;
+  --green-1: #566e21;
+  --green-2: #6e8d2a;
+  --green-3: #86ad34;
+  --green-4: #9dc743;
+  --green-5: #add062;
+  --pink-1: #ea526f;
+  --pink-2: #e6677e;
+  --pink-3: #e48294;
+  --pink-4: #e49ba8;
+  --pink-5: #e2b2bb;
+  --red-1: #92374d;
+  --red-2: #94465a;
+  --red-3: #965767;
+  --red-4: #946470;
+  --red-5: #94727a;
+  --purple-1: #442d79;
+  --purple-2: #4c3979;
+  --purple-3: #564779;
+  --purple-4: #5D5179;
+  --purple-5: #655c7a;
+  --dark-blue-1: #3a405a;
+  --dark-blue-2: #40455a;
+  --dark-blue-3: #44485a;
+  --dark-blue-4: #4a4d5a;
+  --dark-blue-5: #4c4e55;
+  --gray-1: #191919;
+  --gray-2: #333333;
+  --gray-3: #474747;
+  --gray-4: #5c5c5c;
+  --gray-5: #707070;
+  --white-1: #ffffff;
+  --white-2: #d6d6d6;
+  --white-3: #b4b4b4;
+  --white-4: #a0a0a0;
+  --white-5: #858585;
+
   --radius: 8px;
 
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
