@@ -1,7 +1,10 @@
 import fetch, { Response } from 'node-fetch';
 import { API_ENDPOINT, NOTION_TOKEN } from './server-constants';
 
-export default async function rpc(fnName: string, body: any) {
+export default async function rpc<R = any>(
+  fnName: string,
+  body: any,
+): Promise<R> {
   if (!NOTION_TOKEN) {
     throw new Error('NOTION_TOKEN is not set in env');
   }
@@ -15,7 +18,7 @@ export default async function rpc(fnName: string, body: any) {
   });
 
   if (res.ok) {
-    return res.json();
+    return res.json() as R;
   } else {
     throw new Error(await getError(res));
   }
