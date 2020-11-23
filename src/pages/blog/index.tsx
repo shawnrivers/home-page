@@ -1,21 +1,19 @@
 import Link from 'next/link';
 import Header from '../../components/header';
-
 import blogStyles from '../../styles/blog.module.css';
-import sharedStyles from '../../styles/shared.module.css';
-
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
 import { textBlock } from '../../lib/notion/renderers';
 import getNotionUsers from '../../lib/notion/getNotionUsers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
 import { getAssetURL } from '../../lib/utils/urls';
+import Image from 'next/image';
 
 export async function getStaticProps({ preview }) {
   const postsTable = await getBlogIndex();
 
   const authorsToGet: Set<string> = new Set();
   const posts: any[] = Object.keys(postsTable)
-    .map((slug) => {
+    .map(slug => {
       const post = postsTable[slug];
       // remove draft posts in production
       if (!preview && !postIsVisible(post)) {
@@ -31,8 +29,8 @@ export async function getStaticProps({ preview }) {
 
   const { users } = await getNotionUsers([...authorsToGet]);
 
-  posts.map((post) => {
-    post.Authors = post.Authors.map((id) => users[id].full_name);
+  posts.map(post => {
+    post.Authors = post.Authors.map(id => users[id].full_name);
   });
 
   return {
@@ -59,33 +57,42 @@ export default ({ posts = [], preview }) => {
           </div>
         </div>
       )}
-      <div className={`${sharedStyles.layout} ${blogStyles.blogIndex}`}>
-        <h1>My Notion Blog</h1>
+      <div className={blogStyles.blogIndex}>
         {posts.length === 0 && (
           <p className={blogStyles.noPosts}>There are no posts yet</p>
         )}
         <div className={blogStyles.postsContainer}>
-          {posts.map((post) => {
+          {posts.map(post => {
             return (
               <div className={blogStyles.postPreview} key={post.Slug}>
                 <Link href="/blog/[slug]" as={getBlogLink(post.Slug)}>
                   <div>
-                    {(post.preview || []).map((block, idx) => {
-                      if (block.type === 'image') {
+                    {(post.preview || [])
+                      .filter(block => block.type === 'image')
+                      .map((block, idx) => {
+                        if (idx > 0) {
+                          return null;
+                        }
+
+                        if (!block.content) {
+                          return (
+                            <div className={blogStyles.noImage} key={idx} />
+                          );
+                        }
+
                         const assetSrc = getAssetURL(block.content, block.id);
 
                         return (
                           <img
                             src={assetSrc}
-                            width="240"
-                            height="240"
+                            width="300"
+                            height="300"
                             alt=""
                             role="presentation"
+                            key={block.id}
                           />
                         );
-                      }
-                      return <div className="no-image" />;
-                    })}
+                      })}
                     <h3>
                       {!post.Published && (
                         <span className={blogStyles.draftBadge}>Draft</span>

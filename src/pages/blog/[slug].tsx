@@ -10,16 +10,64 @@ import { textBlock } from '../../lib/notion/renderers';
 import getPageData from '../../lib/notion/getPageData';
 import React, { CSSProperties, useEffect } from 'react';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
-import getNotionUsers from '../../lib/notion/getNotionUsers';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
-import { fetchNotionAsset } from '../../lib/apis/notionAssetAPI';
+import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
 import Image from 'next/image';
+import { GetStaticProps } from 'next';
+import {
+  Block,
+  ImageBlock,
+  TweetBlock,
+  VideoBlock,
+} from '../../lib/apis/notion/response/pageChunk';
+import { TableRow } from '../../lib/notion/getTableData';
+
+type TweetContent = TweetBlock & {
+  value: {
+    properties: {
+      html: string;
+    };
+  };
+};
+
+type AssetContent = (ImageBlock | VideoBlock) & {
+  value: {
+    source: string;
+  };
+};
+
+type Post = {
+  content: (
+    | Exclude<Block, 'TweetBlock' | 'ImageBlock' | 'VideoBlock'>
+    | TweetContent
+    | AssetContent
+  )[];
+  hasTweet: boolean;
+} & TableRow;
+
+type Props = (
+  | {
+      post: Post;
+    }
+  | {
+      redirect: string;
+    }
+) & {
+  preview: boolean;
+};
+
+type Params = {
+  slug: string;
+};
 
 // Get the data for each blog post
-export async function getStaticProps({ params: { slug }, preview }) {
+export const getStaticProps: GetStaticProps<Props, Params> = async ({
+  params: { slug },
+  preview,
+}) => {
   // load the postsTable so that we can get the page's ID
   const postsTable = await getBlogIndex();
-  const post = postsTable[slug];
+  const post: Post = { ...postsTable[slug], hasTweet: false, content: [] };
 
   // if we can't find the post or if it is unpublished and
   // viewed without preview mode then we just redirect to /blog
@@ -33,14 +81,14 @@ export async function getStaticProps({ params: { slug }, preview }) {
       revalidate: 5,
     };
   }
-  const postData = await getPageData(post.id);
+  const postData = await getPageData(post.id as string);
   post.content = postData.blocks;
 
-  for (let i = 0; i < postData.blocks.length; i++) {
-    const { value } = postData.blocks[i];
-    const { type, properties } = value;
-    if (type == 'tweet') {
-      const src = properties.source[0][0];
+  for (const block of post.content) {
+    if (guardTweetContent(block)) {
+      const { value } = block;
+
+      const src = value.properties.source[0][0] as string;
       // parse id from https://twitter.com/_ijjk/status/TWEET_ID format
       const tweetId = src.split('/')[5].split('?')[0];
       if (!tweetId) continue;
@@ -50,23 +98,22 @@ export async function getStaticProps({ params: { slug }, preview }) {
           `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`,
         );
         const json = await res.json();
-        properties.html = json.html.split('<script')[0];
+        value.properties.html = json.html.split('<script')[0];
         post.hasTweet = true;
       } catch (_) {
         console.log(`Failed to get tweet embed for ${src}`);
       }
     }
 
-    if (type === 'image' || type === 'video') {
+    if (guardAssetContent(block)) {
+      const { value } = block;
+
       value.source = await fetchNotionAsset(
         value.format.display_source,
         value.id,
       );
     }
   }
-
-  const { users } = await getNotionUsers(post.Authors || []);
-  post.Authors = Object.keys(users).map((id) => users[id].full_name);
 
   return {
     props: {
@@ -75,7 +122,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
     },
     revalidate: 10,
   };
-}
+};
 
 // Return our list of blog posts to prerender
 export async function getStaticPaths() {
@@ -84,8 +131,8 @@ export async function getStaticPaths() {
   // for actually published ones
   return {
     paths: Object.keys(postsTable)
-      .filter((post) => postsTable[post].Published === 'Yes')
-      .map((slug) => getBlogLink(slug)),
+      .filter(post => postsTable[post].Published === 'Yes')
+      .map(slug => getBlogLink(slug)),
     fallback: true,
   };
 }
@@ -161,9 +208,6 @@ const RenderPost = ({ post, redirect, preview }) => {
       )}
       <div className={blogStyles.post}>
         <h1>{post.Page || ''}</h1>
-        {post.Authors.length > 0 && (
-          <div className="authors">By: {post.Authors.join(' ')}</div>
-        )}
         {post.Date && (
           <div className="posted">Posted: {getDateStr(post.Date)}</div>
         )}
@@ -202,10 +246,10 @@ const RenderPost = ({ post, redirect, preview }) => {
               React.createElement(
                 listTagName,
                 { key: listLastId! },
-                Object.keys(listMap).map((itemId) => {
+                Object.keys(listMap).map(itemId => {
                   if (listMap[itemId].isNested) return null;
 
-                  const createEl = (item) =>
+                  const createEl = item =>
                     React.createElement(
                       components.li || 'ul',
                       { key: item.key },
@@ -214,7 +258,7 @@ const RenderPost = ({ post, redirect, preview }) => {
                         ? React.createElement(
                             components.ul || 'ul',
                             { key: item + 'sub-list' },
-                            item.nested.map((nestedId) =>
+                            item.nested.map(nestedId =>
                               createEl(listMap[nestedId]),
                             ),
                           )
@@ -438,3 +482,15 @@ const RenderPost = ({ post, redirect, preview }) => {
 };
 
 export default RenderPost;
+
+function guardAssetContent(
+  content: Post['content'][0],
+): content is AssetContent {
+  return content.value.type === 'image' || content.value.type === 'video';
+}
+
+function guardTweetContent(
+  content: Post['content'][0],
+): content is TweetContent {
+  return content.value.type === 'tweet';
+}

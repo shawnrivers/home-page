@@ -1,13 +1,16 @@
 import { Sema } from 'async-sema';
-import rpc, { values } from './rpc';
 import createTable from './createTable';
-import getTableData from './getTableData';
+import getTableData, { TableObject } from './getTableData';
 import { getPostPreview } from './getPostPreview';
 import { readFile, writeFile } from '../fs-helpers';
 import { BLOG_INDEX_ID, BLOG_INDEX_CACHE } from './server-constants';
+import { loadPageChunk } from '../apis/notion/loadPageChunkAPI';
+import { Block, CollectionViewBlock } from '../apis/notion/response/pageChunk';
 
-export default async function getBlogIndex(previews = true) {
-  let postsTable: any = null;
+export default async function getBlogIndex(
+  previews = true,
+): Promise<TableObject> {
+  let postsTable: TableObject = null;
   const useCache = process.env.USE_CACHE === 'true';
   const cacheFile = `${BLOG_INDEX_CACHE}${previews ? '_previews' : ''}`;
 
@@ -21,20 +24,24 @@ export default async function getBlogIndex(previews = true) {
 
   if (!postsTable) {
     try {
-      const data = await rpc('loadPageChunk', {
-        pageId: BLOG_INDEX_ID,
-        limit: 999, // TODO: figure out Notion's way of handling pagination
-        cursor: { stack: [] },
-        chunkNumber: 0,
-        verticalColumns: false,
-      });
+      const data = await loadPageChunk({ pageId: BLOG_INDEX_ID, limit: 999 });
+
+      // const data = await rpc('loadPageChunk', {
+      //   pageId: BLOG_INDEX_ID,
+      //   limit: 999, // TODO: figure out Notion's way of handling pagination
+      //   cursor: { stack: [] },
+      //   chunkNumber: 0,
+      //   verticalColumns: false,
+      // });
 
       // Parse table with posts
-      const tableBlock = values(data.recordMap.block).find(
-        (block: any) => block.value.type === 'collection_view',
+      const tableBlock = Object.values(data.recordMap.block).find(
+        block => block.value.type === 'collection_view',
       );
 
-      postsTable = await getTableData(tableBlock, true);
+      if (guardCollectionViewBlock(tableBlock)) {
+        postsTable = (await getTableData(tableBlock, true)) as TableObject;
+      }
     } catch (err) {
       console.warn(
         `Failed to load Notion posts, attempting to auto create table`,
@@ -62,15 +69,15 @@ export default async function getBlogIndex(previews = true) {
           .sort((a, b) => {
             const postA = postsTable[a];
             const postB = postsTable[b];
-            const timeA = postA.Date;
-            const timeB = postB.Date;
+            const timeA = postA.Date as number;
+            const timeB = postB.Date as number;
             return Math.sign(timeB - timeA);
           })
-          .map(async (postKey) => {
+          .map(async postKey => {
             await sema.acquire();
             const post = postsTable[postKey];
             post.preview = post.id
-              ? await getPostPreview(postsTable[postKey].id)
+              ? await getPostPreview(postsTable[postKey].id as string)
               : [];
             sema.release();
           }),
@@ -85,4 +92,8 @@ export default async function getBlogIndex(previews = true) {
   }
 
   return postsTable;
+}
+
+function guardCollectionViewBlock(block: Block): block is CollectionViewBlock {
+  return block.value.type === 'collection_view';
 }
