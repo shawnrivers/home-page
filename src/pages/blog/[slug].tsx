@@ -8,12 +8,12 @@ import ReactJSXParser from '@zeit/react-jsx-parser';
 import blogStyles from '../../styles/blog.module.css';
 import { textBlock } from '../../lib/notion/renderers';
 import getPageData from '../../lib/notion/getPageData';
-import React, { CSSProperties, useEffect } from 'react';
+import * as React from 'react';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
 import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
 import Image from 'next/image';
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import {
   Block,
   ImageBlock,
@@ -21,6 +21,14 @@ import {
   VideoBlock,
 } from '../../lib/apis/notion/response/pageChunk';
 import { TableRow } from '../../lib/notion/getTableData';
+import {
+  isCalloutBlock,
+  isCodeBlock,
+  isEmbedBlock,
+  isHeaderBlock,
+  isListBlock,
+  isTextBlock,
+} from '../../lib/apis/notion/utils/typeGuards';
 
 type TweetContent = TweetBlock & {
   value: {
@@ -30,29 +38,28 @@ type TweetContent = TweetBlock & {
   };
 };
 
-type AssetContent = (ImageBlock | VideoBlock) & {
+type AssetContent = {
   value: {
     source: string;
   };
 };
 
+type ImageContent = ImageBlock & AssetContent;
+type VideoContent = VideoBlock & AssetContent;
+
 type Post = {
   content: (
     | Exclude<Block, 'TweetBlock' | 'ImageBlock' | 'VideoBlock'>
     | TweetContent
-    | AssetContent
+    | ImageContent
+    | VideoContent
   )[];
   hasTweet: boolean;
 } & TableRow;
 
-type Props = (
-  | {
-      post: Post;
-    }
-  | {
-      redirect: string;
-    }
-) & {
+type Props = {
+  post?: Post;
+  redirect?: string;
   preview: boolean;
 };
 
@@ -85,7 +92,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   post.content = postData.blocks;
 
   for (const block of post.content) {
-    if (guardTweetContent(block)) {
+    if (isTweetContent(block)) {
       const { value } = block;
 
       const src = value.properties.source[0][0] as string;
@@ -105,7 +112,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
       }
     }
 
-    if (guardAssetContent(block)) {
+    if (isAssetContent(block)) {
       const { value } = block;
 
       value.source = await fetchNotionAsset(
@@ -125,7 +132,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 };
 
 // Return our list of blog posts to prerender
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const postsTable = await getBlogIndex();
   // we fallback for any unpublished posts to save build time
   // for actually published ones
@@ -135,11 +142,13 @@ export async function getStaticPaths() {
       .map(slug => getBlogLink(slug)),
     fallback: true,
   };
-}
+};
 
 const listTypes = new Set(['bulleted_list', 'numbered_list']);
 
-const RenderPost = ({ post, redirect, preview }) => {
+const RenderPost: React.FC<Props> = props => {
+  const { post, redirect, preview } = props;
+
   const router = useRouter();
 
   let listTagName: string | null = null;
@@ -153,7 +162,7 @@ const RenderPost = ({ post, redirect, preview }) => {
     };
   } = {};
 
-  useEffect(() => {
+  React.useEffect(() => {
     const twitterSrc = 'https://platform.twitter.com/widgets.js';
     // make sure to initialize any new widgets loading on
     // client navigation
@@ -168,7 +177,7 @@ const RenderPost = ({ post, redirect, preview }) => {
       }
     }
   }, []);
-  useEffect(() => {
+  React.useEffect(() => {
     if (redirect && !post) {
       router.replace(redirect);
     }
@@ -220,19 +229,19 @@ const RenderPost = ({ post, redirect, preview }) => {
 
         {(post.content || []).map((block, blockIdx) => {
           const { value } = block;
-          const { type, properties, id, parent_id } = value;
+          const { type, id, parent_id } = value;
           const isLast = blockIdx === post.content.length - 1;
           const isList = listTypes.has(type);
           const toRender = [];
 
-          if (isList) {
+          if (isListBlock(block)) {
             listTagName = components[type === 'bulleted_list' ? 'ul' : 'ol'];
             listLastId = `list${id}`;
 
             listMap[id] = {
               key: id,
               nested: [],
-              children: textBlock(properties.title, true, id),
+              children: textBlock(block.value.properties.title, true, id),
             };
 
             if (listMap[parent_id]) {
@@ -274,206 +283,198 @@ const RenderPost = ({ post, redirect, preview }) => {
           }
 
           const renderHeading = (Type: string | React.ComponentType) => {
-            toRender.push(
-              <Heading key={id}>
-                <Type key={id}>{textBlock(properties.title, true, id)}</Type>
-              </Heading>,
-            );
+            if (isHeaderBlock(block)) {
+              toRender.push(
+                <Heading key={id}>
+                  <Type key={id}>
+                    {textBlock(block.value.properties?.title, true, id)}
+                  </Type>
+                </Heading>,
+              );
+            }
           };
 
-          switch (type) {
-            case 'page':
-            case 'divider':
-              break;
-            case 'text':
-              if (properties) {
-                toRender.push(textBlock(properties.title, false, id));
-              }
-              break;
-            case 'image':
-            case 'video':
-            case 'embed': {
-              const { format = {} } = value;
+          if (type === 'page' || type === 'divider') {
+            return toRender;
+          }
 
-              const {
-                block_width,
-                display_source,
-                block_aspect_ratio,
-              } = format;
+          if (isTextBlock(block)) {
+            const { properties, type } = block.value;
 
-              const maxWidth = 600;
-              const blockWidth = block_width < maxWidth ? block_width : 600;
-              const blockHeight = blockWidth * block_aspect_ratio;
-
-              const isImage = type === 'image';
-              const Comp = isImage ? 'img' : 'video';
-              // const useWrapper = block_aspect_ratio && !block_height;
-              const useWrapper = block_aspect_ratio && !block_width;
-              const childStyle: CSSProperties = useWrapper
-                ? {
-                    width: '100%',
-                    // height: '100%',
-                    border: 'none',
-                    position: 'absolute',
-                    top: 0,
-                  }
-                : {
-                    width: block_width,
-                    border: 'none',
-                    // height: block_height,
-                    display: 'block',
-                    maxWidth: '100%',
-                  };
-
-              let child = null;
-
-              if (!isImage && !value.file_ids) {
-                // external resource use iframe
-                child = (
-                  <iframe
-                    style={childStyle}
-                    src={display_source}
-                    key={!useWrapper ? id : undefined}
-                    className={!useWrapper ? 'asset-wrapper' : undefined}
-                  />
-                );
-              } else {
-                // notion resource
-                child =
-                  type === 'image' ? (
-                    <div style={{ textAlign: 'center' }}>
-                      <Image
-                        src={value.source}
-                        width={blockWidth}
-                        height={blockHeight}
-                        layout="intrinsic"
-                        className={blogStyles.assetWithoutWrapper}
-                      />
-                    </div>
-                  ) : (
-                    <video
-                      key={!useWrapper ? id : undefined}
-                      src={value.source}
-                      controls={!isImage}
-                      loop={!isImage}
-                      muted={!isImage}
-                      autoPlay={!isImage}
-                      style={childStyle}
-                    />
-                  );
-              }
-
+            if (type === 'quote') {
               toRender.push(
-                useWrapper ? (
-                  <div
-                    style={{
-                      paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
-                      position: 'relative',
-                    }}
-                    className="asset-wrapper"
-                    key={id}
-                  >
-                    {child}
-                  </div>
-                ) : (
-                  child
+                React.createElement(
+                  components.blockquote,
+                  { key: id },
+                  properties.title,
                 ),
               );
-              break;
-            }
-            case 'header':
-              renderHeading('h1');
-              break;
-            case 'sub_header':
-              renderHeading('h2');
-              break;
-            case 'sub_sub_header':
-              renderHeading('h3');
-              break;
-            case 'code': {
-              if (properties.title) {
-                const content = properties.title[0][0];
-                const language = properties.language[0][0];
 
-                if (language === 'LiveScript') {
-                  // this requires the DOM for now
-                  toRender.push(
-                    <ReactJSXParser
-                      key={id}
-                      jsx={content}
-                      components={components}
-                      componentsOnly={false}
-                      renderInpost={false}
-                      allowUnknownElements={true}
-                      blacklistedTags={['script', 'style']}
-                    />,
-                  );
-                } else {
-                  toRender.push(
-                    <components.Code key={id} language={language || ''}>
-                      {content}
-                    </components.Code>,
-                  );
-                }
-              }
-              break;
+              return toRender;
             }
-            case 'quote': {
-              if (properties.title) {
-                toRender.push(
-                  React.createElement(
-                    components.blockquote,
-                    { key: id },
-                    properties.title,
-                  ),
-                );
-              }
-              break;
-            }
-            case 'callout': {
+
+            if (type === 'equation') {
+              const content = properties.title[0][0];
               toRender.push(
-                <div className="callout" key={id}>
-                  {value.format?.page_icon && (
-                    <div>{value.format?.page_icon}</div>
-                  )}
-                  <div className="text">
-                    {textBlock(properties.title, true, id)}
-                  </div>
-                </div>,
+                <components.Equation key={id} displayMode={true}>
+                  {content}
+                </components.Equation>,
               );
-              break;
+
+              return toRender;
             }
-            case 'tweet': {
-              if (properties.html) {
-                toRender.push(
-                  <div
-                    dangerouslySetInnerHTML={{ __html: properties.html }}
-                    key={id}
-                  />,
-                );
-              }
-              break;
+
+            if (properties) {
+              toRender.push(textBlock(properties.title, false, id));
             }
-            case 'equation': {
-              if (properties && properties.title) {
-                const content = properties.title[0][0];
-                toRender.push(
-                  <components.Equation key={id} displayMode={true}>
-                    {content}
-                  </components.Equation>,
-                );
-              }
-              break;
-            }
-            default:
-              if (
-                process.env.NODE_ENV !== 'production' &&
-                !listTypes.has(type)
-              ) {
-                console.log('unknown type', type);
-              }
-              break;
+
+            return toRender;
           }
+
+          if (isImageContent(block)) {
+            const { format } = block.value;
+
+            const { block_width, block_aspect_ratio } = format;
+
+            const maxWidth = 600;
+            const blockWidth = block_width < maxWidth ? block_width : 600;
+            const blockHeight = blockWidth * block_aspect_ratio;
+
+            const child = (
+              <div style={{ textAlign: 'center' }} key={id}>
+                <Image
+                  src={block.value.source}
+                  width={blockWidth}
+                  height={blockHeight}
+                  layout="intrinsic"
+                  className={blogStyles.assetWithoutWrapper}
+                />
+              </div>
+            );
+
+            toRender.push(child);
+
+            return toRender;
+          }
+
+          if (isVideoContent(block)) {
+            const { format } = block.value;
+            const { block_width } = format;
+            const maxWidth = 600;
+            const blockWidth = block_width < maxWidth ? block_width : 600;
+
+            const child = (
+              <video
+                key={id}
+                src={block.value.source}
+                controls
+                loop
+                muted
+                autoPlay
+                width={blockWidth}
+                className={blogStyles.assetWithoutWrapper}
+              />
+            );
+
+            toRender.push(child);
+            return toRender;
+          }
+
+          if (isEmbedBlock(block)) {
+            const child = (
+              <iframe
+                src={block.value.format.display_source}
+                key={id}
+                className={blogStyles.assetWithoutWrapper}
+              />
+            );
+
+            toRender.push(child);
+            return toRender;
+          }
+
+          if (isHeaderBlock(block)) {
+            const { type } = block.value;
+
+            switch (type) {
+              case 'header':
+                renderHeading('h1');
+                break;
+              case 'sub_header':
+                renderHeading('h2');
+                break;
+              case 'sub_sub_header':
+                renderHeading('h3');
+                break;
+            }
+
+            return toRender;
+          }
+
+          if (isCodeBlock(block)) {
+            const { properties } = block.value;
+
+            const content = properties.title[0][0];
+            const language = properties.language[0][0];
+
+            if (language === 'LiveScript') {
+              // this requires the DOM for now
+              toRender.push(
+                <ReactJSXParser
+                  key={id}
+                  jsx={content}
+                  components={components}
+                  componentsOnly={false}
+                  renderInpost={false}
+                  allowUnknownElements={true}
+                  blacklistedTags={['script', 'style']}
+                />,
+              );
+            } else {
+              toRender.push(
+                <components.Code key={id} language={(language as string) || ''}>
+                  {content}
+                </components.Code>,
+              );
+            }
+
+            return toRender;
+          }
+
+          if (isCalloutBlock(block)) {
+            const { properties, format } = block.value;
+
+            toRender.push(
+              <div className="callout" key={id}>
+                {format.page_icon && <div>{format.page_icon}</div>}
+                <div className="text">
+                  {textBlock(properties.title, true, id)}
+                </div>
+              </div>,
+            );
+
+            return toRender;
+          }
+
+          if (isTweetContent(block)) {
+            const { properties } = block.value;
+
+            if (properties.html) {
+              toRender.push(
+                <div
+                  dangerouslySetInnerHTML={{ __html: properties.html }}
+                  key={id}
+                />,
+              );
+            }
+
+            return toRender;
+          }
+
+          if (process.env.NODE_ENV !== 'production' && !listTypes.has(type)) {
+            console.log('unknown type', type);
+          }
+
           return toRender;
         })}
       </div>
@@ -483,14 +484,20 @@ const RenderPost = ({ post, redirect, preview }) => {
 
 export default RenderPost;
 
-function guardAssetContent(
+function isAssetContent(
   content: Post['content'][0],
-): content is AssetContent {
+): content is ImageContent | VideoContent {
   return content.value.type === 'image' || content.value.type === 'video';
 }
 
-function guardTweetContent(
-  content: Post['content'][0],
-): content is TweetContent {
+function isImageContent(content: Post['content'][0]): content is ImageContent {
+  return content.value.type === 'image';
+}
+
+function isVideoContent(content: Post['content'][0]): content is VideoContent {
+  return content.value.type === 'video';
+}
+
+function isTweetContent(content: Post['content'][0]): content is TweetContent {
   return content.value.type === 'tweet';
 }

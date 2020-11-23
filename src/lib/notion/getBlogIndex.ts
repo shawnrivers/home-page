@@ -5,7 +5,7 @@ import { getPostPreview } from './getPostPreview';
 import { readFile, writeFile } from '../fs-helpers';
 import { BLOG_INDEX_ID, BLOG_INDEX_CACHE } from './server-constants';
 import { loadPageChunk } from '../apis/notion/loadPageChunkAPI';
-import { Block, CollectionViewBlock } from '../apis/notion/response/pageChunk';
+import { isCollectionViewBlock } from '../apis/notion/utils/typeGuards';
 
 export default async function getBlogIndex(
   previews = true,
@@ -26,20 +26,12 @@ export default async function getBlogIndex(
     try {
       const data = await loadPageChunk({ pageId: BLOG_INDEX_ID, limit: 999 });
 
-      // const data = await rpc('loadPageChunk', {
-      //   pageId: BLOG_INDEX_ID,
-      //   limit: 999, // TODO: figure out Notion's way of handling pagination
-      //   cursor: { stack: [] },
-      //   chunkNumber: 0,
-      //   verticalColumns: false,
-      // });
-
       // Parse table with posts
       const tableBlock = Object.values(data.recordMap.block).find(
         block => block.value.type === 'collection_view',
       );
 
-      if (guardCollectionViewBlock(tableBlock)) {
+      if (isCollectionViewBlock(tableBlock)) {
         postsTable = (await getTableData(tableBlock, true)) as TableObject;
       }
     } catch (err) {
@@ -92,8 +84,4 @@ export default async function getBlogIndex(
   }
 
   return postsTable;
-}
-
-function guardCollectionViewBlock(block: Block): block is CollectionViewBlock {
-  return block.value.type === 'collection_view';
 }

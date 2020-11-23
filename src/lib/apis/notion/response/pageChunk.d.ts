@@ -20,7 +20,7 @@ type Permission = {
   user_id: string;
 };
 type Table = 'block' | 'collection';
-type CodeLanguage = 'CSS' | 'HTML';
+type CodeLanguage = 'CSS' | 'HTML' | 'LiveScript';
 type CreatorTable = 'notion_user';
 export type Property<T extends string> = (T | Property<T>)[][];
 type TitleProperty = Property<string>;
@@ -62,10 +62,15 @@ export type DividerBlock = {
     type: 'divider';
   };
 };
+
+export type ListType = 'bulleted_list' | 'numbered_list';
+export type HeaderType = 'header' | 'sub_header' | 'sub_sub_header';
+export type TextType = 'text' | HeaderType | ListType | 'quote' | 'equation';
+
 export type TextBlock = {
   role: Role;
   value: CommonBlockValue & {
-    type: 'text' | 'bulleted_list' | 'sub_header' | 'sub_sub_header';
+    type: TextType;
     properties?: {
       title: TitleProperty;
     };
@@ -134,6 +139,19 @@ export type VideoBlock = {
     file_ids: string[];
   };
 };
+export type EmbedBlock = {
+  role: Role;
+  value: CommonBlockValue & {
+    type: 'embed';
+    properties: {
+      source: SourceProperty;
+    };
+    format: {
+      display_source: string;
+    };
+    file_ids: string[];
+  };
+};
 export type TweetBlock = {
   role: Role;
   value: CommonBlockValue & {
@@ -176,6 +194,7 @@ export type Block =
   | CalloutBlock
   | ImageBlock
   | VideoBlock
+  | EmbedBlock
   | TweetBlock
   | PageBlock
   | CollectionViewBlock;
