@@ -43,11 +43,6 @@
   cursor: pointer;
 }
 
-.titleContainer {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-}
 .draftBadge {
   border-radius: 16px;
   background-color: black;
@@ -62,8 +57,15 @@
   text-align: center;
 }
 
+.postsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  justify-content: center;
+  grid-gap: 1rem;
+}
+
 .postPreview {
-  max-width: 600px;
+  /* max-width: 600px; */
   margin: 10px auto;
   border-bottom: 1px solid rgba(0, 0, 0, 0.8);
 }
@@ -72,9 +74,23 @@
   border-bottom: none;
 }
 
+.postPreview h3 {
+  color: var(--gray-2);
+}
+
 .postPreview h3,
 .post h1 {
   margin-bottom: 1rem;
+}
+
+.postPreview img {
+  object-fit: cover;
+}
+
+.postPreview .noImage {
+  width: 300px;
+  height: 300px;
+  background-color: var(--gray-4);
 }
 
 .post h1 {
@@ -88,7 +104,7 @@
 }
 
 .post h2::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   max-width: 600px;
@@ -114,8 +130,6 @@
 .post :global(video),
 .post :global(img),
 .post :global(.asset-wrapper) {
-  margin: 2rem auto;
-  /* box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3); */
   max-width: 100%;
   display: block;
 }
@@ -161,4 +175,17 @@
 
 .post :global(a + p) {
   margin-top: 0;
+}
+
+.post .assetWithWrapper {
+  width: 100%;
+  border: none;
+  position: absolute;
+  top: 0;
+}
+
+.post .assetWithoutWrapper {
+  border: none;
+  display: block;
+  max-width: 100%;
 }

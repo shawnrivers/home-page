@@ -12,6 +12,8 @@ import React, { CSSProperties, useEffect } from 'react';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
 import getNotionUsers from '../../lib/notion/getNotionUsers';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
+import { fetchNotionAsset } from '../../lib/apis/notionAssetAPI';
+import Image from 'next/image';
 
 // Get the data for each blog post
 export async function getStaticProps({ params: { slug }, preview }) {
@@ -53,6 +55,13 @@ export async function getStaticProps({ params: { slug }, preview }) {
       } catch (_) {
         console.log(`Failed to get tweet embed for ${src}`);
       }
+    }
+
+    if (type === 'image' || type === 'video') {
+      value.source = await fetchNotionAsset(
+        value.format.display_source,
+        value.id,
+      );
     }
   }
 
@@ -244,20 +253,13 @@ const RenderPost = ({ post, redirect, preview }) => {
 
               const {
                 block_width,
-                block_height,
                 display_source,
                 block_aspect_ratio,
               } = format;
-              // const baseBlockWidth = 768;
-              // const roundFactor = Math.pow(10, 2);
-              // calculate percentages
-              // const width = block_width
-              //   ? `${
-              //       Math.round(
-              //         (block_width / baseBlockWidth) * 100 * roundFactor,
-              //       ) / roundFactor
-              //     }%`
-              //   : block_height || '100%';
+
+              const maxWidth = 600;
+              const blockWidth = block_width < maxWidth ? block_width : 600;
+              const blockHeight = blockWidth * block_aspect_ratio;
 
               const isImage = type === 'image';
               const Comp = isImage ? 'img' : 'video';
@@ -293,20 +295,28 @@ const RenderPost = ({ post, redirect, preview }) => {
                 );
               } else {
                 // notion resource
-                child = (
-                  <Comp
-                    key={!useWrapper ? id : undefined}
-                    src={`/api/asset?assetUrl=${encodeURIComponent(
-                      display_source as any,
-                    )}&blockId=${id}`}
-                    controls={!isImage}
-                    alt={`An ${isImage ? 'image' : 'video'} from Notion`}
-                    loop={!isImage}
-                    muted={!isImage}
-                    autoPlay={!isImage}
-                    style={childStyle}
-                  />
-                );
+                child =
+                  type === 'image' ? (
+                    <div style={{ textAlign: 'center' }}>
+                      <Image
+                        src={value.source}
+                        width={blockWidth}
+                        height={blockHeight}
+                        layout="intrinsic"
+                        className={blogStyles.assetWithoutWrapper}
+                      />
+                    </div>
+                  ) : (
+                    <video
+                      key={!useWrapper ? id : undefined}
+                      src={value.source}
+                      controls={!isImage}
+                      loop={!isImage}
+                      muted={!isImage}
+                      autoPlay={!isImage}
+                      style={childStyle}
+                    />
+                  );
               }
 
               toRender.push(
