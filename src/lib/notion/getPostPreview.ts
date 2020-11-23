@@ -10,6 +10,7 @@ export async function getPostPreview(
   {
     type: 'text' | 'image';
     content: any[];
+    id: string;
   }[]
 > {
   let blocks;
@@ -25,7 +26,6 @@ export async function getPostPreview(
     }
   }
 
-
   blocks = blocks
     .splice(0, dividerIndex)
     .filter((block: any) => {
@@ -37,10 +37,18 @@ export async function getPostPreview(
       const { value } = block;
 
       if (value.type === 'image') {
-        return { type: 'image', content: value.properties.source ?? [] };
+        return {
+          type: 'image',
+          content: value.properties.source ?? [],
+          id: value.id,
+        };
       }
 
-      return { type: 'text', content: value.properties.title ?? [] };
+      return {
+        type: 'text',
+        content: value.properties.title ?? [],
+        id: value.id,
+      };
     });
 
   return blocks;

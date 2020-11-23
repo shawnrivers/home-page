@@ -8,6 +8,7 @@ import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
 import { textBlock } from '../../lib/notion/renderers';
 import getNotionUsers from '../../lib/notion/getNotionUsers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
+import { getAssetURL } from '../../lib/utils/urls';
 
 export async function getStaticProps({ preview }) {
   const postsTable = await getBlogIndex();
@@ -63,38 +64,57 @@ export default ({ posts = [], preview }) => {
         {posts.length === 0 && (
           <p className={blogStyles.noPosts}>There are no posts yet</p>
         )}
-        {posts.map((post) => {
-          return (
-            <div className={blogStyles.postPreview} key={post.Slug}>
-              <h3>
+        <div className={blogStyles.postsContainer}>
+          {posts.map((post) => {
+            return (
+              <div className={blogStyles.postPreview} key={post.Slug}>
                 <Link href="/blog/[slug]" as={getBlogLink(post.Slug)}>
-                  <div className={blogStyles.titleContainer}>
-                    {!post.Published && (
-                      <span className={blogStyles.draftBadge}>Draft</span>
+                  <div>
+                    {(post.preview || []).map((block, idx) => {
+                      if (block.type === 'image') {
+                        const assetSrc = getAssetURL(block.content, block.id);
+
+                        return (
+                          <img
+                            src={assetSrc}
+                            width="240"
+                            height="240"
+                            alt=""
+                            role="presentation"
+                          />
+                        );
+                      }
+                      return <div className="no-image" />;
+                    })}
+                    <h3>
+                      {!post.Published && (
+                        <span className={blogStyles.draftBadge}>Draft</span>
+                      )}
+                      {post.Page}
+                    </h3>
+                    {post.Date && (
+                      <div className="posted">{getDateStr(post.Date)}</div>
                     )}
-                    <a>{post.Page}</a>
+                    {/* <p>
+                      {(!post.preview || post.preview.length === 0) &&
+                        'No preview available'}
+                      {(post.preview || []).map((block, idx) => {
+                        if (block.type === 'text') {
+                          return textBlock(
+                            block.content,
+                            true,
+                            `${post.Slug}${idx}`,
+                          );
+                        }
+                        return null;
+                      })}
+                    </p> */}
                   </div>
                 </Link>
-              </h3>
-              {post.Authors.length > 0 && (
-                <div className="authors">By: {post.Authors.join(' ')}</div>
-              )}
-              {post.Date && (
-                <div className="posted">Posted: {getDateStr(post.Date)}</div>
-              )}
-              <p>
-                {(!post.preview || post.preview.length === 0) &&
-                  'No preview available'}
-                {(post.preview || []).map((block, idx) => {
-                  if (block.type === 'text') {
-                    return textBlock(block.content, true, `${post.Slug}${idx}`);
-                  }
-                  return null;
-                })}
-              </p>
-            </div>
-          );
-        })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );
