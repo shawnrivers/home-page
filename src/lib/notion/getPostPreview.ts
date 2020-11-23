@@ -2,8 +2,16 @@ import { loadPageChunk } from './getPageData';
 import { values } from './rpc';
 
 const nonPreviewTypes = new Set(['editor', 'page', 'collection_view']);
+const previewTypes = new Set(['text', 'image']);
 
-export async function getPostPreview(pageId: string) {
+export async function getPostPreview(
+  pageId: string,
+): Promise<
+  {
+    type: 'text' | 'image';
+    content: any[];
+  }[]
+> {
   let blocks;
   let dividerIndex = 0;
 
@@ -17,13 +25,23 @@ export async function getPostPreview(pageId: string) {
     }
   }
 
+
   blocks = blocks
     .splice(0, dividerIndex)
-    .filter(
-      ({ value: { type, properties } }: any) =>
-        !nonPreviewTypes.has(type) && properties,
-    )
-    .map((block: any) => block.value.properties.title);
+    .filter((block: any) => {
+      const { value } = block;
+
+      return previewTypes.has(value.type) && value.properties;
+    })
+    .map((block: any) => {
+      const { value } = block;
+
+      if (value.type === 'image') {
+        return { type: 'image', content: value.properties.source ?? [] };
+      }
+
+      return { type: 'text', content: value.properties.title ?? [] };
+    });
 
   return blocks;
 }

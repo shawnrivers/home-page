@@ -85,9 +85,12 @@ export default ({ posts = [], preview }) => {
               <p>
                 {(!post.preview || post.preview.length === 0) &&
                   'No preview available'}
-                {(post.preview || []).map((block, idx) =>
-                  textBlock(block, true, `${post.Slug}${idx}`),
-                )}
+                {(post.preview || []).map((block, idx) => {
+                  if (block.type === 'text') {
+                    return textBlock(block.content, true, `${post.Slug}${idx}`);
+                  }
+                  return null;
+                })}
               </p>
             </div>
           );
