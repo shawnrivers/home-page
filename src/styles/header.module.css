@@ -16,13 +16,17 @@
   padding: 0 10px;
 }
 
+.header a {
+  font-size: 1.25rem;
+}
+
 .header :global(a) {
-  color: var(--accents-3);
+  color: var(--gray-3);
   font-weight: 400;
 }
 
 .header :global(a.active) {
-  color: #0070f3;
+  color: var(--primary);
   font-weight: 600;
 }
 
