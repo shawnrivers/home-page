@@ -65,17 +65,57 @@ export type DividerBlock = {
 
 export type ListType = 'bulleted_list' | 'numbered_list';
 export type HeaderType = 'header' | 'sub_header' | 'sub_sub_header';
-export type TextType = 'text' | HeaderType | ListType | 'quote' | 'equation';
+
+export type ListBlock = {
+  role: Role;
+  value: CommonBlockValue & {
+    type: ListType;
+    properties: {
+      title: TitleProperty;
+    };
+  };
+};
+
+export type HeaderBlock = {
+  role: Role;
+  value: CommonBlockValue & {
+    type: HeaderType;
+    properties: {
+      title: TitleProperty;
+    };
+  };
+};
 
 export type TextBlock = {
   role: Role;
   value: CommonBlockValue & {
-    type: TextType;
+    type: 'text';
     properties?: {
       title: TitleProperty;
     };
   };
 };
+
+export type EquationBlock = {
+  role: Role;
+  value: CommonBlockValue & {
+    type: 'equation';
+    properties: {
+      title: TitleProperty;
+    };
+  };
+};
+
+export type QuoteBlock = {
+  role: Role;
+  value: CommonBlockValue & {
+    type: 'quote';
+    properties: {
+      title: TitleProperty;
+    };
+  };
+};
+
 export type CodeBlock = {
   role: Role;
   value: CommonBlockValue & {
@@ -190,6 +230,10 @@ export type CollectionViewBlock = {
 export type Block =
   | DividerBlock
   | TextBlock
+  | HeaderBlock
+  | ListBlock
+  | EquationBlock
+  | QuoteBlock
   | CodeBlock
   | CalloutBlock
   | ImageBlock

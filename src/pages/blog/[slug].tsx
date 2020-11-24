@@ -25,8 +25,10 @@ import {
   isCalloutBlock,
   isCodeBlock,
   isEmbedBlock,
+  isEquationBlock,
   isHeaderBlock,
   isListBlock,
+  isQuoteBlock,
   isTextBlock,
 } from '../../lib/apis/notion/utils/typeGuards';
 
@@ -91,36 +93,38 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   const postData = await getPageData(post.id as string);
   post.content = postData.blocks;
 
-  for (const block of post.content) {
-    if (isTweetContent(block)) {
-      const { value } = block;
+  await Promise.all(
+    post.content.map(async block => {
+      if (isTweetContent(block)) {
+        const { value } = block;
 
-      const src = value.properties.source[0][0] as string;
-      // parse id from https://twitter.com/_ijjk/status/TWEET_ID format
-      const tweetId = src.split('/')[5].split('?')[0];
-      if (!tweetId) continue;
-
-      try {
-        const res = await fetch(
-          `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`,
-        );
-        const json = await res.json();
-        value.properties.html = json.html.split('<script')[0];
-        post.hasTweet = true;
-      } catch (_) {
-        console.log(`Failed to get tweet embed for ${src}`);
+        const src = value.properties.source[0][0] as string;
+        // parse id from https://twitter.com/_ijjk/status/TWEET_ID format
+        const tweetId = src.split('/')[5].split('?')[0];
+        if (tweetId) {
+          try {
+            const res = await fetch(
+              `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`,
+            );
+            const json = await res.json();
+            value.properties.html = json.html.split('<script')[0];
+            post.hasTweet = true;
+          } catch (_) {
+            console.log(`Failed to get tweet embed for ${src}`);
+          }
+        }
       }
-    }
 
-    if (isAssetContent(block)) {
-      const { value } = block;
+      if (isAssetContent(block)) {
+        const { value } = block;
 
-      value.source = await fetchNotionAsset(
-        value.format.display_source,
-        value.id,
-      );
-    }
-  }
+        value.source = await fetchNotionAsset(
+          value.format.display_source,
+          value.id,
+        );
+      }
+    }),
+  );
 
   return {
     props: {
@@ -229,19 +233,35 @@ const RenderPost: React.FC<Props> = props => {
 
         {(post.content || []).map((block, blockIdx) => {
           const { value } = block;
-          const { type, id, parent_id } = value;
-          const isLast = blockIdx === post.content.length - 1;
-          const isList = listTypes.has(type);
+          const { id, type } = value;
           const toRender = [];
 
+          const renderHeading = (Type: string | React.ComponentType) => {
+            if (isHeaderBlock(block)) {
+              toRender.push(
+                <Heading key={id}>
+                  <Type key={id}>
+                    {textBlock(block.value.properties.title, true, id)}
+                  </Type>
+                </Heading>,
+              );
+            }
+          };
+
+          if (value.type === 'page' || value.type === 'divider') {
+            return toRender;
+          }
+
           if (isListBlock(block)) {
+            const { parent_id, properties } = block.value;
+
             listTagName = components[type === 'bulleted_list' ? 'ul' : 'ol'];
             listLastId = `list${id}`;
 
             listMap[id] = {
               key: id,
               nested: [],
-              children: textBlock(block.value.properties.title, true, id),
+              children: textBlock(properties.title, true, id),
             };
 
             if (listMap[parent_id]) {
@@ -249,6 +269,9 @@ const RenderPost: React.FC<Props> = props => {
               listMap[parent_id].nested.push(id);
             }
           }
+
+          const isList = listTypes.has(type);
+          const isLast = blockIdx === post.content.length - 1;
 
           if (listTagName && (isLast || !isList)) {
             toRender.push(
@@ -280,52 +303,60 @@ const RenderPost: React.FC<Props> = props => {
             listMap = {};
             listLastId = null;
             listTagName = null;
+
+            return toRender;
           }
 
-          const renderHeading = (Type: string | React.ComponentType) => {
-            if (isHeaderBlock(block)) {
-              toRender.push(
-                <Heading key={id}>
-                  <Type key={id}>
-                    {textBlock(block.value.properties?.title, true, id)}
-                  </Type>
-                </Heading>,
-              );
-            }
-          };
+          if (isQuoteBlock(block)) {
+            const { properties } = block.value;
 
-          if (type === 'page' || type === 'divider') {
+            toRender.push(
+              React.createElement(
+                components.blockquote,
+                { key: id },
+                properties.title,
+              ),
+            );
+
+            return toRender;
+          }
+
+          if (isEquationBlock(block)) {
+            const { properties } = block.value;
+
+            const content = properties.title[0][0];
+            toRender.push(
+              <components.Equation key={id} displayMode={true}>
+                {content}
+              </components.Equation>,
+            );
+
             return toRender;
           }
 
           if (isTextBlock(block)) {
-            const { properties, type } = block.value;
-
-            if (type === 'quote') {
-              toRender.push(
-                React.createElement(
-                  components.blockquote,
-                  { key: id },
-                  properties.title,
-                ),
-              );
-
-              return toRender;
-            }
-
-            if (type === 'equation') {
-              const content = properties.title[0][0];
-              toRender.push(
-                <components.Equation key={id} displayMode={true}>
-                  {content}
-                </components.Equation>,
-              );
-
-              return toRender;
-            }
+            const { properties } = block.value;
 
             if (properties) {
               toRender.push(textBlock(properties.title, false, id));
+            }
+
+            return toRender;
+          }
+
+          if (isHeaderBlock(block)) {
+            const { type } = block.value;
+
+            switch (type) {
+              case 'header':
+                renderHeading('h1');
+                break;
+              case 'sub_header':
+                renderHeading('h2');
+                break;
+              case 'sub_sub_header':
+                renderHeading('h3');
+                break;
             }
 
             return toRender;
@@ -393,24 +424,6 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
-          if (isHeaderBlock(block)) {
-            const { type } = block.value;
-
-            switch (type) {
-              case 'header':
-                renderHeading('h1');
-                break;
-              case 'sub_header':
-                renderHeading('h2');
-                break;
-              case 'sub_sub_header':
-                renderHeading('h3');
-                break;
-            }
-
-            return toRender;
-          }
-
           if (isCodeBlock(block)) {
             const { properties } = block.value;
 
@@ -471,8 +484,11 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
-          if (process.env.NODE_ENV !== 'production' && !listTypes.has(type)) {
-            console.log('unknown type', type);
+          if (
+            process.env.NODE_ENV !== 'production' &&
+            !listTypes.has(value.type)
+          ) {
+            console.log('unknown type', value.type);
           }
 
           return toRender;

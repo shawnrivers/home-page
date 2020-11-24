@@ -1,5 +1,6 @@
 import { loadPageChunk } from '../apis/notion/loadPageChunkAPI';
 import { Property } from '../apis/notion/response/pageChunk';
+import { isImageBlock, isTextBlock } from '../apis/notion/utils/typeGuards';
 
 const previewTypes = new Set(['text', 'image']);
 
@@ -30,9 +31,8 @@ export async function getPostPreview(pageId: string): Promise<PostPreview> {
       return previewTypes.has(value.type) && 'properties' in value;
     })
     .map(block => {
-      const { value } = block;
-
-      if (value.type === 'image') {
+      if (isImageBlock(block)) {
+        const { value } = block;
         return {
           type: 'image',
           content: value.properties.source ?? [],
@@ -40,7 +40,9 @@ export async function getPostPreview(pageId: string): Promise<PostPreview> {
         };
       }
 
-      if (value.type === 'text') {
+      if (isTextBlock(block)) {
+        const { value } = block;
+
         return {
           type: 'text',
           content: value.properties.title ?? [],
@@ -48,6 +50,8 @@ export async function getPostPreview(pageId: string): Promise<PostPreview> {
         };
       }
 
-      throw new Error(`${value.type} type is not supported as blog preview.`);
+      throw new Error(
+        `${block.value.type} type is not supported as blog preview.`,
+      );
     });
 }

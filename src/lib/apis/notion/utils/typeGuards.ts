@@ -4,11 +4,14 @@ import {
   CodeBlock,
   CollectionViewBlock,
   EmbedBlock,
+  EquationBlock,
+  HeaderBlock,
   HeaderType,
   ImageBlock,
+  ListBlock,
   ListType,
+  QuoteBlock,
   TextBlock,
-  TextType,
   VideoBlock,
 } from '../response/pageChunk';
 
@@ -18,17 +21,8 @@ export function isCollectionViewBlock(
   return block.value.type === 'collection_view';
 }
 
-const textTypes: Set<string> = new Set<TextType>([
-  'text',
-  'bulleted_list',
-  'numbered_list',
-  'header',
-  'sub_header',
-  'sub_sub_header',
-]);
-
 export function isTextBlock(block: Block): block is TextBlock {
-  return textTypes.has(block.value.type);
+  return block.value.type === 'text';
 }
 
 const listTypes: Set<string> = new Set<ListType>([
@@ -36,7 +30,7 @@ const listTypes: Set<string> = new Set<ListType>([
   'numbered_list',
 ]);
 
-export function isListBlock(block: Block): block is TextBlock {
+export function isListBlock(block: Block): block is ListBlock {
   return listTypes.has(block.value.type);
 }
 
@@ -46,8 +40,16 @@ const headerTypes: Set<string> = new Set<HeaderType>([
   'sub_sub_header',
 ]);
 
-export function isHeaderBlock(block: Block): block is TextBlock {
+export function isHeaderBlock(block: Block): block is HeaderBlock {
   return headerTypes.has(block.value.type);
+}
+
+export function isQuoteBlock(block: Block): block is QuoteBlock {
+  return block.value.type === 'quote';
+}
+
+export function isEquationBlock(block: Block): block is EquationBlock {
+  return block.value.type === 'equation';
 }
 
 export function isImageBlock(block: Block): block is ImageBlock {
