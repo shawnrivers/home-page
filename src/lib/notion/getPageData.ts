@@ -3,11 +3,12 @@ import { Block } from '../apis/notion/response/pageChunk';
 
 export default async function getPageData(
   pageId: string,
+  limit = 200,
 ): Promise<{
   blocks: Block[];
 }> {
   try {
-    const data = await loadPageChunk({ pageId });
+    const data = await loadPageChunk({ pageId, limit });
     const blocks = Object.values(data.recordMap.block);
 
     const firstBlock = blocks[0];

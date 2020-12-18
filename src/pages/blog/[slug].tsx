@@ -111,7 +111,8 @@ export const getStaticProps: GetStaticProps<PostEntryProps, Params> = async ({
       revalidate: 5,
     };
   }
-  const postData = await getPageData(post.id as string);
+
+  const postData = await getPageData(post.id as string, 1000);
   post.content = postData.blocks;
 
   await Promise.all(
@@ -138,10 +139,14 @@ export const getStaticProps: GetStaticProps<PostEntryProps, Params> = async ({
       if (isAssetContent(block)) {
         const { value } = block;
 
-        value.source = await fetchNotionAsset(
-          value.format.display_source,
-          value.id,
-        );
+        if (value.format) {
+          value.source = await fetchNotionAsset(
+            value.format.display_source,
+            value.id,
+          );
+        } else {
+          value.source = value.properties.source[0][0] as string;
+        }
       }
     }),
   );
@@ -389,27 +394,35 @@ const PostEntry: React.FC<PostEntryProps> = props => {
 
           // image
           if (isImageContent(block)) {
-            const { format } = block.value;
-
-            const { block_width, block_aspect_ratio } = format;
-
             const maxWidth = 600;
-            const blockWidth = block_width < maxWidth ? block_width : 600;
-            const blockHeight = blockWidth * block_aspect_ratio;
 
-            const child = (
-              <div style={{ textAlign: 'center' }} key={id}>
-                <Image
-                  src={block.value.source}
-                  width={blockWidth}
-                  height={blockHeight}
-                  layout="intrinsic"
-                  className={blogStyles.assetWithoutWrapper}
-                />
-              </div>
-            );
+            if (block.value.format) {
+              const { block_width, block_aspect_ratio } = block.value.format;
+              const blockWidth = block_width < maxWidth ? block_width : 600;
+              const blockHeight = blockWidth * block_aspect_ratio;
 
-            toRender.push(child);
+              toRender.push(
+                <div style={{ textAlign: 'center' }} key={id}>
+                  <Image
+                    src={block.value.source}
+                    width={blockWidth}
+                    height={blockHeight}
+                    layout="intrinsic"
+                    className={blogStyles.assetWithoutWrapper}
+                  />
+                </div>,
+              );
+            } else {
+              toRender.push(
+                <div style={{ textAlign: 'center' }} key={id}>
+                  <img
+                    src={block.value.source}
+                    loading="lazy"
+                    className={blogStyles.assetWithoutWrapper}
+                  />
+                </div>,
+              );
+            }
 
             return toRender;
           }
