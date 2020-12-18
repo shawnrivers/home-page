@@ -25,6 +25,7 @@ type CreatorTable = 'notion_user';
 export type Property<T extends string> = (T | Property<T>)[][];
 type TitleProperty = Property<string>;
 type SourceProperty = Property<string>;
+type CaptionProperty = Property<string>;
 type LanguageProperty = Property<CodeLanguage>;
 
 type Schema = {
@@ -148,8 +149,9 @@ export type ImageBlock = {
     type: 'image';
     properties: {
       source: SourceProperty;
+      caption?: CaptionProperty;
     };
-    format: {
+    format?: {
       block_width: number;
       block_height?: number;
       display_source: string;
