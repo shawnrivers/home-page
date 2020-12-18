@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import fetch from 'node-fetch';
 import { useRouter } from 'next/router';
 import Header from '../../components/header';
 import Heading from '../../components/heading';
@@ -407,7 +406,6 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                     src={block.value.source}
                     width={blockWidth}
                     height={blockHeight}
-                    layout="intrinsic"
                     className={blogStyles.assetWithoutWrapper}
                   />
                 </div>,
