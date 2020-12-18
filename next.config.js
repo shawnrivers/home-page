@@ -19,7 +19,7 @@ try {
 const warnOrError =
   process.env.NODE_ENV !== 'production'
     ? console.warn
-    : (msg) => {
+    : msg => {
         throw new Error(msg);
       };
 
@@ -60,6 +60,6 @@ module.exports = {
     return cfg;
   },
   images: {
-    domains: ['s3.us-west-2.amazonaws.com'],
+    domains: ['s3.us-west-2.amazonaws.com', 's3-us-west-2.amazonaws.com'],
   },
 };
