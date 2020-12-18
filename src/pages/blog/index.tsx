@@ -3,35 +3,53 @@ import Header from '../../components/header';
 import blogStyles from '../../styles/blog.module.css';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
 import { textBlock } from '../../lib/notion/renderers';
-import getNotionUsers from '../../lib/notion/getNotionUsers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
-import { getAssetURL } from '../../lib/utils/urls';
 import Image from 'next/image';
+import { GetStaticProps } from 'next';
+import { TableRow } from '../../lib/notion/getTableData';
+import { PostPreview } from '../../lib/notion/getPostPreview';
+import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
 
-export async function getStaticProps({ preview }) {
+type Post = {
+  preview?: (PostPreview[0] & { source?: string })[];
+} & TableRow;
+
+type PostIndexProps = {
+  posts: Post[];
+  preview: boolean;
+};
+
+export const getStaticProps: GetStaticProps<PostIndexProps> = async params => {
+  const { preview } = params;
   const postsTable = await getBlogIndex();
 
-  const authorsToGet: Set<string> = new Set();
-  const posts: any[] = Object.keys(postsTable)
+  const posts = Object.keys(postsTable)
     .map(slug => {
       const post = postsTable[slug];
       // remove draft posts in production
       if (!preview && !postIsVisible(post)) {
         return null;
       }
-      post.Authors = post.Authors || [];
-      for (const author of post.Authors) {
-        authorsToGet.add(author);
-      }
       return post;
     })
     .filter(Boolean);
 
-  const { users } = await getNotionUsers([...authorsToGet]);
+  await Promise.all(
+    posts.map(post =>
+      Promise.all(
+        post.preview?.map(async preview => {
+          if (preview.type === 'image') {
+            const source = await fetchNotionAsset(
+              preview.content[0][0],
+              preview.id,
+            );
 
-  posts.map(post => {
-    post.Authors = post.Authors.map(id => users[id].full_name);
-  });
+            preview.source = source;
+          }
+        }),
+      ),
+    ),
+  );
 
   return {
     props: {
@@ -40,9 +58,11 @@ export async function getStaticProps({ preview }) {
     },
     revalidate: 10,
   };
-}
+};
 
-export default ({ posts = [], preview }) => {
+const PostIndex: React.FC<PostIndexProps> = props => {
+  const { posts, preview } = props;
+
   return (
     <>
       <Header titlePre="Blog" />
@@ -74,19 +94,17 @@ export default ({ posts = [], preview }) => {
                           return null;
                         }
 
-                        if (!block.content) {
+                        if (!block.content || !block.source) {
                           return (
                             <div className={blogStyles.noImage} key={idx} />
                           );
                         }
 
-                        const assetSrc = getAssetURL(block.content, block.id);
-
                         return (
-                          <img
-                            src={assetSrc}
-                            width="400"
-                            height="300"
+                          <Image
+                            src={block.source}
+                            width={400}
+                            height={300}
                             alt=""
                             role="presentation"
                             key={block.id}
@@ -102,10 +120,10 @@ export default ({ posts = [], preview }) => {
                     {post.Date && (
                       <div className="posted">{getDateStr(post.Date)}</div>
                     )}
-                    {/* <p>
+                    <p>
                       {(!post.preview || post.preview.length === 0) &&
                         'No preview available'}
-                      {(post.preview || []).map((block, idx) => {
+                      {/* {(post.preview || []).map((block, idx) => {
                         if (block.type === 'text') {
                           return textBlock(
                             block.content,
@@ -114,8 +132,8 @@ export default ({ posts = [], preview }) => {
                           );
                         }
                         return null;
-                      })}
-                    </p> */}
+                      })} */}
+                    </p>
                   </div>
                 </Link>
               </div>
@@ -126,3 +144,5 @@ export default ({ posts = [], preview }) => {
     </>
   );
 };
+
+export default PostIndex;
