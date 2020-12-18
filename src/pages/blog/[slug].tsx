@@ -406,7 +406,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                     src={block.value.source}
                     width={blockWidth}
                     height={blockHeight}
-                    className={blogStyles.assetWithoutWrapper}
+                    className={`${blogStyles.assetWithoutWrapper} placeholder`}
                   />
                 </div>,
               );

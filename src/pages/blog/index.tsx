@@ -108,6 +108,7 @@ const PostIndex: React.FC<PostIndexProps> = props => {
                             alt=""
                             role="presentation"
                             key={block.id}
+                            className="placeholder"
                           />
                         );
                       })}
