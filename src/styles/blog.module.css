@@ -59,7 +59,7 @@
 
 .postsContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 300px);
+  grid-template-columns: repeat(auto-fill, 400px);
   justify-content: center;
   grid-gap: 1rem;
 }
@@ -67,11 +67,6 @@
 .postPreview {
   /* max-width: 600px; */
   margin: 10px auto;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
-}
-
-.postPreview:last-child {
-  border-bottom: none;
 }
 
 .postPreview h3 {

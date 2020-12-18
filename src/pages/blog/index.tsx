@@ -85,7 +85,7 @@ export default ({ posts = [], preview }) => {
                         return (
                           <img
                             src={assetSrc}
-                            width="300"
+                            width="400"
                             height="300"
                             alt=""
                             role="presentation"
