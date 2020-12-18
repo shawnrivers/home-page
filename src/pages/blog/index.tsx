@@ -32,7 +32,8 @@ export const getStaticProps: GetStaticProps<PostIndexProps> = async params => {
       }
       return post;
     })
-    .filter(Boolean);
+    .filter(Boolean)
+    .sort((postA, postB) => Math.sign(postB.Date - postA.Date));
 
   await Promise.all(
     posts.map(post =>
