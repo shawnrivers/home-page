@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
         {currentYear === START_YEAR
           ? currentYear
           : `${START_YEAR}-${currentYear}`}{' '}
-        Usho Ka / Yuxiao He. All rights reserved.
+        Usho Ka (Yuxiao He). All rights reserved.
       </p>
     </footer>
   );
