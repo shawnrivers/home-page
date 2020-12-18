@@ -59,10 +59,8 @@ export default async function getBlogIndex(
       await Promise.all(
         postsKeys
           .sort((a, b) => {
-            const postA = postsTable[a];
-            const postB = postsTable[b];
-            const timeA = postA.Date as number;
-            const timeB = postB.Date as number;
+            const timeA = postsTable[a].Date as number;
+            const timeB = postsTable[b].Date as number;
             return Math.sign(timeB - timeA);
           })
           .map(async postKey => {
