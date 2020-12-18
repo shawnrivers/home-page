@@ -31,6 +31,27 @@ import {
   isQuoteBlock,
   isTextBlock,
 } from '../../lib/apis/notion/utils/typeGuards';
+import axios from 'axios';
+
+function isAssetContent(
+  content: Post['content'][0],
+): content is ImageContent | VideoContent {
+  return content.value.type === 'image' || content.value.type === 'video';
+}
+
+function isImageContent(content: Post['content'][0]): content is ImageContent {
+  return content.value.type === 'image';
+}
+
+function isVideoContent(content: Post['content'][0]): content is VideoContent {
+  return content.value.type === 'video';
+}
+
+function isTweetContent(content: Post['content'][0]): content is TweetContent {
+  return content.value.type === 'tweet';
+}
+
+const listTypes = new Set(['bulleted_list', 'numbered_list']);
 
 type TweetContent = TweetBlock & {
   value: {
@@ -59,7 +80,7 @@ type Post = {
   hasTweet: boolean;
 } & TableRow;
 
-type Props = {
+type PostEntryProps = {
   post?: Post;
   redirect?: string;
   preview: boolean;
@@ -70,7 +91,7 @@ type Params = {
 };
 
 // Get the data for each blog post
-export const getStaticProps: GetStaticProps<Props, Params> = async ({
+export const getStaticProps: GetStaticProps<PostEntryProps, Params> = async ({
   params: { slug },
   preview,
 }) => {
@@ -103,13 +124,12 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
         const tweetId = src.split('/')[5].split('?')[0];
         if (tweetId) {
           try {
-            const res = await fetch(
+            const response = await axios.get(
               `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`,
             );
-            const json = await res.json();
-            value.properties.html = json.html.split('<script')[0];
+            value.properties.html = response.data.html.split('<script')[0];
             post.hasTweet = true;
-          } catch (_) {
+          } catch (error) {
             console.log(`Failed to get tweet embed for ${src}`);
           }
         }
@@ -148,9 +168,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
   };
 };
 
-const listTypes = new Set(['bulleted_list', 'numbered_list']);
-
-const RenderPost: React.FC<Props> = props => {
+const PostEntry: React.FC<PostEntryProps> = props => {
   const { post, redirect, preview } = props;
 
   const router = useRouter();
@@ -167,10 +185,11 @@ const RenderPost: React.FC<Props> = props => {
   } = {};
 
   React.useEffect(() => {
-    const twitterSrc = 'https://platform.twitter.com/widgets.js';
     // make sure to initialize any new widgets loading on
     // client navigation
     if (post && post.hasTweet) {
+      const twitterSrc = 'https://platform.twitter.com/widgets.js';
+
       if ((window as any)?.twttr?.widgets) {
         (window as any).twttr.widgets.load();
       } else if (!document.querySelector(`script[src="${twitterSrc}"]`)) {
@@ -231,31 +250,22 @@ const RenderPost: React.FC<Props> = props => {
           <p>This post has no content</p>
         )}
 
+        {/* Post content */}
         {(post.content || []).map((block, blockIdx) => {
-          const { value } = block;
-          const { id, type } = value;
+          const { id, type } = block.value;
           const toRender = [];
 
-          const renderHeading = (Type: string | React.ComponentType) => {
-            if (isHeaderBlock(block)) {
-              toRender.push(
-                <Heading key={id}>
-                  <Type key={id}>
-                    {textBlock(block.value.properties.title, true, id)}
-                  </Type>
-                </Heading>,
-              );
-            }
-          };
-
-          if (value.type === 'page' || value.type === 'divider') {
+          // page or divider
+          if (block.value.type === 'page' || block.value.type === 'divider') {
             return toRender;
           }
 
+          // list
           if (isListBlock(block)) {
             const { parent_id, properties } = block.value;
 
-            listTagName = components[type === 'bulleted_list' ? 'ul' : 'ol'];
+            listTagName =
+              components[block.value.type === 'bulleted_list' ? 'ul' : 'ol'];
             listLastId = `list${id}`;
 
             listMap[id] = {
@@ -270,14 +280,14 @@ const RenderPost: React.FC<Props> = props => {
             }
           }
 
-          const isList = listTypes.has(type);
+          const isList = listTypes.has(block.value.type);
           const isLast = blockIdx === post.content.length - 1;
 
           if (listTagName && (isLast || !isList)) {
             toRender.push(
               React.createElement(
                 listTagName,
-                { key: listLastId! },
+                { key: listLastId },
                 Object.keys(listMap).map(itemId => {
                   if (listMap[itemId].isNested) return null;
 
@@ -307,6 +317,7 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // quote
           if (isQuoteBlock(block)) {
             const { properties } = block.value;
 
@@ -321,6 +332,7 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // equation
           if (isEquationBlock(block)) {
             const { properties } = block.value;
 
@@ -334,6 +346,7 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // text
           if (isTextBlock(block)) {
             const { properties } = block.value;
 
@@ -344,8 +357,20 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // header
           if (isHeaderBlock(block)) {
             const { type } = block.value;
+            const renderHeading = (Type: string | React.ComponentType) => {
+              if (isHeaderBlock(block)) {
+                toRender.push(
+                  <Heading key={id}>
+                    <Type key={id}>
+                      {textBlock(block.value.properties.title, true, id)}
+                    </Type>
+                  </Heading>,
+                );
+              }
+            };
 
             switch (type) {
               case 'header':
@@ -362,6 +387,7 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // image
           if (isImageContent(block)) {
             const { format } = block.value;
 
@@ -388,6 +414,7 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // video
           if (isVideoContent(block)) {
             const { format } = block.value;
             const { block_width } = format;
@@ -411,6 +438,7 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // embed
           if (isEmbedBlock(block)) {
             const child = (
               <iframe
@@ -424,6 +452,7 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // code
           if (isCodeBlock(block)) {
             const { properties } = block.value;
 
@@ -454,6 +483,7 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // callout
           if (isCalloutBlock(block)) {
             const { properties, format } = block.value;
 
@@ -469,6 +499,7 @@ const RenderPost: React.FC<Props> = props => {
             return toRender;
           }
 
+          // tweet
           if (isTweetContent(block)) {
             const { properties } = block.value;
 
@@ -486,9 +517,9 @@ const RenderPost: React.FC<Props> = props => {
 
           if (
             process.env.NODE_ENV !== 'production' &&
-            !listTypes.has(value.type)
+            !listTypes.has(block.value.type)
           ) {
-            console.log('unknown type', value.type);
+            console.log('unknown type:', block.value.type);
           }
 
           return toRender;
@@ -498,22 +529,4 @@ const RenderPost: React.FC<Props> = props => {
   );
 };
 
-export default RenderPost;
-
-function isAssetContent(
-  content: Post['content'][0],
-): content is ImageContent | VideoContent {
-  return content.value.type === 'image' || content.value.type === 'video';
-}
-
-function isImageContent(content: Post['content'][0]): content is ImageContent {
-  return content.value.type === 'image';
-}
-
-function isVideoContent(content: Post['content'][0]): content is VideoContent {
-  return content.value.type === 'video';
-}
-
-function isTweetContent(content: Post['content'][0]): content is TweetContent {
-  return content.value.type === 'tweet';
-}
+export default PostEntry;
