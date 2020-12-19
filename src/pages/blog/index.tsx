@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Header from '../../components/header';
 import blogStyles from '../../styles/blog.module.css';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
-import { textBlock } from '../../lib/notion/renderers';
+// import { textBlock } from '../../lib/notion/renderers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
