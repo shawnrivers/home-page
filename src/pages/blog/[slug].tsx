@@ -400,12 +400,21 @@ const PostEntry: React.FC<PostEntryProps> = props => {
               const blockWidth = block_width < maxWidth ? block_width : 600;
               const blockHeight = blockWidth * block_aspect_ratio;
 
+              /**
+               * Due to a next/image bug, GIF becomes larger after optimization.
+               * Here, we unoptimize the image if it's a GIF
+               * (Issue: https://github.com/vercel/next.js/issues/19443)
+               */
+              const isGif = (block.value.properties
+                .source[0][0] as string).endsWith('.gif');
+
               toRender.push(
                 <div style={{ textAlign: 'center' }} key={id}>
                   <Image
                     src={block.value.source}
                     width={blockWidth}
                     height={blockHeight}
+                    unoptimized={isGif}
                     className={`${blogStyles.assetWithoutWrapper} placeholder`}
                   />
                 </div>,
