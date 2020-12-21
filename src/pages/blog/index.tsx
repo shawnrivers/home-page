@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { PostPreview } from '../../lib/notion/getPostPreview';
 import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
-import { Badge } from '../../components/atoms/Badge';
+import { Tag } from '../../components/atoms/Tag';
 
 type Post = Omit<Blog, 'Tags' | 'preview'> & {
   preview?: (PostPreview[0] & { source: string | null })[];
@@ -134,11 +134,9 @@ const PostIndex: React.FC<PostIndexProps> = props => {
                   )}
                   {featuredPost.Tags.length > 0 && (
                     <div className={blogStyles.badgeGroup}>
-                      {featuredPost.Published !== 'Yes' && (
-                        <Badge text="Draft" />
-                      )}
+                      {featuredPost.Published !== 'Yes' && <Tag text="Draft" />}
                       {featuredPost.Tags.map(tag => (
-                        <Badge text={tag} key={tag} />
+                        <Tag text={tag} key={tag} />
                       ))}
                     </div>
                   )}
@@ -184,9 +182,9 @@ const PostIndex: React.FC<PostIndexProps> = props => {
                     )}
                     {post.Tags.length > 0 && (
                       <div className={blogStyles.badgeGroup}>
-                        {post.Published !== 'Yes' && <Badge text="Draft" />}
+                        {post.Published !== 'Yes' && <Tag text="Draft" />}
                         {post.Tags.map(tag => (
-                          <Badge text={tag} key={tag} />
+                          <Tag text={tag} key={tag} />
                         ))}
                       </div>
                     )}

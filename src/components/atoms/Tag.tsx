@@ -1,26 +1,26 @@
 import * as React from 'react';
 
-type BadgeProps = { text: string } & React.HTMLAttributes<HTMLSpanElement>;
+type TagProps = { text: string } & React.HTMLAttributes<HTMLSpanElement>;
 
-export const Badge: React.FC<BadgeProps> = props => {
+export const Tag: React.FC<TagProps> = props => {
   const { text, ...restProps } = props;
 
   switch (text) {
     case 'React':
       return (
-        <span className="badge badge-react" {...restProps}>
+        <span className="tag tag-react" {...restProps}>
           {text}
         </span>
       );
     case 'CSS':
       return (
-        <span className="badge badge-css" {...restProps}>
+        <span className="tag tag-css" {...restProps}>
           {text}
         </span>
       );
     case 'Draft':
       return (
-        <span className="badge badge-draft" {...restProps}>
+        <span className="tag tag-draft" {...restProps}>
           {text}
         </span>
       );
