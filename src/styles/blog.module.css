@@ -43,14 +43,8 @@
   cursor: pointer;
 }
 
-.draftBadge {
-  border-radius: 16px;
-  background-color: black;
-  color: white;
-  font-size: 14px;
-  font-weight: 200;
-  padding: 2px 7px;
-  margin-right: 6px;
+.badgeGroup > *:not(:last-child) {
+  margin-right: 0.5em;
 }
 
 .noPosts {

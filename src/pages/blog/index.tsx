@@ -8,10 +8,12 @@ import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { PostPreview } from '../../lib/notion/getPostPreview';
 import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
+import { Badge } from '../../components/atoms/Badge';
 
-type Post = {
-  preview?: (PostPreview[0] & { source?: string })[];
-} & Blog;
+type Post = Omit<Blog, 'Tags' | 'preview'> & {
+  preview?: (PostPreview[0] & { source: string | null })[];
+  Tags: string[];
+};
 
 type PostIndexProps = {
   posts: Post[];
@@ -22,14 +24,21 @@ export const getStaticProps: GetStaticProps<PostIndexProps> = async params => {
   const { preview } = params;
   const postsTable = await getBlogIndex();
 
-  const posts = Object.keys(postsTable)
+  const posts: Post[] = Object.keys(postsTable)
     .map(slug => {
       const post = postsTable[slug];
       // remove draft posts in production
       if (!preview && !postIsVisible(post)) {
         return null;
       }
-      return post;
+      return {
+        ...post,
+        Tags: post.Tags.split(','),
+        preview: post.preview.map(pre => ({
+          ...pre,
+          source: null,
+        })),
+      };
     })
     .filter(Boolean)
     .sort((postA, postB) => Math.sign(postB.Date - postA.Date));
@@ -40,7 +49,7 @@ export const getStaticProps: GetStaticProps<PostIndexProps> = async params => {
         post.preview?.map(async preview => {
           if (preview.type === 'image') {
             const source = await fetchNotionAsset(
-              preview.content[0][0],
+              preview.content[0][0] as string,
               preview.id,
             );
 
@@ -62,6 +71,8 @@ export const getStaticProps: GetStaticProps<PostIndexProps> = async params => {
 
 const PostIndex: React.FC<PostIndexProps> = props => {
   const { posts, preview } = props;
+
+  console.log(posts);
 
   return (
     <>
@@ -112,14 +123,17 @@ const PostIndex: React.FC<PostIndexProps> = props => {
                           />
                         );
                       })}
-                    <h3>
-                      {post.Published !== 'Yes' && (
-                        <span className={blogStyles.draftBadge}>Draft</span>
-                      )}
-                      {post.Page}
-                    </h3>
+                    <h3>{post.Page}</h3>
                     {post.Date && (
                       <div className="posted">{getDateStr(post.Date)}</div>
+                    )}
+                    {post.Tags.length > 0 && (
+                      <div className={blogStyles.badgeGroup}>
+                        {post.Published !== 'Yes' && <Badge text="Draft" />}
+                        {post.Tags.map(tag => (
+                          <Badge text={tag} key={tag} />
+                        ))}
+                      </div>
                     )}
                     <p>
                       {(!post.preview || post.preview.length === 0) &&
