@@ -99,7 +99,7 @@ const PostIndex: React.FC<PostIndexProps> = props => {
           <p className={blogStyles.noPosts}>There are no posts yet</p>
         )}
         {featuredPost && (
-          <article className={blogStyles.postPreview}>
+          <article className={`${blogStyles.postPreview} card`}>
             <Link href="/blog/[slug]" as={getBlogLink(featuredPost.Slug)}>
               <div className={blogStyles.featuredPost}>
                 {(featuredPost.preview || [])
@@ -148,7 +148,10 @@ const PostIndex: React.FC<PostIndexProps> = props => {
         <div className={blogStyles.postsContainer}>
           {normalPosts.map(post => {
             return (
-              <article className={blogStyles.postPreview} key={post.Slug}>
+              <article
+                className={`${blogStyles.postPreview} card`}
+                key={post.Slug}
+              >
                 <Link href="/blog/[slug]" as={getBlogLink(post.Slug)}>
                   <div>
                     {(post.preview || [])

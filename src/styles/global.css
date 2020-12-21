@@ -437,17 +437,20 @@ img.placeholder {
 }
 
 @layer components {
-  .badge {
+  .tag {
     @apply inline-block rounded-3xl text-sm px-2.5 py-1.5;
   }
-
-  .badge-react {
+  .tag-react {
     @apply bg-blue-500 text-white hover:bg-blue-700;
   }
-  .badge-css {
+  .tag-css {
     @apply bg-gray-700 text-white hover:bg-gray-800;
   }
-  .badge-draft {
+  .tag-draft {
     @apply bg-gray-800 text-white hover:bg-gray-900;
+  }
+
+  .card {
+    @apply bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-shadow;
   }
 }
