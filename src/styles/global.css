@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --gap-quarter: 0.25rem;
   --gap-half: 0.5rem;
@@ -430,4 +434,20 @@ footer span:nth-child(3) a {
 
 img.placeholder {
   background-color: var(--white-2);
+}
+
+@layer components {
+  .badge {
+    @apply inline-block rounded-3xl text-sm px-2.5 py-1.5;
+  }
+
+  .badge-react {
+    @apply bg-blue-500 text-white hover:bg-blue-700;
+  }
+  .badge-css {
+    @apply bg-gray-700 text-white hover:bg-gray-800;
+  }
+  .badge-draft {
+    @apply bg-gray-800 text-white hover:bg-gray-900;
+  }
 }
