@@ -72,7 +72,13 @@ export const getStaticProps: GetStaticProps<PostIndexProps> = async params => {
 const PostIndex: React.FC<PostIndexProps> = props => {
   const { posts, preview } = props;
 
-  console.log(posts);
+  console.log({ posts });
+
+  const featuredPostIndex = posts.findIndex(post => post.Featured === 'Yes');
+  const featuredPost = featuredPostIndex > -1 ? posts[featuredPostIndex] : null;
+  const normalPosts = posts.filter((_, index) => index !== featuredPostIndex);
+
+  console.log({ featuredPost, normalPosts });
 
   return (
     <>
@@ -92,10 +98,59 @@ const PostIndex: React.FC<PostIndexProps> = props => {
         {posts.length === 0 && (
           <p className={blogStyles.noPosts}>There are no posts yet</p>
         )}
+        {featuredPost && (
+          <article className={blogStyles.postPreview}>
+            <Link href="/blog/[slug]" as={getBlogLink(featuredPost.Slug)}>
+              <div className={blogStyles.featuredPost}>
+                {(featuredPost.preview || [])
+                  .filter(block => block.type === 'image')
+                  .map((block, idx) => {
+                    if (idx > 0) {
+                      return null;
+                    }
+
+                    if (!block.content || !block.source) {
+                      return <div className={blogStyles.noImage} key={idx} />;
+                    }
+
+                    return (
+                      <Image
+                        src={block.source}
+                        width={600}
+                        height={450}
+                        alt=""
+                        role="presentation"
+                        key={block.id}
+                        className={`placeholder ${blogStyles.featuredPostImage}`}
+                      />
+                    );
+                  })}
+                <div className={blogStyles.featuredPostText}>
+                  <h3>{featuredPost.Page}</h3>
+                  {featuredPost.Date && (
+                    <div className="posted">
+                      {getDateStr(featuredPost.Date)}
+                    </div>
+                  )}
+                  {featuredPost.Tags.length > 0 && (
+                    <div className={blogStyles.badgeGroup}>
+                      {featuredPost.Published !== 'Yes' && (
+                        <Badge text="Draft" />
+                      )}
+                      {featuredPost.Tags.map(tag => (
+                        <Badge text={tag} key={tag} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </Link>
+          </article>
+        )}
         <div className={blogStyles.postsContainer}>
-          {posts.map(post => {
+          {normalPosts.map(post => {
             return (
-              <div className={blogStyles.postPreview} key={post.Slug}>
+              <article className={blogStyles.postPreview} key={post.Slug}>
                 <Link href="/blog/[slug]" as={getBlogLink(post.Slug)}>
                   <div>
                     {(post.preview || [])
@@ -151,7 +206,7 @@ const PostIndex: React.FC<PostIndexProps> = props => {
                     </p>
                   </div>
                 </Link>
-              </div>
+              </article>
             );
           })}
         </div>
