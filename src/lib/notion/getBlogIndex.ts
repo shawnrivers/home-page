@@ -1,16 +1,30 @@
 import { Sema } from 'async-sema';
 import createTable from './createTable';
-import getTableData, { TableObject } from './getTableData';
-import { getPostPreview } from './getPostPreview';
+import getTableData, { TableRow } from './getTableData';
+import { getPostPreview, PostPreview } from './getPostPreview';
 import { readFile, writeFile } from '../fs-helpers';
 import { BLOG_INDEX_ID, BLOG_INDEX_CACHE } from './server-constants';
 import { loadPageChunk } from '../apis/notion/loadPageChunkAPI';
 import { isCollectionViewBlock } from '../apis/notion/utils/typeGuards';
 
+export type Blog = TableRow & {
+  Author: string[] | null;
+  Date: number | null;
+  Featured: 'Yes' | 'No' | null;
+  Published: 'Yes' | 'No' | null;
+  Page: string | null;
+  Slug: string | null;
+  Tags: string | null;
+  id: string | null;
+  preview: PostPreview;
+};
+
+type PostTable = Record<string, Blog>;
+
 export default async function getBlogIndex(
   previews = true,
-): Promise<TableObject> {
-  let postsTable: TableObject = null;
+): Promise<PostTable> {
+  let postsTable: PostTable = null;
   const useCache = process.env.USE_CACHE === 'true';
   const cacheFile = `${BLOG_INDEX_CACHE}${previews ? '_previews' : ''}`;
 
@@ -32,7 +46,7 @@ export default async function getBlogIndex(
       );
 
       if (isCollectionViewBlock(tableBlock)) {
-        postsTable = (await getTableData(tableBlock, true)) as TableObject;
+        postsTable = (await getTableData(tableBlock, true)) as PostTable;
       }
     } catch (err) {
       console.warn(

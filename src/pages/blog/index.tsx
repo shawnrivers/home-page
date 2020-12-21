@@ -3,16 +3,15 @@ import Header from '../../components/header';
 import blogStyles from '../../styles/blog.module.css';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
 // import { textBlock } from '../../lib/notion/renderers';
-import getBlogIndex from '../../lib/notion/getBlogIndex';
+import getBlogIndex, { Blog } from '../../lib/notion/getBlogIndex';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
-import { TableRow } from '../../lib/notion/getTableData';
 import { PostPreview } from '../../lib/notion/getPostPreview';
 import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
 
 type Post = {
   preview?: (PostPreview[0] & { source?: string })[];
-} & TableRow;
+} & Blog;
 
 type PostIndexProps = {
   posts: Post[];
@@ -114,7 +113,7 @@ const PostIndex: React.FC<PostIndexProps> = props => {
                         );
                       })}
                     <h3>
-                      {!post.Published && (
+                      {post.Published !== 'Yes' && (
                         <span className={blogStyles.draftBadge}>Draft</span>
                       )}
                       {post.Page}
