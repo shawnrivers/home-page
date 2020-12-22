@@ -42,58 +42,8 @@
   border: 1px solid black;
   cursor: pointer;
 }
-
-.badgeGroup > *:not(:last-child) {
-  margin-right: 0.5em;
-}
-
 .noPosts {
   text-align: center;
-}
-
-.featuredPost {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.featuredPostImage {
-  flex: 1 1 600px;
-}
-
-.featuredPostText {
-  flex: 1;
-}
-
-.postsContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  justify-content: center;
-  grid-gap: 1rem;
-}
-
-.postPreview {
-  /* max-width: 600px; */
-  margin: 10px auto;
-}
-
-.postPreview h3 {
-  color: var(--gray-2);
-}
-
-.postPreview h3,
-.post h1 {
-  margin-bottom: 1rem;
-}
-
-.postPreview img {
-  object-fit: cover;
-}
-
-.postPreview .noImage {
-  width: 400px;
-  height: 300px;
-  background-color: var(--gray-4);
 }
 
 .post h1 {

@@ -1,17 +1,18 @@
-import Link from 'next/link';
 import Header from '../../components/header';
-import blogStyles from '../../styles/blog.module.css';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
-// import { textBlock } from '../../lib/notion/renderers';
 import getBlogIndex, { Blog } from '../../lib/notion/getBlogIndex';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { PostPreview } from '../../lib/notion/getPostPreview';
 import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
-import { Tag } from '../../components/atoms/Tag';
+import { Tag } from '../../components/Tag';
+import { Card } from '../../components/Card';
+import { PreviewNote } from '../../components/PreviewNote';
+
+type PreviewContent = PostPreview[0] & { source: string | null };
 
 type Post = Omit<Blog, 'Tags' | 'preview'> & {
-  preview?: (PostPreview[0] & { source: string | null })[];
+  preview?: PreviewContent[];
   Tags: string[];
 };
 
@@ -69,147 +70,128 @@ export const getStaticProps: GetStaticProps<PostIndexProps> = async params => {
   };
 };
 
+const FeaturedPostCard: React.FC<{
+  post: Post;
+}> = props => {
+  const { post } = props;
+
+  return (
+    <Card tag={post.Tags[0]} href="/blog/[slug]" as={getBlogLink(post.Slug)}>
+      <div className="flex flex-col sm:flex-row flex-wrap sm:items-center">
+        {(post.preview || [])
+          .filter(block => block.type === 'image')
+          .map((block, idx) => {
+            if (idx > 0) {
+              return null;
+            }
+
+            if (!block.content || !block.source) {
+              return null;
+            }
+
+            return (
+              <div className="flex-1">
+                <Image
+                  src={block.source}
+                  width={480}
+                  height={360}
+                  alt=""
+                  role="presentation"
+                  key={block.id}
+                  className="placeholder object-cover"
+                />
+              </div>
+            );
+          })}
+        <div className="flex-1 ml-2 my-4">
+          <h3>{post.Page}</h3>
+          {post.Date && <div className="mt-1">{getDateStr(post.Date)}</div>}
+          {post.Tags.length > 0 && (
+            <div className="blog-tag-group mt-2">
+              {post.Published !== 'Yes' && <Tag text="Draft" />}
+              {post.Tags.map(tag => (
+                <Tag text={tag} key={tag} />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </Card>
+  );
+};
+
+const NormalPostCard: React.FC<{
+  post: Post;
+}> = props => {
+  const { post } = props;
+
+  return (
+    <Card tag={post.Tags[0]} href="/blog/[slug]" as={getBlogLink(post.Slug)}>
+      <div>
+        {(post.preview || [])
+          .filter(block => block.type === 'image')
+          .map((block, idx) => {
+            if (idx > 0) {
+              return null;
+            }
+
+            if (!block.content || !block.source) {
+              return null;
+            }
+
+            return (
+              <Image
+                src={block.source}
+                width={480}
+                height={360}
+                alt=""
+                role="presentation"
+                key={block.id}
+                className="placeholder"
+              />
+            );
+          })}
+        <div className="mt-2 mb-4 mx-4">
+          <h3>{post.Page}</h3>
+          {post.Date && <div className="mt-1">{getDateStr(post.Date)}</div>}
+          {post.Tags.length > 0 && (
+            <div className="blog-tag-group mt-2">
+              {post.Published !== 'Yes' && <Tag text="Draft" />}
+              {post.Tags.map(tag => (
+                <Tag text={tag} key={tag} />
+              ))}
+            </div>
+          )}
+          <p>
+            {(!post.preview || post.preview.length === 0) &&
+              'No preview available'}
+          </p>
+        </div>
+      </div>
+    </Card>
+  );
+};
+
 const PostIndex: React.FC<PostIndexProps> = props => {
   const { posts, preview } = props;
-
-  console.log({ posts });
 
   const featuredPostIndex = posts.findIndex(post => post.Featured === 'Yes');
   const featuredPost = featuredPostIndex > -1 ? posts[featuredPostIndex] : null;
   const normalPosts = posts.filter((_, index) => index !== featuredPostIndex);
 
-  console.log({ featuredPost, normalPosts });
-
   return (
     <>
       <Header titlePre="Blog" />
-      {preview && (
-        <div className={blogStyles.previewAlertContainer}>
-          <div className={blogStyles.previewAlert}>
-            <b>Note:</b>
-            {` `}Viewing in preview mode{' '}
-            <Link href={`/api/clear-preview`}>
-              <button className={blogStyles.escapePreview}>Exit Preview</button>
-            </Link>
-          </div>
-        </div>
-      )}
-      <div className={blogStyles.blogIndex}>
+      {preview && <PreviewNote clearLink="/api/clear-preview" />}
+      <div className="max-w-screen-lg mx-auto px-6 mt-6">
         {posts.length === 0 && (
-          <p className={blogStyles.noPosts}>There are no posts yet</p>
+          <p className="text-center">There are no posts yet</p>
         )}
-        {featuredPost && (
-          <article className={`${blogStyles.postPreview} card`}>
-            <Link href="/blog/[slug]" as={getBlogLink(featuredPost.Slug)}>
-              <div className={blogStyles.featuredPost}>
-                {(featuredPost.preview || [])
-                  .filter(block => block.type === 'image')
-                  .map((block, idx) => {
-                    if (idx > 0) {
-                      return null;
-                    }
-
-                    if (!block.content || !block.source) {
-                      return <div className={blogStyles.noImage} key={idx} />;
-                    }
-
-                    return (
-                      <Image
-                        src={block.source}
-                        width={600}
-                        height={450}
-                        alt=""
-                        role="presentation"
-                        key={block.id}
-                        className={`placeholder ${blogStyles.featuredPostImage}`}
-                      />
-                    );
-                  })}
-                <div className={blogStyles.featuredPostText}>
-                  <h3>{featuredPost.Page}</h3>
-                  {featuredPost.Date && (
-                    <div className="posted">
-                      {getDateStr(featuredPost.Date)}
-                    </div>
-                  )}
-                  {featuredPost.Tags.length > 0 && (
-                    <div className={blogStyles.badgeGroup}>
-                      {featuredPost.Published !== 'Yes' && <Tag text="Draft" />}
-                      {featuredPost.Tags.map(tag => (
-                        <Tag text={tag} key={tag} />
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </Link>
-          </article>
-        )}
-        <div className={blogStyles.postsContainer}>
-          {normalPosts.map(post => {
-            return (
-              <article
-                className={`${blogStyles.postPreview} card`}
-                key={post.Slug}
-              >
-                <Link href="/blog/[slug]" as={getBlogLink(post.Slug)}>
-                  <div>
-                    {(post.preview || [])
-                      .filter(block => block.type === 'image')
-                      .map((block, idx) => {
-                        if (idx > 0) {
-                          return null;
-                        }
-
-                        if (!block.content || !block.source) {
-                          return (
-                            <div className={blogStyles.noImage} key={idx} />
-                          );
-                        }
-
-                        return (
-                          <Image
-                            src={block.source}
-                            width={400}
-                            height={300}
-                            alt=""
-                            role="presentation"
-                            key={block.id}
-                            className="placeholder"
-                          />
-                        );
-                      })}
-                    <h3>{post.Page}</h3>
-                    {post.Date && (
-                      <div className="posted">{getDateStr(post.Date)}</div>
-                    )}
-                    {post.Tags.length > 0 && (
-                      <div className={blogStyles.badgeGroup}>
-                        {post.Published !== 'Yes' && <Tag text="Draft" />}
-                        {post.Tags.map(tag => (
-                          <Tag text={tag} key={tag} />
-                        ))}
-                      </div>
-                    )}
-                    <p>
-                      {(!post.preview || post.preview.length === 0) &&
-                        'No preview available'}
-                      {/* {(post.preview || []).map((block, idx) => {
-                        if (block.type === 'text') {
-                          return textBlock(
-                            block.content,
-                            true,
-                            `${post.Slug}${idx}`,
-                          );
-                        }
-                        return null;
-                      })} */}
-                    </p>
-                  </div>
-                </Link>
-              </article>
-            );
-          })}
+        {featuredPost && <FeaturedPostCard post={featuredPost} />}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 content-center">
+          {normalPosts.map(post => (
+            <NormalPostCard post={post} key={post.Slug} />
+          ))}
         </div>
       </div>
     </>

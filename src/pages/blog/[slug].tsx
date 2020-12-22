@@ -31,6 +31,7 @@ import {
   isTextBlock,
 } from '../../lib/apis/notion/utils/typeGuards';
 import axios from 'axios';
+import { PreviewNote } from '../../components/PreviewNote';
 
 function isAssetContent(
   content: Post['content'][0],
@@ -232,15 +233,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
     <>
       <Header titlePre={post.Page} />
       {preview && (
-        <div className={blogStyles.previewAlertContainer}>
-          <div className={blogStyles.previewAlert}>
-            <b>Note:</b>
-            {` `}Viewing in preview mode{' '}
-            <Link href={`/api/clear-preview?slug=${post.Slug}`}>
-              <button className={blogStyles.escapePreview}>Exit Preview</button>
-            </Link>
-          </div>
-        </div>
+        <PreviewNote clearLink={`/api/clear-preview?slug=${post.Slug}`} />
       )}
       <div className={blogStyles.post}>
         <h1>{post.Page || ''}</h1>

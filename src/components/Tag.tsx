@@ -8,19 +8,28 @@ export const Tag: React.FC<TagProps> = props => {
   switch (text) {
     case 'React':
       return (
-        <span className="tag tag-react" {...restProps}>
+        <span
+          className="blog-tag text-white bg-react-default hover:bg-react-dark"
+          {...restProps}
+        >
           {text}
         </span>
       );
     case 'CSS':
       return (
-        <span className="tag tag-css" {...restProps}>
+        <span
+          className="blog-tag text-white bg-css-default hover:bg-css-dark"
+          {...restProps}
+        >
           {text}
         </span>
       );
     case 'Draft':
       return (
-        <span className="tag tag-draft" {...restProps}>
+        <span
+          className="blog-tag text-white bg-draft-default hover:bg-draft-dark"
+          {...restProps}
+        >
           {text}
         </span>
       );

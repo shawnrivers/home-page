@@ -437,20 +437,15 @@ img.placeholder {
 }
 
 @layer components {
-  .tag {
+  .blog-tag {
     @apply inline-block rounded-3xl text-sm px-2.5 py-1.5;
   }
-  .tag-react {
-    @apply bg-blue-500 text-white hover:bg-blue-700;
-  }
-  .tag-css {
-    @apply bg-gray-700 text-white hover:bg-gray-800;
-  }
-  .tag-draft {
-    @apply bg-gray-800 text-white hover:bg-gray-900;
+
+  .blog-tag-group > *:not(:last-child) {
+    @apply mr-2;
   }
 
   .card {
-    @apply bg-white rounded-xl p-4 shadow-md hover:shadow-xl transition-shadow;
+    @apply bg-white overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow;
   }
 }
