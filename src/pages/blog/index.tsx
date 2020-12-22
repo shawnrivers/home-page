@@ -90,7 +90,7 @@ const FeaturedPostCard: React.FC<{
             }
 
             return (
-              <div className="flex-1">
+              <div className="flex-1" key={block.id}>
                 <Image
                   src={block.source}
                   width={480}
