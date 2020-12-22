@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Head from 'next/head';
 import ExtLink from './ext-link';
 import { useRouter } from 'next/router';
-import styles from '../styles/header.module.css';
 
 const navItems: { label: string; page?: string; link?: string }[] = [
   { label: 'Home', page: '/' },
@@ -20,7 +19,7 @@ const Header: React.FC<{
   const { pathname } = useRouter();
 
   return (
-    <header className={styles.header}>
+    <header className="block h-16 px-4 text-center">
       <Head>
         <title>{titlePre ? `${titlePre} |` : ''} Usho</title>
         <meta
@@ -33,17 +32,28 @@ const Header: React.FC<{
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={ogImageUrl} />
       </Head>
-      <ul>
+      <ul className="p-0 list-none">
         {navItems.map(({ label, page, link }) => (
-          <li key={label}>
+          <li className="inline-block px-2 py-4" key={label}>
             {page ? (
               <Link href={page}>
-                <a className={pathname === page ? 'active' : undefined}>
+                <a
+                  className={`text-xl ${
+                    pathname === page
+                      ? 'text-blue-500 font-bold'
+                      : 'text-gray-800 font-normal'
+                  }`}
+                >
                   {label}
                 </a>
               </Link>
             ) : (
-              <ExtLink href={link}>{label}</ExtLink>
+              <ExtLink
+                href={link}
+                className="text-xl text-gray-800 font-normal"
+              >
+                {label}
+              </ExtLink>
             )}
           </li>
         ))}

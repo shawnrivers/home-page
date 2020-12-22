@@ -1,10 +1,8 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Header from '../../components/header';
 import Heading from '../../components/heading';
 import components from '../../components/dynamic';
 import ReactJSXParser from '@zeit/react-jsx-parser';
-import blogStyles from '../../styles/blog.module.css';
 import { textBlock } from '../../lib/notion/renderers';
 import getPageData from '../../lib/notion/getPageData';
 import * as React from 'react';
@@ -214,14 +212,14 @@ const PostEntry: React.FC<PostEntryProps> = props => {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <div className="mt-8">Loading...</div>;
   }
 
   // if you don't have a post at this point, and are not
   // loading one from fallback then  redirect back to the index
   if (!post) {
     return (
-      <div className={blogStyles.post}>
+      <div className="prose post mt-8">
         <p>
           Woops! didn't find that post, redirecting you back to the blog index
         </p>
@@ -235,7 +233,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
       {preview && (
         <PreviewNote clearLink={`/api/clear-preview?slug=${post.Slug}`} />
       )}
-      <div className={blogStyles.post}>
+      <div className="prose post mt-8">
         <h1>{post.Page || ''}</h1>
         {post.Date && (
           <div className="posted">Posted: {getDateStr(post.Date)}</div>
@@ -249,7 +247,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
 
         {/* Post content */}
         {(post.content || []).map((block, blockIdx) => {
-          const { id, type } = block.value;
+          const { id } = block.value;
           const toRender = [];
 
           // page or divider
@@ -408,7 +406,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                     width={blockWidth}
                     height={blockHeight}
                     unoptimized={isGif}
-                    className={`${blogStyles.assetWithoutWrapper} placeholder`}
+                    className="asset-without-wrapper object-contain"
                   />
                 </div>,
               );
@@ -418,7 +416,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                   <img
                     src={block.value.source}
                     loading="lazy"
-                    className={blogStyles.assetWithoutWrapper}
+                    className="asset-without-wrapper"
                   />
                 </div>,
               );
@@ -443,7 +441,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                 muted
                 autoPlay
                 width={blockWidth}
-                className={blogStyles.assetWithoutWrapper}
+                className="asset-without-wrapper"
               />
             );
 
@@ -457,7 +455,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
               <iframe
                 src={block.value.format.display_source}
                 key={id}
-                className={blogStyles.assetWithoutWrapper}
+                className="asset-without-wrapper"
               />
             );
 
