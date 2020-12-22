@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import Header from '../../components/header';
-import Heading from '../../components/heading';
-import components from '../../components/dynamic';
+import { Header } from '../../components/utilities/Header';
+import Heading from '../../components/pages/blog/Heading';
+import { DynamicComponent } from '../../components/pages/blog/DynamicComponent';
 import ReactJSXParser from '@zeit/react-jsx-parser';
 import { textBlock } from '../../lib/notion/renderers';
 import getPageData from '../../lib/notion/getPageData';
@@ -29,7 +29,7 @@ import {
   isTextBlock,
 } from '../../lib/apis/notion/utils/typeGuards';
 import axios from 'axios';
-import { PreviewNote } from '../../components/PreviewNote';
+import { PreviewNote } from '../../components/pages/blog/PreviewNote';
 
 function isAssetContent(
   content: Post['content'][0],
@@ -233,7 +233,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
       {preview && (
         <PreviewNote clearLink={`/api/clear-preview?slug=${post.Slug}`} />
       )}
-      <div className="prose post mt-8">
+      <div className="prose post">
         <h1>{post.Page || ''}</h1>
         {post.Date && (
           <div className="posted">Posted: {getDateStr(post.Date)}</div>
@@ -260,7 +260,9 @@ const PostEntry: React.FC<PostEntryProps> = props => {
             const { parent_id, properties } = block.value;
 
             listTagName =
-              components[block.value.type === 'bulleted_list' ? 'ul' : 'ol'];
+              DynamicComponent[
+                block.value.type === 'bulleted_list' ? 'ul' : 'ol'
+              ];
             listLastId = `list${id}`;
 
             listMap[id] = {
@@ -288,12 +290,12 @@ const PostEntry: React.FC<PostEntryProps> = props => {
 
                   const createEl = item =>
                     React.createElement(
-                      components.li || 'ul',
+                      DynamicComponent.li || 'ul',
                       { key: item.key },
                       item.children,
                       item.nested.length > 0
                         ? React.createElement(
-                            components.ul || 'ul',
+                            DynamicComponent.ul || 'ul',
                             { key: item + 'sub-list' },
                             item.nested.map(nestedId =>
                               createEl(listMap[nestedId]),
@@ -318,7 +320,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
 
             toRender.push(
               React.createElement(
-                components.blockquote,
+                DynamicComponent.blockquote,
                 { key: id },
                 properties.title,
               ),
@@ -333,9 +335,9 @@ const PostEntry: React.FC<PostEntryProps> = props => {
 
             const content = properties.title[0][0];
             toRender.push(
-              <components.Equation key={id} displayMode={true}>
+              <DynamicComponent.Equation key={id} displayMode={true}>
                 {content}
-              </components.Equation>,
+              </DynamicComponent.Equation>,
             );
 
             return toRender;
@@ -476,7 +478,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                 <ReactJSXParser
                   key={id}
                   jsx={content}
-                  components={components}
+                  components={DynamicComponent}
                   componentsOnly={false}
                   renderInpost={false}
                   allowUnknownElements={true}
@@ -485,9 +487,12 @@ const PostEntry: React.FC<PostEntryProps> = props => {
               );
             } else {
               toRender.push(
-                <components.Code key={id} language={(language as string) || ''}>
+                <DynamicComponent.Code
+                  key={id}
+                  language={(language as string) || ''}
+                >
                   {content}
-                </components.Code>,
+                </DynamicComponent.Code>,
               );
             }
 

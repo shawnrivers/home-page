@@ -1,13 +1,13 @@
-import Header from '../../components/header';
+import { Header } from '../../components/utilities/Header';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
 import getBlogIndex, { Blog } from '../../lib/notion/getBlogIndex';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { PostPreview } from '../../lib/notion/getPostPreview';
 import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
-import { Tag } from '../../components/Tag';
-import { Card } from '../../components/Card';
-import { PreviewNote } from '../../components/PreviewNote';
+import { BlogTag } from '../../components/pages/blog/BlogTag';
+import { Card } from '../../components/utilities/Card';
+import { PreviewNote } from '../../components/pages/blog/PreviewNote';
 
 type PreviewContent = PostPreview[0] & { source: string | null };
 
@@ -90,7 +90,7 @@ const FeaturedPostCard: React.FC<{
             }
 
             return (
-              <div className="flex-1" key={block.id}>
+              <div className="flex-1 featured-card-flex" key={block.id}>
                 <Image
                   src={block.source}
                   width={480}
@@ -108,9 +108,9 @@ const FeaturedPostCard: React.FC<{
           {post.Date && <div className="mt-1">{getDateStr(post.Date)}</div>}
           {post.Tags.length > 0 && (
             <div className="blog-tag-group mt-2">
-              {post.Published !== 'Yes' && <Tag text="Draft" />}
+              {post.Published !== 'Yes' && <BlogTag text="Draft" />}
               {post.Tags.map(tag => (
-                <Tag text={tag} key={tag} />
+                <BlogTag text={tag} key={tag} />
               ))}
             </div>
           )}
@@ -156,9 +156,9 @@ const NormalPostCard: React.FC<{
           {post.Date && <div className="mt-1">{getDateStr(post.Date)}</div>}
           {post.Tags.length > 0 && (
             <div className="blog-tag-group mt-2">
-              {post.Published !== 'Yes' && <Tag text="Draft" />}
+              {post.Published !== 'Yes' && <BlogTag text="Draft" />}
               {post.Tags.map(tag => (
-                <Tag text={tag} key={tag} />
+                <BlogTag text={tag} key={tag} />
               ))}
             </div>
           )}
@@ -183,7 +183,7 @@ const PostIndex: React.FC<PostIndexProps> = props => {
     <>
       <Header titlePre="Blog" />
       {preview && <PreviewNote clearLink="/api/clear-preview" />}
-      <div className="max-w-screen-lg mx-auto px-6 mt-6">
+      <div className="max-w-screen-lg mx-auto px-6">
         {posts.length === 0 && (
           <p className="text-center">There are no posts yet</p>
         )}

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Header from '../components/header';
+import { Header } from '../components/utilities/Header';
 import Image from 'next/image';
 
 const Home: React.FC = () => (
   <>
     <Header titlePre="Home" />
-    <div className="text-center">
+    <div className="text-center font-mono">
       <div className="inline-block overflow-hidden rounded-full border-4 border-gray-800">
         <Image
           src="/avatar.jpg"
@@ -17,7 +17,7 @@ const Home: React.FC = () => (
       </div>
       <div className="mx-auto mt-8">
         <h1>Usho Ka / Yuxiao He</h1>
-        <div className="inline-block mt-4 p-8 rounded-lg shadow bg-gray-200 text-gray-800">
+        <div className="inline-block mt-4 px-8 py-6 rounded-lg shadow bg-gray-200">
           <h2>Nogizaka-driven web developer</h2>
         </div>
       </div>

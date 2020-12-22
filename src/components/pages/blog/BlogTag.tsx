@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-type TagProps = { text: string } & React.HTMLAttributes<HTMLSpanElement>;
+type BlogTagProps = { text: string } & React.HTMLAttributes<HTMLSpanElement>;
 
-export const Tag: React.FC<TagProps> = props => {
+export const BlogTag: React.FC<BlogTagProps> = props => {
   const { text, ...restProps } = props;
 
   switch (text) {
