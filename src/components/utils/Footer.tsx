@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-4 text-center">
+    <footer className="py-8 text-center">
       <p className="text-base text-gray-700">
         Copyright @
         {currentYear === START_YEAR

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { Header } from '../../components/utilities/Header';
+import { Header } from '../../components/utils/Header';
 import Heading from '../../components/pages/blog/Heading';
 import { DynamicComponent } from '../../components/pages/blog/DynamicComponent';
 import ReactJSXParser from '@zeit/react-jsx-parser';

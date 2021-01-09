@@ -17,7 +17,7 @@ export const Card: React.FC<CardProps> = props => {
 
   return (
     <article
-      className={`card cursor-pointer border-4 ${
+      className={`card card-shadow cursor-pointer border-4 ${
         borderColor ?? 'border-gray-800'
       }`}
     >

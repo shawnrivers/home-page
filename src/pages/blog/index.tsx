@@ -1,4 +1,4 @@
-import { Header } from '../../components/utilities/Header';
+import { Header } from '../../components/utils/Header';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
 import getBlogIndex, { Blog } from '../../lib/notion/getBlogIndex';
 import Image from 'next/image';
@@ -6,7 +6,7 @@ import { GetStaticProps } from 'next';
 import { PostPreview } from '../../lib/notion/getPostPreview';
 import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
 import { BlogTag } from '../../components/pages/blog/BlogTag';
-import { Card } from '../../components/utilities/Card';
+import { Card } from '../../components/utils/Card';
 import { PreviewNote } from '../../components/pages/blog/PreviewNote';
 
 type PreviewContent = PostPreview[0] & { source: string | null };
