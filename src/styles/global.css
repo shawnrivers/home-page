@@ -291,26 +291,26 @@ mark {
   max-width: calc(100vw - var(--gap-double));
 }
 
-h1 {
+/* h1 {
   margin: var(--gap-double) 0 calc(0.5 * var(--gap)) 0;
   font-size: 2.25rem;
   font-weight: 700;
   letter-spacing: -0.05rem;
-}
+} */
 
-h2 {
+/* h2 {
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: -0.02rem;
   color: var(--gray-2);
-}
+} */
 
-h3 {
+/* h3 {
   font-weight: 400;
   font-size: 1.25rem;
   letter-spacing: -0.02rem;
   color: var(--white-5);
-}
+} */
 
 .video {
   width: 1080px;
@@ -326,12 +326,12 @@ h3 {
   outline: none;
 }
 
-p {
+/* p {
   color: var(--gray-2);
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.7;
-}
+} */
 /* pre {
   white-space: pre;
 } */
@@ -348,11 +348,11 @@ p {
   font-family: var(--font-mono);
 } */
 
-li {
+/* li {
   color: var(--gray-2);
   font-size: 1rem;
   line-height: 1.2;
-}
+} */
 
 .slice {
   position: relative;
@@ -394,7 +394,11 @@ img.placeholder {
   }
 
   .card {
-    @apply bg-white overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow;
+    @apply bg-white overflow-hidden rounded-xl;
+  }
+
+  .card-shadow {
+    @apply shadow-md hover:shadow-xl group-hover:shadow-xl transition-shadow;
   }
 
   .post {
@@ -411,6 +415,10 @@ img.placeholder {
 
   .post .callout > .text {
     @apply ml-4;
+  }
+
+  .next-image-wrapper > * {
+    @apply align-top;
   }
 
   .featured-card-flex > *:first-child {
