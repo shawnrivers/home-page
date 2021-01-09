@@ -59,25 +59,34 @@ const Home: React.FC = () => (
           <BioListCard
             heading="education"
             items={[
-              { text: 'Northeastern University (China)', isHighlighted: false },
-              { text: 'Nagoya University (Japan)', isHighlighted: false },
-              { text: 'University of Tokyo (Japan)', isHighlighted: false },
+              {
+                text: 'Northeastern University (China),\nDigital Media',
+                isHighlighted: false,
+              },
+              {
+                text: 'Nagoya University,\nSociety and Media Studies',
+                isHighlighted: false,
+              },
+              {
+                text: 'University of Tokyo,\nComputer Graphics',
+                isHighlighted: true,
+              },
             ]}
             className="flex-1 m-2 h-full"
           />
           <BioListCard
-            heading="jobs"
+            heading="companies"
             items={[
               {
-                text: 'Eureka, Inc. - web front-end engineer (intern)',
+                text: 'Eureka, Inc.\n(intern)',
                 isHighlighted: false,
               },
               {
-                text: 'SHOWROOM Inc. - web front-end engineer (intern)',
+                text: 'SHOWROOM Inc.\n(intern)',
                 isHighlighted: false,
               },
               {
-                text: 'Eureka, Inc. - web front-end engineer',
+                text: 'Eureka, Inc.',
                 isHighlighted: true,
               },
             ]}

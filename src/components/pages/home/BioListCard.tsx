@@ -49,7 +49,7 @@ export const BioListCard: React.FC<BioListCardProps> = props => {
                 index < itemsCount - 1 ? 'border-gray-400' : 'border-gray-200',
               )}
             >
-              <p className="text-sm">{item.text}</p>
+              <p className="text-sm whitespace-pre-wrap">{item.text}</p>
             </div>
           </li>
         ))}
