@@ -8,10 +8,10 @@ const App: React.FC<AppProps> = props => {
   const { Component, pageProps } = props;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <Component {...pageProps} />
       <Footer />
-    </div>
+    </>
   );
 };
 
