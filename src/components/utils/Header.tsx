@@ -9,6 +9,21 @@ const navItems: { label: string; page?: string; link?: string }[] = [
   { label: 'Blog', page: '/blog' },
 ];
 
+function isCurrentPageMatchingNav(params: {
+  pathname: string;
+  navPage: string;
+}): boolean {
+  const { pathname, navPage } = params;
+
+  if (pathname === navPage) {
+    return true;
+  }
+
+  if (pathname === '/blog/[slug]' && navPage === '/blog') {
+    return true;
+  }
+}
+
 const ogImageUrl =
   'https://raw.githubusercontent.com/shawnrivers/shawnrivers.github.io/develop/public/meta-social-text.jpg';
 
@@ -39,7 +54,7 @@ export const Header: React.FC<HeaderProps> = props => {
                 <Link href={page}>
                   <a
                     className={`text-xl ${
-                      pathname === page
+                      isCurrentPageMatchingNav({ pathname, navPage: page })
                         ? 'text-blue-500 font-bold'
                         : 'text-gray-800 font-normal'
                     }`}
