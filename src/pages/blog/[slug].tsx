@@ -219,11 +219,11 @@ const PostEntry: React.FC<PostEntryProps> = props => {
   // loading one from fallback then  redirect back to the index
   if (!post) {
     return (
-      <div className="prose post mt-8">
+      <main className="prose post mt-8">
         <p>
           Woops! didn't find that post, redirecting you back to the blog index
         </p>
-      </div>
+      </main>
     );
   }
 
@@ -233,7 +233,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
       {preview && (
         <PreviewNote clearLink={`/api/clear-preview?slug=${post.Slug}`} />
       )}
-      <div className="prose post">
+      <main className="prose post">
         <h1>{post.Page || ''}</h1>
         {post.Date && (
           <div className="posted">Posted: {getDateStr(post.Date)}</div>
@@ -540,7 +540,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
 
           return toRender;
         })}
-      </div>
+      </main>
     </>
   );
 };

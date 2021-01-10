@@ -183,7 +183,7 @@ const PostIndex: React.FC<PostIndexProps> = props => {
     <>
       <Header titlePre="Blog" />
       {preview && <PreviewNote clearLink="/api/clear-preview" />}
-      <div className="max-w-screen-lg mx-auto px-6">
+      <main className="max-w-screen-lg mx-auto px-6">
         {posts.length === 0 && (
           <p className="text-center">There are no posts yet</p>
         )}
@@ -193,7 +193,7 @@ const PostIndex: React.FC<PostIndexProps> = props => {
             <NormalPostCard post={post} key={post.Slug} />
           ))}
         </div>
-      </div>
+      </main>
     </>
   );
 };
