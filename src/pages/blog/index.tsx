@@ -1,4 +1,3 @@
-import { Header } from '../../components/utils/Header';
 import { getBlogLink, getDateStr, postIsVisible } from '../../lib/blog-helpers';
 import getBlogIndex, { Blog } from '../../lib/notion/getBlogIndex';
 import Image from 'next/image';
