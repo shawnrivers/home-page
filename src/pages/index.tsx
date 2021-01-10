@@ -9,7 +9,7 @@ import { WorkCard } from '../components/pages/home/WorkCard';
 const Home: React.FC = () => (
   <>
     <Header titlePre="Home" />
-    <div className="font-mono flex flex-col align-center">
+    <main className="font-mono flex flex-col align-center">
       <section className="flex flex-col items-center justify-center sm:flex-row mx-4">
         <div className="next-image-wrapper inline-block overflow-hidden rounded-full border-4 border-gray-800">
           <Image
@@ -29,21 +29,21 @@ const Home: React.FC = () => (
           <a
             href="https://twitter.com/yuxiao_he"
             rel="noopener"
-            className="flex align-center justify-center sm:justify-start mt-2"
+            className="flex align-center justify-center sm:justify-start mt-2 text-gray-700"
           >
             <TwitterIcon className="fill-current" />
-            <span className="text-base text-gray-700 ml-1">@yuxiao_he</span>
+            <span className="text-base ml-1">@yuxiao_he</span>
           </a>
         </div>
       </section>
-      <section className="mt-8 mx-auto">
+      <section className="py-8 mx-auto">
         <div className="inline-block mx-4 px-8 py-6 rounded-lg shadow bg-gray-200">
           <h2 className="text-xl font-bold text-center">
             Nogizaka-driven web developer
           </h2>
         </div>
       </section>
-      <section className="flex flex-col items-center mt-8 p-4 bg-gray-100">
+      <section className="flex flex-col items-center px-4 py-8 bg-gray-100">
         <h2 className="text-2xl font-bold">#BIO</h2>
         <div className="flex flex-wrap justify-center mt-4">
           <BioListCard
@@ -99,7 +99,7 @@ const Home: React.FC = () => (
           />
         </div>
       </section>
-      <section className="flex flex-col items-center mt-8 p-4">
+      <section className="flex flex-col items-center px-4 py-8">
         <h2 className="text-2xl font-bold">#Works</h2>
         <div className="flex flex-wrap justify-center mt-4">
           <WorkCard
@@ -118,7 +118,7 @@ const Home: React.FC = () => (
           />
         </div>
       </section>
-      <section className="flex flex-col items-center mt-8 p-4 bg-gray-100">
+      <section className="flex flex-col items-center px-4 py-8 bg-gray-100">
         <h2 className="text-2xl font-bold">#Contact</h2>
         <ul className="flex flex-wrap items-center justify-center p-0 mt-4 list-none">
           <li className="my-2 mx-4">
@@ -159,7 +159,7 @@ const Home: React.FC = () => (
           </li>
         </ul>
       </section>
-    </div>
+    </main>
   </>
 );
 
