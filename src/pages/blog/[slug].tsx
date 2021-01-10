@@ -30,6 +30,7 @@ import {
 } from '../../lib/apis/notion/utils/typeGuards';
 import axios from 'axios';
 import { PreviewNote } from '../../components/pages/blog/PreviewNote';
+import { Page } from '../../components/utils/Page';
 
 function isAssetContent(
   content: Post['content'][0],
@@ -212,336 +213,331 @@ const PostEntry: React.FC<PostEntryProps> = props => {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <div className="mt-8">Loading...</div>;
+    return <Page className="mt-8">Loading...</Page>;
   }
 
   // if you don't have a post at this point, and are not
   // loading one from fallback then  redirect back to the index
   if (!post) {
     return (
-      <main className="prose post mt-8">
+      <Page className="prose post mt-8">
         <p>
           Woops! didn't find that post, redirecting you back to the blog index
         </p>
-      </main>
+      </Page>
     );
   }
 
   return (
-    <>
-      <Header titlePre={post.Page} />
+    <Page titlePre={post.Page} className="prose post break-words">
       {preview && (
         <PreviewNote clearLink={`/api/clear-preview?slug=${post.Slug}`} />
       )}
-      <main className="prose post">
-        <h1>{post.Page || ''}</h1>
-        {post.Date && (
-          <div className="posted">Posted: {getDateStr(post.Date)}</div>
-        )}
+      {post.Date && (
+        <div className="text-base mb-2">{getDateStr(post.Date)}</div>
+      )}
+      <h1 className="text-2xl">{post.Page || ''}</h1>
 
-        <hr />
+      {(!post.content || post.content.length === 0) && (
+        <p>This post has no content</p>
+      )}
 
-        {(!post.content || post.content.length === 0) && (
-          <p>This post has no content</p>
-        )}
+      {/* Post content */}
+      {(post.content || []).map((block, blockIdx) => {
+        const { id } = block.value;
+        const toRender = [];
 
-        {/* Post content */}
-        {(post.content || []).map((block, blockIdx) => {
-          const { id } = block.value;
-          const toRender = [];
+        // page or divider
+        if (block.value.type === 'page' || block.value.type === 'divider') {
+          return toRender;
+        }
 
-          // page or divider
-          if (block.value.type === 'page' || block.value.type === 'divider') {
-            return toRender;
+        // list
+        if (isListBlock(block)) {
+          const { parent_id, properties } = block.value;
+
+          listTagName =
+            DynamicComponent[
+              block.value.type === 'bulleted_list' ? 'ul' : 'ol'
+            ];
+          listLastId = `list${id}`;
+
+          listMap[id] = {
+            key: id,
+            nested: [],
+            children: textBlock(properties.title, true, id),
+          };
+
+          if (listMap[parent_id]) {
+            listMap[id].isNested = true;
+            listMap[parent_id].nested.push(id);
           }
+        }
 
-          // list
-          if (isListBlock(block)) {
-            const { parent_id, properties } = block.value;
+        const isList = listTypes.has(block.value.type);
+        const isLast = blockIdx === post.content.length - 1;
 
-            listTagName =
-              DynamicComponent[
-                block.value.type === 'bulleted_list' ? 'ul' : 'ol'
-              ];
-            listLastId = `list${id}`;
+        if (listTagName && (isLast || !isList)) {
+          toRender.push(
+            React.createElement(
+              listTagName,
+              { key: listLastId },
+              Object.keys(listMap).map(itemId => {
+                if (listMap[itemId].isNested) return null;
 
-            listMap[id] = {
-              key: id,
-              nested: [],
-              children: textBlock(properties.title, true, id),
-            };
+                const createEl = item =>
+                  React.createElement(
+                    DynamicComponent.li || 'ul',
+                    { key: item.key },
+                    item.children,
+                    item.nested.length > 0
+                      ? React.createElement(
+                          DynamicComponent.ul || 'ul',
+                          { key: item + 'sub-list' },
+                          item.nested.map(nestedId =>
+                            createEl(listMap[nestedId]),
+                          ),
+                        )
+                      : null,
+                  );
+                return createEl(listMap[itemId]);
+              }),
+            ),
+          );
+          listMap = {};
+          listLastId = null;
+          listTagName = null;
 
-            if (listMap[parent_id]) {
-              listMap[id].isNested = true;
-              listMap[parent_id].nested.push(id);
-            }
-          }
+          return toRender;
+        }
 
-          const isList = listTypes.has(block.value.type);
-          const isLast = blockIdx === post.content.length - 1;
+        // quote
+        if (isQuoteBlock(block)) {
+          const { properties } = block.value;
 
-          if (listTagName && (isLast || !isList)) {
-            toRender.push(
-              React.createElement(
-                listTagName,
-                { key: listLastId },
-                Object.keys(listMap).map(itemId => {
-                  if (listMap[itemId].isNested) return null;
+          toRender.push(
+            React.createElement(
+              DynamicComponent.blockquote,
+              { key: id },
+              properties.title,
+            ),
+          );
 
-                  const createEl = item =>
-                    React.createElement(
-                      DynamicComponent.li || 'ul',
-                      { key: item.key },
-                      item.children,
-                      item.nested.length > 0
-                        ? React.createElement(
-                            DynamicComponent.ul || 'ul',
-                            { key: item + 'sub-list' },
-                            item.nested.map(nestedId =>
-                              createEl(listMap[nestedId]),
-                            ),
-                          )
-                        : null,
-                    );
-                  return createEl(listMap[itemId]);
-                }),
-              ),
-            );
-            listMap = {};
-            listLastId = null;
-            listTagName = null;
+          return toRender;
+        }
 
-            return toRender;
-          }
+        // equation
+        if (isEquationBlock(block)) {
+          const { properties } = block.value;
 
-          // quote
-          if (isQuoteBlock(block)) {
-            const { properties } = block.value;
+          const content = properties.title[0][0];
+          toRender.push(
+            <DynamicComponent.Equation key={id} displayMode={true}>
+              {content}
+            </DynamicComponent.Equation>,
+          );
 
-            toRender.push(
-              React.createElement(
-                DynamicComponent.blockquote,
-                { key: id },
-                properties.title,
-              ),
-            );
+          return toRender;
+        }
 
-            return toRender;
-          }
+        // text
+        if (isTextBlock(block)) {
+          const { properties } = block.value;
 
-          // equation
-          if (isEquationBlock(block)) {
-            const { properties } = block.value;
-
-            const content = properties.title[0][0];
-            toRender.push(
-              <DynamicComponent.Equation key={id} displayMode={true}>
-                {content}
-              </DynamicComponent.Equation>,
-            );
-
-            return toRender;
-          }
-
-          // text
-          if (isTextBlock(block)) {
-            const { properties } = block.value;
-
-            if (properties) {
-              toRender.push(textBlock(properties.title, false, id));
-            }
-
-            return toRender;
-          }
-
-          // header
-          if (isHeaderBlock(block)) {
-            const { type } = block.value;
-            const renderHeading = (Type: string | React.ComponentType) => {
-              if (isHeaderBlock(block)) {
-                toRender.push(
-                  <Heading key={id}>
-                    <Type key={id}>
-                      {textBlock(block.value.properties.title, true, id)}
-                    </Type>
-                  </Heading>,
-                );
-              }
-            };
-
-            switch (type) {
-              case 'header':
-                renderHeading('h1');
-                break;
-              case 'sub_header':
-                renderHeading('h2');
-                break;
-              case 'sub_sub_header':
-                renderHeading('h3');
-                break;
-            }
-
-            return toRender;
-          }
-
-          // image
-          if (isImageContent(block)) {
-            const maxWidth = 600;
-
-            if (block.value.format) {
-              const { block_width, block_aspect_ratio } = block.value.format;
-              const blockWidth = block_width < maxWidth ? block_width : 600;
-              const blockHeight = blockWidth * block_aspect_ratio;
-
-              /**
-               * Due to a next/image bug, GIF becomes larger after optimization.
-               * Here, we unoptimize the image if it's a GIF
-               * (Issue: https://github.com/vercel/next.js/issues/19443)
-               */
-              const isGif = (block.value.properties
-                .source[0][0] as string).endsWith('.gif');
-
-              toRender.push(
-                <div style={{ textAlign: 'center' }} key={id}>
-                  <Image
-                    src={block.value.source}
-                    width={blockWidth}
-                    height={blockHeight}
-                    unoptimized={isGif}
-                    className="asset-without-wrapper object-contain"
-                  />
-                </div>,
-              );
-            } else {
-              toRender.push(
-                <div style={{ textAlign: 'center' }} key={id}>
-                  <img
-                    src={block.value.source}
-                    loading="lazy"
-                    className="asset-without-wrapper"
-                  />
-                </div>,
-              );
-            }
-
-            return toRender;
-          }
-
-          // video
-          if (isVideoContent(block)) {
-            const { format } = block.value;
-            const { block_width } = format;
-            const maxWidth = 600;
-            const blockWidth = block_width < maxWidth ? block_width : 600;
-
-            const child = (
-              <video
-                key={id}
-                src={block.value.source}
-                controls
-                loop
-                muted
-                autoPlay
-                width={blockWidth}
-                className="asset-without-wrapper"
-              />
-            );
-
-            toRender.push(child);
-            return toRender;
-          }
-
-          // embed
-          if (isEmbedBlock(block)) {
-            const child = (
-              <iframe
-                src={block.value.format.display_source}
-                key={id}
-                className="asset-without-wrapper"
-              />
-            );
-
-            toRender.push(child);
-            return toRender;
-          }
-
-          // code
-          if (isCodeBlock(block)) {
-            const { properties } = block.value;
-
-            const content = properties.title[0][0];
-            const language = properties.language[0][0];
-
-            if (language === 'LiveScript') {
-              // this requires the DOM for now
-              toRender.push(
-                <ReactJSXParser
-                  key={id}
-                  jsx={content}
-                  components={DynamicComponent}
-                  componentsOnly={false}
-                  renderInpost={false}
-                  allowUnknownElements={true}
-                  blacklistedTags={['script', 'style']}
-                />,
-              );
-            } else {
-              toRender.push(
-                <DynamicComponent.Code
-                  key={id}
-                  language={(language as string) || ''}
-                >
-                  {content}
-                </DynamicComponent.Code>,
-              );
-            }
-
-            return toRender;
-          }
-
-          // callout
-          if (isCalloutBlock(block)) {
-            const { properties, format } = block.value;
-
-            toRender.push(
-              <div className="callout" key={id}>
-                {format.page_icon && <div>{format.page_icon}</div>}
-                <div className="text">
-                  {textBlock(properties.title, true, id)}
-                </div>
-              </div>,
-            );
-
-            return toRender;
-          }
-
-          // tweet
-          if (isTweetContent(block)) {
-            const { properties } = block.value;
-
-            if (properties.html) {
-              toRender.push(
-                <div
-                  dangerouslySetInnerHTML={{ __html: properties.html }}
-                  key={id}
-                />,
-              );
-            }
-
-            return toRender;
-          }
-
-          if (
-            process.env.NODE_ENV !== 'production' &&
-            !listTypes.has(block.value.type)
-          ) {
-            console.log('unknown type:', block.value.type);
+          if (properties) {
+            toRender.push(textBlock(properties.title, false, id));
           }
 
           return toRender;
-        })}
-      </main>
-    </>
+        }
+
+        // header
+        if (isHeaderBlock(block)) {
+          const { type } = block.value;
+          const renderHeading = (Type: string | React.ComponentType) => {
+            if (isHeaderBlock(block)) {
+              toRender.push(
+                <Heading key={id}>
+                  <Type key={id}>
+                    {textBlock(block.value.properties.title, true, id)}
+                  </Type>
+                </Heading>,
+              );
+            }
+          };
+
+          switch (type) {
+            case 'header':
+              renderHeading('h1');
+              break;
+            case 'sub_header':
+              renderHeading('h2');
+              break;
+            case 'sub_sub_header':
+              renderHeading('h3');
+              break;
+          }
+
+          return toRender;
+        }
+
+        // image
+        if (isImageContent(block)) {
+          const maxWidth = 600;
+
+          if (block.value.format) {
+            const { block_width, block_aspect_ratio } = block.value.format;
+            const blockWidth = block_width < maxWidth ? block_width : 600;
+            const blockHeight = blockWidth * block_aspect_ratio;
+
+            /**
+             * Due to a next/image bug, GIF becomes larger after optimization.
+             * Here, we unoptimize the image if it's a GIF
+             * (Issue: https://github.com/vercel/next.js/issues/19443)
+             */
+            const isGif = (block.value.properties
+              .source[0][0] as string).endsWith('.gif');
+
+            toRender.push(
+              <div style={{ textAlign: 'center' }} key={id}>
+                <Image
+                  src={block.value.source}
+                  width={blockWidth}
+                  height={blockHeight}
+                  unoptimized={isGif}
+                  className="asset-without-wrapper object-contain"
+                />
+              </div>,
+            );
+          } else {
+            toRender.push(
+              <div style={{ textAlign: 'center' }} key={id}>
+                <img
+                  src={block.value.source}
+                  loading="lazy"
+                  className="asset-without-wrapper"
+                />
+              </div>,
+            );
+          }
+
+          return toRender;
+        }
+
+        // video
+        if (isVideoContent(block)) {
+          const { format } = block.value;
+          const { block_width } = format;
+          const maxWidth = 600;
+          const blockWidth = block_width < maxWidth ? block_width : 600;
+
+          const child = (
+            <video
+              key={id}
+              src={block.value.source}
+              controls
+              loop
+              muted
+              autoPlay
+              width={blockWidth}
+              className="asset-without-wrapper"
+            />
+          );
+
+          toRender.push(child);
+          return toRender;
+        }
+
+        // embed
+        if (isEmbedBlock(block)) {
+          const child = (
+            <iframe
+              src={block.value.format.display_source}
+              key={id}
+              className="asset-without-wrapper"
+            />
+          );
+
+          toRender.push(child);
+          return toRender;
+        }
+
+        // code
+        if (isCodeBlock(block)) {
+          const { properties } = block.value;
+
+          const content = properties.title[0][0];
+          const language = properties.language[0][0];
+
+          if (language === 'LiveScript') {
+            // this requires the DOM for now
+            toRender.push(
+              <ReactJSXParser
+                key={id}
+                jsx={content}
+                components={DynamicComponent}
+                componentsOnly={false}
+                renderInpost={false}
+                allowUnknownElements={true}
+                blacklistedTags={['script', 'style']}
+              />,
+            );
+          } else {
+            toRender.push(
+              <DynamicComponent.Code
+                key={id}
+                language={(language as string) || ''}
+              >
+                {content}
+              </DynamicComponent.Code>,
+            );
+          }
+
+          return toRender;
+        }
+
+        // callout
+        if (isCalloutBlock(block)) {
+          const { properties, format } = block.value;
+
+          toRender.push(
+            <div className="callout" key={id}>
+              {format.page_icon && <div>{format.page_icon}</div>}
+              <div className="text">
+                {textBlock(properties.title, true, id)}
+              </div>
+            </div>,
+          );
+
+          return toRender;
+        }
+
+        // tweet
+        if (isTweetContent(block)) {
+          const { properties } = block.value;
+
+          if (properties.html) {
+            toRender.push(
+              <div
+                dangerouslySetInnerHTML={{ __html: properties.html }}
+                key={id}
+              />,
+            );
+          }
+
+          return toRender;
+        }
+
+        if (
+          process.env.NODE_ENV !== 'production' &&
+          !listTypes.has(block.value.type)
+        ) {
+          console.log('unknown type:', block.value.type);
+        }
+
+        return toRender;
+      })}
+    </Page>
   );
 };
 

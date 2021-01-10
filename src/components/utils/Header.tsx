@@ -12,16 +12,18 @@ const navItems: { label: string; page?: string; link?: string }[] = [
 const ogImageUrl =
   'https://raw.githubusercontent.com/shawnrivers/shawnrivers.github.io/develop/public/meta-social-text.jpg';
 
-export const Header: React.FC<{
+export type HeaderProps = {
   titlePre?: string;
-}> = props => {
+};
+
+export const Header: React.FC<HeaderProps> = props => {
   const { titlePre } = props;
   const { pathname } = useRouter();
 
   return (
     <>
       <Head>
-        <title>{titlePre ? `${titlePre} |` : ''} Usho</title>
+        <title>{titlePre ? `${titlePre} | ` : ''}Usho</title>
         <meta name="description" content="Usho Ka (Yuxiao He)'s home page" />
         <meta name="og:title" content="Usho" />
         <meta property="og:image" content={ogImageUrl} />

@@ -8,6 +8,7 @@ import { fetchNotionAsset } from '../../lib/apis/notion/assetAPI';
 import { BlogTag } from '../../components/pages/blog/BlogTag';
 import { Card } from '../../components/utils/Card';
 import { PreviewNote } from '../../components/pages/blog/PreviewNote';
+import { Page } from '../../components/utils/Page';
 
 type PreviewContent = PostPreview[0] & { source: string | null };
 
@@ -186,21 +187,18 @@ const PostIndex: React.FC<PostIndexProps> = props => {
   const normalPosts = posts.filter((_, index) => index !== featuredPostIndex);
 
   return (
-    <>
-      <Header titlePre="Blog" />
+    <Page titlePre="Blog" className="max-w-screen-lg mx-auto px-6">
       {preview && <PreviewNote clearLink="/api/clear-preview" />}
-      <main className="max-w-screen-lg mx-auto px-6">
-        {posts.length === 0 && (
-          <p className="text-center">There are no posts yet</p>
-        )}
-        {featuredPost && <FeaturedPostCard post={featuredPost} />}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 content-center">
-          {normalPosts.map(post => (
-            <NormalPostCard post={post} key={post.Slug} />
-          ))}
-        </div>
-      </main>
-    </>
+      {posts.length === 0 && (
+        <p className="text-center">There are no posts yet</p>
+      )}
+      {featuredPost && <FeaturedPostCard post={featuredPost} />}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 content-center">
+        {normalPosts.map(post => (
+          <NormalPostCard post={post} key={post.Slug} />
+        ))}
+      </div>
+    </Page>
   );
 };
 

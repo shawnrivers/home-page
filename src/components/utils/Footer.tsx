@@ -11,8 +11,13 @@ export const Footer: React.FC<{
     currentYear === START_YEAR ? currentYear : `${START_YEAR}-${currentYear}`;
 
   return (
-    <footer className={joinClassNames('py-8 text-center', props.className)}>
-      <p className="text-base text-gray-700">
+    <footer
+      className={joinClassNames(
+        'py-8 text-center bg-gray-700',
+        props.className,
+      )}
+    >
+      <p className="text-base text-white">
         Copyright @ {copyrightYears} Usho Ka (Yuxiao He). All rights reserved.
       </p>
     </footer>
