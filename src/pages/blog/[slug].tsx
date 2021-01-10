@@ -212,7 +212,11 @@ const PostEntry: React.FC<PostEntryProps> = props => {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <Page className="mt-8">Loading...</Page>;
+    return (
+      <Page className="mt-8 prose post">
+        <p className="text-center text-lg font-bold">Loading...</p>
+      </Page>
+    );
   }
 
   // if you don't have a post at this point, and are not
