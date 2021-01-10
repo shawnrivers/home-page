@@ -104,8 +104,12 @@ const FeaturedPostCard: React.FC<{
             );
           })}
         <div className="flex-1 ml-2 my-4">
-          <h3>{post.Page}</h3>
-          {post.Date && <div className="mt-1">{getDateStr(post.Date)}</div>}
+          <h3 className="text-xl sm:text-2xl font-bold">{post.Page}</h3>
+          {post.Date && (
+            <div className="mt-2 text-lg sm:text-base">
+              {getDateStr(post.Date)}
+            </div>
+          )}
           {post.Tags.length > 0 && (
             <div className="blog-tag-group mt-2">
               {post.Published !== 'Yes' && <BlogTag text="Draft" />}
@@ -152,8 +156,10 @@ const NormalPostCard: React.FC<{
             );
           })}
         <div className="mt-2 mb-4 mx-4">
-          <h3>{post.Page}</h3>
-          {post.Date && <div className="mt-1">{getDateStr(post.Date)}</div>}
+          <h3 className="text-xl font-bold">{post.Page}</h3>
+          {post.Date && (
+            <div className="mt-1 text-base">{getDateStr(post.Date)}</div>
+          )}
           {post.Tags.length > 0 && (
             <div className="blog-tag-group mt-2">
               {post.Published !== 'Yes' && <BlogTag text="Draft" />}
