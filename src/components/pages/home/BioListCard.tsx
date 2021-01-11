@@ -5,7 +5,7 @@ const RoundDot: React.FC<{ isHighlighted: boolean }> = props => {
   return (
     <div
       className={`border-gray-200 dark:border-gray-700 absolute box-border ${
-        props.isHighlighted ? 'bg-red-400' : 'bg-gray-400'
+        props.isHighlighted ? 'bg-blue-400' : 'bg-gray-400'
       }`}
       style={{
         width: '18px',
