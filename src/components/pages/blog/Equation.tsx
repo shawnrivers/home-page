@@ -15,9 +15,16 @@ function render(expression: string, displayMode: boolean): string {
   return result;
 }
 
-const Equation = ({ children, displayMode = true }) => {
+const Equation: React.FC<{
+  children?: string;
+  displayMode?: boolean;
+  key?: string | number;
+}> = props => {
+  const { children, displayMode = true, key } = props;
+
   return (
     <span
+      key={key}
       dangerouslySetInnerHTML={{
         __html: render(children, displayMode),
       }}

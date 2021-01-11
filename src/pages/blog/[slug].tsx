@@ -278,7 +278,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
 
           // page or divider
           if (block.value.type === 'page' || block.value.type === 'divider') {
-            return toRender;
+            return [];
           }
 
           // list
@@ -343,14 +343,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
           // quote
           if (isQuoteBlock(block)) {
             const { properties } = block.value;
-
-            toRender.push(
-              React.createElement(
-                DynamicComponent.blockquote,
-                { key: id },
-                properties.title,
-              ),
-            );
+            toRender.push(<blockquote key={id}>{properties.title}</blockquote>);
 
             return toRender;
           }
@@ -358,8 +351,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
           // equation
           if (isEquationBlock(block)) {
             const { properties } = block.value;
-
-            const content = properties.title[0][0];
+            const content = properties.title[0][0] as string;
             toRender.push(
               <DynamicComponent.Equation key={id} displayMode={true}>
                 {content}
@@ -433,7 +425,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                 .source[0][0] as string).endsWith('.gif');
 
               toRender.push(
-                <div style={{ textAlign: 'center' }} key={id}>
+                <div className="text-center" key={id}>
                   <figure>
                     <Image
                       src={block.value.source}
@@ -448,7 +440,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
               );
             } else {
               toRender.push(
-                <div style={{ textAlign: 'center' }} key={id}>
+                <div className="text-center" key={id}>
                   <figure>
                     <img
                       src={block.value.source}
@@ -471,7 +463,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
             const maxWidth = 600;
             const blockWidth = block_width < maxWidth ? block_width : 600;
 
-            const child = (
+            toRender.push(
               <video
                 key={id}
                 src={block.value.source}
@@ -481,24 +473,22 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                 autoPlay
                 width={blockWidth}
                 className="asset-without-wrapper"
-              />
+              />,
             );
 
-            toRender.push(child);
             return toRender;
           }
 
           // embed
           if (isEmbedBlock(block)) {
-            const child = (
+            toRender.push(
               <iframe
                 src={block.value.format.display_source}
                 key={id}
                 className="asset-without-wrapper"
-              />
+              />,
             );
 
-            toRender.push(child);
             return toRender;
           }
 
@@ -519,9 +509,8 @@ const PostEntry: React.FC<PostEntryProps> = props => {
             if (language === 'LiveScript') {
               // this requires the DOM for now
               toRender.push(
-                <figure>
+                <figure key={id}>
                   <ReactJSXParser
-                    key={id}
                     jsx={content}
                     components={DynamicComponent}
                     componentsOnly={false}
@@ -534,11 +523,8 @@ const PostEntry: React.FC<PostEntryProps> = props => {
               );
             } else {
               toRender.push(
-                <figure>
-                  <DynamicComponent.Code
-                    key={id}
-                    language={(language as string) || ''}
-                  >
+                <figure key={id}>
+                  <DynamicComponent.Code language={(language as string) || ''}>
                     {content}
                   </DynamicComponent.Code>
                   {captionBlock && <figcaption>{captionBlock}</figcaption>}
