@@ -118,7 +118,7 @@ const Home: React.FC = () => (
     </section>
     <section className="flex flex-col items-center px-4 py-8">
       <h2 className="text-2xl font-bold">#Contact</h2>
-      <ul className="flex flex-wrap items-center justify-center p-0 mt-4 list-none">
+      <ul className="flex flex-wrap flex-col sm:flex-row items-center justify-center p-0 mt-4 list-none">
         <li className="my-2 mx-4">
           <a
             href="https://twitter.com/yuxiao_he"

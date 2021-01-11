@@ -47,32 +47,34 @@ export const Header: React.FC<HeaderProps> = props => {
         <meta name="twitter:image" content={ogImageUrl} />
       </Head>
       <header className="block h-16 px-4 mb-8 text-center">
-        <ul className="p-0 list-none">
-          {navItems.map(({ label, page, link }) => (
-            <li className="inline-block px-2 py-4" key={label}>
-              {page ? (
-                <Link href={page}>
-                  <a
-                    className={`text-xl ${
-                      isCurrentPageMatchingNav({ pathname, navPage: page })
-                        ? 'text-blue-500 font-bold'
-                        : 'text-gray-800 font-normal'
-                    }`}
+        <nav>
+          <ul className="p-0 list-none">
+            {navItems.map(({ label, page, link }) => (
+              <li className="inline-block px-2 py-4" key={label}>
+                {page ? (
+                  <Link href={page}>
+                    <a
+                      className={`text-xl ${
+                        isCurrentPageMatchingNav({ pathname, navPage: page })
+                          ? 'text-blue-400 font-bold'
+                          : 'text-gray-900 font-normal'
+                      }`}
+                    >
+                      {label}
+                    </a>
+                  </Link>
+                ) : (
+                  <ExtLink
+                    href={link}
+                    className="text-xl text-gray-800 font-normal"
                   >
                     {label}
-                  </a>
-                </Link>
-              ) : (
-                <ExtLink
-                  href={link}
-                  className="text-xl text-gray-800 font-normal"
-                >
-                  {label}
-                </ExtLink>
-              )}
-            </li>
-          ))}
-        </ul>
+                  </ExtLink>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
       </header>
     </>
   );

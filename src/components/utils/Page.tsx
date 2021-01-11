@@ -13,10 +13,12 @@ export const Page: React.FC<PageProps> = props => {
   const { children, withFooter = true, className, ...headerProps } = props;
 
   return (
-    <>
-      <Header {...headerProps} />
-      <main className={joinClassNames('mb-8', className)}>{children}</main>
-      {withFooter && <Footer />}
-    </>
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-1">
+        <Header {...headerProps} />
+        <main className={joinClassNames('mb-8', className)}>{children}</main>
+      </div>
+      {withFooter && <Footer className="flex-none" />}
+    </div>
   );
 };

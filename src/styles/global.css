@@ -22,7 +22,7 @@ body {
 
   /* Hack */
   overflow-x: hidden;
-  @apply text-gray-900 bg-white min-h-screen;
+  @apply text-gray-900 bg-white;
 }
 
 .token.comment,
@@ -154,7 +154,7 @@ figure {
 }
 
 a {
-  @apply text-gray-900 hover:text-gray-500 underline;
+  @apply text-gray-900 hover:text-gray-400 underline;
 }
 
 mark {
