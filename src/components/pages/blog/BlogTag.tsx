@@ -27,7 +27,7 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
     case 'Draft':
       return (
         <span
-          className="blog-tag text-white bg-draft-default hover:bg-draft-dark"
+          className="blog-tag text-white bg-draft-default hover:bg-draft-dark dark:text-draft-default dark:bg-gray-200 dark:hover:bg-gray-300"
           {...restProps}
         >
           {text}

@@ -30,6 +30,7 @@ import {
 import axios from 'axios';
 import { PreviewNote } from '../../components/pages/blog/PreviewNote';
 import { Page } from '../../components/utils/Page';
+import { BlogTag } from '../../components/pages/blog/BlogTag';
 
 function isAssetContent(
   content: Post['content'][0],
@@ -112,6 +113,7 @@ export const getStaticProps: GetStaticProps<PostEntryProps, Params> = async ({
 
   const postData = await getPageData(post.id as string, 1000);
   post.content = postData.blocks;
+  post.Tags = post.Tags.split(',');
 
   await Promise.all(
     post.content.map(async block => {
@@ -173,6 +175,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 
 const PostEntry: React.FC<PostEntryProps> = props => {
   const { post, redirect, preview } = props;
+  console.log('post:', post);
 
   const router = useRouter();
 
@@ -236,12 +239,22 @@ const PostEntry: React.FC<PostEntryProps> = props => {
       {preview && (
         <PreviewNote clearLink={`/api/clear-preview?slug=${post.Slug}`} />
       )}
-      {post.Date && (
-        <div className="text-base mb-2 text-gray-600 dark:text-gray-300">
-          {getDateStr(post.Date)}
-        </div>
-      )}
-      <h1 className="text-2xl">{post.Page || ''}</h1>
+      <div className="mb-6">
+        {post.Date && (
+          <div className="text-base mb-2 text-gray-500 dark:text-gray-400">
+            {getDateStr(post.Date)}
+          </div>
+        )}
+        <h1 className="text-2xl">{post.Page || ''}</h1>
+        {post.Tags.length > 0 && (
+          <div className="blog-tag-group mt-4">
+            {post.Published !== 'Yes' && <BlogTag text="Draft" />}
+            {post.Tags.map(tag => (
+              <BlogTag text={tag} key={tag} />
+            ))}
+          </div>
+        )}
+      </div>
 
       {(!post.content || post.content.length === 0) && (
         <p>This post has no content</p>
