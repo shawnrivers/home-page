@@ -199,6 +199,10 @@ img.placeholder {
   @apply mb-0;
 }
 
+.prose pre {
+  overflow-wrap: initial;
+}
+
 .prose code {
   @apply text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-700 p-1 rounded;
 }
