@@ -220,6 +220,10 @@ img.placeholder {
   @apply m-0;
 }
 
+.prose figure img {
+  @apply m-0;
+}
+
 .prose .callout {
   @apply bg-gray-200 dark:bg-gray-700 flex p-4 rounded-md;
 }
