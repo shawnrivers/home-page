@@ -193,16 +193,6 @@ img.placeholder {
   @apply mb-0;
 }
 
-.prose h2::before {
-  content: '# ';
-  @apply text-gray-400;
-}
-
-.prose h3::before {
-  content: '## ';
-  @apply text-gray-400;
-}
-
 .prose code {
   @apply text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-700 p-1 rounded;
 }
@@ -247,6 +237,16 @@ img.placeholder {
 
   .card-shadow {
     @apply shadow-md hover:shadow-xl group-hover:shadow-xl transition-shadow;
+  }
+
+  h2.hashtag-heading::before {
+    content: '#';
+    @apply text-gray-400 mr-1;
+  }
+
+  h3.hashtag-heading::before {
+    content: '##';
+    @apply text-gray-400 mr-1;
   }
 
   .post {

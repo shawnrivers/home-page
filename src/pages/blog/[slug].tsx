@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import Heading from '../../components/pages/blog/Heading';
+import { Heading, HeadingProps } from '../../components/pages/blog/Heading';
 import { DynamicComponent } from '../../components/pages/blog/DynamicComponent';
 import ReactJSXParser from '@zeit/react-jsx-parser';
 import { textBlock } from '../../lib/notion/renderers';
@@ -175,12 +175,6 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 
 const PostEntry: React.FC<PostEntryProps> = props => {
   const { post, redirect, preview } = props;
-
-  const ogImageUrl = isImageContent(post.content[0])
-    ? post.content[0].value.source
-    : undefined;
-  const description = post.preview[1]?.content[0][0] ?? undefined;
-
   const router = useRouter();
 
   let listTagName: string | null = null;
@@ -237,6 +231,11 @@ const PostEntry: React.FC<PostEntryProps> = props => {
       </Page>
     );
   }
+
+  const ogImageUrl = isImageContent(post.content[0])
+    ? post.content[0].value.source
+    : undefined;
+  const description = post.preview[1]?.content[0][0] ?? undefined;
 
   return (
     <Page
@@ -381,13 +380,11 @@ const PostEntry: React.FC<PostEntryProps> = props => {
         // header
         if (isHeaderBlock(block)) {
           const { type } = block.value;
-          const renderHeading = (Type: string | React.ComponentType) => {
+          const renderHeading = (type: HeadingProps['element']) => {
             if (isHeaderBlock(block)) {
               toRender.push(
-                <Heading key={id}>
-                  <Type key={id}>
-                    {textBlock(block.value.properties.title, true, id)}
-                  </Type>
+                <Heading key={id} element={type}>
+                  {textBlock(block.value.properties.title, true, id)}
                 </Heading>,
               );
             }

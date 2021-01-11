@@ -42,7 +42,7 @@ const Home: React.FC = () => (
       </div>
     </section>
     <section className="flex flex-col items-center px-4 pt-4 pb-8">
-      <h2 className="text-2xl font-bold">#BIO</h2>
+      <h2 className="text-2xl font-bold hashtag-heading">BIO</h2>
       <div className="flex flex-wrap justify-center mt-4">
         <BioListCard
           heading="locations"
@@ -98,7 +98,7 @@ const Home: React.FC = () => (
       </div>
     </section>
     <section className="flex flex-col items-center px-4 py-8 bg-gray-100 dark:bg-gray-800">
-      <h2 className="text-2xl font-bold">#Works</h2>
+      <h2 className="text-2xl font-bold hashtag-heading">Works</h2>
       <div className="flex flex-wrap justify-center mt-4">
         <WorkCard
           heading="NOGILIB"
@@ -117,7 +117,7 @@ const Home: React.FC = () => (
       </div>
     </section>
     <section className="flex flex-col items-center px-4 py-8">
-      <h2 className="text-2xl font-bold">#Contact</h2>
+      <h2 className="text-2xl font-bold hashtag-heading">Contact</h2>
       <ul className="flex flex-wrap flex-col sm:flex-row items-center justify-center p-0 mt-4 list-none">
         <li className="my-2 mx-4">
           <a href="https://twitter.com/yuxiao_he" rel="noopener">
