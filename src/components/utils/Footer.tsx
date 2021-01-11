@@ -17,7 +17,7 @@ export const Footer: React.FC<{
         props.className,
       )}
     >
-      <p className="text-base text-white">
+      <p className="text-base text-white px-4">
         Copyright @ {copyrightYears} Usho Ka (Yuxiao He). All rights reserved.
       </p>
     </footer>
