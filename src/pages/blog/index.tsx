@@ -103,7 +103,7 @@ const FeaturedPostCard: React.FC<{
               </div>
             );
           })}
-        <div className="flex-1 ml-4 my-4">
+        <div className="flex-1 m-4">
           <h3 className="text-xl sm:text-2xl font-bold">{post.Page}</h3>
           {post.Date && (
             <div className="mt-2 text-lg sm:text-base text-gray-500 dark:text-gray-400">
