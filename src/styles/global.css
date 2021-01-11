@@ -121,7 +121,13 @@ figure {
 }
 
 a {
-  @apply text-gray-900 hover:text-gray-400 dark:text-white dark:hover:text-gray-500 underline focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-50;
+  @apply text-gray-900 dark:text-white underline focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-50;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover {
+    @apply text-gray-400 dark:text-gray-500;
+  }
 }
 
 mark {
