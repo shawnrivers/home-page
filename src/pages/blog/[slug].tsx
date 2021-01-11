@@ -336,8 +336,6 @@ const PostEntry: React.FC<PostEntryProps> = props => {
             listMap = {};
             listLastId = null;
             listTagName = null;
-
-            return toRender;
           }
 
           // quote
