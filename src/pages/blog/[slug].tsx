@@ -237,7 +237,9 @@ const PostEntry: React.FC<PostEntryProps> = props => {
         <PreviewNote clearLink={`/api/clear-preview?slug=${post.Slug}`} />
       )}
       {post.Date && (
-        <div className="text-base mb-2">{getDateStr(post.Date)}</div>
+        <div className="text-base mb-2 text-gray-600 dark:text-gray-300">
+          {getDateStr(post.Date)}
+        </div>
       )}
       <h1 className="text-2xl">{post.Page || ''}</h1>
 
