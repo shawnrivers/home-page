@@ -212,8 +212,16 @@ img.placeholder {
   @apply text-gray-700 dark:text-gray-200;
 }
 
+.prose figure figcaption {
+  @apply text-gray-600 dark:text-gray-300 text-sm mt-2;
+}
+
 .prose .callout {
-  @apply bg-gray-200 dark:bg-gray-700;
+  @apply bg-gray-200 dark:bg-gray-700 flex p-4 rounded-md;
+}
+
+.prose .callout > .text {
+  @apply ml-4;
 }
 
 @layer components {
@@ -261,14 +269,6 @@ img.placeholder {
 
   .post .asset-without-wrapper {
     @apply block max-w-full;
-  }
-
-  .post .callout {
-    @apply flex p-4 rounded-md bg-gray-100;
-  }
-
-  .post .callout > .text {
-    @apply ml-4;
   }
 
   .next-image-wrapper > * {

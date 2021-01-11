@@ -408,6 +408,9 @@ const PostEntry: React.FC<PostEntryProps> = props => {
         // image
         if (isImageContent(block)) {
           const maxWidth = 600;
+          const caption = block.value.properties.caption
+            ? (block.value.properties.caption[0][0] as string)
+            : '';
 
           if (block.value.format) {
             const { block_width, block_aspect_ratio } = block.value.format;
@@ -424,23 +427,31 @@ const PostEntry: React.FC<PostEntryProps> = props => {
 
             toRender.push(
               <div style={{ textAlign: 'center' }} key={id}>
-                <Image
-                  src={block.value.source}
-                  width={blockWidth}
-                  height={blockHeight}
-                  unoptimized={isGif}
-                  className="asset-without-wrapper object-contain"
-                />
+                <figure>
+                  <Image
+                    src={block.value.source}
+                    alt={caption}
+                    width={blockWidth}
+                    height={blockHeight}
+                    unoptimized={isGif}
+                    className="asset-without-wrapper object-contain"
+                  />
+                  {caption && <figcaption>{caption}</figcaption>}
+                </figure>
               </div>,
             );
           } else {
             toRender.push(
               <div style={{ textAlign: 'center' }} key={id}>
-                <img
-                  src={block.value.source}
-                  loading="lazy"
-                  className="asset-without-wrapper"
-                />
+                <figure>
+                  <img
+                    src={block.value.source}
+                    alt={caption}
+                    loading="lazy"
+                    className="asset-without-wrapper"
+                  />
+                  {caption && <figcaption>{caption}</figcaption>}
+                </figure>
               </div>,
             );
           }
