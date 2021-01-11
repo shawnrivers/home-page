@@ -32,7 +32,11 @@ function applyTags(tags = [], children, noPTag = false, key) {
   return child;
 }
 
-export function textBlock(text = [], noPTag = false, mainKey) {
+export function textBlock(
+  text = [],
+  noPTag = false,
+  mainKey,
+): React.ReactElement {
   const children = [];
   let key = 0;
 

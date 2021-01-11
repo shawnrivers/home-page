@@ -216,6 +216,10 @@ img.placeholder {
   @apply text-gray-600 dark:text-gray-300 text-sm mt-2;
 }
 
+.prose figure figcaption * {
+  @apply m-0;
+}
+
 .prose .callout {
   @apply bg-gray-200 dark:bg-gray-700 flex p-4 rounded-md;
 }

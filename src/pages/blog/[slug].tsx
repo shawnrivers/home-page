@@ -411,9 +411,13 @@ const PostEntry: React.FC<PostEntryProps> = props => {
           // image
           if (isImageContent(block)) {
             const maxWidth = 600;
-            const caption = block.value.properties.caption
-              ? (block.value.properties.caption[0][0] as string)
-              : '';
+            const captionBlock = block.value.properties.caption
+              ? textBlock(
+                  block.value.properties.caption,
+                  false,
+                  `${id}-caption`,
+                )
+              : undefined;
 
             if (block.value.format) {
               const { block_width, block_aspect_ratio } = block.value.format;
@@ -433,13 +437,12 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                   <figure>
                     <Image
                       src={block.value.source}
-                      alt={caption}
                       width={blockWidth}
                       height={blockHeight}
                       unoptimized={isGif}
                       className="asset-without-wrapper object-contain"
                     />
-                    {caption && <figcaption>{caption}</figcaption>}
+                    {captionBlock && <figcaption>{captionBlock}</figcaption>}
                   </figure>
                 </div>,
               );
@@ -449,11 +452,10 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                   <figure>
                     <img
                       src={block.value.source}
-                      alt={caption}
                       loading="lazy"
                       className="asset-without-wrapper"
                     />
-                    {caption && <figcaption>{caption}</figcaption>}
+                    {captionBlock && <figcaption>{captionBlock}</figcaption>}
                   </figure>
                 </div>,
               );
