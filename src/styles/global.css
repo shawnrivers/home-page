@@ -176,14 +176,11 @@ img.placeholder {
 }
 
 .prose a {
-  @apply text-gray-700 dark:text-gray-200 hover:text-gray-400 dark:hover:text-gray-500;
+  @apply text-gray-700 dark:text-gray-200 hover:text-gray-500;
 }
 
 .prose a * {
-  @apply text-gray-700 dark:text-gray-200 hover:text-gray-400 dark:hover:text-gray-500;
-}
-.prose a code {
-  @apply text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-700;
+  @apply text-gray-700 dark:text-gray-200 hover:text-gray-500;
 }
 
 .prose h1,
@@ -201,10 +198,15 @@ img.placeholder {
 
 .prose pre {
   overflow-wrap: initial;
+  @apply bg-gray-800;
+}
+
+.prose a code {
+  @apply text-red-500 bg-gray-200 dark:text-red-400 dark:bg-gray-800;
 }
 
 .prose code {
-  @apply text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-700 p-1 rounded;
+  @apply text-red-500 bg-gray-200 dark:text-red-400 dark:bg-gray-800 p-1 rounded font-normal;
 }
 
 .prose code::before,
