@@ -193,7 +193,12 @@ const PostIndex: React.FC<PostIndexProps> = props => {
       {posts.length === 0 && (
         <p className="text-center">There are no posts yet</p>
       )}
-      {featuredPost && <FeaturedPostCard post={featuredPost} />}
+      {featuredPost && (
+        // Hack: for showing focus-visible outline
+        <div className="grid grid-cols-1">
+          <FeaturedPostCard post={featuredPost} />
+        </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 content-center">
         {normalPosts.map(post => (
           <NormalPostCard post={post} key={post.Slug} />

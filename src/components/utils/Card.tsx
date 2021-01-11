@@ -16,14 +16,16 @@ export const Card: React.FC<CardProps> = props => {
   const borderColor = BORDER_COLORS[props.tag];
 
   return (
-    <article
-      className={`card card-shadow card-clickable cursor-pointer border-4 focus-within:ring-4 focus-within:ring-blue-400 focus-within:ring-opacity-50 ${
-        borderColor ?? 'border-gray-800'
-      }`}
-    >
-      <Link href={props.href} as={props.as}>
-        <a tabIndex={0}>{props.children}</a>
-      </Link>
-    </article>
+    <Link href={props.href} as={props.as}>
+      <a tabIndex={0} className="no-underline">
+        <article
+          className={`card card-shadow card-clickable cursor-pointer border-4  ${
+            borderColor ?? 'border-gray-800'
+          }`}
+        >
+          {props.children}
+        </article>
+      </a>
+    </Link>
   );
 };
