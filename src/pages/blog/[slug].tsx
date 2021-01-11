@@ -175,7 +175,11 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 
 const PostEntry: React.FC<PostEntryProps> = props => {
   const { post, redirect, preview } = props;
-  console.log('post:', post);
+
+  const ogImageUrl = isImageContent(post.content[0])
+    ? post.content[0].value.source
+    : undefined;
+  const description = post.preview[1]?.content[0][0] ?? undefined;
 
   const router = useRouter();
 
@@ -235,7 +239,12 @@ const PostEntry: React.FC<PostEntryProps> = props => {
   }
 
   return (
-    <Page titlePre={post.Page} className="prose post break-words">
+    <Page
+      titlePre={post.Page}
+      ogImageUrl={ogImageUrl}
+      description={description}
+      className="prose post break-words"
+    >
       {preview && (
         <PreviewNote clearLink={`/api/clear-preview?slug=${post.Slug}`} />
       )}
