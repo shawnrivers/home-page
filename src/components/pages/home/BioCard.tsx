@@ -11,7 +11,7 @@ export const BioCard: React.FC<BioCardProps> = props => {
   return (
     <article
       className={joinClassNames(
-        'inline-flex flex-col items-center text-center px-8 py-4 rounded-xl bg-gray-200 max-w-xs min-w-2xs',
+        'sheet inline-flex flex-col items-center text-center px-8 py-4 rounded-xl max-w-xs min-w-2xs',
         props.className,
       )}
     >

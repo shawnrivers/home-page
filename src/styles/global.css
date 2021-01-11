@@ -22,7 +22,7 @@ body {
 
   /* Hack */
   overflow-x: hidden;
-  @apply text-gray-900 bg-white;
+  @apply text-gray-900 bg-white dark:text-white dark:bg-gray-900;
 }
 
 .token.comment,
@@ -116,45 +116,12 @@ code[class*='language-css'] {
   @apply bg-yellow-400 text-gray-600;
 }
 
-/* dark */
-/* pre.dark[class*='language-'] {
-  color: #fafbfc;
-} */
-/* .language-json .dark .token.boolean {
-  @apply text-yellow-700;
-} */
-/* .dark .token.string {
-  color: var(--green-1);
-} */
-/* .dark .token.function,
-.dark .token.tag,
-.dark .token.class-name,
-.dark .token.number {
-  color: #2ba8ff;
-} */
-/* .dark .token.attr-value,
-.dark .token.punctuation,
-.dark .token.operator {
-  color: #efefef;
-} */
-/* .dark .token.attr-name,
-.dark .token.regex {
-  color: #fac863;
-} */
-/* .language-json .dark .token.property,
-.language-markdown .dark .token.title {
-  color: #fff;
-} */
-/* .language-markdown .dark .token.code {
-  color: #50e3c2;
-} */
-
 figure {
   @apply text-sm text-gray-700 leading-relaxed;
 }
 
 a {
-  @apply text-gray-900 hover:text-gray-400 underline focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-50;
+  @apply text-gray-900 hover:text-gray-400 dark:text-white dark:hover:text-gray-500 underline focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-50;
 }
 
 mark {
@@ -198,6 +165,48 @@ img.placeholder {
   @apply bg-gray-200;
 }
 
+.prose {
+  @apply text-gray-900 dark:text-white;
+}
+
+.prose a {
+  @apply text-gray-900 dark:text-white hover:text-gray-400 dark:hover:text-gray-500;
+}
+
+.prose a * {
+  @apply hover:text-gray-400 dark:hover:text-gray-500;
+}
+
+.prose a code {
+  @apply text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-700;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-gray-900 dark:text-white;
+}
+
+.prose code {
+  @apply text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-700 p-1 rounded;
+}
+
+.prose code::before,
+.prose code::after {
+  content: '';
+}
+
+.prose blockquote {
+  @apply text-gray-700 dark:text-gray-200;
+}
+
+.prose .callout {
+  @apply bg-gray-200 dark:bg-gray-700;
+}
+
 @layer components {
   .blog-tag {
     @apply inline-block rounded-3xl text-sm px-2.5 py-1.5 font-mono;
@@ -207,8 +216,20 @@ img.placeholder {
     @apply mr-2;
   }
 
+  .sheet {
+    @apply bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white overflow-hidden rounded-xl;
+  }
+
   .card {
-    @apply bg-white overflow-hidden rounded-xl;
+    @apply bg-white text-gray-900 dark:bg-gray-700 dark:text-white overflow-hidden rounded-xl;
+  }
+
+  .card-clickable {
+    @apply dark:hover:bg-gray-600;
+  }
+
+  .card-clickable a {
+    @apply no-underline hover:text-gray-900 dark:hover:text-white;
   }
 
   .card-shadow {

@@ -27,7 +27,7 @@ const Home: React.FC = () => (
         <a
           href="https://twitter.com/yuxiao_he"
           rel="noopener"
-          className="flex align-center justify-center sm:justify-start mt-2 text-gray-700"
+          className="flex align-center justify-center sm:justify-start mt-2 text-gray-700 dark:text-gray-300"
         >
           <TwitterIcon className="fill-current" />
           <span className="text-base ml-1">@yuxiao_he</span>
@@ -35,7 +35,7 @@ const Home: React.FC = () => (
       </div>
     </section>
     <section className="py-8 mx-auto">
-      <div className="inline-block mx-4 px-8 py-6 rounded-lg shadow bg-gray-200">
+      <div className="sheet inline-block mx-4 px-8 py-6 rounded-lg">
         <h2 className="text-xl font-bold text-center">
           Nogizaka-driven web developer
         </h2>
@@ -97,7 +97,7 @@ const Home: React.FC = () => (
         />
       </div>
     </section>
-    <section className="flex flex-col items-center px-4 py-8 bg-gray-100">
+    <section className="flex flex-col items-center px-4 py-8 bg-gray-100 dark:bg-gray-800">
       <h2 className="text-2xl font-bold">#Works</h2>
       <div className="flex flex-wrap justify-center mt-4">
         <WorkCard
@@ -120,38 +120,22 @@ const Home: React.FC = () => (
       <h2 className="text-2xl font-bold">#Contact</h2>
       <ul className="flex flex-wrap flex-col sm:flex-row items-center justify-center p-0 mt-4 list-none">
         <li className="my-2 mx-4">
-          <a
-            href="https://twitter.com/yuxiao_he"
-            rel="noopener"
-            className="text-gray-800"
-          >
+          <a href="https://twitter.com/yuxiao_he" rel="noopener">
             Twitter
           </a>
         </li>
         <li className="my-2 mx-4">
-          <a
-            href="https://www.facebook.com/usho.ka"
-            rel="noopener"
-            className="text-gray-800"
-          >
+          <a href="https://www.facebook.com/usho.ka" rel="noopener">
             Facebook
           </a>
         </li>
         <li className="my-2 mx-4">
-          <a
-            href="https://www.instagram.com/usho.ka/"
-            rel="noopener"
-            className="text-gray-800"
-          >
+          <a href="https://www.instagram.com/usho.ka/" rel="noopener">
             Instagram
           </a>
         </li>
         <li className="my-2 mx-4">
-          <a
-            href="https://github.com/shawnrivers"
-            rel="noopener"
-            className="text-gray-800"
-          >
+          <a href="https://github.com/shawnrivers" rel="noopener">
             GitHub
           </a>
         </li>

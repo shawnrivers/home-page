@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   purge: ['./src/pages/**/*.tsx', './src/components/**/*.tsx'],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {},
     colors: {
@@ -48,7 +48,11 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['dark'],
+      textColor: ['dark'],
+      borderColor: ['dark'],
+    },
   },
   plugins: [require('@tailwindcss/typography')],
 };

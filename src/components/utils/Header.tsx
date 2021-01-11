@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = props => {
                       className={`text-xl ${
                         isCurrentPageMatchingNav({ pathname, navPage: page })
                           ? 'text-blue-400 font-bold'
-                          : 'text-gray-900 font-normal'
+                          : 'font-normal'
                       }`}
                     >
                       {label}
