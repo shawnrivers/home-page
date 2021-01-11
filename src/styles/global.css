@@ -213,7 +213,7 @@ img.placeholder {
 }
 
 .prose figure figcaption {
-  @apply text-gray-600 dark:text-gray-300 text-sm mt-2;
+  @apply text-gray-600 dark:text-gray-300 text-sm mt-2 text-center;
 }
 
 .prose figure figcaption * {

@@ -124,6 +124,7 @@ export type CodeBlock = {
     properties: {
       title: TitleProperty;
       language: LanguageProperty;
+      caption?: CaptionProperty;
     };
     format: {
       code_wrap: boolean;

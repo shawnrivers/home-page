@@ -505,6 +505,13 @@ const PostEntry: React.FC<PostEntryProps> = props => {
           // code
           if (isCodeBlock(block)) {
             const { properties } = block.value;
+            const captionBlock = block.value.properties.caption
+              ? textBlock(
+                  block.value.properties.caption,
+                  false,
+                  `${id}-caption`,
+                )
+              : undefined;
 
             const content = properties.title[0][0];
             const language = properties.language[0][0];
@@ -512,24 +519,30 @@ const PostEntry: React.FC<PostEntryProps> = props => {
             if (language === 'LiveScript') {
               // this requires the DOM for now
               toRender.push(
-                <ReactJSXParser
-                  key={id}
-                  jsx={content}
-                  components={DynamicComponent}
-                  componentsOnly={false}
-                  renderInpost={false}
-                  allowUnknownElements={true}
-                  blacklistedTags={['script', 'style']}
-                />,
+                <figure>
+                  <ReactJSXParser
+                    key={id}
+                    jsx={content}
+                    components={DynamicComponent}
+                    componentsOnly={false}
+                    renderInpost={false}
+                    allowUnknownElements={true}
+                    blacklistedTags={['script', 'style']}
+                  />
+                  {captionBlock && <figcaption>{captionBlock}</figcaption>}
+                </figure>,
               );
             } else {
               toRender.push(
-                <DynamicComponent.Code
-                  key={id}
-                  language={(language as string) || ''}
-                >
-                  {content}
-                </DynamicComponent.Code>,
+                <figure>
+                  <DynamicComponent.Code
+                    key={id}
+                    language={(language as string) || ''}
+                  >
+                    {content}
+                  </DynamicComponent.Code>
+                  {captionBlock && <figcaption>{captionBlock}</figcaption>}
+                </figure>,
               );
             }
 
