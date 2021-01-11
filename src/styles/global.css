@@ -189,6 +189,10 @@ img.placeholder {
   @apply text-gray-900 dark:text-white;
 }
 
+.prose h1 {
+  @apply mb-0;
+}
+
 .prose h2::before {
   content: '# ';
   @apply text-gray-400;
