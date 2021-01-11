@@ -25,7 +25,7 @@ function isCurrentPageMatchingNav(params: {
 }
 
 const ogImageUrl =
-  'https://raw.githubusercontent.com/shawnrivers/shawnrivers.github.io/develop/public/meta-social-text.jpg';
+  'https://raw.githubusercontent.com/shawnrivers/blog/main/public/og-image.jpg';
 
 export type HeaderProps = {
   titlePre?: string;
