@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import ExtLink from '../pages/blog/ExtLink';
 import { useRouter } from 'next/router';
+import { joinClassNames } from '../../lib/utils/class';
 
 const siteUrl = 'https://usho.dev';
 const defaultOgImageUrl =
@@ -79,11 +80,12 @@ export const Header: React.FC<HeaderProps> = props => {
                 {page ? (
                   <Link href={page}>
                     <a
-                      className={`text-xl ${
+                      className={joinClassNames(
+                        'text-xl font-bold',
                         isCurrentPageMatchingNav({ pathname, navPage: page })
-                          ? 'text-blue-400 font-bold'
-                          : 'font-normal'
-                      }`}
+                          ? 'text-blue-400'
+                          : undefined,
+                      )}
                     >
                       {label}
                     </a>
