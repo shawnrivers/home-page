@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import ExtLink from './ExtLink';
+import { ExtLink } from './ExtLink';
 
 export const DynamicComponent = {
   // default tags
@@ -11,6 +11,5 @@ export const DynamicComponent = {
   a: ExtLink,
 
   Code: dynamic(() => import('./Code')),
-  Counter: dynamic(() => import('./Counter')),
   Equation: dynamic(() => import('./Equation')),
 };

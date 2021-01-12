@@ -1,7 +1,13 @@
+import * as React from 'react';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
 
-const Code = ({ children, language = 'javascript' }) => {
+const Code: React.FC<{
+  children?: React.ReactNode;
+  language?: string;
+}> = props => {
+  const { children, language = 'javascript' } = props;
+
   return (
     <>
       <pre>
