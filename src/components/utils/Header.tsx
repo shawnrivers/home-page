@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import ExtLink from '../pages/blog/ExtLink';
 import { useRouter } from 'next/router';
 import { joinClassNames } from '../../lib/utils/class';
 
@@ -9,7 +8,7 @@ const siteUrl = 'https://usho.dev';
 const defaultOgImageUrl =
   'https://raw.githubusercontent.com/shawnrivers/blog/main/public/og-image.jpg';
 
-const navItems: { label: string; page?: string; link?: string }[] = [
+const navItems: { label: string; page: string }[] = [
   { label: 'Home', page: '/' },
   { label: 'Blog', page: '/blog' },
 ];
@@ -75,29 +74,20 @@ export const Header: React.FC<HeaderProps> = props => {
       <header className="block h-16 px-4 mb-8 text-center">
         <nav>
           <ul className="p-0 list-none">
-            {navItems.map(({ label, page, link }) => (
+            {navItems.map(({ label, page }) => (
               <li className="inline-block px-2 py-4" key={label}>
-                {page ? (
-                  <Link href={page}>
-                    <a
-                      className={joinClassNames(
-                        'text-xl font-bold',
-                        isCurrentPageMatchingNav({ pathname, navPage: page })
-                          ? 'text-blue-400'
-                          : undefined,
-                      )}
-                    >
-                      {label}
-                    </a>
-                  </Link>
-                ) : (
-                  <ExtLink
-                    href={link}
-                    className="text-xl text-gray-800 font-normal"
+                <Link href={page}>
+                  <a
+                    className={joinClassNames(
+                      'text-xl font-bold',
+                      isCurrentPageMatchingNav({ pathname, navPage: page })
+                        ? 'text-blue-400'
+                        : undefined,
+                    )}
                   >
                     {label}
-                  </ExtLink>
-                )}
+                  </a>
+                </Link>
               </li>
             ))}
           </ul>
