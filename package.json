@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev -p 4000",
     "start": "next start -p 4001",
-    "build": "next build && node .next/serverless/scripts/build-rss.js",
+    "build": "next build",
     "format": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\" --ignore-path .gitignore",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix"
