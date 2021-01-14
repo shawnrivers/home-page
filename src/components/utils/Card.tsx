@@ -13,17 +13,19 @@ type CardProps = {
 } & React.HTMLAttributes<HTMLElement>;
 
 export const Card: React.FC<CardProps> = props => {
-  const borderColor = BORDER_COLORS[props.tag];
+  const { tag, href, as, 'aria-label': ariaLabel, children } = props;
+
+  const borderColor = BORDER_COLORS[tag];
 
   return (
-    <Link href={props.href} as={props.as}>
-      <a tabIndex={0} className="no-underline">
+    <Link href={href} as={as}>
+      <a tabIndex={0} aria-label={ariaLabel} className="no-underline">
         <article
           className={`card card-shadow card-clickable cursor-pointer border-4  ${
             borderColor ?? 'border-gray-800'
           }`}
         >
-          {props.children}
+          {children}
         </article>
       </a>
     </Link>

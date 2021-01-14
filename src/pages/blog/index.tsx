@@ -76,7 +76,12 @@ const FeaturedPostCard: React.FC<{
   const { post } = props;
 
   return (
-    <Card tag={post.Tags[0]} href="/blog/[slug]" as={getBlogLink(post.Slug)}>
+    <Card
+      tag={post.Tags[0]}
+      href="/blog/[slug]"
+      aria-label={post.Page}
+      as={getBlogLink(post.Slug)}
+    >
       <div className="flex flex-col sm:flex-row flex-wrap sm:items-center">
         {(post.preview || [])
           .filter(block => block.type === 'image')
@@ -130,7 +135,12 @@ const NormalPostCard: React.FC<{
   const { post } = props;
 
   return (
-    <Card tag={post.Tags[0]} href="/blog/[slug]" as={getBlogLink(post.Slug)}>
+    <Card
+      tag={post.Tags[0]}
+      href="/blog/[slug]"
+      aria-label={post.Page}
+      as={getBlogLink(post.Slug)}
+    >
       <div>
         {(post.preview || [])
           .filter(block => block.type === 'image')
