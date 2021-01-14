@@ -8,13 +8,13 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
   switch (text) {
     case 'React':
       return (
-        <span className="blog-tag text-white bg-react-default" {...restProps}>
+        <span className="blog-tag text-white bg-react-dark" {...restProps}>
           {text}
         </span>
       );
     case 'CSS':
       return (
-        <span className="blog-tag text-white bg-css-default" {...restProps}>
+        <span className="blog-tag text-white bg-css-dark" {...restProps}>
           {text}
         </span>
       );
