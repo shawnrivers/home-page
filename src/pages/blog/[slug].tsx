@@ -430,6 +430,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                       width={blockWidth}
                       height={blockHeight}
                       unoptimized={isGif}
+                      role="presentation"
                       className="asset-without-wrapper object-contain"
                     />
                     {captionBlock && <figcaption>{captionBlock}</figcaption>}
@@ -443,6 +444,7 @@ const PostEntry: React.FC<PostEntryProps> = props => {
                     <img
                       src={block.value.source}
                       loading="lazy"
+                      role="presentation"
                       className="asset-without-wrapper"
                     />
                     {captionBlock && <figcaption>{captionBlock}</figcaption>}
