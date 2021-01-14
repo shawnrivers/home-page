@@ -161,7 +161,7 @@ const NormalPostCard: React.FC<{
                 alt=""
                 role="presentation"
                 key={block.id}
-                className="placeholder"
+                className="placeholder object-cover"
               />
             );
           })}
