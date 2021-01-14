@@ -109,7 +109,7 @@ const FeaturedPostCard: React.FC<{
             );
           })}
         <div className="flex-1 m-4">
-          <h3 className="text-xl sm:text-2xl font-bold">{post.Page}</h3>
+          <h2 className="text-xl sm:text-2xl font-bold">{post.Page}</h2>
           {post.Date && (
             <div className="mt-1 text-base sm:text-lg text-gray-500 dark:text-gray-300">
               {getDateStr(post.Date)}
@@ -166,7 +166,7 @@ const NormalPostCard: React.FC<{
             );
           })}
         <div className="mt-2 mb-4 mx-4">
-          <h3 className="text-xl font-bold">{post.Page}</h3>
+          <h2 className="text-xl font-bold">{post.Page}</h2>
           {post.Date && (
             <div className="mt-1 text-base text-gray-500 dark:text-gray-300">
               {getDateStr(post.Date)}
