@@ -22,9 +22,11 @@ export const Heading: React.FC<HeadingProps> = props => {
     .replace(/\s/g, '-')
     .replace(/[?!:]/g, '');
 
-  return (
+  return Element === 'h1' || Element === 'h2' ? (
     <Element className="hashtag-heading" id={id ?? defaultId}>
       <a href={`#${id ?? defaultId}`}>{children}</a>
     </Element>
+  ) : (
+    <Element className="hashtag-heading">{children}</Element>
   );
 };
