@@ -202,6 +202,7 @@ const PostIndex: React.FC<PostIndexProps> = props => {
       {preview && (
         <PreviewNote clearLink="/api/clear-preview" className="mb-8" />
       )}
+      <h1 className="visually-hidden">Blog</h1>
       {posts.length === 0 && (
         <p className="text-center">There are no posts yet</p>
       )}

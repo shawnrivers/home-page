@@ -25,6 +25,17 @@ body {
   @apply text-gray-900 bg-white dark:text-white dark:bg-gray-900;
 }
 
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  border: 0;
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
 .token.comment,
 .token.prolog,
 .token.doctype,
