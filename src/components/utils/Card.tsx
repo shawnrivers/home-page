@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Link from 'next/link';
+import { Tag } from '../../blogs/meta';
 
-const BORDER_COLORS = {
-  React: 'border-react-light',
-  CSS: 'border-css-light',
+const BORDER_COLORS: Record<Tag, string> = {
+  react: 'border-react-light',
+  css: 'border-css-light',
 };
 
 type CardProps = {

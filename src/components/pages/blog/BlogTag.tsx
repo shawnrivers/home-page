@@ -1,24 +1,27 @@
 import * as React from 'react';
+import { Tag } from '../../../blogs/meta';
 
-type BlogTagProps = { text: string } & React.HTMLAttributes<HTMLSpanElement>;
+type BlogTagProps = {
+  text: Tag | 'draft';
+} & React.HTMLAttributes<HTMLSpanElement>;
 
 export const BlogTag: React.FC<BlogTagProps> = props => {
   const { text, ...restProps } = props;
 
   switch (text) {
-    case 'React':
+    case 'react':
       return (
         <span className="blog-tag text-white bg-react-dark" {...restProps}>
           {text}
         </span>
       );
-    case 'CSS':
+    case 'css':
       return (
         <span className="blog-tag text-white bg-css-dark" {...restProps}>
           {text}
         </span>
       );
-    case 'Draft':
+    case 'draft':
       return (
         <span
           className="blog-tag text-white bg-draft-default dark:text-draft-default dark:bg-gray-200"
