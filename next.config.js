@@ -4,6 +4,9 @@ const {
   NOTION_TOKEN,
   BLOG_INDEX_ID,
 } = require('./src/lib/notion/server-constants');
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+});
 
 try {
   fs.unlinkSync(path.resolve('.blog_index_data'));
@@ -41,8 +44,9 @@ if (!BLOG_INDEX_ID) {
   );
 }
 
-module.exports = {
+module.exports = withMDX({
   target: 'experimental-serverless-trace',
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   webpack(cfg, { dev, isServer }) {
     if (dev || !isServer) return cfg;
 
@@ -53,4 +57,4 @@ module.exports = {
   images: {
     domains: ['s3.us-west-2.amazonaws.com', 's3-us-west-2.amazonaws.com'],
   },
-};
+});
