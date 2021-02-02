@@ -5,7 +5,7 @@ import '../styles/global.css';
 import 'katex/dist/katex.css';
 import 'focus-visible';
 import { Page } from '../components/utils/Page';
-import { BlogMeta } from '../types/BlogMeta';
+import { BlogMeta } from '../blogs/meta';
 
 const BlogWrapper: React.FC<{
   children?: React.ReactNode;
