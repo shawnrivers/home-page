@@ -6,6 +6,10 @@ module.exports = {
   darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {},
+    screens: {
+      xs: '480px',
+      ...defaultTheme.screens,
+    },
     colors: {
       ...defaultTheme.colors,
       react: {
