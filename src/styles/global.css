@@ -214,6 +214,7 @@ img.placeholder {
 
 .prose pre {
   overflow-wrap: initial;
+  tab-size: 2;
   @apply bg-gray-800;
 }
 
@@ -244,6 +245,10 @@ img.placeholder {
 
 .prose figure img {
   @apply m-0;
+}
+
+.prose img {
+  @apply my-8 mx-auto;
 }
 
 .prose .callout {
