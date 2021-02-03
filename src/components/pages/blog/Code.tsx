@@ -9,25 +9,14 @@ const Code: React.FC<{
   const { children, language = 'javascript' } = props;
 
   return (
-    <>
-      <pre>
-        <code
-          dangerouslySetInnerHTML={{
-            __html: Prism.highlight(
-              children,
-              Prism.languages[language.toLowerCase()] ||
-                Prism.languages.javascript,
-            ),
-          }}
-        />
-      </pre>
-
-      <style jsx>{`
-        pre {
-          tab-size: 2;
-        }
-      `}</style>
-    </>
+    <code
+      dangerouslySetInnerHTML={{
+        __html: Prism.highlight(
+          children,
+          Prism.languages[language.toLowerCase()] || Prism.languages.javascript,
+        ),
+      }}
+    />
   );
 };
 
