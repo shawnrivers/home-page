@@ -4,15 +4,15 @@ import 'prismjs/components/prism-jsx';
 
 const Code: React.FC<{
   children?: React.ReactNode;
-  language?: string;
+  className?: string;
 }> = props => {
-  const { children, language = 'javascript' } = props;
+  const language = props.className.replace(/language-/, '') ?? 'javascript';
 
   return (
     <code
       dangerouslySetInnerHTML={{
         __html: Prism.highlight(
-          children,
+          props.children,
           Prism.languages[language.toLowerCase()] || Prism.languages.javascript,
         ),
       }}
