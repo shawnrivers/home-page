@@ -9,6 +9,6 @@ module.exports = {
     return [`prettier --ignore-path='.gitignore' --write ${escapedFileNames}`];
   },
   '**/*.{ts,tsx}': () => {
-    return ['eslint --fix'];
+    return ['eslint --fix', 'tsc --noEmit'];
   },
 };
