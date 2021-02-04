@@ -1,11 +1,12 @@
 import Image from 'next/image';
-import { blogMeta, BlogMeta } from '../../blogs/meta';
+import { blogsMeta, BlogMeta } from '../../blogs/meta';
 import { Card } from '../../components/utils/Card';
 import { Page } from '../../components/utils/Page';
 import { getDateString } from '../../lib/utils/date';
 import { BlogTag } from '../../components/pages/blog/BlogTag';
-import { GetStaticProps } from 'next';
 import { sortByDate } from '../../lib/utils/sorting';
+
+const blogsInfo = sortByDate(Object.values(blogsMeta), 'date');
 
 const PostCard: React.FC<
   BlogMeta & {
@@ -54,33 +55,12 @@ const PostCard: React.FC<
   );
 };
 
-type BlogIndexPageProps = {
-  blogsMeta: BlogMeta[];
-};
-
-export const getStaticProps: GetStaticProps<BlogIndexPageProps> = async context => {
-  const meta = sortByDate(
-    context.preview
-      ? Object.values(blogMeta)
-      : Object.values(blogMeta).filter(meta => meta.published),
-    'date',
-  );
-
-  return {
-    props: {
-      blogsMeta: meta,
-    },
-  };
-};
-
-const BlogIndexPage: React.FC<BlogIndexPageProps> = props => {
-  const { blogsMeta } = props;
-
+const BlogIndexPage: React.FC = () => {
   return (
     <Page titlePre="Blog" className="max-w-6xl mx-auto px-6">
       <h1 className="visually-hidden">Blog</h1>
       <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 content-center items-stretch">
-        {blogsMeta.map((meta, index) => (
+        {blogsInfo.map((meta, index) => (
           <PostCard
             {...meta}
             imagePriority={index < 10 ? true : false}

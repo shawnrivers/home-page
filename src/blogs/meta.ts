@@ -11,7 +11,7 @@ export type BlogMeta = {
   description?: string;
 };
 
-export const blogMeta: Record<string, BlogMeta> = {
+export const blogsMeta: Record<string, BlogMeta> = {
   'experimenting-react-suspense-with-swr': {
     title: 'Experimenting React Suspense with SWR',
     slug: 'experimenting-react-suspense-with-swr',
