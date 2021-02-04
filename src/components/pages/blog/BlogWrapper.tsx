@@ -31,7 +31,7 @@ export const BlogWrapper: React.FC<{
           <h1 className="text-2xl">{title}</h1>
           {tags.length > 0 && (
             <div className="blog-tag-group mt-4">
-              {published && <BlogTag text="draft" />}
+              {!published && <BlogTag text="draft" />}
               {tags.map(tag => (
                 <BlogTag text={tag} key={tag} />
               ))}
