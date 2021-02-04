@@ -8,7 +8,7 @@ export const Img: React.FC<{
   unoptimized?: boolean;
   priority?: boolean;
 }> = props => (
-  <div className="mx-auto text-center overflow-hidden">
+  <div className="mx-auto my-8 text-center overflow-hidden">
     <Image
       src={props.src}
       alt={props.alt}
@@ -17,7 +17,7 @@ export const Img: React.FC<{
       height={props.height}
       unoptimized={props.unoptimized}
       priority={props.priority}
-      className="asset-without-wrapper object-cover"
+      className="object-cover"
     />
   </div>
 );
