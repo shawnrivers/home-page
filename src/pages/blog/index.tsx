@@ -8,8 +8,12 @@ import { BlogTag } from '../../components/pages/blog/BlogTag';
 import { GetStaticProps } from 'next';
 import { sortByDate } from '../../lib/utils/sorting';
 
-const PostCard: React.FC<BlogMeta> = props => {
-  const { title, slug, date, tags, published, image } = props;
+const PostCard: React.FC<
+  BlogMeta & {
+    imagePriority?: boolean;
+  }
+> = props => {
+  const { title, slug, date, tags, published, image, imagePriority } = props;
 
   return (
     <Card
@@ -26,6 +30,7 @@ const PostCard: React.FC<BlogMeta> = props => {
             height={320}
             alt=""
             role="presentation"
+            priority={imagePriority}
             className="placeholder object-cover"
           />
         )}
@@ -76,8 +81,12 @@ const BlogIndexPage: React.FC<BlogIndexPageProps> = props => {
     <Page titlePre="Blog" className="max-w-6xl mx-auto px-6">
       <h1 className="visually-hidden">Blog</h1>
       <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 content-center items-stretch">
-        {blogsMeta.map(meta => (
-          <PostCard {...meta} key={meta.slug} />
+        {blogsMeta.map((meta, index) => (
+          <PostCard
+            {...meta}
+            imagePriority={index < 10 ? true : false}
+            key={meta.slug}
+          />
         ))}
       </div>
     </Page>

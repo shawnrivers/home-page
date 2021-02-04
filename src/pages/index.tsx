@@ -14,6 +14,7 @@ const Home: React.FC = () => (
           src="/avatar.jpg"
           width="128"
           height="128"
+          priority
           alt=""
           role="presentation"
         />
@@ -104,6 +105,7 @@ const Home: React.FC = () => (
           heading="NOGILIB"
           description="A web application showing the information about Nogizaka46"
           image="/nogilib.png"
+          imagePriority
           to="https://nogilib.com"
           className="flex-1 mt-2 my-6 mx-6 h-full"
         />
@@ -111,6 +113,7 @@ const Home: React.FC = () => (
           heading="Nogizaka46 News"
           description="A Twitter bot that retweets Nogizaka46 news and tweets members' schedules"
           image="/nogilib.png"
+          imagePriority
           to="https://twitter.com/n46_news"
           className="flex-1 mt-2 my-6 mx-6 h-full"
         />
