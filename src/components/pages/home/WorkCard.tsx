@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Image from 'next/image';
 import { joinClassNames } from '../../../lib/utils/class';
 import { ArrowRightIcon } from '../../icons/ArrowRightIcon';

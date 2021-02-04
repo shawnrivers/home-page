@@ -1,8 +1,7 @@
-import * as React from 'react';
+import 'focus-visible';
 import type { AppProps } from 'next/app';
 import { MDXProvider } from '@mdx-js/react';
 import '../styles/global.css';
-import 'focus-visible';
 import { BlogWrapper } from '../components/pages/blog/BlogWrapper';
 import { DynamicComponent } from '../components/pages/blog/DynamicComponent';
 import { Heading } from '../components/pages/blog/Heading';

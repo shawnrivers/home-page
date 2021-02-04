@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { BlogMeta } from '../../../blogs/meta';
 import { getDateString } from '../../../lib/utils/date';
 import { getBlogOgImageUrl } from '../../../lib/utils/url';

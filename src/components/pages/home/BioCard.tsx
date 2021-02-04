@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { joinClassNames } from '../../../lib/utils/class';
 
 type BioCardProps = {

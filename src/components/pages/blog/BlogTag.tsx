@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Tag } from '../../../blogs/meta';
 
 type BlogTagProps = {

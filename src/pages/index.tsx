@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Image from 'next/image';
 import { TwitterIcon } from '../components/icons/TwitterIcon';
 import { BioListCard } from '../components/pages/home/BioListCard';

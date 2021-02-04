@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Image from 'next/image';
 import { blogMeta, BlogMeta } from '../../blogs/meta';
 import { Card } from '../../components/utils/Card';
