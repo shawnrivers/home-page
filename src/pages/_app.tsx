@@ -2,7 +2,6 @@ import * as React from 'react';
 import type { AppProps } from 'next/app';
 import { MDXProvider } from '@mdx-js/react';
 import '../styles/global.css';
-import 'katex/dist/katex.css';
 import 'focus-visible';
 import { BlogWrapper } from '../components/pages/blog/BlogWrapper';
 import { DynamicComponent } from '../components/pages/blog/DynamicComponent';
