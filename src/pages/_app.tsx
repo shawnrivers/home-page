@@ -1,11 +1,11 @@
 import 'focus-visible';
 import type { AppProps } from 'next/app';
 import { MDXProvider } from '@mdx-js/react';
-import '../styles/global.css';
-import { BlogWrapper } from '../components/pages/blog/BlogWrapper';
-import { DynamicComponent } from '../components/pages/blog/DynamicComponent';
-import { Heading } from '../components/pages/blog/Heading';
-import { Pre } from '../components/pages/blog/Pre';
+import 'styles/global.css';
+import { BlogWrapper } from 'components/pages/blog/BlogWrapper';
+import { DynamicComponent } from 'components/pages/blog/DynamicComponent';
+import { Heading } from 'components/pages/blog/Heading';
+import { Pre } from 'components/pages/blog/Pre';
 
 const App: React.FC<AppProps> = props => {
   const { Component, pageProps } = props;

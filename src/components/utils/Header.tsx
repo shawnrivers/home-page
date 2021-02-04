@@ -2,7 +2,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { joinClassNames } from '../../lib/utils/class';
+import { joinClassNames } from 'lib/utils/class';
 
 const siteUrl = 'https://usho.dev';
 const defaultOgImageUrl =
