@@ -27,9 +27,10 @@ const Home: React.FC = () => (
         <a
           href="https://twitter.com/yuxiao_he"
           rel="noopener"
+          aria-label="Twitter: @yuxiao_he"
           className="flex align-center justify-center sm:justify-start mt-2 text-gray-700 dark:text-gray-300"
         >
-          <TwitterIcon className="fill-current" />
+          <TwitterIcon title="Twitter" className="fill-current" />
           <span className="text-base ml-1">@yuxiao_he</span>
         </a>
       </div>

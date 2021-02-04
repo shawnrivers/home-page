@@ -5,6 +5,7 @@ import '../styles/global.css';
 import { BlogWrapper } from '../components/pages/blog/BlogWrapper';
 import { DynamicComponent } from '../components/pages/blog/DynamicComponent';
 import { Heading } from '../components/pages/blog/Heading';
+import { Pre } from '../components/pages/blog/Pre';
 
 const App: React.FC<AppProps> = props => {
   const { Component, pageProps } = props;
@@ -16,6 +17,7 @@ const App: React.FC<AppProps> = props => {
         h1: Heading.h1,
         h2: Heading.h2,
         h3: Heading.h3,
+        pre: Pre,
         code: DynamicComponent.Code,
       }}
     >
