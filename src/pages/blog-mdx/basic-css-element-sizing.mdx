@@ -1,13 +1,390 @@
 import { blogMeta } from '../../blogs/meta.ts';
+import { Img } from '../../components/pages/blog/Img.tsx';
 
 export const meta = blogMeta['basic-css-element-sizing'];
 
-# A Memo For Basic CSS Element Sizing
+<Img
+  src="/blogs/basic-css-element-sizing/Element_Sizing.png"
+  width={640}
+  height={400}
+  priority
+/>
 
-Below is an example of JSX embedded in Markdown.
+I don't know if you're like me, but my mentality of writing CSS has been like, "I don't care what that code means. It's OK as long as it works." Since re-learning the basic mental model of element sizing using CSS, the codes make much more sense. Also, these basics help me write some basic sizing styles faster, without Googling around too much.
 
-**Try and change the background color!**
+---
 
-<div style={{ padding: '20px', backgroundColor: 'tomato' }}>
-  <h3>This is JSX</h3>
+## TL;DR
+
+- The sizing behavior differs based on the element type (e.g., block, inline, replaced).
+- By default, a block-level element like `<p>` takes 100% of its parent element's width. An inline element like `<span>` is as wide as possible until it hits its parent element boundary. A replaced element like `<img>` takes the actual size of the source.
+- By specifying the size using `width` (`min-width`, `max-width`), `height` (`min-height`, `max-height`) properties, you can change an element's size. You can choose between applying the sizing properties to the element's content box or border box with the `box-sizing` property specified.
+
+## Element Types
+
+In this article, I will only talk about the very basic element sizing of [block-level elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements), [inline elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements), and [replaced elements](https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element) like `<img>` and `<video>` in a normal flow.
+
+Other layouts like flexbox and grid have different sizing behaviors compared with the normal flow. Rachel Andrew wrote [a great article about element sizing in those layouts](https://www.smashingmagazine.com/2018/01/understanding-sizing-css-layout/).
+
+## Default Sizing
+
+### Block-level element
+
+Without applying any CSS styles, a block-level element like `<p>` or `<div>` first takes 100% of the width of its parent element. Then it flows its content inside its width until the end of its content, which eventually decides its height.
+
+Note: In all code examples, assume we have a `300px * 400px` parent element with a yellow background. To show the size of an element, I added a blue border to it.
+
+```html
+<div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
 </div>
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/default-sizing-block.png"
+  alt="The text takes 100% of the width of its parent element. And it flows downward when the words can not fit in one line"
+  width={400}
+  height={400}
+/>
+
+Note that when the `min-content` of a block-level element (which is the longest word's width) is larger than the parent element width, the text overflows but the element's width is still the same as its parent.
+
+```html
+<div>LoremipsumdolorsitametconsecteturLoremis sal rhoncus.</div>
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/default-sizing-block-overflow.png"
+  alt="A long word whose width is larger than its parent's width overflows"
+  width={400}
+  height={400}
+/>
+
+### Inline element
+
+Without applying any styles, for an inline element like `<span>`, its width depends on its content and its parent element's width. Then it flows its content inside its parent's width until the end of its content, which eventually decides its height.
+
+When the element's `min-content` is smaller than its parent's width, its width is the longest line to fit its content inside the parent's width.
+
+```html
+<span>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
+</span>
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/default-sizing-inline.png"
+  alt="The text takes whatever horizontal space it can take until it flows downward to the next line"
+  width={400}
+  height={400}
+/>
+
+When its `min-content` is larger than its parent's width, its width will be its `min-content`, and its content will overflow its parent.
+
+```html
+<span> LoremipsumdolorsitametconsecteturLoremis sal rhoncus. </span>
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/default-sizing-inline-overflow.png"
+  alt="A long word whose width is larger than its parent's width overflows"
+  width={400}
+  height={400}
+/>
+
+### Replaced element
+
+Without applying any styles, the width and height of a replaced element like `<img>` and `<video>` are the resource's width and height.
+
+Below is an `350px * 350px` image.
+
+```html
+<img src="/avatar.jpg" alt="avatar" />
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/default-sizing-replaced.png"
+  alt="An image takes its intrinsic size and overflows"
+  width={400}
+  height={400}
+/>
+
+## Specifying Size
+
+Adding CSS properties of [`width`](https://developer.mozilla.org/en-US/docs/Web/CSS/width) ([`min-width`](https://developer.mozilla.org/en-US/docs/Web/CSS/min-width), [`max-width`](https://developer.mozilla.org/en-US/docs/Web/CSS/max-width)), [`height`](https://developer.mozilla.org/en-US/docs/Web/CSS/height) ([`min-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/min-height), [`max-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/max-height)) specifies the size of an element.
+
+These CSS properties' values can be in either absolute units like `px` or relative units like `%`. To limit the complexity, I will only talk about `px` and `%` (most usually used units).
+
+`px` means the actual pixels on the screen, and `%` means how many percentages of its parent's corresponding properties.
+
+### Block-level element & replaced element
+
+When specifying the `width` and `height`, a block-level element's width equals the specified `width`, and its height equals the specified `height`.
+
+Here is the example using `px` values.
+
+```css
+.sized {
+  width: 200px;
+  height: 200px;
+}
+```
+
+```html
+<div class="sized">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
+</div>
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/specified-sizing-block.png"
+  alt="The text flows inside the specified 200px times 200px box"
+  width={400}
+  height={400}
+/>
+
+```html
+<img class="sized" src="/avatar.jpg" alt="avatar" />
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/specified-sizing-replaced.png"
+  alt="The image has a width of 200px and a height of 200px"
+  width={400}
+  height={400}
+/>
+
+Here is the example using `%` values.
+
+```css
+.percentage-sized {
+  width: 80%;
+  height: 60%;
+}
+```
+
+```html
+<div class="percentage-sized">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
+</div>
+```
+
+In this example, the width of the element is `80% * 300px = 240px`, the height is `60% * 400px = 240px`.
+
+<Img
+  src="/blogs/basic-css-element-sizing/specified-sizing-percentage-block.png"
+  alt="The text flows inside the specified 240px times 240px box"
+  width={400}
+  height={400}
+/>
+
+```html
+<img class="percentage-sized" src="/avatar.jpg" alt="avatar" />
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/specified-sizing-percentage-replaced.png"
+  alt="The image has a width of 240px and a height of 240px"
+  width={400}
+  height={400}
+/>
+
+By specifying `max-width` (`min-width`), its width will be the width of its content, but not larger (smaller) than the value of `max-width` (`min-width`) - the same works for `max-height` and `min-height`.
+
+```css
+.max-sized {
+  max-width: 200px;
+  max-height: 200px;
+}
+```
+
+```html
+<div class="max-sized">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
+</div>
+```
+
+In this example, the width is constrained by `max-width` in `200px`, but because it doesn't have enough content to exceed the `200px` `max-height`, its height is whatever its content height is.
+
+<Img
+  src="/blogs/basic-css-element-sizing/specified-sizing-max-block.png"
+  alt="The text flows inside 200px wide box, the height of the box is the acutal height of the text content"
+  width={400}
+  height={400}
+/>
+
+### Inline element
+
+Specifying these properties does not affect the size of an inline element.
+
+```css
+.sized {
+  width: 200px;
+  height: 200px;
+}
+```
+
+```html
+<span class="sized">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
+</span>
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/specified-sizing-inline.png"
+  alt="The specified size takes no effect. The text takes whatever horizontal space it can take until it flows downward to the next line"
+  width={400}
+  height={400}
+/>
+
+## Box Model
+
+The CSS box model is an essential concept to understand element sizing.
+
+There are four types of boxes - _content box_, _padding box_, _border box_, and _margin box_.
+
+- _Content box_: where the content of an element lives
+- _Padding box_: content box + the element's paddings
+- _Border box_: padding box + the element's border
+- _Margin box_: border box + the element's margins
+
+<Img
+  src="/blogs/basic-css-element-sizing/box-model.png"
+  alt="The box model diagram"
+  width={540}
+  height={300}
+/>
+
+The CSS properties [`padding`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding), [`border`](https://developer.mozilla.org/en-US/docs/Web/CSS/border), and [`margin`](https://developer.mozilla.org/en-US/docs/Web/CSS/margin) decide the exact sizes of an element's paddings, border, and margins.
+
+The [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) CSS property controls which box do the `width` (`min-width`, `max-width`) and `height` (`min-height`, `max-height`) properties apply to. Without specifying `box-sizing` (or specifying with the default value `content-box`), the width and height relative properties will apply to the element's content box.
+
+The width and height relative properties will apply to the element's border box if you specify `box-sizing` to `border-box`. It means that the content's actual width (height) will be the width (height) property's specified value minus border size and then minus the horizontal (vertical) paddings.
+
+### Block-level elements and replaced elements
+
+Block-level elements and replaced elements sizing with `padding`, `border`, or `margin` specified work the way described above.
+
+Below is the example when no `box-sizing` is specified.
+
+```css
+.content-sized {
+  width: 200px;
+  height: 200px;
+  margin: 8px;
+  padding: 8px;
+  border: 3px solid #0082de;
+}
+```
+
+In this example, the `width` and `height` are applied to the content box. In result, the border box's width and height are both `200px + 8px * 2 + 3px * 2 = 222px`.
+
+```html
+<div class="content-sized">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
+</div>
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/content-box-block.png"
+  alt="The text contained in a 200px times 200px content box. The content box is 8px away from the its border box both horizontally and vertically. The border's width is 3px. The border box is 8px away from the other elements both horizontally and vertically"
+  width={400}
+  height={400}
+/>
+
+```html
+<img class="content-sized" src="/avatar.jpg" alt="avatar" />
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/content-box-replaced.png"
+  alt="The image's width and height are both 200px. The image is 8px away from the its border box both horizontally and vertically. The border's width is 3px. The border box is 8px away from the other elements both horizontally and vertically"
+  width={400}
+  height={400}
+/>
+
+Below is the eaxample when specifying `box-sizing` to `border-box`.
+
+```css
+.border-sized {
+  width: 200px;
+  height: 200px;
+  margin: 8px;
+  padding: 8px;
+  border: 3px solid #0082de;
+  box-sizing: border-box;
+}
+```
+
+In this example, the `width` and `height` are applied to the border box. In result, the content box's width and height are both `200px - 8px * 2 - 3px * 2 = 178px`.
+
+```html
+<div class="border-sized">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
+</div>
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/border-box-block.png"
+  alt="The text contained in a 178px times 178px content box. The content box is 8px away from the its border box both horizontally and vertically. The border's width is 3px. The border box is 8px away from the other elements both horizontally and vertically"
+  width={400}
+  height={400}
+/>
+
+```html
+<img class="border-sized" src="/avatar.jpg" alt="avatar" />
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/border-box-replaced.png"
+  alt="The image's width and height are both 178px. The image is 8px away from the its border box both horizontally and vertically. The border's width is 3px. The border box is 8px away from the other elements both horizontally and vertically"
+  width={400}
+  height={400}
+/>
+
+### Inline elements
+
+For inline elements, `padding`, `border`, and `margin` properties all apply.
+
+But since width and height relative properties do not affect inline elements' sizing, the `box-sizing` property doesn't involve.
+
+```html
+<span class="content-sized">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
+</span>
+```
+
+```html
+<span class="border-sized">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus euismod
+  fermentum. Nulla eget blandit ligula. Duis idiaculis orci.
+</span>
+```
+
+<Img
+  src="/blogs/basic-css-element-sizing/box-inline.png"
+  alt="The padding, border and margin properties apply but the width and height don't"
+  width={400}
+  height={400}
+/>
+
+## Conclusion
+
+Except for replaced elements like `<img>` or `<video>`, if you want to specify the size of an element, use a block-level element like `<div>`, or apply `display: block` or `display: inline-block` to make width and height relative properties valid.
+
+If you want to make sure the width and height relative properties apply to the element's actual size (which means the border box), apply `box-sizing: border-box`.
+
+This article is heavily inspired by these articles written by MDN's wonderful people.
+
+- [https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Sizing_items_in_CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Sizing_items_in_CSS)
+- [https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
+- [https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
