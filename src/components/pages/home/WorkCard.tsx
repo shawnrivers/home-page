@@ -8,6 +8,7 @@ type WorkCardProps = {
   heading: string;
   description: string;
   image: string;
+  imagePriority?: boolean;
   to: string;
 };
 
@@ -30,6 +31,7 @@ export const WorkCard: React.FC<WorkCardProps> = props => {
             height="128"
             alt=""
             role="presentation"
+            priority={props.imagePriority}
           />
         </div>
         <h3 className="uppercase font-bold text-xl">{props.heading}</h3>
