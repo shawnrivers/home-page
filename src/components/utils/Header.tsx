@@ -23,7 +23,7 @@ function isCurrentPageMatchingNav(params: {
     return true;
   }
 
-  if (pathname === '/blog/[slug]' && navPage === '/blog') {
+  if (pathname.startsWith('/blog/') && navPage === '/blog') {
     return true;
   }
 }
