@@ -1,8 +1,18 @@
 import * as React from 'react';
 import { BlogMeta } from '../../../blogs/meta';
 import { getDateString } from '../../../lib/utils/date';
+import { getBlogOgImageUrl } from '../../../lib/utils/url';
+import { HeaderProps } from '../../utils/Header';
 import { Page } from '../../utils/Page';
 import { BlogTag } from './BlogTag';
+
+function getBlogHead(blogMeta: BlogMeta): HeaderProps {
+  return {
+    titlePre: blogMeta.title,
+    ogImageUrl: blogMeta.image ? getBlogOgImageUrl(blogMeta.image) : undefined,
+    description: blogMeta.description,
+  };
+}
 
 export const BlogWrapper: React.FC<{
   children?: React.ReactNode;
@@ -12,7 +22,7 @@ export const BlogWrapper: React.FC<{
   const { title, date, tags, published } = meta;
 
   return (
-    <Page titlePre={title}>
+    <Page {...getBlogHead(meta)}>
       <article className="prose post break-words">
         <div className="mb-8">
           <div className="text-base mb-2 text-gray-500 dark:text-gray-400">
