@@ -215,7 +215,7 @@ img.placeholder {
 .prose pre {
   overflow-wrap: initial;
   tab-size: 2;
-  @apply bg-gray-800;
+  @apply bg-gray-800 py-6;
 }
 
 .prose a code {
