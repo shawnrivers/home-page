@@ -11,7 +11,7 @@ const Code: React.FC<{
 
   return (
     <div className="relative">
-      <span className="absolute inline-block top-0 right-0 px-2 text-sm uppercase rounded-sm bg-gray-600 text-white">
+      <span className="absolute inline-block top-0 right-0 px-2 py-0.5 text-sm uppercase rounded-sm bg-gray-600 text-white">
         {language}
       </span>
       <pre tabIndex={0}>
