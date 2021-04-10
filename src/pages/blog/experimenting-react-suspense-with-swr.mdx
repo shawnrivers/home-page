@@ -100,7 +100,6 @@ import { fetchPost } from '../api/post';
 
 const Post = props => {
   const { post } = props;
-
   return (
     <div>
       <h2>{post.title}</h2>
@@ -120,13 +119,11 @@ const PostPage = props => {
 
 const useFetchPost = () => {
   const { data } = useSWR('/api/post', fetchPost);
-
   return data;
 };
 
 const PostPageContainer = () => {
   const post = useFetchPost();
-
   return <PostPage post={post} />;
 };
 
@@ -187,7 +184,6 @@ import { fetchPost } from '../api/post';
 const Post = props => {
   const { useReadPost } = props;
   const post = useReadPost();
-
   return (
     <div>
       <h2>{post.title}</h2>
@@ -209,21 +205,17 @@ const PostPage = props => {
 
 const useFetchPost = () => {
   useSWR('/api/post', fetchPost);
-
   const useReadPost = () => {
     const { data } = useSWR('/api/post', fetchPost, {
       suspense: true,
     });
-
     return data;
   };
-
   return useReadPost;
 };
 
 const PostPageContainer = () => {
   const useReadPost = useFetchPost();
-
   return <PostPage useReadPost={useReadPost} />;
 };
 
