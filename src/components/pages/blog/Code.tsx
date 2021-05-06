@@ -14,6 +14,8 @@ const Code: React.FC<{
       <span className="absolute inline-block top-0 right-0 px-2 py-0.5 text-sm uppercase rounded-sm bg-gray-600 text-white">
         {language}
       </span>
+      {/* When content overflow on the x axis happens, to allow horizontal scroll using the keyboard, we need to make the <pre> element focusable */}
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
       <pre tabIndex={0}>
         <code
           dangerouslySetInnerHTML={{
