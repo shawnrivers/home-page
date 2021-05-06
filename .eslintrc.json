@@ -5,6 +5,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jsx-a11y/strict"
+    "plugin:jsx-a11y/strict",
+    "prettier"
   ]
 }
