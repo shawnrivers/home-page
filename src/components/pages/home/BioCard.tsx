@@ -1,4 +1,4 @@
-import { joinClassNames } from 'lib/utils/class';
+import { joinClassNames } from 'utils/class';
 
 type BioCardProps = {
   className?: string;

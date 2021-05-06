@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { joinClassNames } from 'lib/utils/class';
+import { joinClassNames } from 'utils/class';
 
 const START_YEAR = 2020;
 

@@ -2,9 +2,9 @@ import Image from 'next/image';
 import { blogsMeta, BlogMeta } from 'blogs/meta';
 import { Card } from 'components/utils/Card';
 import { Page } from 'components/utils/Page';
-import { getDateString } from 'lib/utils/date';
+import { getDateString } from 'utils/date';
 import { BlogTag } from 'components/pages/blog/BlogTag';
-import { sortByDate } from 'lib/utils/sorting';
+import { sortByDate } from 'utils/sorting';
 
 const blogsInfo = sortByDate(Object.values(blogsMeta), 'date');
 
