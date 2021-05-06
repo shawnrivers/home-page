@@ -1,6 +1,6 @@
 import { BlogMeta } from 'blogs/meta';
-import { getDateString } from 'lib/utils/date';
-import { getBlogOgImageUrl } from 'lib/utils/url';
+import { getDateString } from 'utils/date';
+import { getBlogOgImageUrl } from 'utils/url';
 import { HeaderProps } from 'components/utils/Header';
 import { Page } from 'components/utils/Page';
 import { BlogTag } from './BlogTag';

@@ -1,4 +1,4 @@
-import { joinClassNames } from 'lib/utils/class';
+import { joinClassNames } from 'utils/class';
 
 const RoundDot: React.FC<{ isHighlighted: boolean }> = props => {
   return (
