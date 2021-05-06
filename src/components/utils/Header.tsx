@@ -77,6 +77,7 @@ export const Header: React.FC<HeaderProps> = props => {
             {navItems.map(({ label, page }) => (
               <li className="inline-block px-2 py-4" key={label}>
                 <Link href={page}>
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a
                     className={joinClassNames(
                       'text-xl font-bold',

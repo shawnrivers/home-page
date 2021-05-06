@@ -20,7 +20,8 @@ export const Card: React.FC<CardProps> = props => {
 
   return (
     <Link href={href} as={as}>
-      <a tabIndex={0} aria-label={ariaLabel} className="no-underline">
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+      <a aria-label={ariaLabel} className="no-underline">
         <article
           className={`card card-shadow card-clickable cursor-pointer border-4  ${
             borderColor ?? 'border-gray-800'
