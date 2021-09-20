@@ -62,5 +62,5 @@ module.exports = {
       ringWidth: ['focus-visible'],
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/typography'), 'postcss-focus-visible'],
 };
