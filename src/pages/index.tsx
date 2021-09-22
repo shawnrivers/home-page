@@ -3,7 +3,7 @@ import { TwitterIcon } from 'components/icons/TwitterIcon';
 import { BioListCard } from 'components/pages/home/BioListCard';
 import { BioCard } from 'components/pages/home/BioCard';
 import { WorkCard } from 'components/pages/home/WorkCard';
-import { Page } from 'components/utils/Page';
+import { Page } from 'components/shared/Page';
 
 const Home: React.FC = () => (
   <Page titlePre="Home" className="font-mono flex flex-col align-center">

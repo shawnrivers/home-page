@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { blogsMeta, BlogMeta } from 'blogs/meta';
-import { Card } from 'components/utils/Card';
-import { Page } from 'components/utils/Page';
+import { Card } from 'components/shared/Card';
+import { Page } from 'components/shared/Page';
 import { getDateString } from 'utils/date';
 import { BlogTag } from 'components/pages/blog/BlogTag';
 import { sortByDate } from 'utils/sorting';

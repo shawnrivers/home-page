@@ -76,11 +76,11 @@ export const Header: React.FC<HeaderProps> = props => {
           <ul className="p-0 list-none">
             {navItems.map(({ label, page }) => (
               <li className="inline-block px-2 py-4" key={label}>
-                <Link href={page}>
+                <Link href={page} passHref>
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a
                     className={joinClassNames(
-                      'text-xl font-bold',
+                      'text-xl font-bold transition-colors',
                       isCurrentPageMatchingNav({ pathname, navPage: page })
                         ? 'text-blue-400'
                         : undefined,
