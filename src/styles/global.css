@@ -22,7 +22,7 @@ body {
 
   /* Hack */
   overflow-x: hidden;
-  @apply text-gray-900 bg-white dark:text-white dark:bg-gray-900;
+  @apply text-gray-900 bg-white dark:text-white dark:bg-gray-900 transition-colors;
 }
 
 .visually-hidden {
@@ -273,7 +273,7 @@ img.placeholder {
   }
 
   .card-clickable {
-    @apply dark:hover:bg-gray-600;
+    @apply dark:hover:bg-gray-600 transition;
   }
 
   .card-clickable a {
@@ -281,7 +281,7 @@ img.placeholder {
   }
 
   .card-shadow {
-    @apply shadow-md hover:shadow-xl group-hover:shadow-xl transition-shadow;
+    @apply shadow-md hover:shadow-xl group-hover:shadow-xl;
   }
 
   h2.hashtag-heading::before {
