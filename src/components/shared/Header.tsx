@@ -80,7 +80,7 @@ export const Header: React.FC<HeaderProps> = props => {
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a
                     className={joinClassNames(
-                      'text-xl font-bold transition-colors',
+                      'text-xl font-bold',
                       isCurrentPageMatchingNav({ pathname, navPage: page })
                         ? 'text-blue-400'
                         : undefined,
