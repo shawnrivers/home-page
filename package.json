@@ -1,55 +1,39 @@
 {
-  "name": "usho-dev",
-  "version": "0.1.0",
-  "scripts": {
-    "dev": "next dev -p 4000",
-    "start": "next start -p 4001",
-    "build": "next build",
-    "format": "prettier --check \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\" --ignore-path .gitignore",
-    "format:fix": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\" --ignore-path .gitignore",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "type-check": "tsc --noEmit"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "dependencies": {
-    "@mdx-js/loader": "^1.6.22",
-    "@mdx-js/react": "^1.6.22",
-    "@next/mdx": "^11.1.2",
-    "@tailwindcss/typography": "^0.4.1",
-    "autoprefixer": "^10.3.4",
-    "focus-visible": "^5.2.0",
-    "next": "^11.1.1",
-    "postcss": "^8.3.6",
-    "prismjs": "^1.25.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "tailwindcss": "^2.2.15"
-  },
-  "devDependencies": {
-    "@axe-core/react": "^4.1.1",
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@types/node": "^13.1.2",
-    "@types/prismjs": "^1.16.6",
-    "@types/react": "^17.0.21",
-    "@typescript-eslint/eslint-plugin": "^4.8.1",
-    "@typescript-eslint/parser": "^4.8.1",
-    "eslint": "^7.14.0",
-    "eslint-config-next": "^11.1.2",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.25.3",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
-    "postcss-focus-visible": "^5.0.0",
-    "prettier": "^2.2.0",
-    "typescript": "^4.4.3"
-  }
+	"name": "blog",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"package": "svelte-kit package",
+		"preview": "svelte-kit preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/kit": "next",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"autoprefixer": "^10.3.7",
+		"cssnano": "^5.0.8",
+		"eslint": "^7.32.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-svelte3": "^3.2.1",
+		"postcss": "^8.3.9",
+		"postcss-load-config": "^3.1.0",
+		"prettier": "^2.4.1",
+		"prettier-plugin-svelte": "^2.4.0",
+		"svelte": "^3.44.0",
+		"svelte-check": "^2.2.6",
+		"svelte-preprocess": "^4.9.8",
+		"tailwindcss": "^2.2.19",
+		"tslib": "^2.3.1",
+		"typescript": "^4.4.3"
+	},
+	"type": "module",
+	"dependencies": {
+		"@tailwindcss/typography": "^0.4.1"
+	}
 }
