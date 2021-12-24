@@ -231,6 +231,10 @@ img.placeholder {
   content: '';
 }
 
+.prose pre code {
+  @apply text-gray-200;
+}
+
 .prose blockquote {
   @apply text-gray-700 dark:text-gray-200;
 }
