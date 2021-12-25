@@ -2,3 +2,217 @@ import { blogsMeta } from './meta.ts';
 import { Img } from 'components/pages/blog/Img.tsx';
 
 export const meta = blogsMeta['common-aria-properties'];
+
+<Img
+  src="/blogs/common-aria-properties/hero.png"
+  width={640}
+  height={400}
+  priority
+/>
+
+_This article is originally posted as the December 10 article for [Eureka Advent Calendar 2021](https://qiita.com/advent-calendar/2021/eureka)_.
+
+For building accessible web UI components, using an existing UI component library always seem to be the fastest option. If you are using a framework like React, there are many great UI component libraries with accessible features built-in like [Headless UI](https://headlessui.dev/), [Radix UI](https://www.radix-ui.com/), and [Reach UI](https://reach.tech/).
+
+However, sometimes you might need to build accessible components on your own. For example when your tech stack doesn't fit well with these UI libraries, or you need to build some components that are not supported by these libraries. In such cases, you will have to add ARIA properties to support assistive technologies like screen readers and manage keyboard navigation.
+
+In this article, I will be introducing some ARIA properties that I think are commonly used. Then show several actual code examples by [Design Patterns and Widgets under WAI-ARIA Authoring Practices that use those ARIA properties](https://www.w3.org/TR/wai-aria-practices-1.2/#aria_ex).
+
+---
+
+## Common ARIA Properties
+
+### `role`
+
+The [`role`](https://www.w3.org/TR/wai-aria-1.2/#role_definitions) attribute indicates what kind of widget is the component. It tells assistive technologies like screen readers how to handle the component.
+
+For example, when you add `role="alert"` to an element, as long as the text content inside the element changes, screen readers will usually announce the text.
+
+However, in many cases, the `role` attribute alone is not enough to convey all necessary accessibility information. This is when other ARIA properties that look like `aria-*` come in.
+
+But since there is [a large number](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) of different `aria-*` properties, it might be a bit overwhelming at the beginning of learning web accessibility. So here I list up a few properties that are usually seen in the [WAI-ARIA widget design patterns](https://www.w3.org/TR/wai-aria-practices-1.2/#aria_ex).
+
+### `aria-label`/`aria-labelledby`
+
+The [`aria-label`](https://www.w3.org/TR/wai-aria-1.2/#aria-label) and [`aria-labelledby`](https://www.w3.org/TR/wai-aria-1.2/#aria-labelledby) attributes provide labels for the UI component.
+
+The difference between the two attributes is that `aria-label` directly defines a **string value** to label the component, while `aria-labelledby` identifies an **element** that labels the component. It is recommended to use `aria-labelledby` if the label text is visible on the screen.
+
+For example, when you have a radio group component that is labeled by a text component with `id="radio_group_label"`, you can add `aria-labelledby="radio_group_label"` to the radio group component.
+
+### `aria-disabled`
+
+The [`aria-disabled`](https://www.w3.org/TR/wai-aria-1.2/#aria-disabled) attribute indicates an interactive component is not editable or operable.
+
+For example, when you have a switch component that represents a feature that is not available to the current user, you can add a `aria-disabled="true"` to the switch component.
+
+### `aria-checked`, `aria-selected`
+
+The [`aria-checked`](https://www.w3.org/TR/wai-aria-1.2/#aria-checked) and [`aria-selected`](https://www.w3.org/TR/wai-aria-1.2/#aria-selected) attributes both indicate the “checked” and “selected” state of a component.
+
+For example, when you have a switch component, you can add `aria-checked="true"` to it to indicate that it is checked. Or when you have a list box component, you can add `aria-selected="true"` to an option component to indicate whether that option is selected.
+
+### `aria-haspopup`, `aria-controls`, `aria-expanded`
+
+For more complicated components that have one interactive element (like a button) that controls another element's visibility (like a dropdown menu), `aria-haspopup`, `aria-expanded`, and `aria-controls` attributes can be pretty helpful.
+
+- The [`aria-haspopup`](https://www.w3.org/TR/wai-aria-1.2/#aria-haspopup) attribute indicates that the component can trigger a popup component.
+- The [`aria-controls`](https://www.w3.org/TR/wai-aria-1.2/#aria-controls) attribute indicates that a component can control another component's contents or presence
+- The [`aria-expanded`](https://www.w3.org/TR/wai-aria-1.2/#aria-expanded) attribute indicates that whether the component controlled by the current component is expanded (visible)
+
+For example, when you have a button that can show and hide a dropdown menu component, and the dropdown menu component has a `id="dropdown_menu"`, you can add `aria-haspopup="true"` and `aria-controls="dropdown_menu"` to the button component. And if the dropdown menu is visible, you can add `aria-expanded="true"` to the button component.
+
+---
+
+## UI Component Examples
+
+Now let's look at some examples provided by [WAI-ARIA widget design patterns](https://www.w3.org/TR/wai-aria-practices-1.2/#aria_ex) that use the ARIA attributes introduced above.
+
+### Alert
+
+The simplest example might be an [alert](https://www.w3.org/TR/wai-aria-practices-1.2/#alert) component. An alert is a component that displays information that attracts the user's attention.
+
+It only requires a `role="alert"` to the alert component.
+
+```html
+<div role="alert">Hello</div>
+```
+
+You can check the actual code from the WAI-ARIA alert example [here](https://www.w3.org/TR/wai-aria-practices-1.2/examples/alert/alert.html).
+
+### switch
+
+A [switch](https://www.w3.org/TR/wai-aria-practices-1.2/#switch) is an input component that allows users to switch between “on” and “off”. It requires `role` and several `aria-*` attributes.
+
+The **switch container** has the following attributes:
+
+- `role="alert"`
+- `aria-checked="true"` (or `"false"`): Indicates whether the switch is checked or not.
+
+The **on/off labels** have the following attributes:
+
+- [`aria-hidden="true"`](https://www.w3.org/TR/wai-aria-1.2/#aria-hidden): Because the screen reader can already announce the check state by looking at the `aria-checked` attribute on the switch container, we add `aria-hidden="true"` to disable redundant screen reader announcement on the label text.
+
+```html
+<div role="switch" aria-checked="false" tabindex="0">
+  <span class="label">Notifications</span>
+  <span class="switch">
+    <span></span>
+  </span>
+  <span class="on" aria-hidden="true">On</span>
+  <span class="off" aria-hidden="true">Off</span>
+</div>
+```
+
+You can check the actual code from the WAI-ARIA switch example [here](https://www.w3.org/TR/wai-aria-practices-1.2/examples/switch/switch.html).
+
+### Tabs
+
+[Tabs](https://www.w3.org/TR/wai-aria-practices-1.2/#tabpanel) are just like the tabs in your browser. They require a combination of multiple components that use `role` and `aria-*` attributes.
+
+The **tab container** has the following attributes:
+
+- `role="tablist"`
+- `aria-label`/`aria-labelledby`: Describes the purpose of the tabs.
+
+Each **tab button** has the following attributes:
+
+- `role="tab"`
+- `aria-selected="true"` (or `"false"`): Indicates whether the tab is selected or not.
+- `aria-controls`: Refers to the **tab panel** controlled by this tab button by passing the tab panel's `id`.
+- `id`: The ID to be referred by the **tab panel**'s `aria-labelledby`.
+
+Each **tab panel** has the following attributes:
+
+- `role="tabpanel"`
+- `aria-labelledby`: Refers to the **tab button** associated with this tab panel by assigning the tab button's `id`.
+- `id`: The ID to be referred by the **tab button**'s `aria-controls`.
+
+```html
+<div role="tablist" aria-label="tabs">
+  <button
+    role="tab"
+    aria-selected="true"
+    aria-controls="a-tab-panel"
+    id="a-tab-button"
+  >
+    Tab A
+  </button>
+  <button
+    role="tab"
+    aria-selected="false"
+    aria-controls="b-tab-button"
+    id="b"
+    tabindex="-1"
+  >
+    Tab B
+  </button>
+</div>
+
+<div
+  tabindex="0"
+  role="tabpanel"
+  id="a-tab-panel"
+  aria-labelledby="a-tab-button"
+>
+  <p>Aliqua dolor tempor sunt quis reprehenderit aliqua.</p>
+</div>
+<div
+  tabindex="0"
+  role="tabpanel"
+  id="b-tab-panel"
+  aria-labelledby="b-tab-button"
+>
+  <p>Incididunt incididunt ex quis ad proident.</p>
+</div>
+```
+
+You can check the actual code from the WAI-ARIA tab example [here](https://www.w3.org/TR/wai-aria-practices-1.2/examples/tabs/tabs-1/tabs.html).
+
+### Dropdown Menu
+
+A [dropdown menu](https://www.w3.org/TR/wai-aria-practices-1.2/#menubutton) component is a popup UI that offers a set of actions. It requires a combination of multiple components that use `role` and `aria-*` attributes.
+
+The **menu button** component has the following attributes:
+
+- `aria-haspopup="true"`: Indicates that it opens a pop-up menu.
+- `aria-controls`: Refers to the **menu** controlled by this menu button by assigning the menu's `id`.
+- `aria-expanded="true"`: Indicates whether the menu is visible or not. This attribute is **removed** when the menu is closed.
+- `id`: The ID to be referred by the **menu**'s `aria-labelledby`.
+
+The **menu component** has the following attributes:
+
+- `role="menu"`
+- `aria-labelledby`: Refers to the **menu button** associated with this menu by assigning the menu button's `id`.
+- `id`: The ID to be referred by the **menu button**'s `aria-controls`.
+
+The **menu item** component has the following attributes:
+
+- `role="menuitem"`
+
+```html
+<button
+  type="button"
+  id="menubutton1"
+  aria-haspopup="true"
+  aria-controls="menu1"
+>
+  Actions
+</button>
+<ul id="menu1" role="menu" aria-labelledby="menubutton1">
+  <li role="menuitem">Action 1</li>
+  <li role="menuitem">Action 2</li>
+  <li role="menuitem">Action 3</li>
+  <li role="menuitem">Action 4</li>
+</ul>
+```
+
+You can check the actual code from the WAI-ARIA menu example [here](https://www.w3.org/TR/wai-aria-practices-1.2/examples/menu-button/menu-button-actions.html).
+
+## Conclusion
+
+Using the appropriate ARIA attributes is a big step towards building your own accessible UI components. In this article, I have introduced several ARIA attributes that I think are commonly used and also walked through the attributes used in real WAI-ARIA example components.
+
+There are still many more WAI-ARIA roles and attributes out there, if you want to have a deeper dive into this topic, take a look at MDN's docs about [roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) and [properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes), or the [WAI-ARIA specs](https://www.w3.org/TR/wai-aria-1.2/).
+
+One last thing to mention, I will recommend considering using native HTML elements before adding an ARIA attribute. Using ARIA state attributes like `aria-checked` usually involves JavaScript, however not every user has their browser JavaScript enabled. On the other hand, HTML elements give you many great accessible features out of the box without any JavaScript. So even your user don't want to use JavaScript, you can still provide them with good accessibility features.
