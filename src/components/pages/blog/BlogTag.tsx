@@ -35,13 +35,12 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
     case 'draft':
       return (
         <span
-          className="blog-tag text-white bg-draft-default dark:text-draft-default dark:bg-gray-200"
+          className="blog-tag text-white bg-draft-default dark:text-draft-default dark:bg-zinc-200"
           {...restProps}
         >
           {text}
         </span>
       );
-
     default:
       return null;
   }

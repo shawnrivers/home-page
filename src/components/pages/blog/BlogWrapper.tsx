@@ -22,14 +22,17 @@ export const BlogWrapper: React.FC<{
 
   return (
     <Page {...getBlogHead(meta)}>
-      <article className="prose post break-words">
+      <article className="prose prose-zinc dark:prose-invert mx-auto px-4 break-words">
         <div className="mb-8">
-          <div className="text-base mb-2 text-gray-500 dark:text-gray-400">
+          <time
+            dateTime={date}
+            className="block text-base mb-2 text-zinc-500 dark:text-zinc-400"
+          >
             {getDateString(date)}
-          </div>
-          <h1 className="text-2xl">{title}</h1>
+          </time>
+          <h1>{title}</h1>
           {tags.length > 0 && (
-            <div className="blog-tag-group mt-4">
+            <div className="space-x-2 mt-3">
               {!published && <BlogTag text="draft" />}
               {tags.map(tag => (
                 <BlogTag text={tag} key={tag} />
@@ -37,7 +40,7 @@ export const BlogWrapper: React.FC<{
             </div>
           )}
         </div>
-        {children}
+        <div className="post-body">{children}</div>
       </article>
     </Page>
   );

@@ -1,0 +1,132 @@
+@tailwind components;
+
+.token.comment {
+  @apply text-zinc-400;
+}
+.token.script {
+  @apply text-zinc-200;
+}
+.token.keyword {
+  @apply italic;
+}
+.token.keyword,
+.token.tag {
+  @apply text-red-400;
+}
+.token.attr-name {
+  @apply text-violet-400;
+}
+.token.attr-value {
+  @apply text-blue-400;
+}
+.token.string {
+  @apply text-emerald-400;
+}
+.token.punctuation,
+.token.operator {
+  @apply text-zinc-400;
+}
+.token.url,
+.token.symbol,
+.token.boolean,
+.token.variable,
+.token.constant {
+  @apply text-blue-400;
+}
+.token.class-name,
+.token.number {
+  @apply text-amber-300;
+}
+.token.function {
+  @apply text-blue-400;
+}
+.token.function-variable {
+  @apply text-zinc-200;
+}
+.token.selector {
+  @apply text-blue-400;
+}
+.token.selector {
+  @apply text-blue-400;
+}
+.token.property,
+.token.entity {
+  @apply text-pink-400;
+}
+
+@layer components {
+  .prose h1 {
+    @apply mb-0 text-3xl;
+  }
+
+  .post-body a {
+    @apply text-zinc-700 dark:text-zinc-200 hover:text-zinc-500;
+  }
+  
+  .post-body a * {
+    @apply text-zinc-700 dark:text-zinc-200 hover:text-zinc-500;
+  }
+  
+  .post-body strong {
+    @apply font-bold;
+  }
+
+  .post-body hr {
+    @apply border-t-2;
+  }
+  
+  .post-body pre {
+    overflow-wrap: initial;
+    tab-size: 2;
+    @apply bg-zinc-800 text-zinc-200 py-6 rounded-md;
+  }
+
+  .post-body .code-block-lang {
+    @apply inline-block px-2 py-0.5 text-xs uppercase rounded-sm rounded-tr-md bg-zinc-600 text-white;
+  }
+  
+  .post-body a code {
+    @apply text-red-600 bg-zinc-100 dark:text-red-400 dark:bg-zinc-800;
+  }
+  
+  .post-body code {
+    @apply text-red-600 bg-zinc-100 dark:text-red-400 dark:bg-zinc-800 py-1 px-1.5 rounded font-normal;
+  }
+  
+  .post-body code::before,
+  .post-body code::after {
+    content: '';
+  }
+  
+  .post-body pre code {
+    @apply p-0 text-zinc-200 bg-zinc-800;
+  }
+  
+  .post-body blockquote {
+    @apply text-zinc-700 dark:text-zinc-200;
+  }
+
+  .post-body figure {
+    @apply text-sm text-zinc-700 leading-relaxed;
+  }
+    
+  .post-body figure figcaption {
+    @apply text-zinc-600 dark:text-zinc-300 text-sm mt-2 text-center;
+  }
+  
+  .post-body figure figcaption * {
+    @apply m-0;
+  }
+  
+  .post-body img {
+    @apply m-0;
+  }
+
+  .post-body .post-image-wrapper {
+    @apply inline-block rounded-lg border-2 overflow-hidden border-zinc-200 dark:border-zinc-400;
+  }
+
+  .post-body .post-image-wrapper > * {
+    @apply align-middle;
+  }
+}

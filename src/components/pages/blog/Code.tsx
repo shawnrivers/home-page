@@ -11,7 +11,7 @@ const Code: React.FC<{
 
   return (
     <div className="relative">
-      <span className="absolute inline-block top-0 right-0 px-2 py-0.5 text-sm uppercase rounded-sm bg-gray-600 text-white">
+      <span className="absolute top-0 right-0 code-block-lang">
         {language}
       </span>
       {/* When content overflow on the x axis happens, to allow horizontal scroll using the keyboard, we need to make the <pre> element focusable */}

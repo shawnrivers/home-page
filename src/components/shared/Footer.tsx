@@ -13,7 +13,7 @@ export const Footer: React.FC<{
   return (
     <footer
       className={joinClassNames(
-        'py-8 text-center bg-gray-700',
+        'py-8 text-center bg-zinc-800',
         props.className,
       )}
     >

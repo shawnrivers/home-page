@@ -8,7 +8,7 @@ import { Page } from 'components/shared/Page';
 const Home: React.FC = () => (
   <Page titlePre="Home" className="font-mono flex flex-col align-center">
     <section className="flex flex-col items-center justify-center sm:flex-row mx-4">
-      <div className="next-image-wrapper inline-block overflow-hidden rounded-full border-4 border-gray-800">
+      <div className="next-image-wrapper inline-block overflow-hidden rounded-full border-4 border-zinc-800">
         <Image
           src="/avatar.jpg"
           width="128"
@@ -28,7 +28,7 @@ const Home: React.FC = () => (
           href="https://twitter.com/yuxiao_he"
           rel="noopener"
           aria-label="Twitter: @yuxiao_he"
-          className="flex align-center justify-center sm:justify-start mt-2 text-gray-700 dark:text-gray-300"
+          className="flex align-center justify-center sm:justify-start mt-2 text-zinc-700 dark:text-zinc-300"
         >
           <TwitterIcon title="Twitter" className="fill-current" />
           <span className="text-base ml-1">@yuxiao_he</span>
@@ -98,7 +98,7 @@ const Home: React.FC = () => (
         />
       </div>
     </section>
-    <section className="flex flex-col items-center px-4 py-8 bg-gray-100 dark:bg-gray-800">
+    <section className="flex flex-col items-center px-4 py-8 bg-zinc-100 dark:bg-zinc-800">
       <h2 className="text-2xl font-bold hashtag-heading">Works</h2>
       <div className="flex flex-wrap justify-center mt-4">
         <WorkCard

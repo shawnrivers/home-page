@@ -28,9 +28,9 @@ module.exports = {
         dark: colors.red[500],
       },
       a11y: {
-        light: colors.neutral[300],
-        default: colors.neutral[400],
-        dark: colors.neutral[500],
+        light: colors.zinc[300],
+        default: colors.zinc[400],
+        dark: colors.zinc[500],
       },
       draft: {
         light: colors.gray[700],

@@ -4,14 +4,14 @@ import { Tag } from 'pages/blog/meta';
 import { joinClassNames } from 'utils/class';
 
 const BORDER_COLORS: Record<Tag, string> = {
-  react: 'border-react-light',
-  css: 'border-css-light',
-  html: 'border-html-light',
-  a11y: 'border-a11y-light',
+  react: 'border-react-default',
+  css: 'border-css-default',
+  html: 'border-html-default',
+  a11y: 'border-a11y-default',
 };
 
 type CardProps = {
-  tag?: string;
+  tag?: Tag;
   href: React.ComponentProps<typeof Link>['href'];
   as: React.ComponentProps<typeof Link>['as'];
   className?: string;
@@ -31,7 +31,7 @@ export const Card: React.FC<CardProps> = props => {
       >
         <article
           className={`card card-shadow card-clickable cursor-pointer border-4 ${
-            borderColor ?? 'border-gray-800'
+            borderColor ?? 'border-zinc-800'
           }`}
         >
           {children}

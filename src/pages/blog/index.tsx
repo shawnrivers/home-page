@@ -48,12 +48,12 @@ const PostCard: React.FC<
         <div className="mt-2 mb-4 mx-4">
           <h2 className="text-xl font-bold">{title}</h2>
           {date && (
-            <div className="mt-1 text-base text-gray-500 dark:text-gray-300">
+            <div className="mt-1 text-base text-zinc-500 dark:text-zinc-300">
               {getDateString(date)}
             </div>
           )}
           {tags.length > 0 && (
-            <div className="blog-tag-group mt-2">
+            <div className="space-x-2 mt-2">
               {!published && <BlogTag text="draft" />}
               {tags.map(tag => (
                 <BlogTag text={tag} key={tag} />
@@ -69,7 +69,7 @@ const PostCard: React.FC<
 const BlogIndexPage: React.FC = () => {
   return (
     <Page titlePre="Blog" className="max-w-6xl mx-auto px-6">
-      <h1 className="visually-hidden">Blog</h1>
+      <h1 className="sr-only">Blog</h1>
       <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 content-center items-stretch">
         {blogsInfo.map((meta, index) => (
           <PostCard

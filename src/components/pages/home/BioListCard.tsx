@@ -3,8 +3,8 @@ import { joinClassNames } from 'utils/class';
 const RoundDot: React.FC<{ isHighlighted: boolean }> = props => {
   return (
     <div
-      className={`border-gray-200 dark:border-gray-700 absolute box-border ${
-        props.isHighlighted ? 'bg-blue-400' : 'bg-gray-400'
+      className={`border-zinc-200 dark:border-zinc-700 absolute box-border ${
+        props.isHighlighted ? 'bg-red-400' : 'bg-zinc-400'
       }`}
       style={{
         width: '18px',
@@ -46,8 +46,8 @@ export const BioListCard: React.FC<BioListCardProps> = props => {
               className={joinClassNames(
                 'border-l-2 pb-4 pl-4',
                 index < itemsCount - 1
-                  ? 'border-gray-400'
-                  : 'border-gray-200 dark:border-gray-700',
+                  ? 'border-zinc-400'
+                  : 'border-zinc-200 dark:border-zinc-700',
               )}
             >
               <p className="text-sm whitespace-pre-wrap">{item.text}</p>
