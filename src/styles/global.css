@@ -47,17 +47,17 @@ body {
 }
 .token.keyword,
 .token.tag {
-  @apply text-red-400;
+  @apply text-rose-400;
 }
 .token.attr-name,
 .token.regex {
-  @apply text-yellow-500;
+  @apply text-yellow-400;
 }
 .token.attr-value {
   @apply text-blue-400;
 }
 .token.string {
-  @apply text-green-300;
+  @apply text-emerald-300;
 }
 .token.punctuation,
 .token.operator {
@@ -83,7 +83,7 @@ code[class*='language-css'] {
 .token.function,
 .token.class-name,
 .token.number {
-  @apply text-purple-400;
+  @apply text-violet-400;
 }
 .language-autohotkey .token.tag {
   @apply text-red-300;
