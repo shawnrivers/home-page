@@ -1,4 +1,4 @@
-import { blogsMeta } from 'blogs/meta.ts';
+import { blogsMeta } from './meta.ts';
 import { Img } from 'components/pages/blog/Img.tsx';
 
 export const meta = blogsMeta['basic-css-element-sizing'];
@@ -24,7 +24,7 @@ I don't know if you're like me, but my mentality of writing CSS has been like, "
 
 In this article, I will only talk about the very basic element sizing of [block-level elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements), [inline elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements), and [replaced elements](https://developer.mozilla.org/en-US/docs/Web/CSS/Replaced_element) like `<img>` and `<video>` in a normal flow.
 
-Other layouts like flexbox and grid have different sizing behaviors compared with the normal flow. Rachel Andrew wrote [a great article about element sizing in those layouts](https://www.smashingmagazine.com/2018/01/understanding-sizing-css-layout/).
+Other layouts like flexbox and grid have different sizing behaviors compared with the normal flow. Rachel Andrew wrote [a great article about element sizing in those layouts](https://www.smashingmagazine.com/2018/01/understanding-sizing-css-layout/).
 
 ## Default Sizing
 
@@ -213,7 +213,7 @@ In this example, the width is constrained by `max-width` in `200px`, but because
 
 <Img
   src="/blogs/basic-css-element-sizing/specified-sizing-max-block.png"
-  alt="The text flows inside 200px wide box, the height of the box is the acutal height of the text content"
+  alt="The text flows inside 200px wide box, the height of the box is the actual height of the text content"
   width={400}
   height={400}
 />

@@ -1,4 +1,4 @@
-import { blogsMeta } from 'blogs/meta.ts';
+import { blogsMeta } from './meta.ts';
 import { Img } from 'components/pages/blog/Img.tsx';
 
 export const meta = blogsMeta['experimenting-react-suspense-with-swr'];
@@ -20,14 +20,14 @@ This article is originally posted as the 10th entry of [Eureka Advent Calendar 2
 
 - React Suspense is an excellent feature for managing data fetching status in a declarative way.
 - It might be a solid choice to use third-party data fetching libraries like SWR that support Suspense to handle data caching.
-- Suspense introduces a new data loading pattern. It may take some time to get used to, especially when you’re trying to use Suspense along with some traditional data loading approaches in an MVP architecture.
+- Suspense introduces a new data loading pattern. It may take some time to get used to, especially when you're trying to use Suspense along with some traditional data loading approaches in an MVP architecture.
 - Suspense is still an experimental feature. I would not suggest rewriting your whole app in Suspense right away, especially when your codebase is large.
 
 ## Why Suspense?
 
-[React Suspense](https://reactjs.org/docs/concurrent-mode-suspense.html) is an experimental feature introduced in React 16.6. It lets “your components wait for something before they can render.”
+[React Suspense](https://reactjs.org/docs/concurrent-mode-suspense.html) is an experimental feature introduced in React 16.6. It lets "your components wait for something before they can render."
 
-Let’s make a quick comparison between the traditional way and the Suspense way of showing a loading indicator UI.
+Let's make a quick comparison between the traditional way and the Suspense way of showing a loading indicator UI.
 
 The traditional way to indicate the data being loading is to wrap a loading indicator UI like a spinner component under a conditional statement.
 
@@ -39,7 +39,7 @@ if (isLoading) {
 return <Content />;
 ```
 
-With Suspense, you wrap the actual component with a `<React.Suspense>` component. Then you pass the loading indicator component to the `fallback` property of the `<React.Suspense>` component.
+With Suspense, you wrap the actual component with a `<React.Suspense>` component. Then you pass the loading indicator component to the `fallback` property of the `<React.Suspense>` component.
 
 ```jsx
 return (
@@ -49,28 +49,28 @@ return (
 );
 ```
 
-As we can see, Suspense eliminates the `if (isLoading)` boilerplate codes. It can help us write the loading indicator UI in a more declarative way.
+As we can see, Suspense eliminates the `if (isLoading)` boilerplate codes. It can help us write the loading indicator UI in a more declarative way.
 
 ## Suspense for Data Fetching
 
-Under the hood, Suspense catches pending `Promise` thrown by its descendant components. Therefore, to adopt Suspense for data fetching, our data fetching method needs to throw a pending `Promise` while fetching data. There are basically two options to make this happen:
+Under the hood, Suspense catches pending `Promise` thrown by its descendant components. Therefore, to adopt Suspense for data fetching, our data fetching method needs to throw a pending `Promise` while fetching data. There are basically two options to make this happen:
 
 - Option 1: Use a data fetching library that supports Suspense.
-- Option 2: Upon the existing data fetch codes, add additional codes that throw a pending `Promise` while fetching the data.
+- Option 2: Upon the existing data fetch codes, add additional codes that throw a pending `Promise` while fetching the data.
 
 In this blog post, I will demonstrate the scenario for option 1 — use a data fetching library that supports Suspense.
 
-If you want to know more about option 2, I recommend reading my colleague Ohsuga’s [blog post demonstrating how to adopt Suspense in a data fetching pattern with Redux](https://medium.com/eureka-engineering/converting-loading-indicator-implementation-to-react-suspense-cb083f29b44d).
+If you want to know more about option 2, I recommend reading my colleague Ohsuga's [blog post demonstrating how to adopt Suspense in a data fetching pattern with Redux](https://medium.com/eureka-engineering/converting-loading-indicator-implementation-to-react-suspense-cb083f29b44d).
 
 ## SWR
 
-A good choice is to use Suspense with [SWR](https://swr.vercel.app/).
+A good choice is to use Suspense with [SWR](https://swr.vercel.app/).
 
-SWR is a great data fetching library developed by [Vercel](https://vercel.com/). It uses a *“stale-while-revalidate”* caching strategy and has Suspense support built-in.
+SWR is a great data fetching library developed by [Vercel](https://vercel.com/). It uses a *"stale-while-revalidate"* caching strategy and has Suspense support built-in.
 
-Here is how *“stale-while-revalidate”* works. If there is a cache for the data you fetch, the browser will first render the cached data. In the background, the browser fetches the new data and then swaps the old cached data when the new data comes in.
+Here is how *"stale-while-revalidate"* works. If there is a cache for the data you fetch, the browser will first render the cached data. In the background, the browser fetches the new data and then swaps the old cached data when the new data comes in.
 
-By doing this, the browser doesn’t have to render loading indicators whenever it fetches some new data. Instead, there will almost always be actual content displayed on the page. This provides a better user experience.
+By doing this, the browser doesn't have to render loading indicators whenever it fetches some new data. Instead, there will almost always be actual content displayed on the page. This provides a better user experience.
 
 Using Suspense with SWR means that we can achieve both benefits at the same time:
 
@@ -79,9 +79,9 @@ Using Suspense with SWR means that we can achieve both benefits at the same time
 
 ## Using SWR without Suspense
 
-Let’s first take a look at how to use SWR without Suspense.
+Let's first take a look at how to use SWR without Suspense.
 
-The example I use to demonstrate is a super simple post app that fetches and shows a blog post’s title and body. While the post is loading, show a loading UI with the text “Loading post…”
+The example I use to demonstrate is a super simple post app that fetches and shows a blog post's title and body. While the post is loading, show a loading UI with the text "Loading post…"
 
 <Img
   src="/blogs/experimenting-react-suspense-with-swr/post-without-suspense.gif"
@@ -132,35 +132,35 @@ export default PostPageContainer;
 
 ### Example App Walkthrough
 
-Let’s walk through the codes of this example app.
+Let's walk through the codes of this example app.
 
-This app uses an [MVP](https://khalilstemmler.com/articles/client-side-architecture/introduction/#Model-View-presenter) (Model View Presenter) architecture. Here is the role of each declared function in this file:
+This app uses an [MVP](https://khalilstemmler.com/articles/client-side-architecture/introduction/#Model-View-presenter) (Model View Presenter) architecture. Here is the role of each declared function in this file:
 
-- `<Post>`: In the View layer. It renders the post’s title `<h2>` and body `<p>`.
-- `<PostPage>`: In the View layer. It is the view of a post page that renders a `<h1>` header and the `<Post>` component. It also handles the logic of showing the loading indicator UI.
+- `<Post>`: In the View layer. It renders the post's title `<h2>` and body `<p>`.
+- `<PostPage>`: In the View layer. It is the view of a post page that renders a `<h1>` header and the `<Post>` component. It also handles the logic of showing the loading indicator UI.
 - `useFetchPost`: In the Model layer. It is a custom hook that contains the actual operation of data fetching. This is where we use SWR.
-- `<PostPageContainer>`: In the Presenter layer, which acts as the “glue” between the View layer and the Model layer. It is a page component that you will usually pass to the `<Route>`’s `component` property. It fetches data by calling `useFetchPost` from the Model layer and passes the data to the View layer `<PostPage>` component.
+- `<PostPageContainer>`: In the Presenter layer, which acts as the "glue" between the View layer and the Model layer. It is a page component that you will usually pass to the `<Route>`'s `component` property. It fetches data by calling `useFetchPost` from the Model layer and passes the data to the View layer `<PostPage>` component.
 
 ### Use of SWR
 
-Now let’s take a look at the use of SWR.
+Now let's take a look at the use of SWR.
 
-In `useFetchPost`, we fetch the data by calling a custom hook `useSWR` provided by SWR.
+In `useFetchPost`, we fetch the data by calling a custom hook `useSWR` provided by SWR.
 
-To break down `useSWR`:
+To break down `useSWR`:
 
-- The first argument `“/api/post”` is the key of this resource. SWR uses this key to identify the API cache.
-- The second argument `fetchPost` is a function that makes the actual AJAX request to fetch post data. You can use the native `fetch` API or other third-party libraries like Axios here.
-- Then useSWR returns an object that includes `data` property. When the resource is still loading, `data`’s value is `null`. After the resource is loaded, `data`’s value is the resolved resource’s value.
+- The first argument `"/api/post"` is the key of this resource. SWR uses this key to identify the API cache.
+- The second argument `fetchPost` is a function that makes the actual AJAX request to fetch post data. You can use the native `fetch` API or other third-party libraries like Axios here.
+- Then useSWR returns an object that includes `data` property. When the resource is still loading, `data`'s value is `null`. After the resource is loaded, `data`'s value is the resolved resource's value.
 
-By calling `useFetchPost` in the function body of `<PostPageContainer>`, we fetch the data on `<PostPageContainer>` component’s mount time.
+By calling `useFetchPost` in the function body of `<PostPageContainer>`, we fetch the data on `<PostPageContainer>` component's mount time.
 
 ### Loading Indicator UI
 
-In `<PostPage>` component, we check the value of `props.post` to show the loading indicator UI:
+In `<PostPage>` component, we check the value of `props.post` to show the loading indicator UI:
 
-- If the post data is still loading, React renders the loading indicator UI `<p>Loading post…</p>`.
-- If the post data is loaded, React renders the `<Post>` component with the actual post data.
+- If the post data is still loading, React renders the loading indicator UI `<p>Loading post…</p>`.
+- If the post data is loaded, React renders the `<Post>` component with the actual post data.
 
 ## Using SWR with Suspense
 
@@ -224,32 +224,32 @@ export default PostPageContainer;
 
 ### Use of SWR
 
-To support Suspense in SWR, we need to enable the `suspense` option in the third argument of `useSWR`.
+To support Suspense in SWR, we need to enable the `suspense` option in the third argument of `useSWR`.
 
-In this example, the code will become: `const { data } = useSWR(“/api/post”, fetcher, { suspense: true });`
+In this example, the code will become: `const { data } = useSWR("/api/post", fetcher, { suspense: true });`
 
-In this way, `useSWR` will throw a pending `Promise` when data is loading and returns the actual data after the data is loaded.
+In this way, `useSWR` will throw a pending `Promise` when data is loading and returns the actual data after the data is loaded.
 
 ### Loading Indicator UI
 
-When we look at the previous code example without Suspense, we render the loading indicator UI at the `<Post>` component's location under the `<PostPage>` component.
+When we look at the previous code example without Suspense, we render the loading indicator UI at the `<Post>` component's location under the `<PostPage>` component.
 
-To achieve the same UI with Suspense, we should wrap the `<Post>` component with the `<React.Suspense>` component.
+To achieve the same UI with Suspense, we should wrap the `<Post>` component with the `<React.Suspense>` component.
 
 ### Fixing Data Fetching Timing
 
-Because `<React.Suspense>` can only catch pending `Promise` that gets thrown in its **descendant** components, we should call `useSWR` with the `suspense` option inside the `<Post>` component.
+Because `<React.Suspense>` can only catch pending `Promise` that gets thrown in its **descendant** components, we should call `useSWR` with the `suspense` option inside the `<Post>` component.
 
-However, if we only call `useSWR` once inside the `<Post>` component, we end up fetching the data on **`<Post>`’s mount time**. It will be a different behavior compared to the original example, where we fetch the data on **`<PostPageContainer>`’s mount time**.
+However, if we only call `useSWR` once inside the `<Post>` component, we end up fetching the data on **`<Post>`'s mount time**. It will be a different behavior compared to the original example, where we fetch the data on **`<PostPageContainer>`'s mount time**.
 
-To make sure that we fetch data on `<PostPageContainer>`’s mount time, we need to do something a little bit tricky:
+To make sure that we fetch data on `<PostPageContainer>`'s mount time, we need to do something a little bit tricky:
 
-- In `<PostPageContainer>`, call `useSWR` without the `suspense` option to fetch the data.
-- In `<Post>`, use the same `“/api/post”` API key and call the `useSWR` with the `suspense` option to trigger `<React.Suspense>`’s `fallback` loading indicator UI.
+- In `<PostPageContainer>`, call `useSWR` without the `suspense` option to fetch the data.
+- In `<Post>`, use the same `"/api/post"` API key and call the `useSWR` with the `suspense` option to trigger `<React.Suspense>`'s `fallback` loading indicator UI.
 
-By doing this, we fetch the data on `<PostPageContainer>`’s mount time.Then when `<Post>`’s `useSWR` is called, because it uses the same API key as the `<PostPageContainer>`’s `useSWR`, SWR knows the data is still loading. Therefore SWR throws a pending `Promise` from `<Post>`’s `useSWR` which is caught by the`<React.Suspense>` wrapping the `<Post>`. This finally makes React renders the fallback `<p>Loading post…</p>` loading indicator UI.
+By doing this, we fetch the data on `<PostPageContainer>`'s mount time.Then when `<Post>`'s `useSWR` is called, because it uses the same API key as the `<PostPageContainer>`'s `useSWR`, SWR knows the data is still loading. Therefore SWR throws a pending `Promise` from `<Post>`'s `useSWR` which is caught by the`<React.Suspense>` wrapping the `<Post>`. This finally makes React renders the fallback `<p>Loading post…</p>` loading indicator UI.
 
-Finally, we rewrite the `useFetchPost` custom hook to achieve the behavior described above.By calling `useFetchPost` in `<PostPageContainer>`, we fetch the data and receive another custom hook `useReadPost`. `useReadPost` is then passed all the way down to the `<Post>` for reading the post data and triggering `<React.Suspense>` fallback UI.
+Finally, we rewrite the `useFetchPost` custom hook to achieve the behavior described above.By calling `useFetchPost` in `<PostPageContainer>`, we fetch the data and receive another custom hook `useReadPost`. `useReadPost` is then passed all the way down to the `<Post>` for reading the post data and triggering `<React.Suspense>` fallback UI.
 
 ## Pros and Cons
 
@@ -259,17 +259,17 @@ When we compare the two implementations in an MVP architecture, we can find some
 
 Using SWR without Suspense, we can write simple and intuitive data fetching logic in the Model layer.
 
-However, because we don’t use Suspense, we need to write loading indicator UI logic boilerplate codes in the View layer like: `{props.post ? <Post post={props.post} /> : <p>Loading post…</p>}`
+However, because we don't use Suspense, we need to write loading indicator UI logic boilerplate codes in the View layer like: `{props.post ? <Post post={props.post} /> : <p>Loading post…</p>}`
 
 ### With Suspense
 
-Using SWR with Suspense, we can write a more declarative loading indicator UI using `<React.Suspense>`.
+Using SWR with Suspense, we can write a more declarative loading indicator UI using `<React.Suspense>`.
 
-However, in an MVP architecture, compared to traditional data fetching where we pass **the actual data** to the View layer like: `<Post post={props.post} />`, we are now passing **a hook function that returns the data** like: `<Post useReadPost={props.useReadPost} />`.
+However, in an MVP architecture, compared to traditional data fetching where we pass **the actual data** to the View layer like: `<Post post={props.post} />`, we are now passing **a hook function that returns the data** like: `<Post useReadPost={props.useReadPost} />`.
 
-Getting used to this behavior might take some time. Also, suppose you have to use Suspense and a traditional data fetching pattern together in one component (for example, a very huge component that you don’t have enough time to rewrite all the codes). In that case, it will confuse the developers because they need to pass some data in the actual data forms while passing some data in the hook function forms.
+Getting used to this behavior might take some time. Also, suppose you have to use Suspense and a traditional data fetching pattern together in one component (for example, a very huge component that you don't have enough time to rewrite all the codes). In that case, it will confuse the developers because they need to pass some data in the actual data forms while passing some data in the hook function forms.
 
-Lastly, like regular React hooks, you will have to obey rules like “_[Don’t call Hooks inside loops, conditions, or nested functions](https://reactjs.org/docs/hooks-rules.html)_” when using hook function props.
+Lastly, like regular React hooks, you will have to obey rules like "_[Don't call Hooks inside loops, conditions, or nested functions](https://reactjs.org/docs/hooks-rules.html)_" when using hook function props.
 
 ## Other Caveats of Suspense
 
@@ -279,7 +279,7 @@ Some other caveats you might need to consider before using Suspense:
 
 You cannot use Suspense with SSR (Server-Side Rendering).
 
-To work around this problem, consider adding some logic like render a loading indicator component without `<React.Suspense>` at the first render.
+To work around this problem, consider adding some logic like render a loading indicator component without `<React.Suspense>` at the first render.
 
 ### The API Might Change
 
@@ -297,8 +297,8 @@ Suspense is a good tool for managing data loading status in a declarative way. I
 
 Using SWR makes it easy to adopt Suspense quickly, and it also provides a better user experience.
 
-Suspense introduces a new data loading pattern, which is to trigger the loading indicator UI by throwing pending `Promise` inside `<React.Suspense>` component.
-It may take some time to get used to, especially when you’re trying to use Suspense along with some traditional data loading approaches.
+Suspense introduces a new data loading pattern, which is to trigger the loading indicator UI by throwing pending `Promise` inside `<React.Suspense>` component.
+It may take some time to get used to, especially when you're trying to use Suspense along with some traditional data loading approaches.
 
 Finally, because Suspense is still an experimental feature, I would not suggest rewriting your whole app in Suspense right away.
 You can still experiment with it in a limited number of pages that you can decouple with your traditional data fetching pattern.
