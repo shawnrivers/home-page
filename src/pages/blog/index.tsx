@@ -11,9 +11,19 @@ const blogsInfo = sortByDate(Object.values(blogsMeta), 'date');
 const PostCard: React.FC<
   BlogMeta & {
     imagePriority?: boolean;
+    className?: string;
   }
 > = props => {
-  const { title, slug, date, tags, published, image, imagePriority } = props;
+  const {
+    title,
+    slug,
+    date,
+    tags,
+    published,
+    image,
+    imagePriority,
+    className,
+  } = props;
 
   return (
     <Card
@@ -21,6 +31,7 @@ const PostCard: React.FC<
       href="/blog/[slug]"
       aria-label={title}
       as={`/blog/${slug}`}
+      className={className}
     >
       <div>
         {image && (

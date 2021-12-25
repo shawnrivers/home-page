@@ -1,4 +1,4 @@
-export type Tag = 'react' | 'css';
+export type Tag = 'react' | 'css' | 'html' | 'a11y';
 
 export type BlogMeta = {
   title: string;
@@ -33,5 +33,15 @@ export const blogsMeta: Record<string, BlogMeta> = {
     image: '/blogs/basic-css-element-sizing/Element_Sizing.png',
     description:
       'This article introduces the very basic concepts of element sizing using CSS.',
+  },
+  'common-aria-properties': {
+    title: 'Some Common ARIA Properties for Accessible Web UI Components',
+    slug: 'common-aria-properties',
+    featured: true,
+    published: true,
+    date: '2021-12-10',
+    tags: ['html', 'a11y'],
+    image: '/blogs/common-aria-properties/hero.png',
+    description: 'This article introduces some commonly used ARIA properties.',
   },
 };

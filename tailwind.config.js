@@ -22,6 +22,16 @@ module.exports = {
         default: colors.indigo[500],
         dark: colors.indigo[600],
       },
+      html: {
+        light: colors.red[300],
+        default: colors.red[400],
+        dark: colors.red[500],
+      },
+      a11y: {
+        light: colors.neutral[300],
+        default: colors.neutral[400],
+        dark: colors.neutral[500],
+      },
       draft: {
         light: colors.gray[700],
         default: colors.gray[800],

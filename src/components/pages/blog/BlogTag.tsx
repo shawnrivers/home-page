@@ -20,6 +20,18 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
           {text}
         </span>
       );
+    case 'html':
+      return (
+        <span className="blog-tag text-white bg-html-dark" {...restProps}>
+          {text}
+        </span>
+      );
+    case 'a11y':
+      return (
+        <span className="blog-tag text-white bg-a11y-dark" {...restProps}>
+          {text}
+        </span>
+      );
     case 'draft':
       return (
         <span
