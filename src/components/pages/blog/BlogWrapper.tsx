@@ -1,4 +1,4 @@
-import { BlogMeta } from 'blogs/meta';
+import { BlogMeta } from 'pages/blog/meta';
 import { getDateString } from 'utils/date';
 import { getBlogOgImageUrl } from 'utils/url';
 import { HeaderProps } from 'components/shared/Header';

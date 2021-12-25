@@ -1,4 +1,4 @@
-import { Tag } from 'blogs/meta';
+import { Tag } from 'pages/blog/meta';
 
 type BlogTagProps = {
   text: Tag | 'draft';

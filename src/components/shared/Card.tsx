@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Link from 'next/link';
-import { Tag } from 'blogs/meta';
+import { Tag } from 'pages/blog/meta';
 
 const BORDER_COLORS: Record<Tag, string> = {
   react: 'border-react-light',

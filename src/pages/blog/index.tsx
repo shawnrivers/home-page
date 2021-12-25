@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { blogsMeta, BlogMeta } from 'blogs/meta';
+import { blogsMeta, BlogMeta } from 'pages/blog/meta';
 import { Card } from 'components/shared/Card';
 import { Page } from 'components/shared/Page';
 import { getDateString } from 'utils/date';
