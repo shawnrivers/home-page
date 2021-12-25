@@ -4,6 +4,6 @@ module.exports = {
     tailwindcss: {},
     'postcss-focus-visible': {},
     autoprefixer: {},
-    ...(NODE_ENV === 'production' ? { cssnano: {} } : {}),
+    ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
   },
 };
