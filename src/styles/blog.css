@@ -38,7 +38,7 @@
   @apply text-amber-300;
 }
 .token.function {
-  @apply text-blue-400;
+  @apply text-violet-400;
 }
 .token.function-variable {
   @apply text-zinc-200;

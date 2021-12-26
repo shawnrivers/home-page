@@ -72,12 +72,12 @@
 
   h2.hashtag-heading::before {
     content: '#';
-    @apply text-zinc-400 mr-1;
+    @apply text-zinc-500 mr-1;
   }
 
   h3.hashtag-heading::before {
     content: '##';
-    @apply text-zinc-400 mr-1;
+    @apply text-zinc-500 mr-1;
   }
 
   .next-image-wrapper > * {
