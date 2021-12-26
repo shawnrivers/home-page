@@ -13,24 +13,24 @@ module.exports = {
     colors: {
       ...colors,
       react: {
-        light: colors.blue[400],
-        default: colors.blue[500],
-        dark: colors.blue[600],
+        light: colors.sky[400],
+        default: colors.sky[500],
+        dark: colors.sky[600],
       },
       css: {
-        light: colors.indigo[400],
-        default: colors.indigo[500],
-        dark: colors.indigo[600],
+        light: colors.violet[400],
+        default: colors.violet[500],
+        dark: colors.violet[600],
       },
       html: {
-        light: colors.red[300],
-        default: colors.red[400],
-        dark: colors.red[500],
+        light: colors.red[400],
+        default: colors.red[500],
+        dark: colors.red[600],
       },
       a11y: {
-        light: colors.zinc[300],
-        default: colors.zinc[400],
-        dark: colors.zinc[500],
+        light: colors.orange[400],
+        default: colors.orange[500],
+        dark: colors.orange[600],
       },
       draft: {
         light: colors.gray[700],

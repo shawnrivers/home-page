@@ -59,12 +59,8 @@
     @apply mb-0 text-3xl;
   }
 
-  .post-body a {
-    @apply text-zinc-700 dark:text-zinc-200 hover:text-zinc-500;
-  }
-  
   .post-body a * {
-    @apply text-zinc-700 dark:text-zinc-200 hover:text-zinc-500;
+    @apply text-zinc-900 dark:text-white hover:text-zinc-400;
   }
   
   .post-body strong {

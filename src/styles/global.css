@@ -32,7 +32,7 @@
 
   @media (hover: hover) and (pointer: fine) {
     a:hover {
-      @apply text-zinc-400 dark:text-zinc-500;
+      @apply text-zinc-400;
     }
   }
 
