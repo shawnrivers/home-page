@@ -9,6 +9,7 @@ import { DynamicComponent } from 'components/pages/blog/DynamicComponent';
 import { Heading } from 'components/pages/blog/Heading';
 import { Pre } from 'components/pages/blog/Pre';
 import { setupAxe } from 'libs/axe';
+import { A } from 'components/pages/blog/A';
 
 const App: React.FC<AppProps> = props => {
   const { Component, pageProps } = props;
@@ -24,6 +25,7 @@ const App: React.FC<AppProps> = props => {
         h1: Heading.h1,
         h2: Heading.h2,
         h3: Heading.h3,
+        a: A,
         pre: Pre,
         code: DynamicComponent.Code,
       }}

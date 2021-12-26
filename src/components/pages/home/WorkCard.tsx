@@ -15,7 +15,8 @@ export const WorkCard: React.FC<WorkCardProps> = props => {
   return (
     <a
       href={props.to}
-      rel="noopener"
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={props.heading}
       className={joinClassNames(
         'inline-block text-center text-zinc-900 no-underline hover:no-underline group',

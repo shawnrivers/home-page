@@ -26,7 +26,8 @@ const Home: React.FC = () => (
         </h1>
         <a
           href="https://twitter.com/yuxiao_he"
-          rel="noopener"
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="Twitter: @yuxiao_he"
           className="flex align-center justify-center sm:justify-start mt-2 text-zinc-700 dark:text-zinc-300"
         >
@@ -123,22 +124,38 @@ const Home: React.FC = () => (
       <h2 className="text-2xl font-bold hashtag-heading">Contact</h2>
       <ul className="flex flex-wrap flex-col sm:flex-row items-center justify-center p-0 mt-4 list-none">
         <li className="my-2 mx-4">
-          <a href="https://twitter.com/yuxiao_he" rel="noopener">
+          <a
+            href="https://twitter.com/yuxiao_he"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Twitter
           </a>
         </li>
         <li className="my-2 mx-4">
-          <a href="https://www.facebook.com/usho.ka" rel="noopener">
+          <a
+            href="https://www.facebook.com/usho.ka"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Facebook
           </a>
         </li>
         <li className="my-2 mx-4">
-          <a href="https://www.instagram.com/usho.ka/" rel="noopener">
+          <a
+            href="https://www.instagram.com/usho.ka/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Instagram
           </a>
         </li>
         <li className="my-2 mx-4">
-          <a href="https://github.com/shawnrivers" rel="noopener">
+          <a
+            href="https://github.com/shawnrivers"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             GitHub
           </a>
         </li>
