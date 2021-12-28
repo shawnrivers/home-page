@@ -37,7 +37,7 @@ const Home: React.FC = () => (
       </div>
     </section>
     <section className="py-8 mx-auto">
-      <div className="sheet inline-block mx-4 px-8 py-6 rounded-lg">
+      <div className="sheet inline-block mx-4 px-8 py-6">
         <h2 className="text-xl font-bold text-center">
           Nogizaka-driven web developer
         </h2>

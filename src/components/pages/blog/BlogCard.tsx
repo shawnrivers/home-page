@@ -10,7 +10,7 @@ const BORDER_COLORS: Record<Tag, string> = {
   a11y: 'border-a11y-default',
 };
 
-type CardProps = {
+type BlogCardProps = {
   tag?: Tag;
   href: React.ComponentProps<typeof Link>['href'];
   as: React.ComponentProps<typeof Link>['as'];
@@ -18,7 +18,7 @@ type CardProps = {
   children?: React.ReactNode;
 } & Pick<React.ComponentProps<'a'>, 'aria-label'>;
 
-export const Card: React.FC<CardProps> = props => {
+export const BlogCard: React.FC<BlogCardProps> = props => {
   const { tag, href, as, 'aria-label': ariaLabel, className, children } = props;
 
   const borderColor = BORDER_COLORS[tag];

@@ -23,7 +23,7 @@ export const WorkCard: React.FC<WorkCardProps> = props => {
         props.className,
       )}
     >
-      <article className="card card-shadow card-clickable overflow-visible relative inline-flex flex-col items-center text-center px-8 py-4 rounded-xl border-4 border-zinc-800 dark:border-white max-w-xs min-w-2xs group-hover:shadow-xl">
+      <article className="card card-shadow card-clickable overflow-visible relative inline-flex flex-col items-center text-center px-8 py-4 border-4 border-zinc-800 dark:border-white max-w-xs min-w-2xs group-hover:shadow-xl">
         <div className="next-image-wrapper inline-block overflow-hidden rounded-full border-4 border-zinc-700 dark:border-white -mt-20 mb-4">
           <Image
             src={props.image}

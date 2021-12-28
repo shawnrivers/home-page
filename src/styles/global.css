@@ -51,11 +51,11 @@
   }
 
   .sheet {
-    @apply bg-zinc-200 text-zinc-900 dark:bg-zinc-700 dark:text-white overflow-hidden rounded-xl;
+    @apply bg-zinc-200 text-zinc-900 dark:bg-zinc-700 dark:text-white overflow-hidden rounded-lg;
   }
 
   .card {
-    @apply bg-white text-zinc-900 dark:bg-zinc-700 dark:text-white overflow-hidden rounded-xl;
+    @apply bg-white text-zinc-900 dark:bg-zinc-700 dark:text-white overflow-hidden rounded-lg;
   }
 
   .card-clickable {
@@ -72,12 +72,12 @@
 
   h2.hashtag-heading::before {
     content: '#';
-    @apply text-zinc-500 mr-1;
+    @apply text-zinc-500 -tracking-widest mr-1.5;
   }
 
   h3.hashtag-heading::before {
     content: '##';
-    @apply text-zinc-500 mr-1;
+    @apply text-zinc-500 -tracking-widest mr-1.5;
   }
 
   .next-image-wrapper > * {

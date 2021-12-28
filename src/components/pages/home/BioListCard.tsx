@@ -33,7 +33,7 @@ export const BioListCard: React.FC<BioListCardProps> = props => {
   return (
     <article
       className={joinClassNames(
-        'sheet inline-flex flex-col items-center px-8 pt-4 pb-2 rounded-xl max-w-xs min-w-2xs',
+        'sheet inline-flex flex-col items-center px-8 pt-4 pb-2 max-w-xs min-w-2xs',
         props.className,
       )}
     >
