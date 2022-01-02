@@ -59,7 +59,7 @@
   }
 
   .card-clickable {
-    @apply hover:bg-zinc-100 group-hover:bg-zinc-100 hover:scale-105 group-hover:scale-110 dark:hover:bg-zinc-600 dark:group-hover:bg-zinc-600 transition;
+    @apply hover:bg-zinc-100 group-hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:group-hover:bg-zinc-600 transition;
   }
 
   .card-clickable a {
