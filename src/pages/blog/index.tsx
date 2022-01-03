@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { blogsMeta, BlogMeta } from 'pages/blog/meta';
-import { Card } from 'components/shared/Card';
+import { BlogCard } from 'components/pages/blog/BlogCard';
 import { Page } from 'components/shared/Page';
 import { getDateString } from 'utils/date';
 import { BlogTag } from 'components/pages/blog/BlogTag';
@@ -26,7 +26,7 @@ const PostCard: React.FC<
   } = props;
 
   return (
-    <Card
+    <BlogCard
       tag={tags[0]}
       href="/blog/[slug]"
       aria-label={title}
@@ -62,7 +62,7 @@ const PostCard: React.FC<
           )}
         </div>
       </div>
-    </Card>
+    </BlogCard>
   );
 };
 
