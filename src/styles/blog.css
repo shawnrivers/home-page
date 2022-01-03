@@ -62,7 +62,7 @@
   .post-body a * {
     @apply text-zinc-900 dark:text-white hover:text-zinc-400;
   }
-  
+
   .post-body strong {
     @apply font-bold;
   }
@@ -70,7 +70,7 @@
   .post-body hr {
     @apply border-t-2;
   }
-  
+
   .post-body pre {
     overflow-wrap: initial;
     tab-size: 2;
@@ -80,24 +80,24 @@
   .post-body .code-block-lang {
     @apply inline-block px-2 py-0.5 text-xs uppercase rounded-sm rounded-tr-md bg-zinc-600 text-white;
   }
-  
+
   .post-body a code {
     @apply text-red-600 bg-zinc-100 dark:text-red-400 dark:bg-zinc-800;
   }
-  
+
   .post-body code {
     @apply text-red-600 bg-zinc-100 dark:text-red-400 dark:bg-zinc-800 py-1 px-1.5 rounded font-normal;
   }
-  
+
   .post-body code::before,
   .post-body code::after {
     content: '';
   }
-  
+
   .post-body pre code {
     @apply p-0 text-zinc-200 bg-zinc-800;
   }
-  
+
   .post-body blockquote {
     @apply text-zinc-700 dark:text-zinc-200;
   }
@@ -105,15 +105,15 @@
   .post-body figure {
     @apply text-sm text-zinc-700 leading-relaxed;
   }
-    
+
   .post-body figure figcaption {
     @apply text-zinc-600 dark:text-zinc-300 text-sm mt-2 text-center;
   }
-  
+
   .post-body figure figcaption * {
     @apply m-0;
   }
-  
+
   .post-body img {
     @apply m-0;
   }

@@ -66,9 +66,9 @@ If you want to know more about option 2, I recommend reading my colleague Ohsuga
 
 A good choice is to use Suspense with [SWR](https://swr.vercel.app/).
 
-SWR is a great data fetching library developed by [Vercel](https://vercel.com/). It uses a *"stale-while-revalidate"* caching strategy and has Suspense support built-in.
+SWR is a great data fetching library developed by [Vercel](https://vercel.com/). It uses a _"stale-while-revalidate"_ caching strategy and has Suspense support built-in.
 
-Here is how *"stale-while-revalidate"* works. If there is a cache for the data you fetch, the browser will first render the cached data. In the background, the browser fetches the new data and then swaps the old cached data when the new data comes in.
+Here is how _"stale-while-revalidate"_ works. If there is a cache for the data you fetch, the browser will first render the cached data. In the background, the browser fetches the new data and then swaps the old cached data when the new data comes in.
 
 By doing this, the browser doesn't have to render loading indicators whenever it fetches some new data. Instead, there will almost always be actual content displayed on the page. This provides a better user experience.
 
