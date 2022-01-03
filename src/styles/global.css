@@ -30,12 +30,6 @@
     @apply text-zinc-900 dark:text-white underline mouse-hover:hover:text-zinc-400 focus:outline-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 transition-colors;
   }
 
-  /* @media (hover: hover) and (pointer: fine) {
-    a:hover {
-      @apply text-zinc-400;
-    }
-  } */
-
   img {
     @apply bg-zinc-300 dark:bg-zinc-700;
   }
