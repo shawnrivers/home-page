@@ -5,7 +5,11 @@ module.exports = {
   content: ['./src/pages/**/*.tsx', './src/components/**/*.tsx'],
   darkMode: 'media', // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'mouse-hover': { raw: '(hover:hover) and (pointer: fine)' },
+      },
+    },
     screens: {
       xs: '480px',
       ...defaultTheme.screens,

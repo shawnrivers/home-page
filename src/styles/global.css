@@ -27,14 +27,14 @@
   }
 
   a {
-    @apply text-zinc-900 dark:text-white underline focus:outline-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 transition-colors;
+    @apply text-zinc-900 dark:text-white underline mouse-hover:hover:text-zinc-400 focus:outline-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 transition-colors;
   }
 
-  @media (hover: hover) and (pointer: fine) {
+  /* @media (hover: hover) and (pointer: fine) {
     a:hover {
       @apply text-zinc-400;
     }
-  }
+  } */
 
   img {
     @apply bg-zinc-300 dark:bg-zinc-700;
@@ -59,15 +59,15 @@
   }
 
   .card-clickable {
-    @apply hover:bg-zinc-100 group-hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:group-hover:bg-zinc-600 transition;
+    @apply mouse-hover:hover:bg-zinc-100 mouse-hover:group-hover:bg-zinc-100 dark:mouse-hover:hover:bg-zinc-600 dark:mouse-hover:group-hover:bg-zinc-600 transition;
   }
 
   .card-clickable a {
-    @apply no-underline hover:text-zinc-900 dark:hover:text-white;
+    @apply no-underline mouse-hover:hover:text-zinc-900 dark:mouse-hover:hover:text-white;
   }
 
   .card-shadow {
-    @apply shadow-md hover:shadow-xl group-hover:shadow-xl;
+    @apply shadow-md mouse-hover:hover:shadow-xl mouse-hover:group-hover:shadow-xl;
   }
 
   h2.hashtag-heading::before {
