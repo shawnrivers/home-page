@@ -36,3 +36,5 @@ declare module '@mdx-js/react' {
   }
   export class MDXProvider extends React.Component<MDXProviderProps> {}
 }
+
+export type AnyObject = Record<string, unknown>;
