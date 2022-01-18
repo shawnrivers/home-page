@@ -10,32 +10,44 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
   switch (text) {
     case 'react':
       return (
-        <span className="blog-tag text-white bg-react-dark" {...restProps}>
+        <span
+          className="blog-tag text-white bg-react-dark selection:bg-zinc-500"
+          {...restProps}
+        >
           {text}
         </span>
       );
     case 'css':
       return (
-        <span className="blog-tag text-white bg-css-dark" {...restProps}>
+        <span
+          className="blog-tag text-white bg-css-dark selection:bg-zinc-500"
+          {...restProps}
+        >
           {text}
         </span>
       );
     case 'html':
       return (
-        <span className="blog-tag text-white bg-html-dark" {...restProps}>
+        <span
+          className="blog-tag text-white bg-html-dark selection:bg-zinc-500"
+          {...restProps}
+        >
           {text}
         </span>
       );
     case 'a11y':
       return (
-        <span className="blog-tag text-white bg-a11y-dark" {...restProps}>
+        <span
+          className="blog-tag text-white bg-a11y-dark selection:bg-zinc-500"
+          {...restProps}
+        >
           {text}
         </span>
       );
     case 'draft':
       return (
         <span
-          className="blog-tag text-white bg-draft-default dark:text-draft-default dark:bg-zinc-200"
+          className="blog-tag text-white bg-draft-default selection:bg-zinc-500 dark:text-draft-default dark:bg-zinc-200 dark:selection:bg-zinc-400"
           {...restProps}
         >
           {text}
