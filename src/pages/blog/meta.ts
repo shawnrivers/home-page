@@ -37,7 +37,7 @@ export const blogsMeta: Record<string, BlogMeta> = {
   'common-aria-properties': {
     title: 'Some Common ARIA Properties for Accessible Web UI Components',
     slug: 'common-aria-properties',
-    featured: true,
+    featured: false,
     published: true,
     date: '2021-12-10',
     tags: ['a11y', 'html'],
@@ -47,8 +47,8 @@ export const blogsMeta: Record<string, BlogMeta> = {
   'react-18-new-features': {
     title: 'React 18 New Features',
     slug: 'react-18-new-features',
-    featured: false,
-    published: false,
+    featured: true,
+    published: true,
     date: '2021-12-26',
     tags: ['react'],
     image: '/blogs/react-18-new-features/hero.png',
