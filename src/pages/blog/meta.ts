@@ -40,8 +40,19 @@ export const blogsMeta: Record<string, BlogMeta> = {
     featured: true,
     published: true,
     date: '2021-12-10',
-    tags: ['html', 'a11y'],
+    tags: ['a11y', 'html'],
     image: '/blogs/common-aria-properties/hero.png',
     description: 'This article introduces some commonly used ARIA properties.',
+  },
+  'react-18-new-features': {
+    title: 'React 18 New Features',
+    slug: 'react-18-new-features',
+    featured: false,
+    published: false,
+    date: '2021-12-26',
+    tags: ['react'],
+    image: '/blogs/react-18-new-features/hero.png',
+    description:
+      'This article introduces some React 18 features that I think are important.',
   },
 };

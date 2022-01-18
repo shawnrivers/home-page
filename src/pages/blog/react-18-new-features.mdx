@@ -1,0 +1,305 @@
+import { blogsMeta } from './meta.ts';
+import { Img } from 'components/pages/blog/Img.tsx';
+
+export const meta = blogsMeta['react-18-new-features'];
+
+<Img
+  src="/blogs/react-18-new-features/hero.png"
+  width={640}
+  height={400}
+  priority
+/>
+
+[React 18 RC is out](https://github.com/reactwg/react-18/discussions/9), which means the official stable release is close. I think it may be a good time to recap some of the important features in this big update.
+
+There are 3 big features and improvements in React 18:
+
+- **Automatic batching**
+- **Concurrent rendering**
+- **SSR features & improvements**
+
+---
+
+## Automatic Batching
+
+First, let's talk about the improvements of a feature called [_automatic batching_](https://github.com/reactwg/react-18/discussions/21).
+
+In fact, we already have automatic batching in React 17.
+
+```jsx
+function App() {
+  const [count, setCount] = useState(0);
+  const [flag, setFlag] = useState(false);
+
+  function handleClick() {
+    setCount(c => c + 1);
+    setFlag(f => !f);
+    // React will only re-render once
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Next</button>
+      <h1 style={{ color: flag ? 'blue' : 'black' }}>{count}</h1>
+    </div>
+  );
+}
+```
+
+In the example code above, when the `handleClick` function is called, even though we update 2 states together (`setCount` and `setFlag`), React will only re-render once instead of twice. This behavior is called automatic batching.
+
+However, until React 18, it only batches updates during the React event handlers like `onClick` in `<button>`. This means that if you call multiple `setState` functions in other places like `setTimeout`, `fetch().then` or `addEventListener`, they won't be automatically batched.
+
+This is no longer the case in React 18. In all the following places, `setState`s will be automatically batched since React 18.
+
+```js
+setTimeout(() => {
+  setCount(c => c + 1);
+  setFlag(f => !f);
+}, 1000);
+```
+
+```js
+fetch(/*...*/).then(() => {
+  setCount(c => c + 1);
+  setFlag(f => !f);
+});
+```
+
+```js
+elm.addEventListener('click', () => {
+  setCount(c => c + 1);
+  setFlag(f => !f);
+});
+```
+
+Since React 18 does automatic batching for you, the old `unstable_batchedUpdates` API which was used to achieve this will be removed in future versions.
+
+Also, in case you don't want automatic batching, you can use a new API called `flushSync` to prevent this behavior.
+
+```js
+import { flushSync } from 'react-dom';
+
+function handleClick() {
+  flushSync(() => {
+    setCounter(c => c + 1);
+  });
+  flushSync(() => {
+    setFlag(f => !f);
+  });
+  // React will re-render twice
+}
+```
+
+Read the [discussion about automatic batching](https://github.com/reactwg/react-18/discussions/21) in the React 18 Working Group for more details.
+
+---
+
+## Concurrent Rendering
+
+In React 18, several new concurrent features are introduced. Here I will talk about the only documented API `startTransition`.
+
+React 18 classifies state updates in two categories:
+
+- _Urgent updates_: direct interactions like typing, clicking, pressing and so on
+- _Transition updates_: the state updates that are not that urgent and can be interrupted by urgent updates
+
+[This graph by Dan Abramov](https://github.com/reactwg/react-18/discussions/46#discussioncomment-846786) explains the difference between urgent and transition updates well.
+
+<Img
+  src="/blogs/react-18-new-features/urgent-and-transition-updates.png"
+  width="640"
+  height="240"
+/>
+
+In this example, we have an urgent update `setInputValue` and a transition update `setSearchQuery`. During the execution of `setSearchQuery`, if `setInputValue` is called, then `setSearchQuery`'s execution will be interrupted and `setInputValue` will be prioritized.
+
+In React 18, every state update is an urgent update by default. To make an update a transition, we can use the `startTransition` API.
+
+```js
+import { startTransition } from 'react';
+
+setInputValue(input); // Urgent update
+
+startTransition(() => {
+  setSearchQuery(input); // Transition update
+});
+```
+
+Read the [discussion about `startTransition`](https://github.com/reactwg/react-18/discussions/41) in the React 18 Working Group for more details.
+
+There are other concurrent feature APIs like `<SuspenseList>` or `useDeferredValue`, but because there are no document about them yet I will skip them here.
+
+---
+
+## SSR Features & Improvements
+
+In React 18, SSR (Server-Side Rendering) gets a lot of new features and improvements.
+
+For improvements, `<Suspense>` and `React.lazy` are finally supported in SSR.
+
+For new SSR features, there are two major features:
+
+- Streaming HTML on the server
+- Selective Hydration on the client
+
+### Streaming HTML on the server
+
+Before React 18, there is a waterfall process before the user can interact with the app, and this waterfall is a process for the whole app:
+
+1. Fetch data (server)
+2. Render the HTML (server)
+3. Load JS (client)
+4. Hydrate (client)
+
+In React 18, thanks to the `<Suspense>` SSR support and the ability to stream HTML, we can break down the SSR waterfall into smaller independent sections to make sure we can render each part of the screen as soon as possible.
+
+To use the new feature, simply wrap the component inside `<Suspense>` to create a independent section.
+
+Assuming that we have a blog page which has `<NavBar>`, `<Sidebar>`, `<Post>` and `<Comments>` components and the `<Comments>` component needs to fetch some data.
+
+```jsx
+<Layout>
+  <NavBar />
+  <Sidebar />
+  <RightPane>
+    <Post />
+    <Suspense fallback={<Spinner />}>
+      <Comments />
+    </Suspense>
+  </RightPane>
+</Layout>
+```
+
+When we wrap `<Comments>` inside a `<Suspense>`,
+
+- React first starts streaming the HTML before the data for `<Comments>` is ready and send the placeholder (`<Spinner>`) instead
+- When the data for `<Comments>` is ready, React sends additional HTML into the same stream
+
+<Img
+  src="/blogs/react-18-new-features/html-streaming-spinner.png"
+  width="400"
+  height="300"
+/>
+
+<Img
+  src="/blogs/react-18-new-features/html-streaming-content.png"
+  width="400"
+  height="300"
+/>
+
+### Selective Hydration on the client
+
+By using `<Suspense>`, not only the sending of HTML but also the hydration of each component is broken down into independent sections. This means:
+
+- Each section separated by `<Suspense>` will start its hydration as soon as its JS loads
+- Each section can become interactive wile other section is still hydrating
+
+<Img
+  src="/blogs/react-18-new-features/selective-hydration.png"
+  width="400"
+  height="300"
+/>
+
+Also, React 18 can prioritize more urgent hydration based on user interactions.
+
+By default, when we have multiple `<Suspense>` boundaries, React will hydrate the Suspense that appears earlier in the tree. However, if the user starts interacting with the other boundary, React will hydrate that boundary because it's more urgent.
+
+<Img
+  src="/blogs/react-18-new-features/user-interaction-during-hydration.png"
+  width="400"
+  height="300"
+/>
+
+<Img
+  src="/blogs/react-18-new-features/hydration-priority-changes.png"
+  width="400"
+  height="300"
+/>
+
+Read the [discussion about the new Suspense SSR architecture](https://github.com/reactwg/react-18/discussions/37) in the React 18 Working Group for more details (_NOTE: all the graphs used in this section are from the discussion as well_).
+
+---
+
+## How to Enable the new features?
+
+If you are using "pure React" like create-react-app, you will need to both upgrade your client and server codes. Meanwhile, if you are using a library like Next.js, you will need to follow their documentations about how to enable these new features.
+
+Here I will only introduce the case for "pure React".
+
+### On the client
+
+On your client codes, replace `ReactDOM.render` and `ReactDOM.hydrate` with new methods.
+
+For `ReactDOM.render`, replace this:
+
+```jsx
+// Before
+const container = document.getElementById('root');
+ReactDOM.render(<App />, container);
+```
+
+to this:
+
+```jsx
+// After
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+root.render(<App />);
+```
+
+For `ReactDOM.hydrate`, replace this:
+
+```jsx
+// Before
+const container = document.getElementById('app');
+ReactDOM.hydrate(<App />, container);
+```
+
+to this:
+
+```jsx
+// After
+const container = document.getElementById('app');
+const root = ReactDOM.hydrateRoot(container, <App />);
+```
+
+Read the [discussion about how to upgrade on the client](https://github.com/reactwg/react-18/discussions/6) in the React 18 Working Group for more details.
+
+### On the server
+
+On your server codes, use the new `ReactDOMServer.pipeToNodeWritable` API.
+
+Here is the comparison of the old an new `ReactDOMServer` APIs:
+
+- ~~`ReactDOMServer.renderToNodeStream`~~: Deprecated (with full Suspense support, but without streaming)
+- `ReactDOMServer.renderToString`: Keeps working (with limited Suspense support)
+- `ReactDOMServer.pipeToNodeWritable`: **New and recommended** (with full Suspense support and streaming)
+
+Read the [discussion about how to upgrade on the server](https://github.com/reactwg/react-18/discussions/22) in the React 18 Working Group for more details.
+
+---
+
+## Conclusion
+
+With these new features in React 18,
+
+- **Automatic batching**
+- **Concurrent rendering**
+- **SSR features & improvements**
+
+we as React developers will have more options to provide our users a better and more optimized user experience.
+
+If you want to read more information about React 18, check out [all the discussions](https://github.com/reactwg/react-18/discussions) in the React 18 Working Group repo.
+
+Here is a list that I referenced in this article:
+
+- [React 18 introduction](https://github.com/reactwg/react-18/discussions/4)
+- [Automatic batching](https://github.com/reactwg/react-18/discussions/21)
+- [startTransition API](https://github.com/reactwg/react-18/discussions/41)
+- [SSR improvements](https://github.com/reactwg/react-18/discussions/37)
+- [Behavioral changes in Suspense](https://github.com/reactwg/react-18/discussions/7)
+- [Upgrade React 18 on the client](https://github.com/reactwg/react-18/discussions/6)
+- [Upgrade React 18 on the server](https://github.com/reactwg/react-18/discussions/22)
+
+And there is also an [Explain React concepts like I'm five](https://github.com/reactwg/react-18/discussions/46) discussion in the same repo that helped me understand some important React concepts. I highly recommend you guys to have a read.
