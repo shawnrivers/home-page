@@ -22,7 +22,7 @@ export const BlogWrapper: React.FC<{
 
   return (
     <Page {...getBlogHead(meta)}>
-      <article className="prose prose-zinc dark:prose-invert mx-auto px-4 break-words">
+      <article className="prose lg:prose-lg prose-zinc dark:prose-invert mx-auto px-4 break-words">
         <div className="mb-8">
           <time
             dateTime={date}
