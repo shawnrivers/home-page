@@ -65,16 +65,5 @@ module.exports = {
       'screen-2xl': '1536px',
     },
   },
-  variants: {
-    extend: {
-      backgroundColor: ['dark'],
-      textColor: ['dark'],
-      borderColor: ['dark'],
-      outline: ['focus-visible'],
-      ringColor: ['focus-visible', 'dark'],
-      ringOpacity: ['focus-visible'],
-      ringWidth: ['focus-visible'],
-    },
-  },
   plugins: [require('@tailwindcss/typography'), 'postcss-focus-visible'],
 };
