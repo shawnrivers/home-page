@@ -94,7 +94,7 @@ const Home: React.FC = () => (
         />
         <BioCard
           heading="hobbies"
-          text="Nogizaka46, web dev, UI design, covering, Karaoke"
+          text="Nogizaka46, Genshin Impact, Karaoke"
           className="flex-1 m-2 h-full"
         />
       </div>
