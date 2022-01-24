@@ -30,7 +30,7 @@
     "@types/mdx": "^2.0.1",
     "@types/prismjs": "^1.16.8",
     "@types/react": "^17.0.21",
-    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "cssnano": "^5.0.14",
     "eslint": "^8.7.0",
