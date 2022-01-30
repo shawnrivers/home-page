@@ -4,8 +4,9 @@ import { BioListCard } from 'components/pages/home/BioListCard';
 import { BioCard } from 'components/pages/home/BioCard';
 import { WorkCard } from 'components/pages/home/WorkCard';
 import { Page } from 'components/shared/Page';
+import type { NextPage } from 'next';
 
-const Home: React.FC = () => (
+const Home: NextPage = () => (
   <Page titlePre="Home" className="font-mono flex flex-col align-center">
     <section className="flex flex-col items-center justify-center sm:flex-row mx-4">
       <div className="next-image-wrapper inline-block overflow-hidden rounded-full border-4 border-zinc-800">

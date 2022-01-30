@@ -5,6 +5,7 @@ import { Page } from 'components/shared/Page';
 import { getDateString } from 'utils/date';
 import { BlogTag } from 'components/pages/blog/BlogTag';
 import { sortByDate } from 'utils/sorting';
+import type { NextPage } from 'next';
 
 const blogsInfo = sortByDate(Object.values(blogsMeta), 'date');
 
@@ -66,7 +67,7 @@ const PostCard: React.FC<
   );
 };
 
-const BlogIndexPage: React.FC = () => {
+const BlogIndexPage: NextPage = () => {
   return (
     <Page titlePre="Blog" className="max-w-6xl mx-auto px-6">
       <h1 className="sr-only">Blog</h1>
