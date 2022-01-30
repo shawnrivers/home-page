@@ -13,7 +13,7 @@ export type BlogMeta = {
 
 export const blogsMeta: Record<string, BlogMeta> = {
   'experimenting-react-suspense-with-swr': {
-    title: 'Experimenting React Suspense with SWR',
+    title: 'React Suspense with SWR',
     slug: 'experimenting-react-suspense-with-swr',
     featured: true,
     published: true,
@@ -24,7 +24,7 @@ export const blogsMeta: Record<string, BlogMeta> = {
       'This article will show how to use React Suspense with SWR and the pros/cons and caveats of this pattern.',
   },
   'basic-css-element-sizing': {
-    title: 'A Memo For Basic CSS Element Sizing',
+    title: 'Basic CSS Element Sizing',
     slug: 'basic-css-element-sizing',
     featured: false,
     published: true,
@@ -35,7 +35,7 @@ export const blogsMeta: Record<string, BlogMeta> = {
       'This article introduces the very basic concepts of element sizing using CSS.',
   },
   'common-aria-properties': {
-    title: 'Some Common ARIA Properties for Accessible Web UI Components',
+    title: 'Some Common ARIA Properties',
     slug: 'common-aria-properties',
     featured: false,
     published: true,
