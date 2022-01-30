@@ -28,7 +28,7 @@ Other layouts like flexbox and grid have different sizing behaviors compared wit
 
 ## Default Sizing
 
-### Block-level element
+### Block-level element default size
 
 Without applying any CSS styles, a block-level element like `<p>` or `<div>` first takes 100% of the width of its parent element. Then it flows its content inside its width until the end of its content, which eventually decides its height.
 
@@ -61,7 +61,7 @@ Note that when the `min-content` of a block-level element (which is the longest 
   height={400}
 />
 
-### Inline element
+### Inline element default size
 
 Without applying any styles, for an inline element like `<span>`, its width depends on its content and its parent element's width. Then it flows its content inside its parent's width until the end of its content, which eventually decides its height.
 
@@ -94,7 +94,7 @@ When its `min-content` is larger than its parent's width, its width will be its 
   height={400}
 />
 
-### Replaced element
+### Replaced element default size
 
 Without applying any styles, the width and height of a replaced element like `<img>` and `<video>` are the resource's width and height.
 
@@ -119,7 +119,7 @@ These CSS properties' values can be in either absolute units like `px` or relati
 
 `px` means the actual pixels on the screen, and `%` means how many percentages of its parent's corresponding properties.
 
-### Block-level element & replaced element
+### Sizing block-level element & replaced element
 
 When specifying the `width` and `height`, a block-level element's width equals the specified `width`, and its height equals the specified `height`.
 
@@ -218,7 +218,7 @@ In this example, the width is constrained by `max-width` in `200px`, but because
   height={400}
 />
 
-### Inline element
+### Sizing inline element
 
 Specifying these properties does not affect the size of an inline element.
 
@@ -267,7 +267,7 @@ The [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) 
 
 The width and height relative properties will apply to the element's border box if you specify `box-sizing` to `border-box`. It means that the content's actual width (height) will be the width (height) property's specified value minus border size and then minus the horizontal (vertical) paddings.
 
-### Block-level elements and replaced elements
+### Block-level and replaced elements box model
 
 Block-level elements and replaced elements sizing with `padding`, `border`, or `margin` specified work the way described above.
 
@@ -350,7 +350,7 @@ In this example, the `width` and `height` are applied to the border box. In resu
   height={400}
 />
 
-### Inline elements
+### Inline elements box model
 
 For inline elements, `padding`, `border`, and `margin` properties all apply.
 
