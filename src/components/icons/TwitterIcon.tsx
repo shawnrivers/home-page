@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { SvgIconComponent } from './types';
 
 export const TwitterIcon: SvgIconComponent = props => {

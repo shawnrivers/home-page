@@ -1,4 +1,4 @@
-import { Page } from 'components/shared/Page';
+import { Page } from 'app/components/shared/Page';
 import type { NextPage } from 'next';
 
 const NotFound: NextPage = () => {

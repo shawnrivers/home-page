@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { TwitterIcon } from 'components/icons/TwitterIcon';
-import { BioListCard } from 'components/pages/home/BioListCard';
-import { BioCard } from 'components/pages/home/BioCard';
-import { WorkCard } from 'components/pages/home/WorkCard';
-import { Page } from 'components/shared/Page';
+import { TwitterIcon } from 'app/components/icons/TwitterIcon';
+import { BioListCard } from 'app/components/pages/home/BioListCard';
+import { BioCard } from 'app/components/pages/home/BioCard';
+import { WorkCard } from 'app/components/pages/home/WorkCard';
+import { Page } from 'app/components/shared/Page';
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => (

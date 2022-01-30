@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import { blogsMeta, BlogMeta } from 'pages/blog/meta';
-import { BlogCard } from 'components/pages/blog/BlogCard';
-import { Page } from 'components/shared/Page';
-import { getDateString } from 'utils/date';
-import { BlogTag } from 'components/pages/blog/BlogTag';
-import { sortByDate } from 'utils/sorting';
+import { blogsMeta, BlogMeta } from 'app/pages/blog/meta';
+import { BlogCard } from 'app/components/pages/blog/BlogCard';
+import { Page } from 'app/components/shared/Page';
+import { getDateString } from 'app/utils/date';
+import { BlogTag } from 'app/components/pages/blog/BlogTag';
+import { sortByDate } from 'app/utils/sorting';
 import type { NextPage } from 'next';
 
 const blogsInfo = sortByDate(Object.values(blogsMeta), 'date');

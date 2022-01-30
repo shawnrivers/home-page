@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { isProduction, isServer } from 'utils/env';
+import { isProduction, isServer } from 'app/utils/env';
 
 export const setupAxe = async (): Promise<void> => {
   if (!isProduction() && !isServer()) {

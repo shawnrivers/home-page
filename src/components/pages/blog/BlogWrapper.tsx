@@ -1,8 +1,8 @@
-import { BlogMeta } from 'pages/blog/meta';
-import { getDateString } from 'utils/date';
-import { getBlogOgImageUrl } from 'utils/url';
-import { HeaderProps } from 'components/shared/Header';
-import { Page } from 'components/shared/Page';
+import { BlogMeta } from 'app/pages/blog/meta';
+import { getDateString } from 'app/utils/date';
+import { getBlogOgImageUrl } from 'app/utils/url';
+import { HeaderProps } from 'app/components/shared/Header';
+import { Page } from 'app/components/shared/Page';
 import { BlogTag } from './BlogTag';
 
 function getBlogHead(blogMeta: BlogMeta): HeaderProps {

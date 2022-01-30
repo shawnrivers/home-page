@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Link from 'next/link';
-import { Tag } from 'pages/blog/meta';
-import { joinClassNames } from 'utils/class';
+import { Tag } from 'app/pages/blog/meta';
+import { joinClassNames } from 'app/utils/class';
 
 const BORDER_COLORS: Record<Tag, string> = {
   react: 'border-react-default',

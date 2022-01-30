@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { joinClassNames } from 'utils/class';
-import { ArrowRightIcon } from 'components/icons/ArrowRightIcon';
+import { joinClassNames } from 'app/utils/class';
+import { ArrowRightIcon } from 'app/components/icons/ArrowRightIcon';
 
 type WorkCardProps = {
   className?: string;
