@@ -1,3 +1,3 @@
-export const Pre: React.FC<React.HTMLAttributes<HTMLPreElement>> = props => (
+export const Pre: React.FC<React.ComponentProps<'pre'>> = props => (
   <>{props.children}</>
 );

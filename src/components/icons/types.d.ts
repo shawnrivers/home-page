@@ -1,5 +1,3 @@
-export type SvgIconProps = React.SVGAttributes<SVGElement> & {
+export type SvgIconProps = React.ComponentProps<'svg'> & {
   title?: string;
 };
-
-export type SvgIconComponent = React.FC<SvgIconProps>;

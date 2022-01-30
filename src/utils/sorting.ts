@@ -1,4 +1,4 @@
-import { AnyObject } from 'app/types/Global';
+import type { AnyObject } from 'app/types/Global';
 
 type SortOrder = 'asc' | 'desc';
 
