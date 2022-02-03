@@ -74,7 +74,7 @@
   .post-body pre {
     overflow-wrap: initial;
     tab-size: 2;
-    @apply bg-zinc-800 text-zinc-200 py-6 rounded-md;
+    @apply bg-zinc-800 text-zinc-200 py-6 rounded-md leading-6;
   }
 
   .post-body .code-block-lang {
