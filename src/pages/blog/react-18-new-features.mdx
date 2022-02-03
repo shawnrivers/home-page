@@ -1,10 +1,17 @@
 import { blogsMeta } from './meta.ts';
 import { Img } from 'app/components/pages/blog/Img.tsx';
+import HeroImage from "public/blogs/react-18-new-features/hero.png"
+import UrgentAndTransitionUpdatesImage from "public/blogs/react-18-new-features/urgent-and-transition-updates.png"
+import HtmlStreamingSpinnerImage from 'public/blogs/react-18-new-features/html-streaming-spinner.png'
+import HtmlStreamingContentImage from 'public/blogs/react-18-new-features/html-streaming-content.png'
+import SelectiveHydrationImage from 'public/blogs/react-18-new-features/selective-hydration.png'
+import UserInteractionDuringHydrationImage from 'public/blogs/react-18-new-features/user-interaction-during-hydration.png'
+import HydrationPriorityChangesImage from 'public/blogs/react-18-new-features/hydration-priority-changes.png'
 
 export const meta = blogsMeta['react-18-new-features'];
 
 <Img
-  src="/blogs/react-18-new-features/hero.png"
+  src={HeroImage}
   width={720}
   height={450}
   priority
@@ -107,7 +114,7 @@ React 18 classifies state updates in two categories:
 [This graph by Dan Abramov](https://github.com/reactwg/react-18/discussions/46#discussioncomment-846786) explains the difference between urgent and transition updates well.
 
 <Img
-  src="/blogs/react-18-new-features/urgent-and-transition-updates.png"
+  src={UrgentAndTransitionUpdatesImage}
   width="640"
   height="240"
 />
@@ -177,13 +184,13 @@ When we wrap `<Comments>` inside a `<Suspense>`,
 - When the data for `<Comments>` is ready, React sends additional HTML into the same stream
 
 <Img
-  src="/blogs/react-18-new-features/html-streaming-spinner.png"
+  src={HtmlStreamingSpinnerImage}
   width="400"
   height="300"
 />
 
 <Img
-  src="/blogs/react-18-new-features/html-streaming-content.png"
+  src={HtmlStreamingContentImage}
   width="400"
   height="300"
 />
@@ -196,7 +203,7 @@ By using `<Suspense>`, not only the sending of HTML but also the hydration of ea
 - Each section can become interactive wile other section is still hydrating
 
 <Img
-  src="/blogs/react-18-new-features/selective-hydration.png"
+  src={SelectiveHydrationImage}
   width="400"
   height="300"
 />
@@ -206,13 +213,13 @@ Also, React 18 can prioritize more urgent hydration based on user interactions.
 By default, when we have multiple `<Suspense>` boundaries, React will hydrate the Suspense that appears earlier in the tree. However, if the user starts interacting with the other boundary, React will hydrate that boundary because it's more urgent.
 
 <Img
-  src="/blogs/react-18-new-features/user-interaction-during-hydration.png"
+  src={UserInteractionDuringHydrationImage}
   width="400"
   height="300"
 />
 
 <Img
-  src="/blogs/react-18-new-features/hydration-priority-changes.png"
+  src={HydrationPriorityChangesImage}
   width="400"
   height="300"
 />

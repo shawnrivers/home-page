@@ -1,14 +1,10 @@
 import { blogsMeta } from './meta.ts';
 import { Img } from 'app/components/pages/blog/Img.tsx';
+import HeroImage from 'public/blogs/common-aria-properties/hero.png';
 
 export const meta = blogsMeta['common-aria-properties'];
 
-<Img
-  src="/blogs/common-aria-properties/hero.png"
-  width={720}
-  height={450}
-  priority
-/>
+<Img src={HeroImage} width={720} height={450} priority />
 
 _This article is originally posted as the December 10 article for [Eureka Advent Calendar 2021](https://qiita.com/advent-calendar/2021/eureka)_.
 

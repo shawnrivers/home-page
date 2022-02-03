@@ -1,14 +1,12 @@
 import { blogsMeta } from './meta.ts';
 import { Img } from 'app/components/pages/blog/Img.tsx';
+import SuspenseWithSwrImage from 'public/blogs/experimenting-react-suspense-with-swr/Suspense_with_SWR.jpg';
+import PostWithoutSuspenseGif from 'public/blogs/experimenting-react-suspense-with-swr/post-without-suspense.gif';
+import PostWithSuspenseGif from 'public/blogs/experimenting-react-suspense-with-swr/post-with-suspense.gif';
 
 export const meta = blogsMeta['experimenting-react-suspense-with-swr'];
 
-<Img
-  src="/blogs/experimenting-react-suspense-with-swr/Suspense_with_SWR.jpg"
-  width={720}
-  height={450}
-  priority
-/>
+<Img src={SuspenseWithSwrImage} width={720} height={450} priority />
 
 This article will show how to use React Suspense with SWR and the pros/cons and caveats of this pattern.
 
@@ -84,7 +82,7 @@ Let's first take a look at how to use SWR without Suspense.
 The example I use to demonstrate is a super simple post app that fetches and shows a blog post's title and body. While the post is loading, show a loading UI with the text "Loading post…"
 
 <Img
-  src="/blogs/experimenting-react-suspense-with-swr/post-without-suspense.gif"
+  src={PostWithoutSuspenseGif}
   alt='Post without Suspense GIF: first renders "Loading post..." placeholder, then swaps it with the actual data after the data comes in'
   width={543}
   height={480}
@@ -167,7 +165,7 @@ In `<PostPage>` component, we check the value of `props.post` to show the loadin
 Now, here is the Suspense version of the same app.
 
 <Img
-  src="/blogs/experimenting-react-suspense-with-swr/post-with-suspense.gif"
+  src={PostWithSuspenseGif}
   alt='Post with Suspense GIF: first renders "Loading post..." placeholder, then swaps it with the actual data after the data comes in'
   width={543}
   height={480}

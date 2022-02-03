@@ -37,7 +37,7 @@ const PostCard: React.FC<
       <div>
         {image && (
           <Image
-            src={image}
+            src={image.static}
             width={480}
             height={320}
             alt=""
