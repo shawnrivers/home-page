@@ -18,6 +18,7 @@ export const Img: React.FC<{
         height={props.height}
         unoptimized={props.unoptimized}
         priority={props.priority}
+        placeholder="blur"
         lazyBoundary="1000px"
         className="object-cover"
       />
