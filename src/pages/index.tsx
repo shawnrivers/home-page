@@ -103,7 +103,7 @@ const Home: NextPage = () => (
       </div>
     </section>
     <section className="flex flex-col items-center px-4 py-8 bg-zinc-100 dark:bg-zinc-800">
-    <h2 className="text-2xl font-bold hashtag-heading">Works</h2>
+      <h2 className="text-2xl font-bold hashtag-heading">Works</h2>
       <div className="flex flex-wrap justify-center mt-4">
         <WorkCard
           heading="NOGILIB"

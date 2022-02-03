@@ -1,21 +1,16 @@
 import { blogsMeta } from './meta.ts';
 import { Img } from 'app/components/pages/blog/Img.tsx';
-import HeroImage from "public/blogs/react-18-new-features/hero.png"
-import UrgentAndTransitionUpdatesImage from "public/blogs/react-18-new-features/urgent-and-transition-updates.png"
-import HtmlStreamingSpinnerImage from 'public/blogs/react-18-new-features/html-streaming-spinner.png'
-import HtmlStreamingContentImage from 'public/blogs/react-18-new-features/html-streaming-content.png'
-import SelectiveHydrationImage from 'public/blogs/react-18-new-features/selective-hydration.png'
-import UserInteractionDuringHydrationImage from 'public/blogs/react-18-new-features/user-interaction-during-hydration.png'
-import HydrationPriorityChangesImage from 'public/blogs/react-18-new-features/hydration-priority-changes.png'
+import HeroImage from 'public/blogs/react-18-new-features/hero.png';
+import UrgentAndTransitionUpdatesImage from 'public/blogs/react-18-new-features/urgent-and-transition-updates.png';
+import HtmlStreamingSpinnerImage from 'public/blogs/react-18-new-features/html-streaming-spinner.png';
+import HtmlStreamingContentImage from 'public/blogs/react-18-new-features/html-streaming-content.png';
+import SelectiveHydrationImage from 'public/blogs/react-18-new-features/selective-hydration.png';
+import UserInteractionDuringHydrationImage from 'public/blogs/react-18-new-features/user-interaction-during-hydration.png';
+import HydrationPriorityChangesImage from 'public/blogs/react-18-new-features/hydration-priority-changes.png';
 
 export const meta = blogsMeta['react-18-new-features'];
 
-<Img
-  src={HeroImage}
-  width={720}
-  height={450}
-  priority
-/>
+<Img src={HeroImage} width={720} height={450} priority />
 
 [React 18 RC is out](https://github.com/reactwg/react-18/discussions/9), which means the official stable release is close. I think it may be a good time to recap some of the important features in this big update.
 
@@ -113,11 +108,7 @@ React 18 classifies state updates in two categories:
 
 [This graph by Dan Abramov](https://github.com/reactwg/react-18/discussions/46#discussioncomment-846786) explains the difference between urgent and transition updates well.
 
-<Img
-  src={UrgentAndTransitionUpdatesImage}
-  width="640"
-  height="240"
-/>
+<Img src={UrgentAndTransitionUpdatesImage} width="640" height="240" />
 
 In this example, we have an urgent update `setInputValue` and a transition update `setSearchQuery`. During the execution of `setSearchQuery`, if `setInputValue` is called, then `setSearchQuery`'s execution will be interrupted and `setInputValue` will be prioritized.
 
@@ -183,17 +174,9 @@ When we wrap `<Comments>` inside a `<Suspense>`,
 - React first starts streaming the HTML before the data for `<Comments>` is ready and send the placeholder (`<Spinner>`) instead
 - When the data for `<Comments>` is ready, React sends additional HTML into the same stream
 
-<Img
-  src={HtmlStreamingSpinnerImage}
-  width="400"
-  height="300"
-/>
+<Img src={HtmlStreamingSpinnerImage} width="400" height="300" />
 
-<Img
-  src={HtmlStreamingContentImage}
-  width="400"
-  height="300"
-/>
+<Img src={HtmlStreamingContentImage} width="400" height="300" />
 
 ### Selective Hydration on the client
 
@@ -202,27 +185,15 @@ By using `<Suspense>`, not only the sending of HTML but also the hydration of ea
 - Each section separated by `<Suspense>` will start its hydration as soon as its JS loads
 - Each section can become interactive wile other section is still hydrating
 
-<Img
-  src={SelectiveHydrationImage}
-  width="400"
-  height="300"
-/>
+<Img src={SelectiveHydrationImage} width="400" height="300" />
 
 Also, React 18 can prioritize more urgent hydration based on user interactions.
 
 By default, when we have multiple `<Suspense>` boundaries, React will hydrate the Suspense that appears earlier in the tree. However, if the user starts interacting with the other boundary, React will hydrate that boundary because it's more urgent.
 
-<Img
-  src={UserInteractionDuringHydrationImage}
-  width="400"
-  height="300"
-/>
+<Img src={UserInteractionDuringHydrationImage} width="400" height="300" />
 
-<Img
-  src={HydrationPriorityChangesImage}
-  width="400"
-  height="300"
-/>
+<Img src={HydrationPriorityChangesImage} width="400" height="300" />
 
 Read the [discussion about the new Suspense SSR architecture](https://github.com/reactwg/react-18/discussions/37) in the React 18 Working Group for more details (_NOTE: all the graphs used in this section are from the discussion as well_).
 
