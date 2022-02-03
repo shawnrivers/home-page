@@ -5,13 +5,15 @@ import { BioCard } from 'app/components/pages/home/BioCard';
 import { WorkCard } from 'app/components/pages/home/WorkCard';
 import { Page } from 'app/components/shared/Page';
 import type { NextPage } from 'next';
+import AvatarImage from 'public/avatar.jpg';
+import NogilibImage from 'public/nogilib.png';
 
 const Home: NextPage = () => (
   <Page titlePre="Home" className="font-mono flex flex-col align-center">
     <section className="flex flex-col items-center justify-center sm:flex-row mx-4">
       <div className="next-image-wrapper inline-block overflow-hidden rounded-full border-4 border-zinc-800">
         <Image
-          src="/avatar.jpg"
+          src={AvatarImage}
           width="128"
           height="128"
           priority
@@ -101,12 +103,12 @@ const Home: NextPage = () => (
       </div>
     </section>
     <section className="flex flex-col items-center px-4 py-8 bg-zinc-100 dark:bg-zinc-800">
-      <h2 className="text-2xl font-bold hashtag-heading">Works</h2>
+    <h2 className="text-2xl font-bold hashtag-heading">Works</h2>
       <div className="flex flex-wrap justify-center mt-4">
         <WorkCard
           heading="NOGILIB"
           description="A web application showing the information about Nogizaka46"
-          image="/nogilib.png"
+          image={NogilibImage}
           imagePriority
           to="https://nogilib.com"
           className="flex-1 mt-2 my-6 mx-6 h-full"
@@ -114,7 +116,7 @@ const Home: NextPage = () => (
         <WorkCard
           heading="Nogizaka46 News"
           description="A Twitter bot that retweets Nogizaka46 news and tweets members' schedules"
-          image="/nogilib.png"
+          image={NogilibImage}
           imagePriority
           to="https://twitter.com/n46_news"
           className="flex-1 mt-2 my-6 mx-6 h-full"

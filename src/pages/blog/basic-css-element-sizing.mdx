@@ -1,14 +1,27 @@
 import { blogsMeta } from './meta.ts';
 import { Img } from 'app/components/pages/blog/Img.tsx';
+import HeroImage from 'public/blogs/basic-css-element-sizing/Element_Sizing.png';
+import DefaultSizingBlockImage from 'public/blogs/basic-css-element-sizing/default-sizing-block.png';
+import DefaultSizingBlockOverflowImage from 'public/blogs/basic-css-element-sizing/default-sizing-block-overflow.png';
+import DefaultSizingInlineImage from 'public/blogs/basic-css-element-sizing/default-sizing-inline.png';
+import DefaultSizingInlineOverflowImage from 'public/blogs/basic-css-element-sizing/default-sizing-inline-overflow.png';
+import DefaultSizingReplacedImage from 'public/blogs/basic-css-element-sizing/default-sizing-replaced.png';
+import SpecifiedSizingBlockImage from 'public/blogs/basic-css-element-sizing/specified-sizing-block.png';
+import SpecifiedSizingReplacedImage from 'public/blogs/basic-css-element-sizing/specified-sizing-replaced.png';
+import SpecifiedSizingPercentageBlockImage from 'public/blogs/basic-css-element-sizing/specified-sizing-percentage-block.png';
+import SpecifiedSizingPercentageReplacedImage from 'public/blogs/basic-css-element-sizing/specified-sizing-percentage-replaced.png';
+import SpecifiedSizingMaxBlockImage from 'public/blogs/basic-css-element-sizing/specified-sizing-max-block.png';
+import SpecifiedSizingInlineImage from 'public/blogs/basic-css-element-sizing/specified-sizing-inline.png';
+import BoxModelImage from 'public/blogs/basic-css-element-sizing/box-model.png';
+import ContentBoxBlockImage from 'public/blogs/basic-css-element-sizing/content-box-block.png';
+import ContentBoxReplacedImage from 'public/blogs/basic-css-element-sizing/content-box-replaced.png';
+import BorderBoxBlockImage from 'public/blogs/basic-css-element-sizing/border-box-block.png';
+import BorderBoxReplacedImage from 'public/blogs/basic-css-element-sizing/border-box-replaced.png';
+import BoxInlineImage from 'public/blogs/basic-css-element-sizing/box-inline.png';
 
 export const meta = blogsMeta['basic-css-element-sizing'];
 
-<Img
-  src="/blogs/basic-css-element-sizing/Element_Sizing.png"
-  width={720}
-  height={450}
-  priority
-/>
+<Img src={HeroImage} width={720} height={450} priority />
 
 I don't know if you're like me, but my mentality of writing CSS has been like, "I don't care what that code means. It's OK as long as it works." Since re-learning the basic mental model of element sizing using CSS, the codes make much more sense. Also, these basics help me write some basic sizing styles faster, without Googling around too much.
 
@@ -42,7 +55,7 @@ Note: In all code examples, assume we have a `300px * 400px` parent element with
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/default-sizing-block.png"
+  src={DefaultSizingBlockImage}
   alt="The text takes 100% of the width of its parent element. And it flows downward when the words can not fit in one line"
   width={400}
   height={400}
@@ -55,7 +68,7 @@ Note that when the `min-content` of a block-level element (which is the longest 
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/default-sizing-block-overflow.png"
+  src={DefaultSizingBlockOverflowImage}
   alt="A long word whose width is larger than its parent's width overflows"
   width={400}
   height={400}
@@ -75,7 +88,7 @@ When the element's `min-content` is smaller than its parent's width, its width i
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/default-sizing-inline.png"
+  src={DefaultSizingInlineImage}
   alt="The text takes whatever horizontal space it can take until it flows downward to the next line"
   width={400}
   height={400}
@@ -88,7 +101,7 @@ When its `min-content` is larger than its parent's width, its width will be its 
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/default-sizing-inline-overflow.png"
+  src={DefaultSizingInlineOverflowImage}
   alt="A long word whose width is larger than its parent's width overflows"
   width={400}
   height={400}
@@ -105,7 +118,7 @@ Below is an `350px * 350px` image.
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/default-sizing-replaced.png"
+  src={DefaultSizingReplacedImage}
   alt="An image takes its intrinsic size and overflows"
   width={400}
   height={400}
@@ -140,7 +153,7 @@ Here is the example using `px` values.
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/specified-sizing-block.png"
+  src={SpecifiedSizingBlockImage}
   alt="The text flows inside the specified 200px times 200px box"
   width={400}
   height={400}
@@ -151,7 +164,7 @@ Here is the example using `px` values.
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/specified-sizing-replaced.png"
+  src={SpecifiedSizingReplacedImage}
   alt="The image has a width of 200px and a height of 200px"
   width={400}
   height={400}
@@ -176,7 +189,7 @@ Here is the example using `%` values.
 In this example, the width of the element is `80% * 300px = 240px`, the height is `60% * 400px = 240px`.
 
 <Img
-  src="/blogs/basic-css-element-sizing/specified-sizing-percentage-block.png"
+  src={SpecifiedSizingPercentageBlockImage}
   alt="The text flows inside the specified 240px times 240px box"
   width={400}
   height={400}
@@ -187,7 +200,7 @@ In this example, the width of the element is `80% * 300px = 240px`, the height i
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/specified-sizing-percentage-replaced.png"
+  src={SpecifiedSizingPercentageReplacedImage}
   alt="The image has a width of 240px and a height of 240px"
   width={400}
   height={400}
@@ -212,7 +225,7 @@ By specifying `max-width` (`min-width`), its width will be the width of its cont
 In this example, the width is constrained by `max-width` in `200px`, but because it doesn't have enough content to exceed the `200px` `max-height`, its height is whatever its content height is.
 
 <Img
-  src="/blogs/basic-css-element-sizing/specified-sizing-max-block.png"
+  src={SpecifiedSizingMaxBlockImage}
   alt="The text flows inside 200px wide box, the height of the box is the actual height of the text content"
   width={400}
   height={400}
@@ -237,7 +250,7 @@ Specifying these properties does not affect the size of an inline element.
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/specified-sizing-inline.png"
+  src={SpecifiedSizingInlineImage}
   alt="The specified size takes no effect. The text takes whatever horizontal space it can take until it flows downward to the next line"
   width={400}
   height={400}
@@ -254,12 +267,7 @@ There are four types of boxes - _content box_, _padding box_, _border box_, and 
 - _Border box_: padding box + the element's border
 - _Margin box_: border box + the element's margins
 
-<Img
-  src="/blogs/basic-css-element-sizing/box-model.png"
-  alt="The box model diagram"
-  width={540}
-  height={300}
-/>
+<Img src={BoxModelImage} alt="The box model diagram" width={540} height={300} />
 
 The CSS properties [`padding`](https://developer.mozilla.org/en-US/docs/Web/CSS/padding), [`border`](https://developer.mozilla.org/en-US/docs/Web/CSS/border), and [`margin`](https://developer.mozilla.org/en-US/docs/Web/CSS/margin) decide the exact sizes of an element's paddings, border, and margins.
 
@@ -293,7 +301,7 @@ In this example, the `width` and `height` are applied to the content box. In res
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/content-box-block.png"
+  src={ContentBoxBlockImage}
   alt="The text contained in a 200px times 200px content box. The content box is 8px away from the its border box both horizontally and vertically. The border's width is 3px. The border box is 8px away from the other elements both horizontally and vertically"
   width={400}
   height={400}
@@ -304,7 +312,7 @@ In this example, the `width` and `height` are applied to the content box. In res
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/content-box-replaced.png"
+  src={ContentBoxReplacedImage}
   alt="The image's width and height are both 200px. The image is 8px away from the its border box both horizontally and vertically. The border's width is 3px. The border box is 8px away from the other elements both horizontally and vertically"
   width={400}
   height={400}
@@ -333,7 +341,7 @@ In this example, the `width` and `height` are applied to the border box. In resu
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/border-box-block.png"
+  src={BorderBoxBlockImage}
   alt="The text contained in a 178px times 178px content box. The content box is 8px away from the its border box both horizontally and vertically. The border's width is 3px. The border box is 8px away from the other elements both horizontally and vertically"
   width={400}
   height={400}
@@ -344,7 +352,7 @@ In this example, the `width` and `height` are applied to the border box. In resu
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/border-box-replaced.png"
+  src={BorderBoxReplacedImage}
   alt="The image's width and height are both 178px. The image is 8px away from the its border box both horizontally and vertically. The border's width is 3px. The border box is 8px away from the other elements both horizontally and vertically"
   width={400}
   height={400}
@@ -371,7 +379,7 @@ But since width and height relative properties do not affect inline elements' si
 ```
 
 <Img
-  src="/blogs/basic-css-element-sizing/box-inline.png"
+  src={BoxInlineImage}
   alt="The padding, border and margin properties apply but the width and height don't"
   width={400}
   height={400}

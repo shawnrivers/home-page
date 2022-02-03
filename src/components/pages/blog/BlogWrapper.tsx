@@ -8,7 +8,9 @@ import { BlogTag } from './BlogTag';
 function getBlogHead(blogMeta: BlogMeta): HeaderProps {
   return {
     titlePre: blogMeta.title,
-    ogImageUrl: blogMeta.image ? getBlogOgImageUrl(blogMeta.image) : undefined,
+    ogImageUrl: blogMeta.image
+      ? getBlogOgImageUrl(blogMeta.image.url)
+      : undefined,
     description: blogMeta.description,
   };
 }
