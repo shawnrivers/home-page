@@ -35,13 +35,13 @@ const TableOfContentMenu: React.FC<{
 }> = props => {
   const { content, className } = props;
   const prevOffset = useRef(0);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       if (scrollY === 0) {
-        setVisible(true);
+        setVisible(false);
       } else if (scrollY > prevOffset.current) {
         setVisible(false);
       } else if (scrollY < prevOffset.current) {
