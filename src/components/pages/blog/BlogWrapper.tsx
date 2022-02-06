@@ -76,16 +76,16 @@ const TableOfContentMenu: React.FC<{
       </Menu.Button>
       <Transition
         as={Fragment}
-        enter="transition ease-out duration-100"
+        enter="transition ease-out duration-200"
         enterFrom="transform opacity-0 scale-95"
         enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
+        leave="transition ease-in duration-150"
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
           as="nav"
-          className="absolute left-0 mt-2 p-2 max-w-max w-[300px] overflow-hidden flex flex-col space-y-1 origin-top-right bg-zinc-100 dark:bg-zinc-800 rounded-lg shadow-lg border-2 border-zinc-500 dark:border-zinc-100 focus-visible:outline-none"
+          className="absolute left-0 mt-1 p-2 max-w-max w-[300px] overflow-hidden flex flex-col space-y-1 origin-top-right bg-zinc-100 dark:bg-zinc-800 rounded-lg shadow-lg border-2 border-zinc-500 dark:border-zinc-100 focus-visible:outline-none"
         >
           {content.map(item => (
             <Menu.Item key={item.text}>
