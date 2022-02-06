@@ -127,7 +127,7 @@ const PostPageContainer = () => {
 export default PostPageContainer;
 ```
 
-### Example App Walkthrough
+### Example App Walk-through
 
 Let's walk through the codes of this example app.
 
@@ -138,7 +138,7 @@ This app uses an [MVP](https://khalilstemmler.com/articles/client-side-architect
 - `useFetchPost`: In the Model layer. It is a custom hook that contains the actual operation of data fetching. This is where we use SWR.
 - `<PostPageContainer>`: In the Presenter layer, which acts as the "glue" between the View layer and the Model layer. It is a page component that you will usually pass to the `<Route>`'s `component` property. It fetches data by calling `useFetchPost` from the Model layer and passes the data to the View layer `<PostPage>` component.
 
-### Use of SWR
+### Use of SWR without Suspense
 
 Now let's take a look at the use of SWR.
 
@@ -152,7 +152,7 @@ To break down `useSWR`:
 
 By calling `useFetchPost` in the function body of `<PostPageContainer>`, we fetch the data on `<PostPageContainer>` component's mount time.
 
-### Loading Indicator UI
+### Loading Indicator UI without Suspense
 
 In `<PostPage>` component, we check the value of `props.post` to show the loading indicator UI:
 
@@ -218,7 +218,7 @@ const PostPageContainer = () => {
 export default PostPageContainer;
 ```
 
-### Use of SWR
+### Use of SWR with Suspense
 
 To support Suspense in SWR, we need to enable the `suspense` option in the third argument of `useSWR`.
 
@@ -226,7 +226,7 @@ In this example, the code will become: `const { data } = useSWR("/api/post", fet
 
 In this way, `useSWR` will throw a pending `Promise` when data is loading and returns the actual data after the data is loaded.
 
-### Loading Indicator UI
+### Loading Indicator UI with Suspense
 
 When we look at the previous code example without Suspense, we render the loading indicator UI at the `<Post>` component's location under the `<PostPage>` component.
 
