@@ -96,15 +96,17 @@ const TableOfContentMenu: React.FC<{
       >
         <Menu.Items
           as="nav"
-          className="absolute left-0 mt-2 p-2 max-w-max w-[300px] overflow-hidden flex flex-col origin-top-right bg-zinc-100 dark:bg-zinc-800 rounded-lg shadow-lg border-2 border-zinc-500 dark:border-zinc-100 focus-visible:outline-none"
+          className="absolute left-0 mt-2 p-2 max-w-max w-[300px] overflow-hidden flex flex-col space-y-1 origin-top-right bg-zinc-100 dark:bg-zinc-800 rounded-lg shadow-lg border-2 border-zinc-500 dark:border-zinc-100 focus-visible:outline-none"
         >
           {content.map(item => (
             <Menu.Item key={item.text}>
               {({ active }) => (
                 <a
                   href={item.url}
-                  className={`px-2 text-base leading-tight rounded-md no-underline mouse-hover:hover:text-zinc-900 dark:mouse-hover:hover:text-white ${
-                    item.level === 3 ? 'mx-4 py-0.5 text-sm' : 'py-1'
+                  className={`px-2 text-base leading-[1.1] rounded no-underline mouse-hover:hover:text-zinc-900 dark:mouse-hover:hover:text-white ${
+                    item.level === 3
+                      ? 'ml-4 py-0.5 text-sm text-zinc-600 mouse-hover:hover:text-zinc-600 dark:text-zinc-400 dark:mouse-hover:hover:text-zinc-400'
+                      : 'py-1'
                   } ${active ? 'ring-4 ring-zinc-400 ring-opacity-70' : ''}`}
                   onClick={() => setVisible(false)}
                 >
