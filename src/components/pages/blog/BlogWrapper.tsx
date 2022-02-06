@@ -35,20 +35,17 @@ const TableOfContentMenu: React.FC<{
 }> = props => {
   const { content, className } = props;
   const prevOffset = useRef(0);
-  const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(
-    null,
-  );
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       if (scrollY === 0) {
-        setScrollDirection(null);
+        setVisible(true);
       } else if (scrollY > prevOffset.current) {
-        setScrollDirection('down');
+        setVisible(false);
       } else if (scrollY < prevOffset.current) {
-        setScrollDirection('up');
+        setVisible(true);
       }
       prevOffset.current = scrollY;
     };
@@ -58,14 +55,6 @@ const TableOfContentMenu: React.FC<{
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  useEffect(() => {
-    if (scrollDirection === 'up') {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-  }, [scrollDirection]);
 
   return (
     <Menu
