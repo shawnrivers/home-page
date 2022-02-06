@@ -1,12 +1,4 @@
-const generateHeadingId = (node: React.ReactNode): string => {
-  if (node instanceof Array) {
-    return node.map(generateHeadingId).join('');
-  }
-  if (typeof node === 'object' && 'props' in node) {
-    return generateHeadingId(node.props.children);
-  }
-  return node.toString();
-};
+import { convertNodeToString } from 'app/utils/string';
 
 export const Heading: Record<
   'h1' | 'h2' | 'h3',
@@ -14,7 +6,7 @@ export const Heading: Record<
 > = {
   h1: props => <h1 className="hashtag-heading">{props.children}</h1>,
   h2: props => {
-    const id = generateHeadingId(props.children);
+    const id = convertNodeToString(props.children);
     return (
       <h2 id={id} className="hashtag-heading">
         <a href={`#${id}`} className="group">
@@ -24,7 +16,7 @@ export const Heading: Record<
     );
   },
   h3: props => {
-    const id = generateHeadingId(props.children);
+    const id = convertNodeToString(props.children);
     return (
       <h3 id={id} className="hashtag-heading">
         <a href={`#${id}`} className="group">
