@@ -9,13 +9,15 @@ import { Menu, Transition } from '@headlessui/react';
 import {
   Children,
   Fragment,
+  useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 import { convertNodeToString } from 'app/utils/string';
 import { joinClassNames } from 'app/utils/class';
+import { ArrowRightIcon } from 'app/components/icons/ArrowRightIcon';
+import { useScrollDirection } from 'app/hooks/useScrollDirection';
 
 function getBlogHead(blogMeta: BlogMeta): HeaderProps {
   return {
@@ -34,27 +36,16 @@ const TableOfContentMenu: React.FC<{
   className?: string;
 }> = props => {
   const { content, className } = props;
-  const prevOffset = useRef(0);
+  const scrollDirection = useScrollDirection();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      if (scrollY === 0) {
-        setVisible(false);
-      } else if (scrollY > prevOffset.current) {
-        setVisible(false);
-      } else if (scrollY < prevOffset.current) {
-        setVisible(true);
-      }
-      prevOffset.current = scrollY;
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    if (scrollDirection === 'up') {
+      setVisible(true);
+    } else {
+      setVisible(false);
+    }
+  }, [scrollDirection]);
 
   return (
     <Menu
@@ -107,6 +98,34 @@ const TableOfContentMenu: React.FC<{
         </Menu.Items>
       </Transition>
     </Menu>
+  );
+};
+
+const BackToTop: React.FC = () => {
+  const scrollDirection = useScrollDirection();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (scrollDirection === 'up') {
+      setVisible(true);
+    } else {
+      setVisible(false);
+    }
+  }, [scrollDirection]);
+
+  const backToTop = useCallback(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  return (
+    <button
+      className={`fixed bottom-4 right-4 z-10 p-2 shadow-lg rounded-lg border-2 border-zinc-500 dark:border-zinc-100 text-zinc-800 dark:text-white bg-zinc-100 dark:bg-zinc-800 mouse-hover:hover:bg-zinc-200 dark:mouse-hover:hover:bg-zinc-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 transition-all duration-300 ${
+        visible ? 'opacity-100' : '-bottom-12 opacity-0'
+      }`}
+      onClick={backToTop}
+    >
+      <ArrowRightIcon className="fill-current w-6 h-6 -rotate-90" />
+    </button>
   );
 };
 
@@ -165,6 +184,7 @@ export const BlogWrapper: React.FC<{
         </div>
         <TableOfContentMenu content={content} className="not-prose" />
         <div className="post-body">{children}</div>
+        <BackToTop />
       </article>
     </Page>
   );
