@@ -61,7 +61,7 @@ const TableOfContentMenu: React.FC<{
       as="div"
       className={joinClassNames(
         `fixed top-4 z-10 transition-all duration-300 ${
-          visible ? '' : '-top-12'
+          visible ? 'opacity-100' : '-top-12 opacity-0'
         }`,
         className,
       )}
