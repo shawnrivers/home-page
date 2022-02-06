@@ -97,7 +97,7 @@ const TableOfContentMenu: React.FC<{
                       ? 'ml-4 py-0.5 text-sm text-zinc-600 mouse-hover:hover:text-zinc-600 dark:text-zinc-400 dark:mouse-hover:hover:text-zinc-400'
                       : 'py-1'
                   } ${active ? 'ring-4 ring-zinc-400 ring-opacity-70' : ''}`}
-                  onClick={() => setVisible(false)}
+                  onClick={() => setTimeout(() => setVisible(false), 100)}
                 >
                   {item.text}
                 </a>
