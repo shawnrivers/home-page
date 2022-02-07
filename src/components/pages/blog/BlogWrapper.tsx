@@ -119,6 +119,7 @@ const BackToTop: React.FC = () => {
 
   return (
     <button
+      tabIndex={visible ? 0 : -1}
       className={`fixed bottom-4 right-4 z-10 p-2 shadow-lg rounded-lg border-2 border-zinc-500 dark:border-zinc-100 text-zinc-800 dark:text-white bg-zinc-100 dark:bg-zinc-800 mouse-hover:hover:bg-zinc-200 dark:mouse-hover:hover:bg-zinc-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 transition-all duration-300 ${
         visible ? 'opacity-100' : '-bottom-12 opacity-0'
       }`}
