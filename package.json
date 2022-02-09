@@ -43,7 +43,7 @@
     "postcss-focus-visible": "^6.0.4",
     "postcss-import": "^14.0.2",
     "prettier": "^2.5.1",
-    "sharp": "^0.30.0",
+    "sharp": "^0.30.1",
     "typescript": "^4.5.5"
   }
 }
