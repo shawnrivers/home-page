@@ -1,28 +1,17 @@
-import { convertNodeToString } from 'app/utils/string';
+import { HeadingWithAnchor } from 'app/components/shared/HeadingWithAnchor';
 
 export const Heading: Record<
-  'h1' | 'h2' | 'h3',
+  'h2' | 'h3',
   React.FC<{ children?: React.ReactNode }>
 > = {
-  h1: props => <h1 className="hashtag-heading">{props.children}</h1>,
-  h2: props => {
-    const id = convertNodeToString(props.children);
-    return (
-      <h2 id={id} className="hashtag-heading">
-        <a href={`#${id}`} className="group">
-          {props.children}
-        </a>
-      </h2>
-    );
-  },
-  h3: props => {
-    const id = convertNodeToString(props.children);
-    return (
-      <h3 id={id} className="hashtag-heading">
-        <a href={`#${id}`} className="group">
-          {props.children}
-        </a>
-      </h3>
-    );
-  },
+  h2: props => (
+    <HeadingWithAnchor as="h2" level={1} className="not-prose">
+      {props.children}
+    </HeadingWithAnchor>
+  ),
+  h3: props => (
+    <HeadingWithAnchor as="h3" level={2} className="not-prose">
+      {props.children}
+    </HeadingWithAnchor>
+  ),
 };

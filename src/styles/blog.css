@@ -59,7 +59,7 @@
     @apply mb-0 text-3xl;
   }
 
-  .post-body a * {
+  .post-body :not(:where(h1, h2, h3)) a * {
     @apply text-zinc-900 dark:text-white mouse-hover:hover:text-zinc-400;
   }
 

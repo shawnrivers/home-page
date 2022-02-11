@@ -22,7 +22,6 @@ const App: React.FC<AppProps> = props => {
     <MDXProvider
       components={{
         wrapper: BlogWrapper,
-        h1: Heading.h1,
         h2: Heading.h2,
         h3: Heading.h3,
         a: A,

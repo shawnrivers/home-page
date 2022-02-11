@@ -7,6 +7,7 @@ import { Page } from 'app/components/shared/Page';
 import type { NextPage } from 'next';
 import AvatarImage from 'public/avatar.jpg';
 import NogilibImage from 'public/nogilib.png';
+import { HeadingWithAnchor } from 'app/components/shared/HeadingWithAnchor';
 
 const Home: NextPage = () => (
   <Page titlePre="Home" className="font-mono flex flex-col align-center">
@@ -47,7 +48,9 @@ const Home: NextPage = () => (
       </div>
     </section>
     <section className="flex flex-col items-center px-4 pt-4 pb-8">
-      <h2 className="text-2xl font-bold hashtag-heading">BIO</h2>
+      <HeadingWithAnchor as="h2" level={1} className="text-2xl font-bold">
+        BIO
+      </HeadingWithAnchor>
       <div className="flex flex-wrap justify-center mt-4">
         <BioListCard
           heading="locations"
@@ -103,7 +106,9 @@ const Home: NextPage = () => (
       </div>
     </section>
     <section className="flex flex-col items-center px-4 py-8 bg-zinc-100 dark:bg-zinc-800">
-      <h2 className="text-2xl font-bold hashtag-heading">Works</h2>
+      <HeadingWithAnchor as="h2" level={1} className="text-2xl font-bold">
+        Works
+      </HeadingWithAnchor>
       <div className="flex flex-wrap justify-center mt-4">
         <WorkCard
           heading="NOGILIB"
@@ -124,7 +129,9 @@ const Home: NextPage = () => (
       </div>
     </section>
     <section className="flex flex-col items-center px-4 py-8">
-      <h2 className="text-2xl font-bold hashtag-heading">Contact</h2>
+      <HeadingWithAnchor as="h2" level={1} className="text-2xl font-bold">
+        Contact
+      </HeadingWithAnchor>
       <ul className="flex flex-wrap flex-col sm:flex-row items-center justify-center p-0 mt-4 list-none">
         <li className="my-2 mx-4">
           <a
