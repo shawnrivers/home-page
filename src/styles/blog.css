@@ -59,6 +59,10 @@
     @apply mb-0 text-3xl;
   }
 
+  .post-body :not(:where(h1, h2, h3)) a {
+    @apply py-0.5;
+  }
+
   .post-body :not(:where(h1, h2, h3)) a * {
     @apply text-zinc-900 dark:text-white mouse-hover:hover:text-zinc-400;
   }
@@ -86,7 +90,7 @@
   }
 
   .post-body code {
-    @apply text-red-600 bg-zinc-100 dark:text-red-400 dark:bg-zinc-800 py-1 px-1.5 rounded font-normal;
+    @apply text-red-600 bg-zinc-100 dark:text-red-400 dark:bg-zinc-800 py-0.5 px-1.5 rounded font-normal;
   }
 
   .post-body code::before,
