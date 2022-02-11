@@ -18,7 +18,7 @@ In this article, I will be introducing some ARIA properties that I think are com
 
 ## Common ARIA Properties
 
-### role
+### `role`
 
 The [`role`](https://www.w3.org/TR/wai-aria-1.2/#role_definitions) attribute indicates what kind of widget is the component. It tells assistive technologies like screen readers how to handle the component.
 
@@ -28,7 +28,7 @@ However, in many cases, the `role` attribute alone is not enough to convey all n
 
 But since there is [a large number](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) of different `aria-*` properties, it might be a bit overwhelming at the beginning of learning web accessibility. So here I list up a few properties that are usually seen in the [WAI-ARIA widget design patterns](https://www.w3.org/TR/wai-aria-practices-1.2/#aria_ex).
 
-### aria-label/aria-labelledby
+### `aria-label`/`aria-labelledby`
 
 The [`aria-label`](https://www.w3.org/TR/wai-aria-1.2/#aria-label) and [`aria-labelledby`](https://www.w3.org/TR/wai-aria-1.2/#aria-labelledby) attributes provide labels for the UI component.
 
@@ -36,19 +36,19 @@ The difference between the two attributes is that `aria-label` directly defines 
 
 For example, when you have a radio group component that is labeled by a text component with `id="radio_group_label"`, you can add `aria-labelledby="radio_group_label"` to the radio group component.
 
-### aria-disabled
+### `aria-disabled`
 
 The [`aria-disabled`](https://www.w3.org/TR/wai-aria-1.2/#aria-disabled) attribute indicates an interactive component is not editable or operable.
 
 For example, when you have a switch component that represents a feature that is not available to the current user, you can add a `aria-disabled="true"` to the switch component.
 
-### aria-checked, aria-selected
+### `aria-checked`, `aria-selected`
 
 The [`aria-checked`](https://www.w3.org/TR/wai-aria-1.2/#aria-checked) and [`aria-selected`](https://www.w3.org/TR/wai-aria-1.2/#aria-selected) attributes both indicate the “checked” and “selected” state of a component.
 
 For example, when you have a switch component, you can add `aria-checked="true"` to it to indicate that it is checked. Or when you have a list box component, you can add `aria-selected="true"` to an option component to indicate whether that option is selected.
 
-### aria-haspopup, aria-controls, aria-expanded
+### `aria-haspopup`, `aria-controls`, `aria-expanded`
 
 For more complicated components that have one interactive element (like a button) that controls another element's visibility (like a dropdown menu), `aria-haspopup`, `aria-expanded`, and `aria-controls` attributes can be pretty helpful.
 
