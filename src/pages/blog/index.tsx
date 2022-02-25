@@ -46,7 +46,7 @@ const PostCard: React.FC<
             className="placeholder object-cover"
           />
         )}
-        <div className="mt-2 mb-4 mx-4">
+        <div className="mx-4 mt-2 mb-4">
           <h2 className="text-xl font-bold">{title}</h2>
           {date && (
             <div className="mt-1 text-base text-zinc-500 dark:text-zinc-300">
@@ -54,7 +54,7 @@ const PostCard: React.FC<
             </div>
           )}
           {tags.length > 0 && (
-            <div className="space-x-2 mt-2">
+            <div className="mt-2 space-x-2">
               {!published && <BlogTag text="draft" />}
               {tags.map(tag => (
                 <BlogTag text={tag} key={tag} />
@@ -69,9 +69,9 @@ const PostCard: React.FC<
 
 const BlogIndexPage: NextPage = () => {
   return (
-    <Page titlePre="Blog" className="max-w-6xl mx-auto px-6">
+    <Page titlePre="Blog" className="mx-auto max-w-6xl px-6">
       <h1 className="sr-only">Blog</h1>
-      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 content-center items-stretch">
+      <div className="mt-4 grid grid-cols-1 content-center items-stretch gap-4 xs:grid-cols-2 lg:grid-cols-3">
         {blogsInfo.map((meta, index) => (
           <PostCard
             {...meta}

@@ -71,9 +71,9 @@ export const Header: React.FC<HeaderProps> = props => {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </Head>
-      <header className="block h-16 px-4 mb-8 text-center">
+      <header className="mb-8 block h-16 px-4 text-center">
         <nav>
-          <ul className="p-0 list-none">
+          <ul className="list-none p-0">
             {navItems.map(({ label, page }) => (
               <li className="inline-block px-2 py-4" key={label}>
                 <Link href={page} passHref>

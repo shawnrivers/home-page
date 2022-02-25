@@ -3,7 +3,7 @@ import { joinClassNames } from 'app/utils/class';
 const RoundDot: React.FC<{ isHighlighted: boolean }> = props => {
   return (
     <div
-      className={`border-zinc-200 dark:border-zinc-700 absolute box-border ${
+      className={`absolute box-border border-zinc-200 dark:border-zinc-700 ${
         props.isHighlighted ? 'bg-red-400' : 'bg-zinc-400'
       }`}
       style={{
@@ -33,11 +33,11 @@ export const BioListCard: React.FC<BioListCardProps> = props => {
   return (
     <article
       className={joinClassNames(
-        'sheet inline-flex flex-col items-center px-8 pt-4 pb-2 max-w-xs min-w-2xs',
+        'sheet inline-flex min-w-2xs max-w-xs flex-col items-center px-8 pt-4 pb-2',
         props.className,
       )}
     >
-      <h3 className="uppercase font-bold text-xl">{props.heading}</h3>
+      <h3 className="text-xl font-bold uppercase">{props.heading}</h3>
       <ul className="mt-4">
         {props.items.map((item, index) => (
           <li key={item.text} className="relative">
@@ -50,7 +50,7 @@ export const BioListCard: React.FC<BioListCardProps> = props => {
                   : 'border-zinc-200 dark:border-zinc-700',
               )}
             >
-              <p className="text-sm whitespace-pre-wrap">{item.text}</p>
+              <p className="whitespace-pre-wrap text-sm">{item.text}</p>
             </div>
           </li>
         ))}

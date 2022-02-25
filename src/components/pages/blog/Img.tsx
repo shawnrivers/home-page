@@ -8,7 +8,7 @@ export const Img: React.FC<{
   unoptimized?: boolean;
   priority?: boolean;
 }> = props => (
-  <div className="mx-auto my-8 text-center overflow-hidden">
+  <div className="mx-auto my-8 overflow-hidden text-center">
     <span className="post-image-wrapper">
       <Image
         src={props.src}

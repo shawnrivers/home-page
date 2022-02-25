@@ -27,7 +27,7 @@ export const BlogCard: React.FC<BlogCardProps> = props => {
     <Link href={href} as={as}>
       <a
         aria-label={ariaLabel}
-        className={joinClassNames('no-underline h-fit', className)}
+        className={joinClassNames('h-fit no-underline', className)}
       >
         <article
           className={`card card-shadow card-clickable cursor-pointer border-4 ${

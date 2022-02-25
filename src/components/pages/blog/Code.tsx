@@ -11,7 +11,7 @@ const Code: React.FC<{
 
   return (
     <div className="relative">
-      <span className="absolute top-0 right-0 code-block-lang">{language}</span>
+      <span className="code-block-lang absolute top-0 right-0">{language}</span>
       {/* When content overflow on the x axis happens, to allow horizontal scroll using the keyboard, we need to make the <pre> element focusable */}
       {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
       <pre tabIndex={0}>

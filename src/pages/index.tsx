@@ -10,8 +10,8 @@ import NogilibImage from 'public/nogilib.png';
 import { HeadingWithAnchor } from 'app/components/shared/HeadingWithAnchor';
 
 const Home: NextPage = () => (
-  <Page titlePre="Home" className="font-mono flex flex-col align-center">
-    <section className="flex flex-col items-center justify-center sm:flex-row mx-4">
+  <Page titlePre="Home" className="align-center flex flex-col font-mono">
+    <section className="mx-4 flex flex-col items-center justify-center sm:flex-row">
       <div className="next-image-wrapper inline-block overflow-hidden rounded-full border-4 border-zinc-800">
         <Image
           src={AvatarImage}
@@ -22,7 +22,7 @@ const Home: NextPage = () => (
           role="presentation"
         />
       </div>
-      <div className="text-center mt-4 sm:text-left sm:ml-4 sm:mt-0">
+      <div className="mt-4 text-center sm:ml-4 sm:mt-0 sm:text-left">
         <h1 className="text-2xl font-bold">
           Usho Ka /
           <br />
@@ -33,16 +33,16 @@ const Home: NextPage = () => (
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Twitter: @yuxiao_he"
-          className="flex align-center justify-center sm:justify-start mt-2 text-zinc-700 dark:text-zinc-300"
+          className="align-center mt-2 flex justify-center text-zinc-700 dark:text-zinc-300 sm:justify-start"
         >
           <TwitterIcon title="Twitter" className="fill-current" />
-          <span className="text-base ml-1">@yuxiao_he</span>
+          <span className="ml-1 text-base">@yuxiao_he</span>
         </a>
       </div>
     </section>
-    <section className="py-8 mx-auto">
-      <div className="sheet inline-block mx-4 px-8 py-6">
-        <h2 className="text-xl font-bold text-center">
+    <section className="mx-auto py-8">
+      <div className="sheet mx-4 inline-block px-8 py-6">
+        <h2 className="text-center text-xl font-bold">
           Nogizaka-driven web developer
         </h2>
       </div>
@@ -51,7 +51,7 @@ const Home: NextPage = () => (
       <HeadingWithAnchor as="h2" level={1} className="text-2xl font-bold">
         BIO
       </HeadingWithAnchor>
-      <div className="flex flex-wrap justify-center mt-4">
+      <div className="mt-4 flex flex-wrap justify-center">
         <BioListCard
           heading="locations"
           items={[
@@ -60,7 +60,7 @@ const Home: NextPage = () => (
             { text: 'Nagoya, Japan', isHighlighted: false },
             { text: 'Tokyo, Japan', isHighlighted: true },
           ]}
-          className="flex-1 m-2 h-full"
+          className="m-2 h-full flex-1"
         />
         <BioListCard
           heading="education"
@@ -78,7 +78,7 @@ const Home: NextPage = () => (
               isHighlighted: true,
             },
           ]}
-          className="flex-1 m-2 h-full"
+          className="m-2 h-full flex-1"
         />
         <BioListCard
           heading="companies"
@@ -96,27 +96,27 @@ const Home: NextPage = () => (
               isHighlighted: true,
             },
           ]}
-          className="flex-1 m-2 h-full"
+          className="m-2 h-full flex-1"
         />
         <BioCard
           heading="hobbies"
           text="Nogizaka46, Genshin Impact, Karaoke"
-          className="flex-1 m-2 h-full"
+          className="m-2 h-full flex-1"
         />
       </div>
     </section>
-    <section className="flex flex-col items-center px-4 py-8 bg-zinc-100 dark:bg-zinc-800">
+    <section className="flex flex-col items-center bg-zinc-100 px-4 py-8 dark:bg-zinc-800">
       <HeadingWithAnchor as="h2" level={1} className="text-2xl font-bold">
         Works
       </HeadingWithAnchor>
-      <div className="flex flex-wrap justify-center mt-4">
+      <div className="mt-4 flex flex-wrap justify-center">
         <WorkCard
           heading="NOGILIB"
           description="A web application showing the information about Nogizaka46"
           image={NogilibImage}
           imagePriority
           to="https://nogilib.com"
-          className="flex-1 mt-2 my-6 mx-6 h-full"
+          className="my-6 mx-6 mt-2 h-full flex-1"
         />
         <WorkCard
           heading="Nogizaka46 News"
@@ -124,7 +124,7 @@ const Home: NextPage = () => (
           image={NogilibImage}
           imagePriority
           to="https://twitter.com/n46_news"
-          className="flex-1 mt-2 my-6 mx-6 h-full"
+          className="my-6 mx-6 mt-2 h-full flex-1"
         />
       </div>
     </section>
@@ -132,7 +132,7 @@ const Home: NextPage = () => (
       <HeadingWithAnchor as="h2" level={1} className="text-2xl font-bold">
         Contact
       </HeadingWithAnchor>
-      <ul className="flex flex-wrap flex-col sm:flex-row items-center justify-center p-0 mt-4 list-none">
+      <ul className="mt-4 flex list-none flex-col flex-wrap items-center justify-center p-0 sm:flex-row">
         <li className="my-2 mx-4">
           <a
             href="https://twitter.com/yuxiao_he"

@@ -11,7 +11,7 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
     case 'react':
       return (
         <span
-          className="blog-tag text-white bg-react-dark selection:bg-zinc-500"
+          className="blog-tag bg-react-dark text-white selection:bg-zinc-500"
           {...restProps}
         >
           {text}
@@ -20,7 +20,7 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
     case 'css':
       return (
         <span
-          className="blog-tag text-white bg-css-dark selection:bg-zinc-500"
+          className="blog-tag bg-css-dark text-white selection:bg-zinc-500"
           {...restProps}
         >
           {text}
@@ -29,7 +29,7 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
     case 'html':
       return (
         <span
-          className="blog-tag text-white bg-html-dark selection:bg-zinc-500"
+          className="blog-tag bg-html-dark text-white selection:bg-zinc-500"
           {...restProps}
         >
           {text}
@@ -38,7 +38,7 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
     case 'a11y':
       return (
         <span
-          className="blog-tag text-white bg-a11y-dark selection:bg-zinc-500"
+          className="blog-tag bg-a11y-dark text-white selection:bg-zinc-500"
           {...restProps}
         >
           {text}
@@ -47,7 +47,7 @@ export const BlogTag: React.FC<BlogTagProps> = props => {
     case 'draft':
       return (
         <span
-          className="blog-tag text-white bg-draft-default selection:bg-zinc-500 dark:text-draft-default dark:bg-zinc-200 dark:selection:bg-zinc-400"
+          className="blog-tag bg-draft-default text-white selection:bg-zinc-500 dark:bg-zinc-200 dark:text-draft-default dark:selection:bg-zinc-400"
           {...restProps}
         >
           {text}

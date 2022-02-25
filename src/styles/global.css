@@ -21,11 +21,11 @@
 
     /* Hack */
     overflow-x: hidden;
-    @apply text-zinc-900 bg-white dark:text-white dark:bg-zinc-900 selection:bg-red-100 dark:selection:bg-zinc-600 transition-colors;
+    @apply bg-white text-zinc-900 transition-colors selection:bg-red-100 dark:bg-zinc-900 dark:text-white dark:selection:bg-zinc-600;
   }
 
   a {
-    @apply text-zinc-900 dark:text-white underline mouse-hover:hover:text-zinc-400 focus:outline-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 transition-colors;
+    @apply text-zinc-900 underline transition-colors focus:outline-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 dark:text-white mouse-hover:hover:text-zinc-400;
   }
 
   img {
@@ -39,19 +39,19 @@
   }
 
   .blog-tag {
-    @apply inline-block rounded-3xl text-sm px-2.5 py-1.5 font-mono;
+    @apply inline-block rounded-3xl px-2.5 py-1.5 font-mono text-sm;
   }
 
   .sheet {
-    @apply bg-zinc-200 text-zinc-900 dark:bg-zinc-700 dark:text-white dark:selection:bg-zinc-500 overflow-hidden rounded-lg;
+    @apply overflow-hidden rounded-lg bg-zinc-200 text-zinc-900 dark:bg-zinc-700 dark:text-white dark:selection:bg-zinc-500;
   }
 
   .card {
-    @apply bg-white text-zinc-900 dark:bg-zinc-700 dark:text-white dark:selection:bg-zinc-500 overflow-hidden rounded-lg;
+    @apply overflow-hidden rounded-lg bg-white text-zinc-900 dark:bg-zinc-700 dark:text-white dark:selection:bg-zinc-500;
   }
 
   .card-clickable {
-    @apply mouse-hover:hover:bg-zinc-100 mouse-hover:group-hover:bg-zinc-100 dark:mouse-hover:hover:bg-zinc-600 dark:mouse-hover:group-hover:bg-zinc-600 transition;
+    @apply transition mouse-hover:hover:bg-zinc-100 mouse-hover:group-hover:bg-zinc-100 dark:mouse-hover:hover:bg-zinc-600 dark:mouse-hover:group-hover:bg-zinc-600;
   }
 
   .card-clickable a {
@@ -64,12 +64,12 @@
 
   h2.hashtag-heading::before {
     content: '#';
-    @apply text-zinc-500 -tracking-widest mr-1.5;
+    @apply mr-1.5 -tracking-widest text-zinc-500;
   }
 
   h3.hashtag-heading::before {
     content: '##';
-    @apply text-zinc-500 -tracking-widest mr-1.5;
+    @apply mr-1.5 -tracking-widest text-zinc-500;
   }
 
   .next-image-wrapper > * {

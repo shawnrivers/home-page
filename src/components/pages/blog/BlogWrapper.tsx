@@ -60,9 +60,9 @@ const TableOfContentMenu: React.FC<{
       <Menu.Button
         aria-hidden={visible ? 'false' : 'true'}
         tabIndex={visible ? 0 : -1}
-        className="pl-2 pr-3 py-1 relative inline-flex items-center shadow-lg rounded-lg border-2 border-zinc-500 dark:border-zinc-100 text-zinc-800 dark:text-white bg-zinc-100 dark:bg-zinc-800 mouse-hover:hover:bg-zinc-200 dark:mouse-hover:hover:bg-zinc-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 transition-colors"
+        className="relative inline-flex items-center rounded-lg border-2 border-zinc-500 bg-zinc-100 py-1 pl-2 pr-3 text-zinc-800 shadow-lg transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 focus-visible:ring-offset-2 dark:border-zinc-100 dark:bg-zinc-800 dark:text-white mouse-hover:hover:bg-zinc-200 dark:mouse-hover:hover:bg-zinc-700"
       >
-        <TableOfContentIcon className="fill-current w-8 h-8 mr-2" />
+        <TableOfContentIcon className="mr-2 h-8 w-8 fill-current" />
         <span className="text-base">Table of Content</span>
       </Menu.Button>
       <Transition
@@ -76,16 +76,16 @@ const TableOfContentMenu: React.FC<{
       >
         <Menu.Items
           as="nav"
-          className="absolute left-0 mt-1 p-2 max-w-max w-[300px] overflow-hidden flex flex-col space-y-1 origin-top-right bg-zinc-100 dark:bg-zinc-800 rounded-lg shadow-lg border-2 border-zinc-500 dark:border-zinc-100 focus-visible:outline-none"
+          className="absolute left-0 mt-1 flex w-[300px] max-w-max origin-top-right flex-col space-y-1 overflow-hidden rounded-lg border-2 border-zinc-500 bg-zinc-100 p-2 shadow-lg focus-visible:outline-none dark:border-zinc-100 dark:bg-zinc-800"
         >
           {content.map(item => (
             <Menu.Item key={item.text}>
               {({ active }) => (
                 <a
                   href={item.url}
-                  className={`px-2 text-base leading-[1.1] rounded no-underline mouse-hover:hover:text-zinc-900 dark:mouse-hover:hover:text-white ${
+                  className={`rounded px-2 text-base leading-[1.1] no-underline mouse-hover:hover:text-zinc-900 dark:mouse-hover:hover:text-white ${
                     item.level === 3
-                      ? 'ml-4 py-0.5 text-sm text-zinc-600 mouse-hover:hover:text-zinc-600 dark:text-zinc-400 dark:mouse-hover:hover:text-zinc-400'
+                      ? 'ml-4 py-0.5 text-sm text-zinc-600 dark:text-zinc-400 mouse-hover:hover:text-zinc-600 dark:mouse-hover:hover:text-zinc-400'
                       : 'py-1'
                   } ${active ? 'ring-4 ring-zinc-400 ring-opacity-70' : ''}`}
                   onClick={() => setTimeout(() => setVisible(false), 100)}
@@ -120,12 +120,12 @@ const BackToTop: React.FC = () => {
   return (
     <button
       tabIndex={visible ? 0 : -1}
-      className={`fixed bottom-4 right-4 z-10 p-2 shadow-lg rounded-lg border-2 border-zinc-500 dark:border-zinc-100 text-zinc-800 dark:text-white bg-zinc-100 dark:bg-zinc-800 mouse-hover:hover:bg-zinc-200 dark:mouse-hover:hover:bg-zinc-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 transition-all duration-300 ${
+      className={`fixed bottom-4 right-4 z-10 rounded-lg border-2 border-zinc-500 bg-zinc-100 p-2 text-zinc-800 shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 focus-visible:ring-offset-2 dark:border-zinc-100 dark:bg-zinc-800 dark:text-white mouse-hover:hover:bg-zinc-200 dark:mouse-hover:hover:bg-zinc-700 ${
         visible ? 'opacity-100' : '-bottom-12 opacity-0'
       }`}
       onClick={backToTop}
     >
-      <ArrowRightIcon className="fill-current w-6 h-6 -rotate-90" />
+      <ArrowRightIcon className="h-6 w-6 -rotate-90 fill-current" />
     </button>
   );
 };
@@ -165,17 +165,17 @@ export const BlogWrapper: React.FC<{
 
   return (
     <Page {...getBlogHead(meta)}>
-      <article className="prose lg:prose-lg prose-zinc dark:prose-invert mx-auto px-4 break-words">
+      <article className="prose prose-zinc mx-auto break-words px-4 dark:prose-invert lg:prose-lg">
         <div className="mb-8">
           <time
             dateTime={date}
-            className="block text-base mb-2 text-zinc-500 dark:text-zinc-400"
+            className="mb-2 block text-base text-zinc-500 dark:text-zinc-400"
           >
             {getDateString(date)}
           </time>
           <h1>{title}</h1>
           {tags.length > 0 && (
-            <div className="space-x-2 mt-3">
+            <div className="mt-3 space-x-2">
               {!published && <BlogTag text="draft" />}
               {tags.map(tag => (
                 <BlogTag text={tag} key={tag} />

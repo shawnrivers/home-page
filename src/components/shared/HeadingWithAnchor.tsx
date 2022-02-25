@@ -19,9 +19,9 @@ export const HeadingWithAnchor: React.FC<HeadingWithAnchorProps> = props => {
       <a
         href={`#${id}`}
         aria-label="Anchor"
-        className="no-underline px-0.5 mr-1.5 mouse-hover:hover:underline focus-visible:underline"
+        className="mr-1.5 px-0.5 no-underline focus-visible:underline mouse-hover:hover:underline"
       >
-        <span className="text-zinc-500 -tracking-widest" aria-hidden="true">
+        <span className="-tracking-widest text-zinc-500" aria-hidden="true">
           {'#'.repeat(level)}
         </span>
       </a>
