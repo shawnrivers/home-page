@@ -86,11 +86,11 @@
   }
 
   .post-body a code {
-    @apply bg-zinc-100 text-red-600 dark:bg-zinc-800 dark:text-red-400;
+    @apply text-zinc-800 bg-zinc-200 dark:bg-zinc-700 dark:text-zinc-100;
   }
 
   .post-body code {
-    @apply rounded bg-zinc-100 py-0.5 px-1.5 font-normal text-red-600 dark:bg-zinc-800 dark:text-red-400;
+    @apply rounded bg-zinc-200 py-0.5 px-1.5 font-normal text-zinc-800 dark:bg-zinc-700 dark:text-zinc-100;
   }
 
   .post-body code::before,
