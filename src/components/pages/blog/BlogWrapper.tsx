@@ -123,6 +123,7 @@ const BackToTop: React.FC = () => {
       className={`fixed bottom-4 right-4 z-10 rounded-lg border-2 border-zinc-500 bg-zinc-100 p-2 text-zinc-800 shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-zinc-500 focus-visible:ring-opacity-70 focus-visible:ring-offset-2 dark:border-zinc-100 dark:bg-zinc-800 dark:text-white mouse-hover:hover:bg-zinc-200 dark:mouse-hover:hover:bg-zinc-700 ${
         visible ? 'opacity-100' : '-bottom-12 opacity-0'
       }`}
+      aria-label="Back to top"
       onClick={backToTop}
     >
       <ArrowRightIcon className="h-6 w-6 -rotate-90 fill-current" />
