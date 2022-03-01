@@ -44,6 +44,6 @@
     "postcss-import": "^14.0.2",
     "prettier": "^2.5.1",
     "sharp": "^0.30.1",
-    "typescript": "^4.5.5"
+    "typescript": "^4.6.2"
   }
 }
