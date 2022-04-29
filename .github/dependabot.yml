@@ -1,7 +1,15 @@
 version: 2
+
 updates:
-  - package-ecosystem: 'npm'
+  - package-ecosystem: npm
     directory: '/'
-    target-branch: 'update-dependencies'
     schedule:
-      interval: 'daily'
+      interval: daily
+    target-branch: update-dependencies
+    open-pull-requests-limit: 100
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: daily
+    target-branch: update-dependencies
+    open-pull-requests-limit: 100

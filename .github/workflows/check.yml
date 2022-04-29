@@ -1,0 +1,27 @@
+name: Check
+
+on: push
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check type
+        run: npm run type-check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format
+        run: npm run format
