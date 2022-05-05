@@ -40,14 +40,7 @@ const Home: NextPage = () => (
         </a>
       </div>
     </section>
-    <section className="mx-auto py-8">
-      <div className="sheet mx-4 inline-block px-8 py-6">
-        <h2 className="text-center text-xl font-bold">
-          Nogizaka-driven web developer
-        </h2>
-      </div>
-    </section>
-    <section className="flex flex-col items-center px-4 pt-4 pb-8">
+    <section className="mt-4 flex flex-col items-center px-4 pt-4 pb-8">
       <HeadingWithAnchor as="h2" level={1} className="text-2xl font-bold">
         BIO
       </HeadingWithAnchor>
