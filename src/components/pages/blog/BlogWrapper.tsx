@@ -6,7 +6,7 @@ import { Page } from 'app/components/shared/Page';
 import { BlogTag } from './BlogTag';
 import { TableOfContentIcon } from 'app/components/icons/TableOfContentIcon';
 import { Menu, Transition } from '@headlessui/react';
-import {
+import React, {
   Children,
   Fragment,
   useCallback,
@@ -30,6 +30,45 @@ function getBlogHead(blogMeta: BlogMeta): HeaderProps {
 }
 
 type TableOfContent = { text: string; url: string; level: number };
+
+const TableOfContentContainerClassnames =
+  'max-w-max rounded-lg border-2 border-zinc-500 bg-zinc-100 p-2 shadow-lg dark:border-zinc-100 dark:bg-zinc-800';
+
+const TableOfContentItem = React.forwardRef<
+  HTMLAnchorElement,
+  TableOfContent & {
+    className?: string;
+    active?: boolean;
+    onClick?: () => void;
+  }
+>(function TableOfContentItem(
+  { text, url, level, active, className, onClick },
+  ref,
+) {
+  return (
+    <a
+      ref={ref}
+      href={url}
+      className={joinClassNames(
+        `rounded px-2 text-base leading-[1.1] no-underline mouse-hover:hover:text-zinc-900 dark:mouse-hover:hover:text-white ${
+          level === 3
+            ? 'ml-4 py-0.5 text-sm text-zinc-600 dark:text-zinc-400 mouse-hover:hover:text-zinc-600 dark:mouse-hover:hover:text-zinc-400'
+            : 'py-1'
+        } ${
+          active !== undefined
+            ? active
+              ? 'ring-4 ring-zinc-400 ring-opacity-70'
+              : ''
+            : 'focus-visible:ring-4 focus-visible:ring-zinc-400 focus-visible:ring-opacity-70'
+        }`,
+        className,
+      )}
+      onClick={onClick}
+    >
+      {text}
+    </a>
+  );
+});
 
 const TableOfContentMenu: React.FC<{
   content: TableOfContent[];
@@ -76,22 +115,19 @@ const TableOfContentMenu: React.FC<{
       >
         <Menu.Items
           as="nav"
-          className="absolute left-0 mt-1 flex w-[300px] max-w-max origin-top-right flex-col space-y-1 overflow-hidden rounded-lg border-2 border-zinc-500 bg-zinc-100 p-2 shadow-lg focus-visible:outline-none dark:border-zinc-100 dark:bg-zinc-800"
+          className={joinClassNames(
+            'absolute left-0 mt-1 flex w-[300px] origin-top-right flex-col space-y-1 overflow-hidden focus-visible:outline-none',
+            TableOfContentContainerClassnames,
+          )}
         >
           {content.map(item => (
             <Menu.Item key={item.text}>
               {({ active }) => (
-                <a
-                  href={item.url}
-                  className={`rounded px-2 text-base leading-[1.1] no-underline mouse-hover:hover:text-zinc-900 dark:mouse-hover:hover:text-white ${
-                    item.level === 3
-                      ? 'ml-4 py-0.5 text-sm text-zinc-600 dark:text-zinc-400 mouse-hover:hover:text-zinc-600 dark:mouse-hover:hover:text-zinc-400'
-                      : 'py-1'
-                  } ${active ? 'ring-4 ring-zinc-400 ring-opacity-70' : ''}`}
+                <TableOfContentItem
+                  {...item}
+                  active={active}
                   onClick={() => setTimeout(() => setVisible(false), 100)}
-                >
-                  {item.text}
-                </a>
+                />
               )}
             </Menu.Item>
           ))}
@@ -166,28 +202,48 @@ export const BlogWrapper: React.FC<{
 
   return (
     <Page {...getBlogHead(meta)}>
-      <article className="prose prose-zinc mx-auto break-words px-4 dark:prose-invert lg:prose-lg">
-        <div className="mb-8">
-          <time
-            dateTime={date}
-            className="mb-2 block text-base text-zinc-500 dark:text-zinc-400"
-          >
-            {getDateString(date)}
-          </time>
-          <h1>{title}</h1>
-          {tags.length > 0 && (
-            <div className="mt-3 space-x-2">
-              {!published && <BlogTag text="draft" />}
-              {tags.map(tag => (
-                <BlogTag text={tag} key={tag} />
-              ))}
-            </div>
+      <div className="mx-auto flex items-start justify-center gap-4">
+        <article className="prose prose-zinc break-words px-4 dark:prose-invert lg:prose-lg">
+          <div className="mb-8">
+            <time
+              dateTime={date}
+              className="mb-2 block text-base text-zinc-500 dark:text-zinc-400"
+            >
+              {getDateString(date)}
+            </time>
+            <h1>{title}</h1>
+            {tags.length > 0 && (
+              <div className="mt-3 space-x-2">
+                {!published && <BlogTag text="draft" />}
+                {tags.map(tag => (
+                  <BlogTag text={tag} key={tag} />
+                ))}
+              </div>
+            )}
+          </div>
+          <TableOfContentMenu
+            content={content}
+            className="not-prose lg:hidden"
+          />
+          <div className="post-body">{children}</div>
+          <BackToTop />
+        </article>
+        <nav
+          className={joinClassNames(
+            'sticky top-4 hidden w-[240px] lg:block',
+            TableOfContentContainerClassnames,
           )}
-        </div>
-        <TableOfContentMenu content={content} className="not-prose" />
-        <div className="post-body">{children}</div>
-        <BackToTop />
-      </article>
+        >
+          <div className="text-lg font-bold">Table of Content</div>
+          <ul className="mt-2 space-y-1">
+            {content.map(item => (
+              <li key={item.text}>
+                <TableOfContentItem className="block" {...item} />
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </Page>
   );
 };
