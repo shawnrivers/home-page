@@ -44,7 +44,7 @@ const Home: NextPage = () => (
       <HeadingWithAnchor as="h2" level={1} className="text-2xl font-bold">
         BIO
       </HeadingWithAnchor>
-      <div className="mt-4 flex flex-wrap justify-center">
+      <div className="mt-4 flex flex-wrap justify-center items-start">
         <BioListCard
           heading="locations"
           items={[
@@ -53,7 +53,7 @@ const Home: NextPage = () => (
             { text: 'Nagoya, Japan', isHighlighted: false },
             { text: 'Tokyo, Japan', isHighlighted: true },
           ]}
-          className="m-2 h-full flex-1"
+          className="m-2 flex-1"
         />
         <BioListCard
           heading="education"
@@ -71,7 +71,7 @@ const Home: NextPage = () => (
               isHighlighted: true,
             },
           ]}
-          className="m-2 h-full flex-1"
+          className="m-2 flex-1"
         />
         <BioListCard
           heading="companies"
@@ -89,12 +89,12 @@ const Home: NextPage = () => (
               isHighlighted: true,
             },
           ]}
-          className="m-2 h-full flex-1"
+          className="m-2 flex-1"
         />
         <BioCard
           heading="hobbies"
           text="Nogizaka46, Genshin Impact, Karaoke"
-          className="m-2 h-full flex-1"
+          className="m-2 flex-1"
         />
       </div>
     </section>
