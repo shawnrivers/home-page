@@ -203,7 +203,7 @@ export const BlogWrapper: React.FC<{
   return (
     <Page {...getBlogHead(meta)}>
       <div className="mx-auto flex items-start justify-center gap-4">
-        <article className="w-full prose prose-zinc break-words px-4 dark:prose-invert lg:prose-lg">
+        <article className="prose prose-zinc w-full break-words px-4 dark:prose-invert lg:prose-lg">
           <div className="mb-8">
             <time
               dateTime={date}
@@ -221,28 +221,10 @@ export const BlogWrapper: React.FC<{
               </div>
             )}
           </div>
-          <TableOfContentMenu
-            content={content}
-            className="not-prose lg:hidden"
-          />
+          <TableOfContentMenu content={content} className="not-prose" />
           <div className="post-body">{children}</div>
           <BackToTop />
         </article>
-        <nav
-          className={joinClassNames(
-            'sticky top-4 hidden w-[240px] lg:block',
-            TableOfContentContainerClassnames,
-          )}
-        >
-          <div className="text-lg font-bold">Table of Content</div>
-          <ul className="mt-2 space-y-1">
-            {content.map(item => (
-              <li key={item.text}>
-                <TableOfContentItem className="block" {...item} />
-              </li>
-            ))}
-          </ul>
-        </nav>
       </div>
     </Page>
   );
