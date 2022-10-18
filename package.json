@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@axe-core/react": "^4.4.2",
-    "@types/mdx": "^2.0.1",
+    "@types/mdx": "^2.0.3",
     "@types/node": "^17.0.29",
     "@types/prismjs": "^1.26.0",
     "@types/react": "^18.0.8",
