@@ -4,7 +4,6 @@ on:
   workflow_run:
     workflows:
       - Check
-      - 'Integration Test'
     types:
       - completed
   pull_request_target:
