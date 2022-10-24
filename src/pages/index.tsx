@@ -29,14 +29,14 @@ const Home: NextPage = () => (
           Yuxiao He
         </h1>
         <a
-          href="https://twitter.com/yuxiao_he"
+          href="https://twitter.com/usho_ka"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Twitter: @yuxiao_he"
           className="align-center mt-2 flex justify-center text-zinc-700 dark:text-zinc-300 sm:justify-start"
         >
           <TwitterIcon title="Twitter" className="fill-current" />
-          <span className="ml-1 text-base">@yuxiao_he</span>
+          <span className="ml-1 text-base">@usho_ka</span>
         </a>
       </div>
     </section>
@@ -128,7 +128,7 @@ const Home: NextPage = () => (
       <ul className="mt-4 flex list-none flex-col flex-wrap items-center justify-center p-0 sm:flex-row">
         <li className="my-2 mx-4">
           <a
-            href="https://twitter.com/yuxiao_he"
+            href="https://twitter.com/usho_ka"
             target="_blank"
             rel="noopener noreferrer"
           >
