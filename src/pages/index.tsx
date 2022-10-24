@@ -44,7 +44,7 @@ const Home: NextPage = () => (
       <HeadingWithAnchor as="h2" level={1} className="text-2xl font-bold">
         BIO
       </HeadingWithAnchor>
-      <div className="mt-4 flex flex-wrap justify-center items-start">
+      <div className="mt-4 flex flex-wrap items-start justify-center">
         <BioListCard
           heading="locations"
           items={[
