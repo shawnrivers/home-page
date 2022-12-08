@@ -41,7 +41,7 @@
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "postcss-focus-visible": "^6.0.4",
-    "postcss-import": "^14.1.0",
+    "postcss-import": "^15.1.0",
     "prettier": "^2.6.2",
     "sharp": "^0.30.4",
     "typescript": "^4.6.3"
