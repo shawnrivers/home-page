@@ -40,7 +40,7 @@ const bioList = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center px-4 font-mono">
+    <div className="flex flex-col items-center">
       <section className="mx-4 flex flex-col items-center justify-center sm:flex-row">
         <Image
           priority
@@ -71,7 +71,7 @@ export default function Home() {
       </section>
       <section className="mt-8 flex flex-col items-center">
         <HeadingAnchor as="h2" className="text-2xl font-bold">
-          BIO
+          bio
         </HeadingAnchor>
         <div className="mt-4 flex flex-wrap items-start justify-center">
           {bioList.map(bio => (
@@ -90,7 +90,7 @@ export default function Home() {
       </section>
       <section className="mt-8 flex flex-col items-center">
         <HeadingAnchor as="h2" className="text-2xl font-bold">
-          Works
+          works
         </HeadingAnchor>
         <div className="mt-2 flex flex-wrap justify-center gap-8">
           <WorkCard
@@ -109,7 +109,7 @@ export default function Home() {
       </section>
       <section className="mt-12 flex flex-col items-center">
         <HeadingAnchor as="h2" className="text-2xl font-bold">
-          Contact
+          contact
         </HeadingAnchor>
         <ul className="mt-4 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row">
           <li>
@@ -141,6 +141,6 @@ export default function Home() {
           </li>
         </ul>
       </section>
-    </main>
+    </div>
   );
 }

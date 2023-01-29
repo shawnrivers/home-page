@@ -35,7 +35,7 @@ export const HeadingAnchor: React.FC<HeadingAnchorProps> = ({
       >
         <span
           className={cn(
-            'before:mr-1 before:-tracking-widest before:text-gray-500 group-hover:before:text-gray-400',
+            'uppercase before:mr-1 before:-tracking-widest before:text-gray-500 group-hover:before:text-gray-400',
             getBeforeContent(Component),
           )}
         >

@@ -4,6 +4,7 @@ import './globals.css';
 import { Poppins, Space_Mono } from '@next/font/google';
 import { cn } from '@/utils/classNames';
 import { A11yReporter } from '@/components/A11yReporter';
+import { SkipNavLink } from '@/components/SkipNavLink';
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -27,10 +28,11 @@ export default function RootLayout({
     <html lang="en" className={cn(poppins.variable, spaceMono.variable)}>
       <head />
       <body>
-        <div className="flex h-full flex-col">
+        <SkipNavLink />
+        <div className="relative flex h-full flex-col">
           <div className="flex-1">
             <Header />
-            <div className="pb-8">{children}</div>
+            <div className="px-4 pb-8">{children}</div>
           </div>
           <div>
             <Footer />
