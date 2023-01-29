@@ -1,3 +1,20 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:tailwindcss/recommended"
+  ],
+  "rules": {
+    "tailwindcss/no-custom-classname": [
+      "error",
+      {
+        "whitelist": ["sheet"] // custom classnames
+      }
+    ]
+  },
+  "settings": {
+    "tailwind": {
+      "callees": ["cn"]
+    }
+  }
 }
