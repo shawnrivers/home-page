@@ -27,7 +27,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({
       rel="noreferrer"
       aria-labelledby={headingId}
       className={cn(
-        'group inline-block no-underline hover:no-underline ',
+        'group inline-block no-underline hover:no-underline',
         className,
       )}
     >

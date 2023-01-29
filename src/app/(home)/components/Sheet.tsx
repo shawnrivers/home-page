@@ -14,7 +14,7 @@ export const Sheet: React.FC<SheetProps> = ({
   return (
     <article
       className={cn(
-        'inline-flex min-w-[20rem] max-w-xs flex-col items-center overflow-hidden rounded-lg bg-gray-200 px-8 py-4 text-gray-900 dark:bg-gray-700 dark:text-white dark:selection:bg-gray-500',
+        'inline-flex flex-col items-center overflow-hidden rounded-lg bg-gray-200 px-8 py-4 text-gray-900 dark:bg-gray-700 dark:text-white dark:selection:bg-gray-500',
         className,
       )}
     >

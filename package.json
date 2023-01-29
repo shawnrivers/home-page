@@ -13,6 +13,7 @@
   "dependencies": {
     "@axe-core/react": "^4.6.0",
     "@next/font": "13.1.6",
+    "@notionhq/client": "^2.2.3",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
@@ -23,7 +24,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "^1.8.1",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

@@ -73,17 +73,20 @@ export default function Home() {
         <HeadingAnchor as="h2" className="text-2xl font-bold">
           bio
         </HeadingAnchor>
-        <div className="mt-4 flex flex-wrap items-start justify-center">
+        <div className="mt-4 flex flex-wrap items-start justify-center gap-4">
           {bioList.map(bio => (
             <Sheet
               key={bio.heading}
               heading={bio.heading}
-              className="m-2 flex-1"
+              className="min-w-[20rem]  max-w-xs flex-1"
             >
               <LinkedList items={bio.items} />
             </Sheet>
           ))}
-          <Sheet heading="hobbies" className="m-2 flex-1 text-center">
+          <Sheet
+            heading="hobbies"
+            className="min-w-[20rem] max-w-xs  flex-1 text-center"
+          >
             <p>Genshin Impact, Anime, Nogizaka46</p>
           </Sheet>
         </div>

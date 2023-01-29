@@ -29,10 +29,10 @@ export default function RootLayout({
       <head />
       <body>
         <SkipNavLink />
-        <div className="relative flex h-full flex-col">
+        <div className="relative flex h-full flex-col overflow-y-scroll">
           <div className="flex-1">
             <Header />
-            <div className="px-4 pb-8">{children}</div>
+            <div className="px-6 pb-8">{children}</div>
           </div>
           <div>
             <Footer />
