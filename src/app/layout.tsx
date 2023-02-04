@@ -1,21 +1,21 @@
+import { A11yReporter } from '@/components/A11yReporter';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import './globals.css';
-import { Poppins, Space_Mono } from '@next/font/google';
-import { cn } from '@/utils/classNames';
-import { A11yReporter } from '@/components/A11yReporter';
 import { SkipNavLink } from '@/components/SkipNavLink';
+import { cn } from '@/utils/classNames';
+import { Inter, Source_Code_Pro } from '@next/font/google';
+import './globals.css';
 
-const poppins = Poppins({
-  variable: '--font-poppins',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: 'variable',
   display: 'optional',
 });
-const spaceMono = Space_Mono({
-  variable: '--font-space-mono',
+const sourceCodePro = Source_Code_Pro({
+  variable: '--font-source-code-pro',
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: 'variable',
   display: 'optional',
 });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(poppins.variable, spaceMono.variable)}>
+    <html lang="en" className={cn(inter.variable, sourceCodePro.variable)}>
       <head />
       <body>
         <SkipNavLink />

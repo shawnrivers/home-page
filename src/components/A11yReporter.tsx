@@ -6,9 +6,7 @@ import ReactDOM from 'react-dom';
 
 let initialized = false;
 
-type A11yReporterProps = {};
-
-export const A11yReporter: React.FC<A11yReporterProps> = () => {
+export const A11yReporter: React.FC = () => {
   useEffect(() => {
     if (initialized || process.env.NODE_ENV === 'production') return;
     (async () => {

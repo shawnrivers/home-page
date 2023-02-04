@@ -4,14 +4,7 @@
     "prettier",
     "plugin:tailwindcss/recommended"
   ],
-  "rules": {
-    "tailwindcss/no-custom-classname": [
-      "error",
-      {
-        "whitelist": ["sheet"] // custom classnames
-      }
-    ]
-  },
+  "rules": {},
   "settings": {
     "tailwind": {
       "callees": ["cn"]

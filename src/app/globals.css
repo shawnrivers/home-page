@@ -15,7 +15,11 @@
 
   a,
   button {
-    @apply rounded underline hover:text-gray-400;
+    @apply rounded;
+  }
+
+  a {
+    @apply underline hover:text-gray-400;
   }
 
   img {
@@ -23,8 +27,56 @@
   }
 }
 
-@layer components {
-  .sheet {
-    @apply overflow-hidden rounded-lg bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white dark:selection:bg-gray-500;
-  }
+.token.comment {
+  @apply italic text-gray-400;
+}
+.token.script {
+  @apply text-gray-200;
+}
+.token.keyword {
+  @apply italic;
+}
+.token.keyword,
+.token.tag {
+  @apply text-red-400;
+}
+.token.attr-name {
+  @apply text-violet-400;
+}
+.token.attr-value {
+  @apply text-blue-400;
+}
+.token.string {
+  @apply text-emerald-400;
+}
+.token.punctuation,
+.token.operator {
+  @apply text-gray-400;
+}
+.token.url,
+.token.symbol,
+.token.boolean,
+.token.variable,
+.token.constant {
+  @apply text-blue-400;
+}
+.token.class-name,
+.token.number {
+  @apply text-amber-300;
+}
+.token.function {
+  @apply text-violet-400;
+}
+.token.function-variable {
+  @apply text-gray-200;
+}
+.token.selector {
+  @apply text-blue-400;
+}
+.token.selector {
+  @apply text-blue-400;
+}
+.token.property,
+.token.entity {
+  @apply text-pink-400;
 }

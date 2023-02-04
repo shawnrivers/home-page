@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Blog', href: '/blog' },
-] satisfies { label: string; href: string }[];
+  { label: 'Home', href: '/', highlightRegex: /^\/$/ },
+  { label: 'Blog', href: '/blog', highlightRegex: /^\/blog.*/ },
+] satisfies { label: string; href: string; highlightRegex: RegExp }[];
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
@@ -16,8 +16,8 @@ export const Header: React.FC = () => {
     <header className="mb-8">
       <nav aria-label="main-nav">
         <ul className="flex items-center justify-center gap-2 px-4">
-          {navItems.map(({ label, href }) => {
-            const isCurrent = pathname === href;
+          {navItems.map(({ label, href, highlightRegex }) => {
+            const isCurrent = highlightRegex.test(pathname ?? '');
             return (
               <li className="inline-block py-4" key={label}>
                 <Link

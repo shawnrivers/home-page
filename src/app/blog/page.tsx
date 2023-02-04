@@ -1,14 +1,14 @@
 import { BlogCard } from '@/app/blog/components/BlogCard';
-import { fetchBlogs } from '@/utils/notion';
+import { fetchPosts } from '@/utils/notion/api/fetchPosts';
 
-export default async function Blog() {
-  const blogs = await fetchBlogs();
+export default async function BlogList() {
+  const posts = await fetchPosts();
 
   return (
     <>
       <h1 className="sr-only">Blog</h1>
       <ul className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
-        {blogs?.map((blog, index) => (
+        {posts?.map((blog, index) => (
           <li key={blog.id}>
             <BlogCard
               title={blog.properties.Page.title[0].plain_text}

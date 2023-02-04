@@ -1,7 +1,6 @@
-import { Client } from '@notionhq/client';
+import { notion } from '@/utils/notion/client';
+import { RichTextSchema } from '@/utils/notion/schema';
 import { z } from 'zod';
-
-const notion = new Client({ auth: process.env.NOTION_KEY });
 
 const BlogListSchema = z.object({
   object: z.literal('list'),
@@ -43,12 +42,7 @@ const BlogListSchema = z.object({
           }),
           Slug: z.object({
             type: z.literal('rich_text'),
-            rich_text: z.array(
-              z.object({
-                type: z.literal('text'),
-                plain_text: z.string(),
-              }),
-            ),
+            rich_text: RichTextSchema,
           }),
           Date: z.object({
             type: z.literal('date'),
@@ -72,9 +66,11 @@ const BlogListSchema = z.object({
     .optional(),
 });
 
-export async function fetchBlogs(
+type BlogList = z.infer<typeof BlogListSchema>['results'];
+
+export async function fetchPosts(
   params?: Omit<Parameters<typeof notion.databases.query>[0], 'database_id'>,
-) {
+): Promise<BlogList> {
   if (!process.env.NOTION_DATABASE_ID)
     throw new Error('NOTION_DATABASE_ID is not defined.');
 
@@ -84,4 +80,5 @@ export async function fetchBlogs(
   });
 
   return BlogListSchema.parse(res).results;
+  // return res.results;
 }

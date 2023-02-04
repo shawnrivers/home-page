@@ -85,7 +85,7 @@ export default function Home() {
           ))}
           <Sheet
             heading="hobbies"
-            className="min-w-[20rem] max-w-xs  flex-1 text-center"
+            className="min-w-[20rem] max-w-xs flex-1 text-center"
           >
             <p>Genshin Impact, Anime, Nogizaka46</p>
           </Sheet>
