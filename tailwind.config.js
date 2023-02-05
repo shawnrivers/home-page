@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-poppins)', ...defaultTheme.fontFamily.sans],
-        mono: ['var(--font-space-mono)', ...defaultTheme.fontFamily.mono],
+        sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
+        mono: ['var(--font-source-code-pro)', ...defaultTheme.fontFamily.mono],
       },
       colors: {
         gray: colors.zinc,

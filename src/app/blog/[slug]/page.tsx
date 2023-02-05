@@ -1,23 +1,29 @@
-import { BlogTag } from '@/app/blog/components/BlogTag';
-import { cn } from '@/utils/classNames';
-import { Block, fetchBlocks } from '@/utils/notion/api/fetchBlocks';
-import { fetchPosts } from '@/utils/notion/api/fetchPosts';
-import { RichText } from '@/utils/notion/schema';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Fragment } from 'react';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
+import { BlogTag } from '@/app/blog/components/BlogTag';
+import { cn } from '@/utils/classNames';
+import { Block, fetchBlocks } from '@/utils/notion/api/fetchBlocks';
+import { fetchPosts } from '@/utils/notion/api/fetchPosts';
+import { RichText } from '@/utils/notion/schema';
+import { BackToTop } from '@/app/blog/[slug]/components/BackToTop';
+import slugify from 'slugify';
+import {
+  TableOfContent,
+  TableOfContentMenu,
+} from '@/app/blog/[slug]/components/TableOfContentMenu';
 
 export default async function Blog({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  const { last_edited_time, properties, blocks } = await getData(slug);
+  const { last_edited_time, cover, properties, blocks } = await getData(slug);
 
   return (
     <>
       <div className="mx-auto flex items-start justify-center gap-4">
-        <article className="prose prose-zinc w-full break-words px-4 dark:prose-invert lg:prose-lg">
+        <article className="prose prose-zinc relative w-full break-words px-4 dark:prose-invert lg:prose-lg">
           <div className="mb-8">
             <time
               dateTime={properties.Date.date.start}
@@ -25,18 +31,23 @@ export default async function Blog({ params }: { params: { slug: string } }) {
             >
               {formateDate(properties.Date.date.start)}
             </time>
-            <h1>
-              {properties.Page.title.reduce(
-                (prev, curr) => `${prev}${curr.plain_text}`,
-                '',
-              )}
-            </h1>
             {properties.Tags.multi_select.length > 0 && (
-              <div className="mt-3 space-x-2">
+              <div className="mb-3 space-x-2">
                 {properties.Tags.multi_select.map(tag => (
                   <BlogTag key={tag.name} name={tag.name} color={tag.color} />
                 ))}
               </div>
+            )}
+            <h1>{getPlainText(properties.Page.title)}</h1>
+            {cover?.file.url && (
+              <Image
+                priority
+                src={cover?.file.url}
+                alt=""
+                width={600}
+                height={400}
+                className="w-full rounded-lg border object-contain"
+              />
             )}
           </div>
           <div>
@@ -52,14 +63,13 @@ export default async function Blog({ params }: { params: { slug: string } }) {
           >
             Updated on {formateDate(last_edited_time)}
           </time>
-          {/* <TableOfContentMenu content={content} className="not-prose" />
-          <div className="post-body">{children}</div>
-          <BackToTop /> */}
+          <TableOfContentMenu
+            content={getTableOfContent(blocks)}
+            className="not-prose"
+          />
+          <BackToTop />
         </article>
       </div>
-      {/* <pre className="whitespace-pre-wrap break-all">
-        <code>{JSON.stringify(blocks, null, 2)}</code>
-      </pre> */}
     </>
   );
 }
@@ -114,6 +124,41 @@ function renderRichText(richText: RichText): React.ReactNode {
   });
 }
 
+function getPlainText(richText: { plain_text: string }[]): string {
+  return richText.reduce((prev, curr) => `${prev}${curr.plain_text}`, '');
+}
+
+function getTableOfContent(blocks: Block[]): TableOfContent[] {
+  return blocks
+    .filter(
+      block =>
+        block.type === 'heading_1' ||
+        block.type === 'heading_2' ||
+        block.type === 'heading_3',
+    )
+    .map(block => {
+      let text = '';
+      let level = 1;
+      switch (block.type) {
+        case 'heading_1':
+          text = getPlainText(block.heading_1.rich_text);
+          level = 1;
+          break;
+        case 'heading_2':
+          text = getPlainText(block.heading_2.rich_text);
+          level = 2;
+          break;
+        case 'heading_3':
+          text = getPlainText(block.heading_3.rich_text);
+          level = 3;
+          break;
+        default:
+          break;
+      }
+      return { text, url: `#${slugify(text)}`, level };
+    });
+}
+
 let listBuffer: React.ReactNode[] = [];
 
 function renderBlock(params: {
@@ -127,13 +172,25 @@ function renderBlock(params: {
       return <p>{renderRichText(block.paragraph.rich_text)}</p>;
     }
     case 'heading_1': {
-      return <h1>{renderRichText(block.heading_1.rich_text)}</h1>;
+      return (
+        <h1 id={slugify(getPlainText(block.heading_1.rich_text))}>
+          {renderRichText(block.heading_1.rich_text)}
+        </h1>
+      );
     }
     case 'heading_2': {
-      return <h2>{renderRichText(block.heading_2.rich_text)}</h2>;
+      return (
+        <h2 id={slugify(getPlainText(block.heading_2.rich_text))}>
+          {renderRichText(block.heading_2.rich_text)}
+        </h2>
+      );
     }
     case 'heading_3': {
-      return <h3>{renderRichText(block.heading_3.rich_text)}</h3>;
+      return (
+        <h3 id={slugify(getPlainText(block.heading_3.rich_text))}>
+          {renderRichText(block.heading_3.rich_text)}
+        </h3>
+      );
     }
     case 'bulleted_list_item':
     case 'numbered_list_item': {
@@ -182,9 +239,7 @@ function renderBlock(params: {
             <code
               dangerouslySetInnerHTML={{
                 __html: Prism.highlight(
-                  rich_text.reduce((prev, curr) => {
-                    return `${prev}${curr.plain_text}`;
-                  }, ''),
+                  getPlainText(rich_text),
                   Prism.languages[highlightLanguage],
                   highlightLanguage,
                 ),
@@ -197,8 +252,23 @@ function renderBlock(params: {
     case 'divider': {
       return <hr className="border-t-2" />;
     }
+    case 'image': {
+      const src =
+        block.image.type === 'external'
+          ? block.image.external.url
+          : block.image.file.url;
+      return (
+        <Image
+          src={src}
+          alt={getPlainText(block.image.caption)}
+          width={600}
+          height={400}
+          className="mx-auto h-[400px] w-full bg-gray-100 object-contain dark:bg-gray-800"
+        />
+      );
+    }
     default: {
-      console.error('Unknown block type:', block.type);
+      console.error('Unknown block type');
       return null;
     }
   }

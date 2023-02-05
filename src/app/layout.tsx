@@ -1,3 +1,4 @@
+import { SCROLL_CONTAINER_ID } from '@/app/constants';
 import { A11yReporter } from '@/components/A11yReporter';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
@@ -29,7 +30,10 @@ export default function RootLayout({
       <head />
       <body>
         <SkipNavLink />
-        <div className="relative flex h-full flex-col overflow-y-scroll">
+        <div
+          id={SCROLL_CONTAINER_ID}
+          className="relative flex h-full flex-col overflow-y-scroll"
+        >
           <div className="flex-1">
             <Header />
             <div className="px-6 pb-8">{children}</div>

@@ -34,8 +34,8 @@ export const WorkCard: React.FC<WorkCardProps> = ({
       <article className="relative mt-20 inline-flex min-w-[20rem] max-w-xs flex-col items-center gap-4 rounded-lg border-4 border-gray-800 bg-white px-8 pb-4 text-center text-gray-900 shadow-md hover:shadow-lg group-hover:bg-gray-100 dark:border-white dark:bg-gray-700 dark:text-white dark:group-hover:bg-gray-600">
         <Image
           src={image}
-          width="128"
-          height="128"
+          width={128}
+          height={128}
           alt=""
           role="presentation"
           placeholder="blur"

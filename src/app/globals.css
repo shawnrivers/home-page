@@ -21,10 +21,6 @@
   a {
     @apply underline hover:text-gray-400;
   }
-
-  img {
-    @apply bg-gray-300 dark:bg-gray-700;
-  }
 }
 
 .token.comment {
