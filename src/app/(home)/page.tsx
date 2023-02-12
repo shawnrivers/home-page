@@ -3,6 +3,7 @@ import { Sheet } from '@/app/(home)/components/Sheet';
 import { WorkCard } from '@/app/(home)/components/WorkCard';
 import AvatarImage from '@/app/(home)/images/avatar.jpg';
 import NogilibImage from '@/app/(home)/images/nogilib.png';
+import ToGifImage from '@/app/(home)/images/to-gif.jpg';
 import { HeadingAnchor } from '@/components/HeadingAnchor';
 import { Twitter } from '@/components/icons/Twitter';
 import Image from 'next/image';
@@ -95,7 +96,7 @@ export default function Home() {
         <HeadingAnchor as="h2" className="text-2xl font-bold">
           works
         </HeadingAnchor>
-        <div className="mt-2 flex flex-wrap justify-center gap-8">
+        <div className="mt-4 flex flex-wrap justify-center gap-8">
           <WorkCard
             heading="NOGILIB"
             description="A web application showing the information about Nogizaka46"
@@ -107,6 +108,12 @@ export default function Home() {
             description="A Twitter bot that retweets Nogizaka46 news and tweets members' schedules"
             image={NogilibImage}
             to="https://twitter.com/n46_news"
+          />
+          <WorkCard
+            heading="To Gif"
+            description="A simple web app that generates GIF from video file using FFmpeg WASM"
+            image={ToGifImage}
+            to="https://togif.vercel.app/"
           />
         </div>
       </section>
