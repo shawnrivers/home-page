@@ -18,7 +18,7 @@ import {
 import { NotionImage } from '@/app/blog/[slug]/components/NotionImage';
 import { getCoverImageId } from '@/app/blog/utils/cover';
 
-export const revalidate = false;
+export const revalidate = 3600;
 
 export default async function Blog({ params }: { params: { slug: string } }) {
   const { slug } = params;

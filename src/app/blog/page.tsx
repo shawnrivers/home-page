@@ -1,7 +1,7 @@
 import { BlogCard } from '@/app/blog/components/BlogCard';
 import { fetchPosts } from '@/utils/notion/api/fetchPosts';
 
-export const revalidate = false;
+export const revalidate = 3600;
 
 export default async function BlogList() {
   const posts = await fetchPosts();
