@@ -80,5 +80,4 @@ export async function fetchPosts(
   });
 
   return BlogListSchema.parse(res).results;
-  // return res.results;
 }

@@ -15,10 +15,23 @@ import {
   TableOfContent,
   TableOfContentMenu,
 } from '@/app/blog/[slug]/components/TableOfContentMenu';
+import { NotionImage } from '@/app/blog/[slug]/components/NotionImage';
+import { getCoverImageId } from '@/app/blog/utils/cover';
+
+export const revalidate = 3600;
 
 export default async function Blog({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const { last_edited_time, cover, properties, blocks } = await getData(slug);
+  const title = getPlainText(properties.Page.title);
+
+  const renderedBlocks = await Promise.all(
+    blocks.map(async (block, i) => (
+      <Fragment key={block.id}>
+        {await renderBlock({ block, nextBlock: blocks[i + 1] })}
+      </Fragment>
+    )),
+  );
 
   return (
     <>
@@ -40,23 +53,18 @@ export default async function Blog({ params }: { params: { slug: string } }) {
             )}
             <h1>{getPlainText(properties.Page.title)}</h1>
             {cover?.file.url && (
-              <Image
+              // @ts-expect-error Server Component
+              <NotionImage
                 priority
-                src={cover?.file.url}
+                originalUrl={cover?.file.url}
+                fileName={getCoverImageId(title)}
                 alt=""
-                width={600}
-                height={400}
-                className="w-full rounded-lg border object-contain"
+                sizes="800px"
+                className="mx-auto h-auto w-full rounded border bg-white object-contain dark:bg-gray-900"
               />
             )}
           </div>
-          <div>
-            {blocks.map((block, i) => (
-              <Fragment key={block.id}>
-                {renderBlock({ block, nextBlock: blocks[i + 1] })}
-              </Fragment>
-            ))}
-          </div>
+          <div>{renderedBlocks}</div>
           <time
             dateTime={last_edited_time}
             className="mt-12 block italic text-gray-500 dark:text-gray-400"
@@ -161,10 +169,10 @@ function getTableOfContent(blocks: Block[]): TableOfContent[] {
 
 let listBuffer: React.ReactNode[] = [];
 
-function renderBlock(params: {
+async function renderBlock(params: {
   block: Block;
   nextBlock: Block | undefined;
-}): React.ReactNode {
+}) {
   const { block, nextBlock } = params;
 
   switch (block.type) {
@@ -258,12 +266,13 @@ function renderBlock(params: {
           ? block.image.external.url
           : block.image.file.url;
       return (
-        <Image
-          src={src}
+        // @ts-expect-error Server Component
+        <NotionImage
+          fileName={block.id}
+          originalUrl={src}
           alt={getPlainText(block.image.caption)}
           width={600}
-          height={400}
-          className="mx-auto h-[400px] w-full bg-gray-100 object-contain dark:bg-gray-800"
+          className="mx-auto h-auto max-w-full rounded border bg-white object-contain dark:bg-gray-900"
         />
       );
     }

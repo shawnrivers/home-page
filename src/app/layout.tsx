@@ -10,13 +10,11 @@ import './globals.css';
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
-  weight: 'variable',
   display: 'optional',
 });
 const sourceCodePro = Source_Code_Pro({
   variable: '--font-source-code-pro',
   subsets: ['latin'],
-  weight: 'variable',
   display: 'optional',
 });
 
@@ -26,7 +24,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(inter.variable, sourceCodePro.variable)}>
+    <html
+      lang="en"
+      className={cn(inter.variable, sourceCodePro.variable)}
+    >
       <head />
       <body>
         <SkipNavLink />
