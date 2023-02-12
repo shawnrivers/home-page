@@ -36,7 +36,7 @@ export default async function Blog({ params }: { params: { slug: string } }) {
   return (
     <>
       <div className="mx-auto flex items-start justify-center gap-4">
-        <article className="prose prose-zinc relative w-full break-words px-4 dark:prose-invert lg:prose-lg">
+        <article className="prose prose-zinc relative w-full break-words dark:prose-invert lg:prose-lg">
           <div className="mb-8">
             <time
               dateTime={properties.Date.date.start}
