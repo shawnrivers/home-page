@@ -31,7 +31,7 @@ export const NotionImage = async ({
 
   return (
     <Image
-      src={getImageUrl(image.secure_url, { width: realWidth, quality: 80 })}
+      src={getImageUrl(image.public_id, { width: realWidth, quality: 80 })}
       alt={alt}
       width={realWidth}
       height={realHeight}
