@@ -1,4 +1,4 @@
-import { getImageUrl, uploadImage } from '@/utils/cloudinary';
+import { fetchImage, getImageUrl, uploadImage } from '@/utils/cloudinary';
 import Image, { ImageProps } from 'next/image';
 
 type NotionImageProps = Omit<
@@ -18,7 +18,7 @@ export const NotionImage = async ({
   width,
   ...imageProps
 }: NotionImageProps) => {
-  const image = await uploadImage({ url: originalUrl, fileName });
+  const image = await getImage(originalUrl, fileName);
 
   if (image == null) {
     return null;
@@ -39,3 +39,17 @@ export const NotionImage = async ({
     />
   );
 };
+
+async function getImage(url: string, fileName: string) {
+  try {
+    const image = await fetchImage(fileName);
+    return image ?? null;
+  } catch (e) {
+    try {
+      const image = await uploadImage({ url, fileName });
+      return image ?? null;
+    } catch (e) {
+      return null;
+    }
+  }
+}
