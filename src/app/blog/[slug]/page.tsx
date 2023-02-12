@@ -60,7 +60,7 @@ export default async function Blog({ params }: { params: { slug: string } }) {
                 fileName={getCoverImageId(title)}
                 alt=""
                 sizes="800px"
-                className="mx-auto h-auto w-full rounded border bg-white object-contain dark:bg-gray-900"
+                className="mx-auto h-auto w-full rounded bg-white object-contain dark:bg-gray-900"
               />
             )}
           </div>
@@ -272,7 +272,7 @@ async function renderBlock(params: {
           originalUrl={src}
           alt={getPlainText(block.image.caption)}
           width={600}
-          className="mx-auto h-auto max-w-full rounded border bg-white object-contain dark:bg-gray-900"
+          className="mx-auto h-auto max-w-full rounded bg-white object-contain dark:bg-gray-900"
         />
       );
     }
