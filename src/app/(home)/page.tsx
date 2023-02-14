@@ -62,7 +62,7 @@ export default function Home() {
           <a
             href="https://twitter.com/usho_ka"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
             className="mt-2 inline-flex items-center justify-center gap-1 text-gray-700 dark:text-gray-300 sm:justify-start"
           >
             <Twitter title="Twitter" className="fill-current" />
@@ -72,8 +72,11 @@ export default function Home() {
       </section>
       <div className="mx-auto mt-8 inline-block max-w-lg space-y-2 overflow-hidden rounded-lg border-2 border-gray-900 p-4 text-base dark:border-white md:p-8 md:text-lg">
         <p>
-          Hi, I{"'"}m Usho. I{"'"}m a web developer based on Tokyo with a
-          primary focus on <Emphasize>React</Emphasize> and{' '}
+          Hi, I{"'"}m Usho. I{"'"}m a Tokyo-based web developer at{' '}
+          <a href="eure.jp" target="_blank" rel="noreferrer">
+            Eureka
+          </a>
+          . My primary focus is on <Emphasize>React</Emphasize> and{' '}
           <Emphasize>Typescript</Emphasize>.
         </p>
         <p>
