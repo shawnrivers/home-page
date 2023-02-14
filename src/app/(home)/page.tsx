@@ -70,6 +70,21 @@ export default function Home() {
           </a>
         </div>
       </section>
+      <div className="mx-auto mt-8 inline-block max-w-lg space-y-2 overflow-hidden rounded-lg border-2 border-gray-900 p-4 text-base dark:border-white md:p-8 md:text-lg">
+        <p>
+          Hi, I{"'"}m Usho. I{"'"}m a web developer based on Tokyo with a
+          primary focus on <Emphasize>React</Emphasize> and{' '}
+          <Emphasize>Typescript</Emphasize>.
+        </p>
+        <p>
+          As an advocate for <Emphasize>web accessibility</Emphasize>, I{"'"}m
+          passionate about creating inclusive and user-friendly websites.
+        </p>
+        <p>
+          I speak <Emphasize>Chinese</Emphasize>,{' '}
+          <Emphasize>Japanese</Emphasize>, and <Emphasize>English</Emphasize>.
+        </p>
+      </div>
       <section className="mt-8 flex flex-col items-center">
         <HeadingAnchor as="h2" className="text-2xl font-bold">
           bio
@@ -79,7 +94,7 @@ export default function Home() {
             <Sheet
               key={bio.heading}
               heading={bio.heading}
-              className="min-w-[20rem]  max-w-xs flex-1"
+              className="min-w-[20rem] max-w-xs flex-1"
             >
               <LinkedList items={bio.items} />
             </Sheet>
@@ -154,3 +169,7 @@ export default function Home() {
     </div>
   );
 }
+
+const Emphasize: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return <span className="font-bold uppercase">{children}</span>;
+};
