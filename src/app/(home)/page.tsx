@@ -10,12 +10,11 @@ import Image from 'next/image';
 
 const bioList = [
   {
-    heading: 'locations',
+    heading: 'companies',
     items: [
-      { text: 'Fuzhou, China' },
-      { text: 'Shenyang, China' },
-      { text: 'Nagoya, Japan' },
-      { text: 'Tokyo, Japan', highlighted: true },
+      { text: 'Eureka, Inc.\n(intern)' },
+      { text: 'SHOWROOM Inc.\n(intern)' },
+      { text: 'Eureka, Inc.', highlighted: true },
     ],
   },
   {
@@ -27,11 +26,12 @@ const bioList = [
     ],
   },
   {
-    heading: 'companies',
+    heading: 'locations',
     items: [
-      { text: 'Eureka, Inc.\n(intern)' },
-      { text: 'SHOWROOM Inc.\n(intern)' },
-      { text: 'Eureka, Inc.', highlighted: true },
+      { text: 'Fuzhou, China' },
+      { text: 'Shenyang, China' },
+      { text: 'Nagoya, Japan' },
+      { text: 'Tokyo, Japan', highlighted: true },
     ],
   },
 ] satisfies {
