@@ -10,12 +10,12 @@ import './globals.css';
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
-  display: 'optional',
+  display: 'swap',
 });
 const sourceCodePro = Source_Code_Pro({
   variable: '--font-source-code-pro',
   subsets: ['latin'],
-  display: 'optional',
+  display: 'swap',
 });
 
 export default function RootLayout({
