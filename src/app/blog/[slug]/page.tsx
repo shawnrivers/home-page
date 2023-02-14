@@ -17,13 +17,18 @@ import {
 } from '@/app/blog/[slug]/components/TableOfContentMenu';
 import { NotionImage } from '@/app/blog/[slug]/components/NotionImage';
 import { getCoverImageId } from '@/app/blog/utils/cover';
+import { convertRichTextToPlainText } from '@/utils/notion/utils';
 
 export const revalidate = 3600;
 
-export default async function Blog({ params }: { params: { slug: string } }) {
+export type BlogPageProps = { params: { slug: string } };
+
+export default async function Blog({ params }: BlogPageProps) {
   const { slug } = params;
-  const { last_edited_time, cover, properties, blocks } = await getData(slug);
-  const title = getPlainText(properties.Page.title);
+  const { last_edited_time, cover, properties, blocks } = await getBlogData(
+    slug,
+  );
+  const title = convertRichTextToPlainText(properties.Page.title);
 
   const renderedBlocks = await Promise.all(
     blocks.map(async (block, i) => (
@@ -51,7 +56,7 @@ export default async function Blog({ params }: { params: { slug: string } }) {
                 ))}
               </div>
             )}
-            <h1>{getPlainText(properties.Page.title)}</h1>
+            <h1>{convertRichTextToPlainText(properties.Page.title)}</h1>
             {cover?.file.url && (
               // @ts-expect-error Server Component
               <NotionImage
@@ -82,7 +87,7 @@ export default async function Blog({ params }: { params: { slug: string } }) {
   );
 }
 
-async function getData(slug: string) {
+export async function getBlogData(slug: string) {
   const posts = await fetchPosts();
   const post = (posts ?? []).find(
     blog => blog.properties.Slug.rich_text[0].plain_text === slug,
@@ -132,10 +137,6 @@ function renderRichText(richText: RichText): React.ReactNode {
   });
 }
 
-function getPlainText(richText: { plain_text: string }[]): string {
-  return richText.reduce((prev, curr) => `${prev}${curr.plain_text}`, '');
-}
-
 function getTableOfContent(blocks: Block[]): TableOfContent[] {
   return blocks
     .filter(
@@ -149,15 +150,15 @@ function getTableOfContent(blocks: Block[]): TableOfContent[] {
       let level = 1;
       switch (block.type) {
         case 'heading_1':
-          text = getPlainText(block.heading_1.rich_text);
+          text = convertRichTextToPlainText(block.heading_1.rich_text);
           level = 1;
           break;
         case 'heading_2':
-          text = getPlainText(block.heading_2.rich_text);
+          text = convertRichTextToPlainText(block.heading_2.rich_text);
           level = 2;
           break;
         case 'heading_3':
-          text = getPlainText(block.heading_3.rich_text);
+          text = convertRichTextToPlainText(block.heading_3.rich_text);
           level = 3;
           break;
         default:
@@ -181,21 +182,21 @@ async function renderBlock(params: {
     }
     case 'heading_1': {
       return (
-        <h1 id={slugify(getPlainText(block.heading_1.rich_text))}>
+        <h1 id={slugify(convertRichTextToPlainText(block.heading_1.rich_text))}>
           {renderRichText(block.heading_1.rich_text)}
         </h1>
       );
     }
     case 'heading_2': {
       return (
-        <h2 id={slugify(getPlainText(block.heading_2.rich_text))}>
+        <h2 id={slugify(convertRichTextToPlainText(block.heading_2.rich_text))}>
           {renderRichText(block.heading_2.rich_text)}
         </h2>
       );
     }
     case 'heading_3': {
       return (
-        <h3 id={slugify(getPlainText(block.heading_3.rich_text))}>
+        <h3 id={slugify(convertRichTextToPlainText(block.heading_3.rich_text))}>
           {renderRichText(block.heading_3.rich_text)}
         </h3>
       );
@@ -247,7 +248,7 @@ async function renderBlock(params: {
             <code
               dangerouslySetInnerHTML={{
                 __html: Prism.highlight(
-                  getPlainText(rich_text),
+                  convertRichTextToPlainText(rich_text),
                   Prism.languages[highlightLanguage],
                   highlightLanguage,
                 ),
@@ -270,7 +271,7 @@ async function renderBlock(params: {
         <NotionImage
           fileName={block.id}
           originalUrl={src}
-          alt={getPlainText(block.image.caption)}
+          alt={convertRichTextToPlainText(block.image.caption)}
           width={600}
           className="mx-auto h-auto max-w-full rounded bg-white object-contain dark:bg-gray-900"
         />
