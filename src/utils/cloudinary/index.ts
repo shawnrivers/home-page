@@ -23,4 +23,16 @@ export function fetchImage(
   });
 }
 
+export function fetchImages(fileNames: string[]): Promise<ResourceApiResponse> {
+  const prefixedFileNames = fileNames.map(fileName =>
+    fileName.includes('home-page/blog')
+      ? fileName
+      : `home-page/blog/${fileName}`,
+  );
+  return cloudinary.api.resources_by_ids(prefixedFileNames, {
+    resource_type: 'image',
+    max_results: 500,
+  });
+}
+
 export const getImageUrl = cloudinary.url;

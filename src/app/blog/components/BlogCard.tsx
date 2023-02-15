@@ -1,7 +1,6 @@
 import { BlogTag } from '@/app/blog/components/BlogTag';
-import { getCoverImageId } from '@/app/blog/utils/cover';
 import { getTagCardBorderColor } from '@/app/blog/utils/tags';
-import { NotionImage } from '@/app/blog/[slug]/components/NotionImage';
+import { BlogImage } from '@/app/blog/components/BlogImage';
 import { cn } from '@/utils/classNames';
 import { formatDate } from '@/utils/date';
 import Link from 'next/link';
@@ -11,7 +10,11 @@ type BlogCardProps = {
   href: string;
   date: string;
   tags: { name: string; color: string }[];
-  image?: string;
+  image?: {
+    publicId: string;
+    originalWidth: number;
+    originalHeight: number;
+  };
   imagePriority?: boolean;
   className?: string;
 };
@@ -36,13 +39,13 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     >
       <article>
         {image && (
-          // @ts-expect-error Server Component
-          <NotionImage
+          <BlogImage
             priority={imagePriority}
-            originalUrl={image}
-            fileName={getCoverImageId(title)}
+            publicId={image.publicId}
             alt=""
             width={600}
+            originalWidth={image.originalWidth}
+            originalHeight={image.originalHeight}
             className="aspect-[3/2] h-auto w-full object-cover"
           />
         )}

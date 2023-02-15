@@ -1,24 +1,22 @@
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
-import { Fragment } from 'react';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-tsx';
 import { BlogTag } from '@/app/blog/components/BlogTag';
-import { cn } from '@/utils/classNames';
-import { Block, fetchBlocks } from '@/utils/notion/api/fetchBlocks';
-import { fetchPosts } from '@/utils/notion/api/fetchPosts';
-import { RichText } from '@/utils/notion/schema';
+import { getCoverImageId } from '@/app/blog/utils/cover';
 import { BackToTop } from '@/app/blog/[slug]/components/BackToTop';
-import slugify from 'slugify';
+import { BlogImage } from '@/app/blog/components/BlogImage';
 import {
   TableOfContent,
   TableOfContentMenu,
 } from '@/app/blog/[slug]/components/TableOfContentMenu';
-import { NotionImage } from '@/app/blog/[slug]/components/NotionImage';
-import { getCoverImageId } from '@/app/blog/utils/cover';
-import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { getBlogData } from '@/app/blog/[slug]/utils/getBlogData';
+import { cn } from '@/utils/classNames';
+import { Block } from '@/utils/notion/api/fetchBlocks';
+import { RichText } from '@/utils/notion/schema';
+import { convertRichTextToPlainText } from '@/utils/notion/utils';
+import { notFound } from 'next/navigation';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-tsx';
+import { Fragment } from 'react';
+import slugify from 'slugify';
 
 export const revalidate = 3600;
 
@@ -30,17 +28,11 @@ export default async function Blog({ params }: BlogPageProps) {
   if (!blog) {
     notFound();
   }
-  const { last_edited_time, cover, properties, blocks } = blog;
+  const { last_edited_time, properties, blocks } = blog;
 
   const title = convertRichTextToPlainText(properties.Page.title);
 
-  const renderedBlocks = await Promise.all(
-    blocks.map(async (block, i) => (
-      <Fragment key={block.id}>
-        {await renderBlock({ block, nextBlock: blocks[i + 1] })}
-      </Fragment>
-    )),
-  );
+  const coverImage = findImage(getCoverImageId(title), blog.images);
 
   return (
     <>
@@ -61,19 +53,29 @@ export default async function Blog({ params }: BlogPageProps) {
               </div>
             )}
             <h1>{convertRichTextToPlainText(properties.Page.title)}</h1>
-            {cover?.file.url && (
-              // @ts-expect-error Server Component
-              <NotionImage
+            {coverImage && (
+              <BlogImage
                 priority
-                originalUrl={cover?.file.url}
-                fileName={getCoverImageId(title)}
+                publicId={coverImage.public_id}
+                originalWidth={coverImage.width}
+                originalHeight={coverImage.height}
                 alt=""
                 sizes="800px"
                 className="mx-auto h-auto w-full rounded bg-white object-contain dark:bg-gray-900"
               />
             )}
           </div>
-          <div>{renderedBlocks}</div>
+          <div>
+            {blocks.map((block, i) => (
+              <Fragment key={block.id}>
+                {renderBlock({
+                  block,
+                  nextBlock: blocks[i + 1],
+                  images: blog.images,
+                })}
+              </Fragment>
+            ))}
+          </div>
           <time
             dateTime={last_edited_time}
             className="mt-12 block italic text-gray-500 dark:text-gray-400"
@@ -157,13 +159,23 @@ function getTableOfContent(blocks: Block[]): TableOfContent[] {
     });
 }
 
+type Images = Exclude<
+  Awaited<ReturnType<typeof getBlogData>>,
+  undefined
+>['images'];
+
+function findImage(fileName: string, images: Images) {
+  return images.find(image => image?.public_id.includes(fileName));
+}
+
 let listBuffer: React.ReactNode[] = [];
 
-async function renderBlock(params: {
+function renderBlock(params: {
   block: Block;
   nextBlock: Block | undefined;
+  images: Images;
 }) {
-  const { block, nextBlock } = params;
+  const { block, nextBlock, images } = params;
 
   switch (block.type) {
     case 'paragraph': {
@@ -251,17 +263,20 @@ async function renderBlock(params: {
       return <hr className="border-t-2" />;
     }
     case 'image': {
-      const src =
-        block.image.type === 'external'
-          ? block.image.external.url
-          : block.image.file.url;
+      const image = findImage(block.id, images);
+      if (!image) {
+        return null;
+      }
+
       return (
-        // @ts-expect-error Server Component
-        <NotionImage
-          fileName={block.id}
-          originalUrl={src}
-          alt={convertRichTextToPlainText(block.image.caption)}
+        <BlogImage
+          priority
+          publicId={image.public_id}
           width={600}
+          originalWidth={image.width}
+          originalHeight={image.height}
+          alt=""
+          sizes="800px"
           className="mx-auto h-auto max-w-full rounded bg-white object-contain dark:bg-gray-900"
         />
       );

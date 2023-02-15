@@ -2,7 +2,7 @@ import { notion } from '@/utils/notion/client';
 import { RichTextSchema } from '@/utils/notion/schema';
 import { z } from 'zod';
 
-const BlogListSchema = z.object({
+const PostsSchema = z.object({
   object: z.literal('list'),
   results: z
     .array(
@@ -66,11 +66,12 @@ const BlogListSchema = z.object({
     .optional(),
 });
 
-type BlogList = z.infer<typeof BlogListSchema>['results'];
+type Posts = z.infer<typeof PostsSchema>['results'];
+export type Post = Exclude<Posts, undefined>[number];
 
 export async function fetchPosts(
   params?: Omit<Parameters<typeof notion.databases.query>[0], 'database_id'>,
-): Promise<BlogList> {
+): Promise<Posts> {
   if (!process.env.NOTION_DATABASE_ID)
     throw new Error('NOTION_DATABASE_ID is not defined.');
 
@@ -79,5 +80,5 @@ export async function fetchPosts(
     ...params,
   });
 
-  return BlogListSchema.parse(res).results;
+  return PostsSchema.parse(res).results;
 }
