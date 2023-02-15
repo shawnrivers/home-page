@@ -1,13 +1,25 @@
 import { getCoverImageId } from '@/app/blog/utils/cover';
-import { BlogPageProps, getBlogData } from '@/app/blog/[slug]/page';
+import { BlogPageProps } from '@/app/blog/[slug]/page';
+import { getBlogData } from '@/app/blog/[slug]/utils/getBlogData';
 import { SharedHead } from '@/components/SharedHead';
 import { getImageUrl } from '@/utils/cloudinary';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 
 export default async function Head({ params }: BlogPageProps) {
   const { slug } = params;
-  const { created_time, last_edited_time, cover, properties } =
-    await getBlogData(slug);
+  const blog = await getBlogData(slug);
+
+  if (!blog) {
+    return (
+      <>
+        <SharedHead />
+        <meta name="og:type" content="article" />
+        <meta name="article:author" content="https://usho.dev" />
+      </>
+    );
+  }
+
+  const { created_time, last_edited_time, properties } = blog;
   const title = `${convertRichTextToPlainText(properties.Page.title)} | Usho`;
   const url = `https://usho.dev/blog/${slug}`;
 

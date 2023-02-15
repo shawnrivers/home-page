@@ -18,6 +18,7 @@ import {
 import { NotionImage } from '@/app/blog/[slug]/components/NotionImage';
 import { getCoverImageId } from '@/app/blog/utils/cover';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
+import { getBlogData } from '@/app/blog/[slug]/utils/getBlogData';
 
 export const revalidate = 3600;
 
@@ -25,9 +26,12 @@ export type BlogPageProps = { params: { slug: string } };
 
 export default async function Blog({ params }: BlogPageProps) {
   const { slug } = params;
-  const { last_edited_time, cover, properties, blocks } = await getBlogData(
-    slug,
-  );
+  const blog = await getBlogData(slug);
+  if (!blog) {
+    notFound();
+  }
+  const { last_edited_time, cover, properties, blocks } = blog;
+
   const title = convertRichTextToPlainText(properties.Page.title);
 
   const renderedBlocks = await Promise.all(
@@ -85,21 +89,6 @@ export default async function Blog({ params }: BlogPageProps) {
       </div>
     </>
   );
-}
-
-export async function getBlogData(slug: string) {
-  const posts = await fetchPosts();
-  const post = (posts ?? []).find(
-    blog => blog.properties.Slug.rich_text[0].plain_text === slug,
-  );
-  if (post == undefined) {
-    notFound();
-  }
-  const blocks = await fetchBlocks({
-    block_id: post.id,
-  });
-
-  return { ...post, blocks };
 }
 
 function formateDate(date: string) {
