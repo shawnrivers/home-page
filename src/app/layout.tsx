@@ -2,6 +2,7 @@ import { SCROLL_CONTAINER_ID } from '@/app/constants';
 import { A11yReporter } from '@/components/A11yReporter';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { PreviewStatus } from '@/components/PreviewStatus';
 import { SkipNavLink } from '@/components/SkipNavLink';
 import { cn } from '@/utils/classNames';
 import { Inter, Source_Code_Pro } from '@next/font/google';
@@ -24,20 +25,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={cn(inter.variable, sourceCodePro.variable)}
-    >
+    <html lang="en" className={cn(inter.variable, sourceCodePro.variable)}>
       <head />
       <body>
-        <SkipNavLink />
+        <SkipNavLink className="z-10" />
         <div
           id={SCROLL_CONTAINER_ID}
-          className="relative flex h-full flex-col overflow-y-scroll"
+          className="isolate flex h-full flex-col overflow-y-scroll"
         >
           <div className="flex-1">
             <Header />
-            <div className="px-6 pb-8">{children}</div>
+            <PreviewStatus className="z-10" />
+            <div className="isolate px-6 pb-8">{children}</div>
           </div>
           <div>
             <Footer />

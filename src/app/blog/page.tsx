@@ -3,6 +3,7 @@ import { getCoverImageId } from '@/app/blog/utils/cover';
 import { getBlogImages } from '@/app/blog/utils/getBlogImages';
 import { fetchPosts } from '@/utils/notion/api/fetchPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
+import { previewData } from 'next/headers';
 
 export const revalidate = 3600;
 
@@ -49,7 +50,9 @@ export default async function BlogList() {
 }
 
 async function getData() {
-  const posts = await fetchPosts();
+  const posts = await fetchPosts({
+    preview: !!previewData(),
+  });
 
   const postCovers =
     posts?.map(post => ({

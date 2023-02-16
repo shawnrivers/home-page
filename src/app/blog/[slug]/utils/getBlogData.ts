@@ -3,10 +3,11 @@ import { getBlogImages, SourceImage } from '@/app/blog/utils/getBlogImages';
 import { fetchBlocks } from '@/utils/notion/api/fetchBlocks';
 import { fetchPosts } from '@/utils/notion/api/fetchPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
+import { previewData } from 'next/headers';
 import { cache } from 'react';
 
 export const getBlogData = cache(async (slug: string) => {
-  const posts = await fetchPosts();
+  const posts = await fetchPosts({ preview: !!previewData() });
   const post = (posts ?? []).find(
     blog => blog.properties.Slug.rich_text[0].plain_text === slug,
   );
