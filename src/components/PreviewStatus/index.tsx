@@ -1,4 +1,4 @@
-import { QuitPreviewButton } from '@/components/PreviewStatus/QuitPreviewButton';
+import { ExitPreviewButton } from '@/components/PreviewStatus/ExitPreviewButton';
 import { cn } from '@/utils/classNames';
 import { previewData } from 'next/headers';
 
@@ -20,7 +20,7 @@ export const PreviewStatus: React.FC<{ className?: string }> = ({
       )}
     >
       Preview Mode
-      <QuitPreviewButton />
+      <ExitPreviewButton />
     </span>
   );
 };

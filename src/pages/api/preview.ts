@@ -5,7 +5,8 @@ const handler: NextApiHandler = async (req, res) => {
     return res.status(401).json({ message: 'Invalid token' });
   }
   res.setPreviewData({});
-  res.redirect('/');
+  res.writeHead(307, { location: '/' });
+  res.end();
 };
 
 export default handler;
