@@ -244,7 +244,7 @@ function renderBlock(params: {
           </span>
           <pre
             tabIndex={0}
-            className="rounded-md bg-gray-800 !py-6 !leading-tight"
+            className="rounded-md bg-gray-800 !py-6 !leading-normal"
           >
             <code
               dangerouslySetInnerHTML={{
