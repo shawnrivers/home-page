@@ -1,0 +1,18 @@
+name: Automatically Create Dependabot Target
+
+on:
+  delete:
+    branches:
+      - dependabot-target
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Dependabot target branch
+        uses: peterjgrainger/action-create-branch@v2.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: dependabot-target
