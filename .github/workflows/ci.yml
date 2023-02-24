@@ -39,7 +39,7 @@ jobs:
     permissions:
       pull-requests: write
       contents: write
-    if: ${{ github.event_name == 'pull_request' && github.base_ref == 'dependabot-target' && github.actor == 'dependabot[bot]' && needs.test.result == 'success' }}
+    if: ${{ github.event_name == 'pull_request_target' && github.base_ref == 'dependabot-target' && github.actor == 'dependabot[bot]' && needs.test.result == 'success' }}
     steps:
       - name: Dependabot metadata
         id: dependabot-metadata
