@@ -17,10 +17,62 @@ import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
 import { Fragment } from 'react';
 import slugify from 'slugify';
+import { Metadata } from 'next';
+import { sharedMetadata } from '@/utils/meta';
+import { getImageUrl } from '@/utils/cloudinary';
 
 export const revalidate = 3600;
 
 export type BlogPageProps = { params: { slug: string } };
+
+export async function generateMetadata({
+  params,
+}: BlogPageProps): Promise<Metadata> {
+  const { slug } = params;
+  const blog = await getBlogData(slug);
+
+  if (!blog) {
+    return {
+      ...sharedMetadata,
+      openGraph: {
+        type: 'article',
+        authors: 'https://usho.dev',
+      },
+    };
+  }
+
+  const { created_time, last_edited_time, properties, images } = blog;
+  const blogTitle = convertRichTextToPlainText(properties.Page.title);
+  const title = `${blogTitle} | Usho`;
+  const url = `https://usho.dev/blog/${slug}`;
+  const image = findImage(getCoverImageId(blogTitle), images);
+
+  return {
+    ...sharedMetadata,
+    title,
+    openGraph: {
+      type: 'article',
+      url,
+      title,
+      authors: 'https://usho.dev',
+      publishedTime: created_time,
+      modifiedTime: last_edited_time,
+      images: image
+        ? {
+            url: getImageUrl(image.public_id, {
+              width: 1280,
+              height: 800,
+              quality: 80,
+            }),
+            type: 'image/jpeg',
+            width: 1280,
+            height: 800,
+            alt: title,
+          }
+        : undefined,
+    },
+  };
+}
 
 export default async function Blog({ params }: BlogPageProps) {
   const { slug } = params;
@@ -28,11 +80,11 @@ export default async function Blog({ params }: BlogPageProps) {
   if (!blog) {
     notFound();
   }
-  const { last_edited_time, properties, blocks } = blog;
+  const { last_edited_time, properties, blocks, images } = blog;
 
   const title = convertRichTextToPlainText(properties.Page.title);
 
-  const coverImage = findImage(getCoverImageId(title), blog.images);
+  const coverImage = findImage(getCoverImageId(title), images);
 
   return (
     <>
@@ -52,7 +104,7 @@ export default async function Blog({ params }: BlogPageProps) {
                 ))}
               </div>
             )}
-            <h1>{convertRichTextToPlainText(properties.Page.title)}</h1>
+            <h1>{title}</h1>
             {coverImage && (
               <BlogImage
                 priority

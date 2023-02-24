@@ -6,7 +6,28 @@ import NogilibImage from '@/app/(home)/images/nogilib.png';
 import ToGifImage from '@/app/(home)/images/to-gif.jpg';
 import { HeadingAnchor } from '@/components/HeadingAnchor';
 import { Twitter } from '@/components/icons/Twitter';
+import { sharedMetadata } from '@/utils/meta';
+import { Metadata } from 'next';
 import Image from 'next/image';
+
+export const metadata: Metadata = {
+  ...sharedMetadata,
+  title: 'Home | Usho',
+  description: "Usho's home page",
+  openGraph: {
+    title: 'Home | Usho',
+    description: "Usho's home page",
+    type: 'website',
+    url: 'https://usho.dev',
+    images: {
+      url: '/og-image.jpg',
+      type: 'image/jpeg',
+      width: 1280,
+      height: 640,
+      alt: "Usho's home page",
+    },
+  },
+};
 
 const bioList = [
   {

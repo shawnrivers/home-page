@@ -1,11 +1,32 @@
 import { BlogCard } from '@/app/blog/components/BlogCard';
 import { getCoverImageId } from '@/app/blog/utils/cover';
 import { getBlogImages } from '@/app/blog/utils/getBlogImages';
+import { sharedMetadata } from '@/utils/meta';
 import { fetchPosts } from '@/utils/notion/api/fetchPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
+import { Metadata } from 'next';
 import { previewData } from 'next/headers';
 
 export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  ...sharedMetadata,
+  title: 'Blog | Usho',
+  description: "Usho's blog",
+  openGraph: {
+    title: 'Blog | Usho',
+    description: "Usho's blog",
+    type: 'website',
+    url: 'https://usho.dev/blog',
+    images: {
+      url: '/og-image.jpg',
+      type: 'image/jpeg',
+      width: 1280,
+      height: 640,
+      alt: "Usho's blog",
+    },
+  },
+};
 
 export default async function BlogList() {
   const { posts, images } = await getData();
