@@ -15,7 +15,7 @@
     "@headlessui/react": "^1.7.9",
     "@next/font": "13.1.6",
     "@notionhq/client": "^2.2.3",
-    "@types/node": "18.11.18",
+    "@types/node": "18.14.1",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.11",
     "cloudinary": "^1.34.0",
