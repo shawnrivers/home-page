@@ -1,7 +1,7 @@
 import { BlogTag } from '@/app/blog/components/BlogTag';
 import { getCoverImageId } from '@/app/blog/utils/cover';
 import { BlogImage } from '@/app/blog/components/BlogImage';
-import { getBlogData } from '@/app/blog/[slug]/utils/getBlogData';
+import { getPostById } from '@/app/blog/[slug]/utils/getPostById';
 import { cn } from '@/utils/classNames';
 import { Block } from '@/utils/notion/api/fetchBlocks';
 import { RichText } from '@/utils/notion/schema';
@@ -19,16 +19,28 @@ import {
   TableOfContents,
   Toc,
 } from '@/app/blog/[slug]/components/TableOfContents';
+import { getPosts } from '@/app/blog/utils/getPosts';
 
 export const revalidate = 3600;
 
-export type BlogPageProps = { params: { slug: string } };
+type BlogPageProps = { params: { slug: string } };
+
+export async function generateStaticParams(): Promise<
+  BlogPageProps['params'][]
+> {
+  const data = await getPosts({ ignorePreview: true });
+  return (
+    data.posts?.map(post => ({
+      slug: convertRichTextToPlainText(post.properties.Slug.rich_text),
+    })) ?? []
+  );
+}
 
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
   const { slug } = params;
-  const blog = await getBlogData(slug);
+  const blog = await getPostById(slug);
 
   if (!blog) {
     return {
@@ -75,7 +87,7 @@ export async function generateMetadata({
 
 export default async function Blog({ params }: BlogPageProps) {
   const { slug } = params;
-  const blog = await getBlogData(slug);
+  const blog = await getPostById(slug);
   if (!blog) {
     notFound();
   }
@@ -208,7 +220,7 @@ function getTableOfContent(blocks: Block[]): Toc[] {
 }
 
 type Images = Exclude<
-  Awaited<ReturnType<typeof getBlogData>>,
+  Awaited<ReturnType<typeof getPostById>>,
   undefined
 >['images'];
 

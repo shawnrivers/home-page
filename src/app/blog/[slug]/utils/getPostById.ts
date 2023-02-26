@@ -6,7 +6,7 @@ import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { previewData } from 'next/headers';
 import { cache } from 'react';
 
-export const getBlogData = cache(async (slug: string) => {
+export const getPostById = cache(async (slug: string) => {
   const posts = await fetchPosts({ preview: !!previewData() });
   const post = (posts ?? []).find(
     blog => blog.properties.Slug.rich_text[0].plain_text === slug,

@@ -1,11 +1,9 @@
 import { BlogCard } from '@/app/blog/components/BlogCard';
 import { getCoverImageId } from '@/app/blog/utils/cover';
-import { getBlogImages } from '@/app/blog/utils/getBlogImages';
+import { getPosts } from '@/app/blog/utils/getPosts';
 import { sharedMetadata } from '@/utils/meta';
-import { fetchPosts } from '@/utils/notion/api/fetchPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { Metadata } from 'next';
-import { previewData } from 'next/headers';
 
 export const revalidate = 3600;
 
@@ -29,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogList() {
-  const { posts, images } = await getData();
+  const { posts, images } = await getPosts();
 
   return (
     <>
@@ -68,21 +66,4 @@ export default async function BlogList() {
       </ul>
     </>
   );
-}
-
-async function getData() {
-  const posts = await fetchPosts({
-    preview: !!previewData(),
-  });
-
-  const postCovers =
-    posts?.map(post => ({
-      url: post.cover?.file.url ?? '',
-      fileName: getCoverImageId(
-        convertRichTextToPlainText(post.properties.Page.title),
-      ),
-    })) ?? [];
-  const images = await getBlogImages(postCovers);
-
-  return { posts, images };
 }
