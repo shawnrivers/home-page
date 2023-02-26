@@ -1,11 +1,6 @@
 import { BlogTag } from '@/app/blog/components/BlogTag';
 import { getCoverImageId } from '@/app/blog/utils/cover';
-import { BackToTop } from '@/app/blog/[slug]/components/BackToTop';
 import { BlogImage } from '@/app/blog/components/BlogImage';
-import {
-  TableOfContent,
-  TableOfContentMenu,
-} from '@/app/blog/[slug]/components/TableOfContentMenu';
 import { getBlogData } from '@/app/blog/[slug]/utils/getBlogData';
 import { cn } from '@/utils/classNames';
 import { Block } from '@/utils/notion/api/fetchBlocks';
@@ -20,6 +15,10 @@ import slugify from 'slugify';
 import { Metadata } from 'next';
 import { sharedMetadata } from '@/utils/meta';
 import { getImageUrl } from '@/utils/cloudinary';
+import {
+  TableOfContents,
+  Toc,
+} from '@/app/blog/[slug]/components/TableOfContents';
 
 export const revalidate = 3600;
 
@@ -81,14 +80,16 @@ export default async function Blog({ params }: BlogPageProps) {
     notFound();
   }
   const { last_edited_time, properties, blocks, images } = blog;
-
   const title = convertRichTextToPlainText(properties.Page.title);
-
   const coverImage = findImage(getCoverImageId(title), images);
 
   return (
     <>
-      <div className="mx-auto flex items-start justify-center gap-4">
+      <div className="isolate mx-auto flex items-start justify-center gap-4">
+        <TableOfContents
+          className="sticky top-0 order-last hidden lg:block"
+          tableOfContents={getTableOfContent(blocks)}
+        />
         <article className="prose prose-zinc relative w-full break-words dark:prose-invert lg:prose-lg">
           <div className="mb-8">
             <time
@@ -134,11 +135,6 @@ export default async function Blog({ params }: BlogPageProps) {
           >
             Updated on {formateDate(last_edited_time)}
           </time>
-          <TableOfContentMenu
-            content={getTableOfContent(blocks)}
-            className="not-prose"
-          />
-          <BackToTop />
         </article>
       </div>
     </>
@@ -180,7 +176,7 @@ function renderRichText(richText: RichText): React.ReactNode {
   });
 }
 
-function getTableOfContent(blocks: Block[]): TableOfContent[] {
+function getTableOfContent(blocks: Block[]): Toc[] {
   return blocks
     .filter(
       block =>

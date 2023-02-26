@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 type ScrollDirection = 'up' | 'down' | null;
 
-export function useScroll(): {
+export function useScroll(onScroll?: () => void): {
   scrollTo: (position: number) => void;
   scrollDirection: ScrollDirection;
 } {
@@ -14,6 +14,7 @@ export function useScroll(): {
     const scrollContainer = document.getElementById(SCROLL_CONTAINER_ID);
 
     const handleScroll = () => {
+      onScroll?.();
       const scrollTop = scrollContainer?.scrollTop ?? 0;
       if (scrollTop === 0) {
         setScrollDirection(null);
@@ -25,9 +26,11 @@ export function useScroll(): {
       prevOffset.current = scrollTop;
     };
 
-    scrollContainer?.addEventListener('scroll', handleScroll);
+    scrollContainer?.addEventListener('scroll', handleScroll, {
+      passive: true,
+    });
     return () => scrollContainer?.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [onScroll]);
 
   const scrollTo = useCallback((position: number) => {
     const scrollContainer = document.getElementById(SCROLL_CONTAINER_ID);
