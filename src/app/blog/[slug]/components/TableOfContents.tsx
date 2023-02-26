@@ -37,7 +37,7 @@ export const TableOfContents: React.FC<{
   return (
     <aside
       className={cn(
-        'w-60 max-w-max overflow-auto rounded-lg border-2 border-gray-500 bg-gray-100 p-2 shadow-lg dark:border-gray-100 dark:bg-gray-800',
+        'w-60 max-w-max overflow-auto rounded-lg border-2 border-gray-500 bg-gray-100 p-2 dark:border-gray-100 dark:bg-gray-800',
         className,
       )}
     >
@@ -54,8 +54,8 @@ export const TableOfContents: React.FC<{
                   toc.level === 3
                     ? 'ml-4 py-0.5 text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'
                     : 'py-1',
-                  activeIndex === index && 'before:bg-red-400',
-                  'focus-visible:ring-4 focus-visible:ring-gray-400 focus-visible:ring-opacity-70',
+                  activeIndex === index &&
+                    'bg-red-400/20 before:bg-red-400 dark:bg-red-400/10',
                   'before:absolute before:left-[1px] before:top-0 before:bottom-0 before:block before:w-[2px] before:rounded before:transition-colors before:content-[""]',
                 )}
               >
