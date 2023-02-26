@@ -99,7 +99,7 @@ export default async function Blog({ params }: BlogPageProps) {
     <>
       <div className="isolate mx-auto flex items-start justify-center gap-4">
         <TableOfContents
-          className="sticky top-0 order-last hidden lg:block"
+          className="sticky top-4 order-last hidden lg:block"
           tableOfContents={getTableOfContent(blocks)}
         />
         <article className="prose prose-zinc relative w-full break-words dark:prose-invert lg:prose-lg">
