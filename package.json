@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@axe-core/react": "^4.6.0",
-    "@next/font": "13.2.1",
     "@notionhq/client": "^2.2.3",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",

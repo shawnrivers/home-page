@@ -5,7 +5,7 @@ import { Header } from '@/components/Header';
 import { PreviewStatus } from '@/components/PreviewStatus';
 import { SkipNavLink } from '@/components/SkipNavLink';
 import { cn } from '@/utils/classNames';
-import { Inter, Source_Code_Pro } from '@next/font/google';
+import { Inter, Source_Code_Pro } from "next/font/google";
 import './globals.css';
 
 const inter = Inter({
