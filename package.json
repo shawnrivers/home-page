@@ -11,7 +11,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@axe-core/react": "^4.6.1",
+    "@axe-core/react": "^4.7.0",
     "@headlessui/react": "^1.7.14",
     "@next/font": "13.3.4",
     "@notionhq/client": "^2.2.4",
