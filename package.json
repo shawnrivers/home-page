@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@axe-core/react": "^4.7.0",
-    "@headlessui/react": "^1.7.14",
+    "@headlessui/react": "^1.7.15",
     "@next/font": "13.3.4",
     "@notionhq/client": "^2.2.4",
     "@types/node": "18.16.2",
