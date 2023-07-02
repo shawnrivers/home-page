@@ -140,7 +140,7 @@ export default function Home() {
             heading="NOGILIB"
             description="A web application showing the information about Nogizaka46"
             image={NogilibImage}
-            to="https://nogilib.com"
+            to="https://nogilib.vercel.app/"
           />
           <WorkCard
             heading="Nogizaka46 News"
