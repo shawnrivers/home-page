@@ -94,7 +94,7 @@ export default function Home() {
       <div className="mx-auto mt-8 inline-block max-w-lg space-y-2 overflow-hidden rounded-lg border-2 border-gray-900 p-4 text-base dark:border-white md:p-8 md:text-lg">
         <p>
           Hi, I{"'"}m Usho. I{"'"}m a Tokyo-based web developer at{' '}
-          <a href="eure.jp" target="_blank" rel="noreferrer">
+          <a href="https://eure.jp/" target="_blank" rel="noreferrer">
             Eureka
           </a>
           . My primary focus is on <Emphasize>React</Emphasize> and{' '}
