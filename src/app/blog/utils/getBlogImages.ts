@@ -6,7 +6,6 @@ export type SourceImage = {
 };
 
 export async function getBlogImages(sourceImages: SourceImage[]) {
-
   const existingImages = await fetchImages(
     sourceImages.map(image => image.fileName),
   );
