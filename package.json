@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
-    "@types/prismjs": "^1.26.0",
+    "@types/prismjs": "^1.26.4",
     "autoprefixer": "^10.4.14",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-tailwindcss": "^3.11.0",
