@@ -2,7 +2,7 @@ import { SCROLL_CONTAINER_ID } from '@/app/constants';
 import { A11yReporter } from '@/components/A11yReporter';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { PreviewStatus } from '@/components/PreviewStatus';
+import { DraftStatusToast } from '@/components/DraftModeStatusToast';
 import { SkipNavLink } from '@/components/SkipNavLink';
 import { cn } from '@/utils/classNames';
 import { Inter, Source_Code_Pro } from 'next/font/google';
@@ -35,7 +35,7 @@ export default function RootLayout({
         >
           <div className="flex-1">
             <Header />
-            <PreviewStatus className="z-10" />
+            <DraftStatusToast className="z-10" />
             <div className="isolate px-6 pb-8">{children}</div>
           </div>
           <div>

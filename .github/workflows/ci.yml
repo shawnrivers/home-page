@@ -15,7 +15,7 @@ jobs:
       CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
       CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
       CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-      PREVIEW_API_SECRET: ${{ secrets.PREVIEW_API_SECRET }}
+      DRAFT_API_SECRET: ${{ secrets.DRAFT_API_SECRET }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

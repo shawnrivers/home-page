@@ -7,9 +7,8 @@ import { cache } from 'react';
 
 export const getPosts = cache(async (options = { ignoreDraft: false }) => {
   const { ignoreDraft } = options;
-  const { isEnabled: isDraftEnabled } = draftMode();
   const posts = await fetchPosts({
-    preview: ignoreDraft ? false : isDraftEnabled,
+    draft: ignoreDraft ? false : draftMode().isEnabled,
   });
 
   const postCovers =

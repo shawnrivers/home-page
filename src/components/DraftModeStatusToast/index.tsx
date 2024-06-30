@@ -1,8 +1,8 @@
-import { ExitPreviewButton } from '@/components/PreviewStatus/ExitPreviewButton';
+import { ExitDraftModeButton } from '@/components/DraftModeStatusToast/components/ExitDraftModeButton';
 import { cn } from '@/utils/classNames';
 import { draftMode } from 'next/headers';
 
-export const PreviewStatus: React.FC<{ className?: string }> = ({
+export const DraftStatusToast: React.FC<{ className?: string }> = ({
   className,
 }) => {
   const { isEnabled } = draftMode();
@@ -18,8 +18,8 @@ export const PreviewStatus: React.FC<{ className?: string }> = ({
         className,
       )}
     >
-      Preview Mode
-      <ExitPreviewButton />
+      Draft Mode
+      <ExitDraftModeButton />
     </span>
   );
 };

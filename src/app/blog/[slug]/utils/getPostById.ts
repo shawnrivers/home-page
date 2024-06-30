@@ -8,7 +8,7 @@ import { cache } from 'react';
 
 export const getPostById = cache(async (slug: string) => {
   const { isEnabled: isDraftEnabled } = draftMode();
-  const posts = await fetchPosts({ preview: isDraftEnabled });
+  const posts = await fetchPosts({ draft: isDraftEnabled });
   const post = (posts ?? []).find(
     blog => blog.properties.Slug.rich_text[0].plain_text === slug,
   );

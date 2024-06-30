@@ -70,16 +70,16 @@ type Posts = z.infer<typeof PostsSchema>['results'];
 export type Post = Exclude<Posts, undefined>[number];
 
 export async function fetchPosts(
-  params: Partial<{ preview: boolean }> = {},
+  params: Partial<{ draft: boolean }> = {},
 ): Promise<Posts> {
   if (!process.env.NOTION_DATABASE_ID)
     throw new Error('NOTION_DATABASE_ID is not defined.');
 
-  const { preview = false } = params;
+  const { draft = false } = params;
 
   const res = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_ID,
-    filter: !preview
+    filter: !draft
       ? {
           property: 'Published',
           checkbox: {
