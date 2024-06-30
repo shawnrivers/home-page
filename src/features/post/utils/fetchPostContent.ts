@@ -1,4 +1,4 @@
-import { fetchPostImages } from '@/features/post/fetchPostImages';
+import { fetchPostImages } from '@/features/post/utils/fetchPostImages';
 import { fetchBlocks } from '@/utils/notion/api/fetchBlocks';
 import { cache } from 'react';
 

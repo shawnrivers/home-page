@@ -1,5 +1,5 @@
 import { getCoverImageId } from '@/app/blog/utils/cover';
-import { fetchPostImages } from '@/features/post/fetchPostImages';
+import { fetchPostImages } from '@/features/post/utils/fetchPostImages';
 import { fetchBlogPosts } from '@/utils/notion/api/fetchBlogPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { draftMode } from 'next/headers';
