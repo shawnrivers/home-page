@@ -17,6 +17,7 @@ jobs:
       CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
       CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
       DRAFT_API_SECRET: ${{ secrets.DRAFT_API_SECRET }}
+      REVALIDATE_API_SECRET: ${{ secrets.REVALIDATE_API_SECRET }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
