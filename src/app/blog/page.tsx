@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://usho.dev/blog',
     images: {
-      url: '/og-image.jpg',
+      url: 'https://usho.dev/og-image.jpg',
       type: 'image/jpeg',
       width: 1280,
       height: 640,

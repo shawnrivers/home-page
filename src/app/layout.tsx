@@ -7,17 +7,24 @@ import { SkipNavLink } from '@/components/SkipNavLink';
 import { cn } from '@/utils/classNames';
 import { Inter, Source_Code_Pro } from 'next/font/google';
 import './globals.css';
+import type { Viewport } from 'next';
 
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],
   display: 'swap',
 });
+
 const sourceCodePro = Source_Code_Pro({
   variable: '--font-source-code-pro',
   subsets: ['latin'],
   display: 'swap',
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export default function RootLayout({
   children,
