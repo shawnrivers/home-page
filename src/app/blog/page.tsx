@@ -27,33 +27,30 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogList() {
-  const { posts, images } = await getPosts();
+  const posts = await getPosts();
 
   return (
     <>
       <h1 className="sr-only">Blog</h1>
       <ul className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
-        {posts?.map((blog, index) => {
-          const title = convertRichTextToPlainText(blog.properties.Page.title);
-          const image = images.find(image =>
-            image?.public_id.includes(getCoverImageId(title)),
-          );
+        {posts?.map((post, index) => {
+          const title = convertRichTextToPlainText(post.properties.Page.title);
 
           return (
-            <li key={blog.id}>
+            <li key={post.id}>
               <BlogCard
                 title={title}
                 href={`/blog/${convertRichTextToPlainText(
-                  blog.properties.Slug.rich_text,
+                  post.properties.Slug.rich_text,
                 )}`}
-                date={blog.properties.Date.date.start}
-                tags={blog.properties.Tags.multi_select}
+                date={post.properties.Date.date.start}
+                tags={post.properties.Tags.multi_select}
                 image={
-                  image !== undefined
+                  post.coverImage !== undefined
                     ? {
-                        publicId: image.public_id,
-                        originalWidth: image.width,
-                        originalHeight: image.height,
+                        publicId: post.coverImage.public_id,
+                        originalWidth: post.coverImage.width,
+                        originalHeight: post.coverImage.height,
                       }
                     : undefined
                 }

@@ -1,13 +1,13 @@
 import { getCoverImageId } from '@/app/blog/utils/cover';
-import { getBlogImages } from '@/app/blog/utils/getBlogImages';
-import { fetchPosts } from '@/utils/notion/api/fetchPosts';
+import { fetchPostImages } from '@/features/post/fetchPostImages';
+import { fetchBlogPosts } from '@/utils/notion/api/fetchBlogPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { draftMode } from 'next/headers';
 import { cache } from 'react';
 
 export const getPosts = cache(async (options = { ignoreDraft: false }) => {
   const { ignoreDraft } = options;
-  const posts = await fetchPosts({
+  const posts = await fetchBlogPosts({
     draft: ignoreDraft ? false : draftMode().isEnabled,
   });
 
@@ -18,7 +18,14 @@ export const getPosts = cache(async (options = { ignoreDraft: false }) => {
         convertRichTextToPlainText(post.properties.Page.title),
       ),
     })) ?? [];
-  const images = await getBlogImages(postCovers);
+  const images = await fetchPostImages(postCovers);
 
-  return { posts, images };
+  return posts?.map(post => ({
+    ...post,
+    coverImage: images.find(image =>
+      image?.public_id.includes(
+        getCoverImageId(convertRichTextToPlainText(post.properties.Page.title)),
+      ),
+    ),
+  }));
 });

@@ -1,7 +1,6 @@
 import { BlogTag } from '@/app/blog/components/BlogTag';
-import { getCoverImageId } from '@/app/blog/utils/cover';
 import { BlogImage } from '@/app/blog/components/BlogImage';
-import { getPostById } from '@/app/blog/[slug]/utils/getPostById';
+import { getPostBySlug } from '@/app/blog/utils/getPostBySlug';
 import { cn } from '@/utils/classNames';
 import { Block } from '@/utils/notion/api/fetchBlocks';
 import { RichText } from '@/utils/notion/schema';
@@ -28,9 +27,9 @@ type BlogPageProps = { params: { slug: string } };
 export async function generateStaticParams(): Promise<
   BlogPageProps['params'][]
 > {
-  const data = await getPosts({ ignoreDraft: true });
+  const posts = await getPosts({ ignoreDraft: true });
   return (
-    data.posts?.map(post => ({
+    posts?.map(post => ({
       slug: convertRichTextToPlainText(post.properties.Slug.rich_text),
     })) ?? []
   );
@@ -40,9 +39,9 @@ export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
   const { slug } = params;
-  const blog = await getPostById(slug);
+  const post = await getPostBySlug(slug);
 
-  if (!blog) {
+  if (!post) {
     return {
       ...sharedMetadata,
       openGraph: {
@@ -52,11 +51,10 @@ export async function generateMetadata({
     };
   }
 
-  const { created_time, last_edited_time, properties, images } = blog;
-  const blogTitle = convertRichTextToPlainText(properties.Page.title);
-  const title = `${blogTitle} | Usho`;
+  const { created_time, last_edited_time, properties, coverImage } = post;
+  const postTitle = convertRichTextToPlainText(properties.Page.title);
+  const title = `${postTitle} | Usho`;
   const url = `https://usho.dev/blog/${slug}`;
-  const image = findImage(getCoverImageId(blogTitle), images);
 
   return {
     ...sharedMetadata,
@@ -68,9 +66,9 @@ export async function generateMetadata({
       authors: 'https://usho.dev',
       publishedTime: created_time,
       modifiedTime: last_edited_time,
-      images: image
+      images: coverImage
         ? {
-            url: getImageUrl(image.public_id, {
+            url: getImageUrl(coverImage.public_id, {
               width: 1280,
               height: 800,
               quality: 80,
@@ -85,15 +83,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function Blog({ params }: BlogPageProps) {
+export default async function Post({ params }: BlogPageProps) {
   const { slug } = params;
-  const blog = await getPostById(slug);
-  if (!blog) {
+  const post = await getPostBySlug(slug);
+  if (!post) {
     notFound();
   }
-  const { last_edited_time, properties, blocks, images } = blog;
+  const { last_edited_time, properties, coverImage, blocks, images } = post;
   const title = convertRichTextToPlainText(properties.Page.title);
-  const coverImage = findImage(getCoverImageId(title), images);
 
   return (
     <>
@@ -136,7 +133,7 @@ export default async function Blog({ params }: BlogPageProps) {
                 {renderBlock({
                   block,
                   nextBlock: blocks[i + 1],
-                  images: blog.images,
+                  images,
                 })}
               </Fragment>
             ))}
@@ -220,7 +217,7 @@ function getTableOfContent(blocks: Block[]): Toc[] {
 }
 
 type Images = Exclude<
-  Awaited<ReturnType<typeof getPostById>>,
+  Awaited<ReturnType<typeof getPostBySlug>>,
   undefined
 >['images'];
 

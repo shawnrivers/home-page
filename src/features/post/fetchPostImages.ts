@@ -1,11 +1,11 @@
 import { fetchImages, uploadImage } from '@/utils/cloudinary';
 
-export type SourceImage = {
+interface SourceImage {
   fileName: string;
   url: string;
-};
+}
 
-export async function getBlogImages(sourceImages: SourceImage[]) {
+export async function fetchPostImages(sourceImages: SourceImage[]) {
   const existingImages = await fetchImages(
     sourceImages.map(image => image.fileName),
   );
@@ -26,6 +26,7 @@ export async function getBlogImages(sourceImages: SourceImage[]) {
             });
             return image ?? undefined;
           } catch (e) {
+            console.error('Error uploading image to cloudinary', e);
             return undefined;
           }
         }
