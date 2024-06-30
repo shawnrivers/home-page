@@ -12,7 +12,7 @@ export const LinkedList: React.FC<LinkedListProps> = ({ items, className }) => {
         <li key={item.text} className="relative">
           <div
             className={cn(
-              'absolute top-0 -left-2 box-border h-[1.125rem] w-[1.125rem] rounded-[50%] border-[4px] border-gray-200 dark:border-gray-700',
+              'absolute -left-2 top-0 box-border h-[1.125rem] w-[1.125rem] rounded-[50%] border-[4px] border-gray-200 dark:border-gray-700',
               item.highlighted ? 'bg-red-400' : 'bg-gray-400',
             )}
           />

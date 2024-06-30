@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
                   aria-current={isCurrent ? 'page' : undefined}
                   href={href}
                   className={cn(
-                    ' p-2 text-xl font-bold uppercase',
+                    'p-2 text-xl font-bold uppercase',
                     isCurrent && 'text-red-400',
                   )}
                 >

@@ -49,7 +49,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
             className="aspect-[3/2] h-auto w-full object-cover"
           />
         )}
-        <div className="mx-4 mt-2 mb-4">
+        <div className="mx-4 mb-4 mt-2">
           <h2 className="text-xl font-bold">{title}</h2>
           {date && (
             <div className="mt-1 text-base text-zinc-500 dark:text-zinc-300">
