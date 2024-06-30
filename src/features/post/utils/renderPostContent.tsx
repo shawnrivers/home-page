@@ -7,6 +7,7 @@ import { BlogImage } from '@/app/blog/components/BlogImage';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import Prism from 'prismjs';
 import slugify from 'slugify';
+import { Fragment } from 'react';
 
 type Images = Awaited<ReturnType<typeof fetchPostImages>>;
 
@@ -19,18 +20,16 @@ export const renderPostContent = ({
 }) => {
   let listBuffer: React.ReactNode[] = [];
 
-  return (
-    <>
-      {blocks.map((block, i) =>
-        renderBlock({
-          block: block,
-          nextBlock: blocks[i + 1],
-          images: images,
-          listBuffer,
-        }),
-      )}
-    </>
-  );
+  return blocks.map((block, i) => (
+    <Fragment key={block.id}>
+      {renderBlock({
+        block: block,
+        nextBlock: blocks[i + 1],
+        images: images,
+        listBuffer,
+      })}
+    </Fragment>
+  ));
 };
 
 const renderBlock = ({

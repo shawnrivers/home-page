@@ -58,13 +58,13 @@ type Posts = z.infer<typeof BlogPostsSchema>['results'];
 export async function fetchBlogPosts(
   params: Partial<{ draft: boolean }> = {},
 ): Promise<Posts> {
-  if (!process.env.NOTION_DATABASE_ID)
-    throw new Error('NOTION_DATABASE_ID is not defined.');
+  if (!process.env.NOTION_DATABASE_ID_BLOG)
+    throw new Error('NOTION_DATABASE_ID_BLOG is not defined.');
 
   const { draft = false } = params;
 
   const res = await notion.databases.query({
-    database_id: process.env.NOTION_DATABASE_ID,
+    database_id: process.env.NOTION_DATABASE_ID_BLOG,
     filter: !draft
       ? {
           property: 'Published',

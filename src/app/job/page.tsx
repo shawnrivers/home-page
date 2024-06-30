@@ -1,0 +1,42 @@
+import { fetchPostContent } from '@/features/post/utils/fetchPostContent';
+import { renderPostContent } from '@/features/post/utils/renderPostContent';
+import { sharedMetadata } from '@/utils/meta';
+import type { Metadata } from 'next';
+
+export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  ...sharedMetadata,
+  title: 'Job | Usho',
+  description: "Usho's Job Experience",
+  openGraph: {
+    title: 'Job | Usho',
+    description: "Usho's Job Experience",
+    type: 'website',
+    url: 'https://usho.dev/job',
+    images: {
+      url: 'https://usho.dev/og-image.jpg',
+      type: 'image/jpeg',
+      width: 1280,
+      height: 640,
+      alt: "Usho's job",
+    },
+  },
+};
+
+export default async function Job() {
+  const { blocks, images } = await fetchPostContent(
+    process.env.NOTION_PAGE_ID_JOB ?? '',
+  );
+
+  return (
+    <>
+      <div className="isolate mx-auto flex items-start justify-center">
+        <article className="prose prose-zinc relative w-full break-words lg:prose-lg dark:prose-invert">
+          <h1>Job Experience</h1>
+          <div>{renderPostContent({ blocks, images })}</div>
+        </article>
+      </div>
+    </>
+  );
+}

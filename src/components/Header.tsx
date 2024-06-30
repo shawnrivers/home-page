@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 const navItems = [
   { label: 'Home', href: '/', highlightRegex: /^\/$/ },
   { label: 'Blog', href: '/blog', highlightRegex: /^\/blog.*/ },
+  { label: 'Job', href: '/job', highlightRegex: /^\/job$/ },
 ] satisfies { label: string; href: string; highlightRegex: RegExp }[];
 
 export const Header: React.FC = () => {
