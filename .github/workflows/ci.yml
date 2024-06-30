@@ -12,6 +12,7 @@ jobs:
     env:
       NOTION_KEY: ${{ secrets.NOTION_KEY }}
       NOTION_DATABASE_ID_BLOG: ${{ secrets.NOTION_DATABASE_ID_BLOG }}
+      NOTION_PAGE_ID_JOB: ${{ secrets.NOTION_PAGE_ID_JOB }}
       CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
       CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
       CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
@@ -23,7 +24,9 @@ jobs:
           node-version: 20
           cache: npm
       - name: Install dependencies
-        run: npm ci
+        run: npm install
+      - name: Build
+        run: npm run build
       - name: Check type
         run: npm run type-check
       - name: Lint
