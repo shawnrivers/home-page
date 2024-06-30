@@ -1,14 +1,13 @@
 import { ExitPreviewButton } from '@/components/PreviewStatus/ExitPreviewButton';
 import { cn } from '@/utils/classNames';
-import { previewData } from 'next/headers';
+import { draftMode } from 'next/headers';
 
 export const PreviewStatus: React.FC<{ className?: string }> = ({
   className,
 }) => {
-  const data = previewData();
-  const isPreviewMode = !!data;
+  const { isEnabled } = draftMode();
 
-  if (!isPreviewMode) {
+  if (!isEnabled) {
     return null;
   }
 

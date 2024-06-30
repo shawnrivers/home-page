@@ -3,11 +3,12 @@ import { getBlogImages, SourceImage } from '@/app/blog/utils/getBlogImages';
 import { fetchBlocks } from '@/utils/notion/api/fetchBlocks';
 import { fetchPosts } from '@/utils/notion/api/fetchPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
-import { previewData } from 'next/headers';
+import { draftMode } from 'next/headers';
 import { cache } from 'react';
 
 export const getPostById = cache(async (slug: string) => {
-  const posts = await fetchPosts({ preview: !!previewData() });
+  const { isEnabled: isDraftEnabled } = draftMode();
+  const posts = await fetchPosts({ preview: isDraftEnabled });
   const post = (posts ?? []).find(
     blog => blog.properties.Slug.rich_text[0].plain_text === slug,
   );

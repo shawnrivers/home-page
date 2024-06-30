@@ -28,7 +28,7 @@ type BlogPageProps = { params: { slug: string } };
 export async function generateStaticParams(): Promise<
   BlogPageProps['params'][]
 > {
-  const data = await getPosts({ ignorePreview: true });
+  const data = await getPosts({ ignoreDraft: true });
   return (
     data.posts?.map(post => ({
       slug: convertRichTextToPlainText(post.properties.Slug.rich_text),
@@ -102,7 +102,7 @@ export default async function Blog({ params }: BlogPageProps) {
           className="sticky top-4 order-last hidden lg:block"
           tableOfContents={getTableOfContent(blocks)}
         />
-        <article className="prose prose-zinc relative w-full break-words dark:prose-invert lg:prose-lg">
+        <article className="prose prose-zinc relative w-full break-words lg:prose-lg dark:prose-invert">
           <div className="mb-8">
             <time
               dateTime={properties.Date.date.start}
@@ -176,7 +176,7 @@ function renderRichText(richText: RichText): React.ReactNode {
         className={cn(
           bold && 'font-bold',
           code &&
-            'rounded bg-gray-200 py-0.5 px-1.5 font-mono text-gray-800 before:content-none after:content-none dark:bg-gray-700 dark:text-gray-100',
+            'rounded bg-gray-200 px-1.5 py-0.5 font-mono text-gray-800 before:content-none after:content-none dark:bg-gray-700 dark:text-gray-100',
           italic && 'italic',
           strikethrough && 'line-through',
           underline && 'underline',
@@ -294,12 +294,12 @@ function renderBlock(params: {
         language === 'javascript'
           ? 'jsx'
           : language === 'typescript'
-          ? 'tsx'
-          : language;
+            ? 'tsx'
+            : language;
 
       return (
         <div className="relative">
-          <span className="absolute top-0 right-0 inline-block rounded-sm rounded-tr-md bg-gray-600 px-2 py-1 text-xs uppercase leading-none text-white">
+          <span className="absolute right-0 top-0 inline-block rounded-sm rounded-tr-md bg-gray-600 px-2 py-1 text-xs uppercase leading-none text-white">
             {language}
           </span>
           <pre

@@ -2,13 +2,14 @@ import { getCoverImageId } from '@/app/blog/utils/cover';
 import { getBlogImages } from '@/app/blog/utils/getBlogImages';
 import { fetchPosts } from '@/utils/notion/api/fetchPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
-import { previewData } from 'next/headers';
+import { draftMode } from 'next/headers';
 import { cache } from 'react';
 
-export const getPosts = cache(async (options = { ignorePreview: false }) => {
-  const { ignorePreview } = options;
+export const getPosts = cache(async (options = { ignoreDraft: false }) => {
+  const { ignoreDraft } = options;
+  const { isEnabled: isDraftEnabled } = draftMode();
   const posts = await fetchPosts({
-    preview: ignorePreview ? false : !!previewData(),
+    preview: ignoreDraft ? false : isDraftEnabled,
   });
 
   const postCovers =
