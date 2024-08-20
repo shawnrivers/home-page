@@ -23,9 +23,9 @@ export const renderPostContent = ({
   return blocks.map((block, i) => (
     <Fragment key={block.id}>
       {renderBlock({
-        block: block,
+        block,
         nextBlock: blocks[i + 1],
-        images: images,
+        images,
         listBuffer,
       })}
     </Fragment>
@@ -84,7 +84,7 @@ const renderBlock = ({
       if (isLast) {
         const Wrapper = block.type === 'bulleted_list_item' ? 'ul' : 'ol';
         const list = [...listBuffer, itemElement];
-        listBuffer = [];
+        listBuffer.splice(0, listBuffer.length);
         return <Wrapper>{list}</Wrapper>;
       } else {
         listBuffer.push(itemElement);
