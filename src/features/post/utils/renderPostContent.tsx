@@ -148,7 +148,8 @@ const renderBlock = ({
       );
     }
     default: {
-      console.error('Unknown block type');
+      // @ts-expect-error Logging unknown block types on runtime.
+      console.error(`Unknown block type ${block.type}`);
       return null;
     }
   }
