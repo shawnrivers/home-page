@@ -88,15 +88,18 @@ export default async function Post({ params }: BlogPageProps) {
   }
   const { last_edited_time, properties, coverImage, blocks, images } = post;
   const title = convertRichTextToPlainText(properties.Page.title);
+  const tableOfContents = getTableOfContent(blocks);
 
   return (
     <>
       <div className="isolate mx-auto flex items-start justify-center gap-4">
-        <TableOfContents
-          className="sticky top-4 order-last hidden lg:block"
-          tableOfContents={getTableOfContent(blocks)}
-        />
-        <article className="prose prose-zinc relative w-full break-words lg:prose-lg dark:prose-invert">
+        {tableOfContents.length > 0 && (
+          <TableOfContents
+            className="sticky top-4 order-last hidden lg:block"
+            tableOfContents={tableOfContents}
+          />
+        )}
+        <article className="prose prose-gray relative w-full break-words lg:prose-lg dark:prose-invert">
           <div className="mb-8">
             <time
               dateTime={properties.Date.date.start}
