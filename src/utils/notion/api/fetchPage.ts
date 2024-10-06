@@ -7,6 +7,12 @@ export const PageSchema = z.object({
   created_time: z.string(),
   last_edited_time: z.string(),
   archived: z.boolean(),
+  icon: z
+    .object({
+      type: z.literal('emoji'),
+      emoji: z.string(),
+    })
+    .nullable(),
   cover: z
     .object({
       type: z.literal('file'),

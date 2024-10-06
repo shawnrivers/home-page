@@ -53,6 +53,7 @@ export default async function BlogList() {
                       }
                     : undefined
                 }
+                emoji={post.icon?.emoji}
                 imagePriority={index < 5}
                 className="w-full"
               />

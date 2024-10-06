@@ -17,9 +17,11 @@ export const PostCard = <T extends string>(props: {
     originalHeight: number;
   };
   imagePriority?: boolean;
+  emoji?: string;
   className?: string;
 }) => {
-  const { title, href, date, tags, image, imagePriority, className } = props;
+  const { title, href, date, tags, image, imagePriority, emoji, className } =
+    props;
 
   return (
     <Link
@@ -31,7 +33,7 @@ export const PostCard = <T extends string>(props: {
       )}
     >
       <article>
-        {image && (
+        {image ? (
           <PostImage
             priority={imagePriority}
             publicId={image.publicId}
@@ -41,11 +43,18 @@ export const PostCard = <T extends string>(props: {
             originalHeight={image.originalHeight}
             className="aspect-[3/2] h-auto w-full object-cover"
           />
+        ) : (
+          <div
+            aria-hidden
+            className="flex aspect-[3/2] h-auto w-full items-center justify-center bg-gray-100 text-2xl font-bold tracking-wider text-gray-500 dark:bg-gray-800 dark:text-gray-300"
+          >
+            {emoji ?? 'NO IMAGE'}
+          </div>
         )}
         <div className="mx-4 mb-4 mt-2">
           <h2 className="text-xl font-bold">{title}</h2>
           {date && (
-            <div className="mt-1 text-base text-zinc-500 dark:text-zinc-300">
+            <div className="mt-1 text-base text-gray-500 dark:text-gray-300">
               {formatDate(date)}
             </div>
           )}
