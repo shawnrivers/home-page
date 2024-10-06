@@ -12,12 +12,14 @@ export const getPosts = cache(async (options = { ignoreDraft: false }) => {
   });
 
   const postCovers =
-    posts?.map(post => ({
-      url: post.cover?.file.url ?? '',
-      fileName: getCoverImageId(
-        convertRichTextToPlainText(post.properties.Page.title),
-      ),
-    })) ?? [];
+    posts
+      ?.filter(post => post.cover)
+      .map(post => ({
+        url: post.cover?.file.url ?? '',
+        fileName: getCoverImageId(
+          convertRichTextToPlainText(post.properties.Page.title),
+        ),
+      })) ?? [];
   const images = await fetchPostImages(postCovers);
 
   return posts?.map(post => ({
