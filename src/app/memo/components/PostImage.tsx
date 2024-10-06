@@ -1,21 +1,17 @@
 import { getImageUrl } from '@/utils/cloudinary';
 import Image, { ImageProps } from 'next/image';
 
-type BlogImageProps = Omit<ImageProps, 'src' | 'width' | 'loader'> & {
-  publicId: string;
-  width?: number;
-  originalWidth?: number;
-  originalHeight?: number;
-};
+export const PostImage = (
+  props: Omit<ImageProps, 'src' | 'width' | 'loader'> & {
+    publicId: string;
+    width?: number;
+    originalWidth?: number;
+    originalHeight?: number;
+  },
+) => {
+  const { publicId, width, originalWidth, originalHeight, alt, ...imageProps } =
+    props;
 
-export const BlogImage = ({
-  publicId,
-  alt,
-  width,
-  originalWidth,
-  originalHeight,
-  ...imageProps
-}: BlogImageProps) => {
   const aspectRatio =
     originalWidth !== undefined && originalHeight !== undefined
       ? originalWidth / originalHeight

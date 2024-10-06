@@ -1,4 +1,4 @@
-import { getCoverImageId } from '@/app/blog/utils/cover';
+import { getCoverImageId } from '@/app/memo/utils/cover';
 import { fetchPostImages } from '@/features/post/utils/fetchPostImages';
 import { fetchBlogPosts } from '@/utils/notion/api/fetchBlogPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';

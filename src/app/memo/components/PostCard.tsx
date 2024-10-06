@@ -1,13 +1,14 @@
-import { BlogTag } from '@/app/blog/components/BlogTag';
-import { getTagCardBorderColor } from '@/app/blog/utils/tags';
-import { BlogImage } from '@/app/blog/components/BlogImage';
+import { PostTag } from '@/app/memo/components/PostTag';
+import { getTagCardBorderColor } from '@/app/memo/utils/tags';
+import { PostImage } from '@/app/memo/components/PostImage';
 import { cn } from '@/utils/classNames';
 import { formatDate } from '@/utils/date';
 import Link from 'next/link';
+import type { Route } from 'next';
 
-type BlogCardProps = {
+export const PostCard = <T extends string>(props: {
   title: string;
-  href: string;
+  href: Route<T>;
   date: string;
   tags: { name: string; color: string }[];
   image?: {
@@ -17,17 +18,9 @@ type BlogCardProps = {
   };
   imagePriority?: boolean;
   className?: string;
-};
-
-export const BlogCard: React.FC<BlogCardProps> = ({
-  title,
-  href,
-  date,
-  tags,
-  image,
-  imagePriority,
-  className,
 }) => {
+  const { title, href, date, tags, image, imagePriority, className } = props;
+
   return (
     <Link
       href={href}
@@ -39,7 +32,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     >
       <article>
         {image && (
-          <BlogImage
+          <PostImage
             priority={imagePriority}
             publicId={image.publicId}
             alt=""
@@ -59,7 +52,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           {tags.length > 0 && (
             <div className="mt-2 space-x-2">
               {tags.map(tag => (
-                <BlogTag key={tag.name} name={tag.name} color={tag.color} />
+                <PostTag key={tag.name} name={tag.name} color={tag.color} />
               ))}
             </div>
           )}

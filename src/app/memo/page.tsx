@@ -1,6 +1,5 @@
-import { BlogCard } from '@/app/blog/components/BlogCard';
-import { getCoverImageId } from '@/app/blog/utils/cover';
-import { getPosts } from '@/app/blog/utils/getPosts';
+import { PostCard } from '@/app/memo/components/PostCard';
+import { getPosts } from '@/app/memo/utils/getPosts';
 import { sharedMetadata } from '@/utils/meta';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { Metadata } from 'next';
@@ -9,19 +8,19 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   ...sharedMetadata,
-  title: 'Blog | Usho',
-  description: "Usho's blog",
+  title: 'Memo | Usho',
+  description: "Usho's memo",
   openGraph: {
-    title: 'Blog | Usho',
-    description: "Usho's blog",
+    title: 'Memo | Usho',
+    description: "Usho's memo",
     type: 'website',
-    url: 'https://usho.dev/blog',
+    url: 'https://usho.dev/memo',
     images: {
       url: 'https://usho.dev/og-image.jpg',
       type: 'image/jpeg',
       width: 1280,
       height: 640,
-      alt: "Usho's blog",
+      alt: "Usho's memo",
     },
   },
 };
@@ -38,9 +37,9 @@ export default async function BlogList() {
 
           return (
             <li key={post.id}>
-              <BlogCard
+              <PostCard
                 title={title}
-                href={`/blog/${convertRichTextToPlainText(
+                href={`/memo/${convertRichTextToPlainText(
                   post.properties.Slug.rich_text,
                 )}`}
                 date={post.properties.Date.date.start}

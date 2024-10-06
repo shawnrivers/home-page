@@ -1,11 +1,11 @@
 import {
   TableOfContents,
   Toc,
-} from '@/app/blog/[slug]/components/TableOfContents';
-import { BlogImage } from '@/app/blog/components/BlogImage';
-import { BlogTag } from '@/app/blog/components/BlogTag';
-import { getPostBySlug } from '@/app/blog/utils/getPostBySlug';
-import { getPosts } from '@/app/blog/utils/getPosts';
+} from '@/app/memo/[slug]/components/TableOfContents';
+import { PostImage } from '@/app/memo/components/PostImage';
+import { PostTag } from '@/app/memo/components/PostTag';
+import { getPostBySlug } from '@/app/memo/utils/getPostBySlug';
+import { getPosts } from '@/app/memo/utils/getPosts';
 import { renderPostContent } from '@/features/post/utils/renderPostContent';
 import { getImageUrl } from '@/utils/cloudinary';
 import { sharedMetadata } from '@/utils/meta';
@@ -107,13 +107,13 @@ export default async function Post({ params }: BlogPageProps) {
             {properties.Tags.multi_select.length > 0 && (
               <div className="mb-3 space-x-2">
                 {properties.Tags.multi_select.map(tag => (
-                  <BlogTag key={tag.name} name={tag.name} color={tag.color} />
+                  <PostTag key={tag.name} name={tag.name} color={tag.color} />
                 ))}
               </div>
             )}
             <h1>{title}</h1>
             {coverImage && (
-              <BlogImage
+              <PostImage
                 priority
                 publicId={coverImage.public_id}
                 originalWidth={coverImage.width}

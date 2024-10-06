@@ -3,7 +3,7 @@ import { Block } from '@/utils/notion/api/fetchBlocks';
 import type { fetchPostImages } from '@/features/post/utils/fetchPostImages';
 import { cn } from '@/utils/classNames';
 import type { RichText } from '@/utils/notion/schema';
-import { BlogImage } from '@/app/blog/components/BlogImage';
+import { PostImage } from '@/app/memo/components/PostImage';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import Prism from 'prismjs';
 import slugify from 'slugify';
@@ -135,7 +135,7 @@ const renderBlock = ({
       }
 
       return (
-        <BlogImage
+        <PostImage
           priority
           publicId={image.public_id}
           width={600}

@@ -1,12 +1,10 @@
-import { getTagColor } from '@/app/blog/utils/tags';
+import { getTagColor } from '@/app/memo/utils/tags';
 import { cn } from '@/utils/classNames';
 
-type BlogTagProps = {
+export const PostTag: React.FC<{
   name: string;
   color: string;
-};
-
-export const BlogTag: React.FC<BlogTagProps> = ({ name, color }) => {
+}> = ({ name, color }) => {
   return (
     <span
       className={cn(
