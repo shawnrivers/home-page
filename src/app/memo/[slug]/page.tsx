@@ -8,6 +8,7 @@ import { getPostBySlug } from '@/app/memo/utils/getPostBySlug';
 import { getPosts } from '@/app/memo/utils/getPosts';
 import { renderPostContent } from '@/features/post/utils/renderPostContent';
 import { getImageUrl } from '@/utils/cloudinary';
+import { formatDate } from '@/utils/date';
 import { sharedMetadata } from '@/utils/meta';
 import { Block } from '@/utils/notion/api/fetchBlocks';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
@@ -107,7 +108,7 @@ export default async function Post({ params }: MemoPageProps) {
               dateTime={properties.Date.date.start}
               className="mb-2 block text-gray-500 dark:text-gray-400"
             >
-              {formateDate(properties.Date.date.start)}
+              {formatDate(properties.Date.date.start)}
             </time>
             {properties.Tags.multi_select.length > 0 && (
               <div className="mb-3 space-x-2">
@@ -130,24 +131,18 @@ export default async function Post({ params }: MemoPageProps) {
             )}
           </div>
           <div>{renderPostContent({ blocks, images })}</div>
-          <time
-            dateTime={last_edited_time}
-            className="mt-12 block italic text-gray-500 dark:text-gray-400"
-          >
-            Updated on {formateDate(last_edited_time)}
-          </time>
+          {properties.UpdatedAt.date && (
+            <time
+              dateTime={properties.UpdatedAt.date.start}
+              className="mt-12 block italic text-gray-500 dark:text-gray-400"
+            >
+              Updated on {formatDate(properties.UpdatedAt.date.start)}
+            </time>
+          )}
         </article>
       </div>
     </>
   );
-}
-
-function formateDate(date: string) {
-  return new Date(date).toLocaleString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
 }
 
 function getTableOfContent(blocks: Block[]): Toc[] {

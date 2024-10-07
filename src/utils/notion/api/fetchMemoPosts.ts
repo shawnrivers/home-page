@@ -31,6 +31,15 @@ const MemoPostSchema = z
           end: z.string().nullable(),
         }),
       }),
+      UpdatedAt: z.object({
+        type: z.literal('date'),
+        date: z
+          .object({
+            start: z.string(),
+            end: z.string().nullable(),
+          })
+          .nullable(),
+      }),
       Page: z.object({
         type: z.literal('title'),
         title: z.array(
