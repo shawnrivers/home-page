@@ -10,5 +10,5 @@ export async function GET(request: Request) {
   }
 
   draftMode().enable();
-  redirect('/blog');
+  redirect('/memo');
 }

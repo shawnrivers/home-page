@@ -25,12 +25,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function BlogList() {
+export default async function MemoList() {
   const posts = await getPosts();
 
   return (
     <>
-      <h1 className="sr-only">Blog</h1>
+      <h1 className="sr-only">Memo</h1>
       <ul className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
         {posts?.map((post, index) => {
           const title = convertRichTextToPlainText(post.properties.Page.title);

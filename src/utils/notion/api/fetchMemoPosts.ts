@@ -3,7 +3,7 @@ import { notion } from '@/utils/notion/client';
 import { RichTextSchema } from '@/utils/notion/schema';
 import { z } from 'zod';
 
-const BlogPostSchema = z
+const MemoPostSchema = z
   .object({
     properties: z.object({
       Published: z.object({
@@ -44,14 +44,14 @@ const BlogPostSchema = z
   })
   .merge(PageSchema);
 
-const BlogPostsSchema = z.object({
+const MemoPostsSchema = z.object({
   object: z.literal('list'),
-  results: z.array(BlogPostSchema).optional(),
+  results: z.array(MemoPostSchema).optional(),
 });
 
-type Posts = z.infer<typeof BlogPostsSchema>['results'];
+type Posts = z.infer<typeof MemoPostsSchema>['results'];
 
-export async function fetchBlogPosts(
+export async function fetchMemoPosts(
   params: Partial<{ draft: boolean }> = {},
 ): Promise<Posts> {
   if (!process.env.NOTION_DATABASE_ID_BLOG)
@@ -71,5 +71,5 @@ export async function fetchBlogPosts(
       : undefined,
   });
 
-  return BlogPostsSchema.parse(res).results;
+  return MemoPostsSchema.parse(res).results;
 }

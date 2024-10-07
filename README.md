@@ -2,11 +2,11 @@
 
 https://usho.dev
 
-This my personal home/blog page.
+This my personal home page.
 
 ## Technologies
 
-- Blog data: Notion
+- Memo data: Notion
 - JS framework: Next.js
 - CSS framework: Tailwind CSS
 - Hosting: Vercel

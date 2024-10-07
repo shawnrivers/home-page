@@ -1,13 +1,13 @@
 import { getCoverImageId } from '@/app/memo/utils/cover';
 import { fetchPostImages } from '@/features/post/utils/fetchPostImages';
-import { fetchBlogPosts } from '@/utils/notion/api/fetchBlogPosts';
+import { fetchMemoPosts } from '@/utils/notion/api/fetchMemoPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { draftMode } from 'next/headers';
 import { cache } from 'react';
 
 export const getPosts = cache(async (options = { ignoreDraft: false }) => {
   const { ignoreDraft } = options;
-  const posts = await fetchBlogPosts({
+  const posts = await fetchMemoPosts({
     draft: ignoreDraft ? false : draftMode().isEnabled,
   });
 

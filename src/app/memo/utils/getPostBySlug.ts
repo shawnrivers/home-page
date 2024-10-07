@@ -1,16 +1,16 @@
 import { getCoverImageId } from '@/app/memo/utils/cover';
 import { fetchPostContent } from '@/features/post/utils/fetchPostContent';
 import { fetchPostImages } from '@/features/post/utils/fetchPostImages';
-import { fetchBlogPosts } from '@/utils/notion/api/fetchBlogPosts';
+import { fetchMemoPosts } from '@/utils/notion/api/fetchMemoPosts';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { draftMode } from 'next/headers';
 import { cache } from 'react';
 
 export const getPostBySlug = cache(async (slug: string) => {
   const { isEnabled: isDraftEnabled } = draftMode();
-  const posts = await fetchBlogPosts({ draft: isDraftEnabled });
+  const posts = await fetchMemoPosts({ draft: isDraftEnabled });
   const post = posts?.find(
-    blog => blog.properties.Slug.rich_text[0].plain_text === slug,
+    p => p.properties.Slug.rich_text[0].plain_text === slug,
   );
   if (post == undefined) {
     return undefined;

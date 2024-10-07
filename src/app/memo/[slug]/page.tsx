@@ -19,10 +19,12 @@ import slugify from 'slugify';
 
 export const revalidate = 3600;
 
-type BlogPageProps = { params: { slug: string } };
+interface MemoPageProps {
+  params: { slug: string };
+}
 
 export async function generateStaticParams(): Promise<
-  BlogPageProps['params'][]
+  MemoPageProps['params'][]
 > {
   const posts = await getPosts({ ignoreDraft: true });
   return (
@@ -34,7 +36,7 @@ export async function generateStaticParams(): Promise<
 
 export async function generateMetadata({
   params,
-}: BlogPageProps): Promise<Metadata> {
+}: MemoPageProps): Promise<Metadata> {
   const { slug } = params;
   const post = await getPostBySlug(slug);
 
@@ -51,7 +53,7 @@ export async function generateMetadata({
   const { created_time, last_edited_time, properties, coverImage } = post;
   const postTitle = convertRichTextToPlainText(properties.Page.title);
   const title = `${postTitle} | Usho`;
-  const url = `https://usho.dev/blog/${slug}`;
+  const url = `https://usho.dev/memo/${slug}`;
 
   return {
     ...sharedMetadata,
@@ -80,7 +82,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Post({ params }: BlogPageProps) {
+export default async function Post({ params }: MemoPageProps) {
   const { slug } = params;
   const post = await getPostBySlug(slug);
   if (!post) {
