@@ -123,12 +123,6 @@ export default function Home() {
               <LinkedList items={bio.items} />
             </Sheet>
           ))}
-          <Sheet
-            heading="hobbies"
-            className="min-w-80 max-w-xs flex-1 text-center"
-          >
-            <p>Genshin Impact, Anime, Nogizaka46</p>
-          </Sheet>
         </div>
       </section>
       <section className="mt-8 flex flex-col items-center">
