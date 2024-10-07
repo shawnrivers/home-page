@@ -20,10 +20,6 @@ const BlogPostSchema = z
           }),
         ),
       }),
-      Featured: z.object({
-        type: z.literal('checkbox'),
-        checkbox: z.boolean(),
-      }),
       Slug: z.object({
         type: z.literal('rich_text'),
         rich_text: RichTextSchema,
