@@ -12,6 +12,20 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/blog',
+        destination: '/memo',
+        permanent: true,
+      },
+      {
+        source: '/blog/:slug',
+        destination: '/memo/:slug',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
