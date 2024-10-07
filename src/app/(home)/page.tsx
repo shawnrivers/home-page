@@ -156,12 +156,8 @@ export default function Home() {
         </HeadingAnchor>
         <ul className="mt-4 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row">
           <li>
-            <a
-              href="https://twitter.com/usho_ka"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Twitter
+            <a href="https://x.com/usho_ka" target="_blank" rel="noreferrer">
+              X(Twitter)
             </a>
           </li>
           <li>
