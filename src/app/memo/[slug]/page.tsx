@@ -89,7 +89,7 @@ export default async function Post({ params }: MemoPageProps) {
   if (!post) {
     notFound();
   }
-  const { last_edited_time, properties, coverImage, blocks, images } = post;
+  const { properties, coverImage, blocks, images } = post;
   const title = convertRichTextToPlainText(properties.Page.title);
   const tableOfContents = getTableOfContent(blocks);
 
