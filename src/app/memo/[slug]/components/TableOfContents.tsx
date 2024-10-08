@@ -37,26 +37,25 @@ export const TableOfContents: React.FC<{
   return (
     <aside
       className={cn(
-        'w-60 max-w-max overflow-auto rounded-lg border-2 border-gray-500 bg-gray-100 p-2 dark:border-gray-100 dark:bg-gray-800',
+        'w-60 max-w-max overflow-auto rounded-lg border-2 border-gray-500 bg-gray-50 p-2 dark:border-gray-100 dark:bg-gray-900',
         className,
       )}
     >
       <nav id="toc" aria-label="Table of contents">
-        <p className="font-bold uppercase">Table of Contents</p>
-        <ul className="mt-2 flex flex-col gap-1">
+        <ul className="flex flex-col gap-1 py-2">
           {tableOfContents.map((toc, index) => (
             <li key={toc.url} className={cn('text-sm font-medium')}>
               <a
                 href={toc.url}
                 aria-current={activeIndex === index ? 'location' : false}
                 className={cn(
-                  'relative inline-block px-2 text-base leading-[1.1] no-underline hover:text-gray-900 dark:hover:text-white',
+                  'relative block px-2 text-base leading-[1.1] no-underline hover:underline',
                   toc.level === 3
-                    ? 'ml-4 py-0.5 text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'
+                    ? 'ml-4 py-0.5 text-sm text-gray-600 dark:text-gray-300'
                     : 'py-1',
                   activeIndex === index &&
                     'bg-red-400/20 before:bg-red-400 dark:bg-red-400/10',
-                  'before:absolute before:bottom-0 before:left-[1px] before:top-0 before:block before:w-[2px] before:rounded before:transition-colors before:content-[""]',
+                  'before:absolute before:bottom-0 before:left-[1px] before:top-0 before:block before:w-[3px] before:rounded before:transition-colors before:content-[""]',
                 )}
               >
                 {toc.text}
