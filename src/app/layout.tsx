@@ -3,7 +3,10 @@ import { A11yReporter } from '@/components/A11yReporter';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { DraftStatusToast } from '@/components/DraftModeStatusToast';
-import { SkipNavLink } from '@/components/SkipNavLink';
+import {
+  SKIP_NAV_MAIN_CONTENT_ID,
+  SkipNavLink,
+} from '@/components/SkipNavLink';
 import { cn } from '@/utils/classNames';
 import { Inter, Source_Code_Pro } from 'next/font/google';
 import './globals.css';
@@ -43,7 +46,12 @@ export default function RootLayout({
           <div className="flex-1">
             <Header />
             <DraftStatusToast className="z-10" />
-            <div className="isolate px-6 pb-8">{children}</div>
+            <main
+              id={SKIP_NAV_MAIN_CONTENT_ID}
+              className="isolate mx-auto max-w-6xl px-6 pb-8"
+            >
+              {children}
+            </main>
           </div>
           <div>
             <Footer />

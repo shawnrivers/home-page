@@ -62,7 +62,7 @@ const bioList = [
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center font-mono">
       <section className="mx-4 flex flex-col items-center justify-center sm:flex-row">
         <Image
           priority
