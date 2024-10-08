@@ -164,17 +164,17 @@ export default function Home() {
         </HeadingAnchor>
         <div className="mt-4 flex flex-wrap justify-center gap-8">
           <WorkCard
-            heading="To Gif"
-            description="A simple web app that generates GIF from video file using FFmpeg WASM"
-            image={ToGifImage}
-            to="https://togif.vercel.app/"
-            className="flex-[1_1_20rem]"
-          />
-          <WorkCard
             heading="NOGILIB"
             description="A web application showing the information about Nogizaka46"
             image={NogilibImage}
             to="https://nogilib.vercel.app/"
+            className="flex-[1_1_20rem]"
+          />
+          <WorkCard
+            heading="To Gif"
+            description="A simple web app that generates GIF from video file using FFmpeg WASM"
+            image={ToGifImage}
+            to="https://togif.vercel.app/"
             className="flex-[1_1_20rem]"
           />
         </div>
