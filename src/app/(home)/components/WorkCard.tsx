@@ -27,20 +27,20 @@ export const WorkCard: React.FC<WorkCardProps> = ({
       rel="noreferrer"
       aria-labelledby={headingId}
       className={cn(
-        'group inline-block no-underline hover:no-underline',
+        'group relative inline-block no-underline hover:no-underline',
         className,
       )}
     >
-      <article className="relative mt-20 inline-flex min-w-80 max-w-xs flex-col items-center gap-4 rounded-lg border-4 border-gray-800 bg-white px-8 pb-4 text-center text-gray-900 shadow-md hover:shadow-lg group-hover:bg-gray-100 dark:border-white dark:bg-gray-700 dark:text-white dark:group-hover:bg-gray-600">
-        <Image
-          src={image}
-          width={128}
-          height={128}
-          alt=""
-          role="presentation"
-          placeholder="blur"
-          className="-mt-20 inline-block overflow-hidden rounded-full border-4 border-gray-700 object-cover dark:border-white"
-        />
+      <Image
+        src={image}
+        width={128}
+        height={128}
+        alt=""
+        role="presentation"
+        placeholder="blur"
+        className="absolute left-1/2 inline-block size-24 -translate-x-1/2 overflow-hidden rounded-full border-4 border-gray-700 object-cover dark:border-white"
+      />
+      <article className="mt-12 flex h-[calc(100%-3rem)] flex-col items-center gap-4 rounded-lg border-2 border-gray-800 bg-white px-8 pb-4 pt-16 text-gray-900 shadow-md hover:shadow-lg group-hover:bg-gray-100 dark:border-white dark:bg-gray-800 dark:text-white dark:group-hover:bg-gray-600">
         <h3 id={headingId} className="text-xl font-bold uppercase">
           {heading}
         </h3>
@@ -50,7 +50,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth="1.5"
+            strokeWidth="2"
             stroke="currentColor"
             className="size-6 text-white dark:text-gray-700"
             role="presentation"

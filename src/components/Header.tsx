@@ -16,11 +16,11 @@ export const Header: React.FC = () => {
   return (
     <header className="mb-8">
       <nav aria-label="main-nav">
-        <ul className="flex items-center justify-center gap-2 px-4">
+        <ul className="flex flex-wrap items-center justify-center gap-2 p-4">
           {navItems.map(({ label, href, highlightRegex }) => {
             const isCurrent = highlightRegex.test(pathname ?? '');
             return (
-              <li className="inline-block py-4" key={label}>
+              <li className="inline-block" key={label}>
                 <Link
                   aria-current={isCurrent ? 'page' : undefined}
                   href={href}
