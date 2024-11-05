@@ -19,6 +19,7 @@ import 'prismjs/components/prism-tsx';
 import slugify from 'slugify';
 
 export const revalidate = 3600;
+export const dynamicParams = true;
 
 interface MemoPageProps {
   params: { slug: string };
