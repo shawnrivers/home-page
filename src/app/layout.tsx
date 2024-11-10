@@ -11,6 +11,7 @@ import { cn } from '@/utils/classNames';
 import { Inter, Source_Code_Pro } from 'next/font/google';
 import './globals.css';
 import type { Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -58,6 +59,7 @@ export default function RootLayout({
           </div>
         </div>
         <A11yReporter />
+        <Analytics />
       </body>
     </html>
   );
