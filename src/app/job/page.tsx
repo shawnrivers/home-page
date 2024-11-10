@@ -3,8 +3,6 @@ import { renderPostContent } from '@/features/post/utils/renderPostContent';
 import { sharedMetadata } from '@/utils/meta';
 import type { Metadata } from 'next';
 
-export const revalidate = 3600;
-
 export const metadata: Metadata = {
   ...sharedMetadata,
   title: 'Job | Usho',

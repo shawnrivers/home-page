@@ -4,8 +4,6 @@ import { sharedMetadata } from '@/utils/meta';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { Metadata } from 'next';
 
-export const revalidate = 3600;
-
 export const metadata: Metadata = {
   ...sharedMetadata,
   title: 'Memo | Usho',
