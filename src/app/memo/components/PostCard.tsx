@@ -46,7 +46,7 @@ export const PostCard = <T extends string>(props: {
         ) : (
           <div
             aria-hidden
-            className="flex aspect-[3/2] h-auto w-full items-center justify-center bg-gray-100 text-2xl font-bold tracking-wider text-gray-500 dark:bg-gray-800 dark:text-gray-300"
+            className="flex aspect-[3/2] h-auto w-full items-center justify-center bg-gray-100 p-4 text-7xl font-bold tracking-wider text-gray-500 dark:bg-gray-800 dark:text-gray-300"
           >
             {emoji ?? 'NO IMAGE'}
           </div>
