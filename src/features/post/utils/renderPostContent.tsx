@@ -140,7 +140,7 @@ const renderBlock = ({
         <PostImage
           priority
           publicId={image.public_id}
-          width={600}
+          width={768}
           originalWidth={image.width}
           originalHeight={image.height}
           alt=""
