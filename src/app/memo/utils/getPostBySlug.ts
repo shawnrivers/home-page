@@ -6,8 +6,6 @@ import { convertRichTextToPlainText } from '@/utils/notion/utils';
 import { draftMode } from 'next/headers';
 import { cache } from 'react';
 
-const a = 1;
-
 export const getPostBySlug = cache(async (slug: string) => {
   const { isEnabled: isDraftEnabled } = draftMode();
   const posts = await fetchMemoPosts({ draft: isDraftEnabled });
