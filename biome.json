@@ -24,6 +24,10 @@
       "suspicious": {
         "noDoubleEquals": "off",
         "noArrayIndexKey": "off"
+      },
+      "correctness": {
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error"
       }
     }
   },
