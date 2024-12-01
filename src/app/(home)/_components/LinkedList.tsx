@@ -21,7 +21,7 @@ export const LinkedList: React.FC<LinkedListProps> = ({ items, className }) => {
               'border-l-2 pb-4 pl-4',
               index < items.length - 1
                 ? 'border-gray-400'
-                : 'border-gray-200 dark:border-gray-700',
+                : 'border-transparent',
             )}
           >
             <p className="whitespace-pre-wrap">{item.text}</p>

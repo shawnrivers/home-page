@@ -27,7 +27,7 @@ export const PostCard = <T extends string>(props: {
     <Link
       href={href}
       className={cn(
-        'inline-block overflow-hidden rounded-lg border-4 bg-white text-gray-900 no-underline shadow-md hover:bg-gray-100 hover:text-inherit hover:no-underline hover:shadow-lg dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600',
+        'inline-block overflow-hidden rounded-lg border-4 bg-white text-gray-900 no-underline shadow-md hover:bg-gray-100 hover:text-inherit hover:no-underline hover:shadow-lg dark:bg-gray-800 dark:text-white dark:hover:bg-gray-600',
         tags.length > 0 && getTagCardBorderColor(tags[0].color),
         className,
       )}
@@ -41,12 +41,12 @@ export const PostCard = <T extends string>(props: {
             width={600}
             originalWidth={image.originalWidth}
             originalHeight={image.originalHeight}
-            className="aspect-[3/2] h-auto w-full object-cover"
+            className="aspect-[3/2] h-auto w-full object-cover bg-gray-100"
           />
         ) : (
           <div
             aria-hidden
-            className="flex aspect-[3/2] h-auto w-full items-center justify-center bg-gray-100 p-4 text-7xl font-bold tracking-wider text-gray-500 dark:bg-gray-800 dark:text-gray-300"
+            className="flex aspect-[3/2] h-auto w-full items-center justify-center bg-gray-100 p-4 text-7xl font-bold tracking-wider text-gray-500 dark:text-gray-300"
           >
             {emoji ?? 'NO IMAGE'}
           </div>
