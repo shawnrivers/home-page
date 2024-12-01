@@ -1,5 +1,5 @@
 import { ExitDraftModeButton } from '@/components/DraftModeStatusToast/components/ExitDraftModeButton';
-import { cn } from '@/utils/classNames';
+import { cn } from '@/libs/utils/classNames';
 import { draftMode } from 'next/headers';
 
 export const DraftStatusToast: React.FC<{ className?: string }> = ({

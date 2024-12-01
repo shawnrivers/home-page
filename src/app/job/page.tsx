@@ -1,6 +1,6 @@
 import { fetchPostContent } from '@/features/post/utils/fetchPostContent';
 import { renderPostContent } from '@/features/post/utils/renderPostContent';
-import { sharedMetadata } from '@/utils/meta';
+import { sharedMetadata } from '@/libs/utils/meta';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

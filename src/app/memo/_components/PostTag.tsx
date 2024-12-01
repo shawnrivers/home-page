@@ -1,5 +1,5 @@
-import { getTagColor } from '@/app/memo/utils/tags';
-import { cn } from '@/utils/classNames';
+import { getTagColor } from '@/app/memo/_utils/tags';
+import { cn } from '@/libs/utils/classNames';
 
 export const PostTag: React.FC<{
   name: string;

@@ -1,8 +1,8 @@
-import { PostTag } from '@/app/memo/components/PostTag';
-import { getTagCardBorderColor } from '@/app/memo/utils/tags';
-import { PostImage } from '@/app/memo/components/PostImage';
-import { cn } from '@/utils/classNames';
-import { formatDate } from '@/utils/date';
+import { PostTag } from '@/app/memo/_components/PostTag';
+import { getTagCardBorderColor } from '@/app/memo/_utils/tags';
+import { PostImage } from '@/app/memo/_components/PostImage';
+import { cn } from '@/libs/utils/classNames';
+import { formatDate } from '@/libs/utils/date';
 import Link from 'next/link';
 import type { Route } from 'next';
 

@@ -1,4 +1,4 @@
-import { SCROLL_CONTAINER_ID } from '@/app/constants';
+import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 type ScrollDirection = 'up' | 'down' | null;

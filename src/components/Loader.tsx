@@ -1,4 +1,4 @@
-import { cn } from '@/utils/classNames';
+import { cn } from '@/libs/utils/classNames';
 
 export const Loader: React.FC<{ className?: string }> = ({ className }) => {
   return (

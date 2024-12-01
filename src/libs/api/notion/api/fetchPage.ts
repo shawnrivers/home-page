@@ -1,4 +1,4 @@
-import { notion } from '@/utils/notion/client';
+import { notion } from '@/libs/api/notion/client';
 import { z } from 'zod';
 
 export const PageSchema = z.object({

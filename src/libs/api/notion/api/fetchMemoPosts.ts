@@ -1,6 +1,6 @@
-import { PageSchema } from '@/utils/notion/api/fetchPage';
-import { notion } from '@/utils/notion/client';
-import { RichTextSchema } from '@/utils/notion/schema';
+import { PageSchema } from '@/libs/api/notion/api/fetchPage';
+import { notion } from '@/libs/api/notion/client';
+import { RichTextSchema } from '@/libs/api/notion/schema';
 import { z } from 'zod';
 
 const MemoPostSchema = z

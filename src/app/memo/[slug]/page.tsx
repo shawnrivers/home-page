@@ -1,17 +1,17 @@
 import {
   TableOfContents,
   type Toc,
-} from '@/app/memo/[slug]/components/TableOfContents';
-import { PostImage } from '@/app/memo/components/PostImage';
-import { PostTag } from '@/app/memo/components/PostTag';
-import { getPostBySlug } from '@/app/memo/utils/getPostBySlug';
-import { getPosts } from '@/app/memo/utils/getPosts';
+} from '@/app/memo/[slug]/_components/TableOfContents';
+import { PostImage } from '@/app/memo/_components/PostImage';
+import { PostTag } from '@/app/memo/_components/PostTag';
+import { getPostBySlug } from '@/app/memo/_utils/getPostBySlug';
+import { getPosts } from '@/app/memo/_utils/getPosts';
 import { renderPostContent } from '@/features/post/utils/renderPostContent';
-import { getImageUrl } from '@/utils/cloudinary';
-import { formatDate } from '@/utils/date';
-import { sharedMetadata } from '@/utils/meta';
-import type { Block } from '@/utils/notion/api/fetchBlocks';
-import { convertRichTextToPlainText } from '@/utils/notion/utils';
+import { getImageUrl } from '@/libs/api/cloudinary';
+import { formatDate } from '@/libs/utils/date';
+import { sharedMetadata } from '@/libs/utils/meta';
+import type { Block } from '@/libs/api/notion/api/fetchBlocks';
+import { convertRichTextToPlainText } from '@/libs/api/notion/utils';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import 'prismjs/components/prism-jsx';

@@ -1,5 +1,5 @@
 import Image, { type ImageProps } from 'next/image';
-import { cn } from '@/utils/classNames';
+import { cn } from '@/libs/utils/classNames';
 import { useId } from 'react';
 
 type WorkCardProps = {

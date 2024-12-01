@@ -1,4 +1,4 @@
-import { cn } from '@/utils/classNames';
+import { cn } from '@/libs/utils/classNames';
 
 export const SKIP_NAV_MAIN_CONTENT_ID = 'main-content';
 

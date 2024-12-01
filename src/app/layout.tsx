@@ -1,4 +1,3 @@
-import { SCROLL_CONTAINER_ID } from '@/app/constants';
 import { A11yReporter } from '@/components/A11yReporter';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
@@ -7,12 +6,13 @@ import {
   SKIP_NAV_MAIN_CONTENT_ID,
   SkipNavLink,
 } from '@/components/SkipNavLink';
-import { cn } from '@/utils/classNames';
+import { cn } from '@/libs/utils/classNames';
 import { Inter, Source_Code_Pro } from 'next/font/google';
-import './globals.css';
+import '@/libs/styles/globals.css';
 import type { Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
 
 const inter = Inter({
   variable: '--font-inter',

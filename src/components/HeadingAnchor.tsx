@@ -1,5 +1,5 @@
-import { cn } from '@/utils/classNames';
-import { convertNodeToString } from '@/utils/string';
+import { cn } from '@/libs/utils/classNames';
+import { convertNodeToString } from '@/libs/utils/string';
 
 type As = 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 

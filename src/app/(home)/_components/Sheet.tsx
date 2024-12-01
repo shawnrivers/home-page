@@ -1,4 +1,4 @@
-import { cn } from '@/utils/classNames';
+import { cn } from '@/libs/utils/classNames';
 
 type SheetProps = {
   heading: string;

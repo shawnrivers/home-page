@@ -1,4 +1,4 @@
-import { getImageUrl } from '@/utils/cloudinary';
+import { getImageUrl } from '@/libs/api/cloudinary';
 import Image, { type ImageProps } from 'next/image';
 
 export const PostImage = (

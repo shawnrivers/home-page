@@ -1,8 +1,8 @@
 'use client';
 
 import { useScroll } from '@/hooks/useScroll';
-import { cn } from '@/utils/classNames';
-import { useCallback, useEffect, useState } from 'react';
+import { cn } from '@/libs/utils/classNames';
+import { useCallback, useState } from 'react';
 
 export type Toc = { text: string; url: string; level: number };
 

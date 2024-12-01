@@ -1,4 +1,4 @@
-import { fetchImages, uploadImage } from '@/utils/cloudinary';
+import { fetchImages, uploadImage } from '@/libs/api/cloudinary';
 
 interface SourceImage {
   fileName: string;

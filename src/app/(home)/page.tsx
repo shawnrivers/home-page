@@ -1,14 +1,14 @@
-import { LinkedList } from '@/app/(home)/components/LinkedList';
-import { Sheet } from '@/app/(home)/components/Sheet';
-import { SocialLink } from '@/app/(home)/components/SocialLink';
-import { WorkCard } from '@/app/(home)/components/WorkCard';
-import AvatarImage from '@/app/(home)/images/avatar.jpg';
-import NogilibImage from '@/app/(home)/images/nogilib.png';
-import ToGifImage from '@/app/(home)/images/to-gif.jpg';
+import { LinkedList } from '@/app/(home)/_components/LinkedList';
+import { Sheet } from '@/app/(home)/_components/Sheet';
+import { SocialLink } from '@/app/(home)/_components/SocialLink';
+import { WorkCard } from '@/app/(home)/_components/WorkCard';
+import AvatarImage from '@/app/(home)/_images/avatar.jpg';
+import NogilibImage from '@/app/(home)/_images/nogilib.png';
+import ToGifImage from '@/app/(home)/_images/to-gif.jpg';
 import { HeadingAnchor } from '@/components/HeadingAnchor';
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { XIcon } from '@/components/icons/XIcon';
-import { sharedMetadata } from '@/utils/meta';
+import { sharedMetadata } from '@/libs/utils/meta';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
