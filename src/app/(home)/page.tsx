@@ -9,7 +9,7 @@ import { HeadingAnchor } from '@/components/HeadingAnchor';
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { XIcon } from '@/components/icons/XIcon';
 import { sharedMetadata } from '@/utils/meta';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {

@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const sharedMetadata: Metadata = {
   metadataBase: new URL('https://usho.dev'),

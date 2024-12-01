@@ -3,7 +3,7 @@ export function convertNodeToString(node: React.ReactNode): string {
     return '';
   }
 
-  if (node instanceof Array) {
+  if (Array.isArray(node)) {
     return node.map(convertNodeToString).join('');
   }
 

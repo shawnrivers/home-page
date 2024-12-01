@@ -1,5 +1,5 @@
 import { revalidatePath } from 'next/cache';
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 
 const TypeSchema = z.union([z.literal('page'), z.literal('layout')]).nullable();

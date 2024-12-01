@@ -16,19 +16,20 @@ export async function fetchPostImages(sourceImages: SourceImage[]) {
         const existingImage = existingImages.resources.find(image =>
           image.public_id.includes(sourceImage.fileName),
         );
+
         if (existingImage) {
           return existingImage;
-        } else {
-          try {
-            const image = await uploadImage({
-              url: sourceImage.url,
-              fileName: sourceImage.fileName,
-            });
-            return image ?? undefined;
-          } catch (e) {
-            console.error('Error uploading image to cloudinary', e);
-            return undefined;
-          }
+        }
+
+        try {
+          const image = await uploadImage({
+            url: sourceImage.url,
+            fileName: sourceImage.fileName,
+          });
+          return image ?? undefined;
+        } catch (e) {
+          console.error('Error uploading image to cloudinary', e);
+          return undefined;
         }
       }),
     )

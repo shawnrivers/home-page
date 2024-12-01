@@ -2,7 +2,7 @@ import { PostCard } from '@/app/memo/components/PostCard';
 import { getPosts } from '@/app/memo/utils/getPosts';
 import { sharedMetadata } from '@/utils/meta';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   ...sharedMetadata,

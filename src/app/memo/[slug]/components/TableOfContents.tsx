@@ -14,6 +14,7 @@ export const TableOfContents: React.FC<{
 
   const handleScroll = useCallback(() => {
     const headingTops: { text: string | null; top: number }[] = [];
+    // biome-ignore lint/complexity/noForEach: The array is small and the performance impact is negligible
     document.querySelectorAll('h2, h3').forEach(heading => {
       headingTops.push({
         text: heading.textContent,

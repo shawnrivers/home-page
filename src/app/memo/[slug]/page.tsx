@@ -1,6 +1,6 @@
 import {
   TableOfContents,
-  Toc,
+  type Toc,
 } from '@/app/memo/[slug]/components/TableOfContents';
 import { PostImage } from '@/app/memo/components/PostImage';
 import { PostTag } from '@/app/memo/components/PostTag';
@@ -10,9 +10,9 @@ import { renderPostContent } from '@/features/post/utils/renderPostContent';
 import { getImageUrl } from '@/utils/cloudinary';
 import { formatDate } from '@/utils/date';
 import { sharedMetadata } from '@/utils/meta';
-import { Block } from '@/utils/notion/api/fetchBlocks';
+import type { Block } from '@/utils/notion/api/fetchBlocks';
 import { convertRichTextToPlainText } from '@/utils/notion/utils';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';

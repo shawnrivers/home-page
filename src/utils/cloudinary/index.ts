@@ -1,4 +1,4 @@
-import { v2 as cloudinary, ResourceApiResponse } from 'cloudinary';
+import { v2 as cloudinary, type ResourceApiResponse } from 'cloudinary';
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,

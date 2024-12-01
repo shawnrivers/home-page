@@ -1,5 +1,5 @@
 import { getImageUrl } from '@/utils/cloudinary';
-import Image, { ImageProps } from 'next/image';
+import Image, { type ImageProps } from 'next/image';
 
 export const PostImage = (
   props: Omit<ImageProps, 'src' | 'width' | 'loader'> & {

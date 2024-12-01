@@ -1,5 +1,5 @@
 import type React from 'react';
-import { Block } from '@/utils/notion/api/fetchBlocks';
+import type { Block } from '@/utils/notion/api/fetchBlocks';
 import type { fetchPostImages } from '@/features/post/utils/fetchPostImages';
 import { cn } from '@/utils/classNames';
 import type { RichText } from '@/utils/notion/schema';
@@ -18,7 +18,7 @@ export const renderPostContent = ({
   blocks: Block[];
   images: Images;
 }) => {
-  let listBuffer: React.ReactNode[] = [];
+  const listBuffer: React.ReactNode[] = [];
 
   return blocks.map((block, i) => (
     <Fragment key={block.id}>
@@ -86,10 +86,10 @@ const renderBlock = ({
         const list = [...listBuffer, itemElement];
         listBuffer.splice(0, listBuffer.length);
         return <Wrapper>{list}</Wrapper>;
-      } else {
-        listBuffer.push(itemElement);
-        return null;
       }
+
+      listBuffer.push(itemElement);
+      return null;
     }
     case 'quote': {
       return <blockquote>{renderRichText(block.quote.rich_text)}</blockquote>;
@@ -109,10 +109,12 @@ const renderBlock = ({
             {language}
           </span>
           <pre
+            // biome-ignore lint/a11y/noNoninteractiveTabindex: Should be focusable for keyboard navigation because it's potentially scrollable
             tabIndex={0}
             className="rounded-md bg-gray-800 !py-6 !leading-normal"
           >
             <code
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: The data source is trusted
               dangerouslySetInnerHTML={{
                 __html: Prism.highlight(
                   convertRichTextToPlainText(rich_text),
