@@ -10,7 +10,7 @@ export const getPostBySlug = cache(async (slug: string) => {
   const { isEnabled: isDraftEnabled } = draftMode();
   const posts = await fetchMemoPosts({ draft: isDraftEnabled });
   const post = posts?.find(
-    p => p.properties.Slug.rich_text[0].plain_text === slug,
+    p => p.properties.Slug.rich_text[0]?.plain_text === slug,
   );
   if (post == undefined) {
     return undefined;

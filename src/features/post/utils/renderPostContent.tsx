@@ -113,7 +113,7 @@ const renderBlock = ({
               dangerouslySetInnerHTML={{
                 __html: Prism.highlight(
                   convertRichTextToPlainText(rich_text),
-                  Prism.languages[highlightLanguage],
+                  Prism.languages[highlightLanguage] as Prism.Grammar,
                   highlightLanguage,
                 ),
               }}

@@ -23,7 +23,7 @@ export const TableOfContents: React.FC<{
     });
     const activeHeading = headingTops.find((heading, index) => {
       const currentTop = heading.top;
-      const nextTop = headingTops[index + 1]?.top;
+      const nextTop = headingTops[index + 1]?.top ?? 0;
       return currentTop <= 10 && (nextTop > 10 || nextTop == null);
     });
     if (!activeHeading) return;
