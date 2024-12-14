@@ -167,7 +167,7 @@ function renderRichText(richText: RichText): React.ReactNode {
         className={cn(
           bold && 'font-bold',
           code &&
-            'rounded bg-gray-200 px-1.5 py-0.5 font-mono text-gray-800 before:content-none after:content-none dark:bg-gray-700 dark:text-gray-100',
+            'rounded bg-gray-100 px-1.5 py-0.5 font-mono font-normal text-red-600 before:content-none after:content-none dark:bg-gray-800 dark:text-red-400',
           italic && 'italic',
           strikethrough && 'line-through',
           underline && 'underline',

@@ -24,6 +24,7 @@ const sourceCodePro = Source_Code_Pro({
   variable: '--font-source-code-pro',
   subsets: ['latin'],
   display: 'swap',
+  style: ['normal', 'italic'],
 });
 
 export const viewport: Viewport = {
