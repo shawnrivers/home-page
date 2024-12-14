@@ -16,6 +16,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
+import 'prismjs/components/prism-markup';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-markdown';
 import slugify from 'slugify';
 
 interface MemoPageProps {

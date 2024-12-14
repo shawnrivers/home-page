@@ -96,12 +96,7 @@ const renderBlock = ({
     }
     case 'code': {
       const { rich_text, language } = block.code;
-      const highlightLanguage =
-        language === 'javascript'
-          ? 'jsx'
-          : language === 'typescript'
-            ? 'tsx'
-            : language;
+      const highlightLanguage = getPrismLanguage(language);
 
       return (
         <div className="relative">
@@ -182,4 +177,21 @@ function renderRichText(richText: RichText): React.ReactNode {
       </Component>
     );
   });
+}
+
+function getPrismLanguage(lang: string): string {
+  switch (lang) {
+    case 'javascript':
+      return 'jsx';
+    case 'typescript':
+      return 'tsx';
+    case 'html':
+      return 'html';
+    case 'svg':
+      return 'svg';
+    case 'css':
+      return 'css';
+    default:
+      return 'markdown';
+  }
 }
