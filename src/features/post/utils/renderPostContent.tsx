@@ -99,14 +99,14 @@ const renderBlock = ({
       const highlightLanguage = getPrismLanguage(language);
 
       return (
-        <div className="relative">
-          <span className="absolute right-0 top-0 inline-block rounded-sm rounded-tr-md bg-gray-600 px-2 py-1 text-xs uppercase leading-none text-white">
+        <div className="relative ">
+          <span className="absolute right-0 top-0 inline-block rounded-sm rounded-tr-md bg-gray-600 px-2 py-1 text-xs uppercase leading-none text-white selection:bg-gray-500">
             {language}
           </span>
           <pre
             // biome-ignore lint/a11y/noNoninteractiveTabindex: Should be focusable for keyboard navigation because it's potentially scrollable
             tabIndex={0}
-            className="rounded-md bg-gray-800 !py-6 !leading-normal"
+            className="rounded-md bg-gray-800 !py-6 !leading-normal selection:bg-gray-600"
           >
             <code
               // biome-ignore lint/security/noDangerouslySetInnerHtml: The data source is trusted
