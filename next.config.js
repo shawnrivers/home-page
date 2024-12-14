@@ -1,3 +1,9 @@
+const { createJiti } = require('jiti');
+
+// Validate env vars at build time
+const jiti = createJiti(__filename);
+jiti('./src/libs/utils/env.ts');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,

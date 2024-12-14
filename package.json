@@ -23,6 +23,7 @@
     "@vercel/speed-insights": "^1.1.0",
     "cloudinary": "^2.2.0",
     "clsx": "^2.1.1",
+    "jiti": "^2.4.1",
     "next": "14.2.4",
     "prismjs": "^1.29.0",
     "react": "18.3.1",
