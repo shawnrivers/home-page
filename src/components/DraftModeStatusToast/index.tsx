@@ -1,3 +1,4 @@
+import { EnterDraftModeButton } from '@/components/DraftModeStatusToast/components/EnterDraftModeButton';
 import { ExitDraftModeButton } from '@/components/DraftModeStatusToast/components/ExitDraftModeButton';
 import { cn } from '@/libs/utils/classNames';
 import { draftMode } from 'next/headers';
@@ -7,7 +8,7 @@ export const DraftStatusToast: React.FC<{ className?: string }> = ({
 }) => {
   const { isEnabled } = draftMode();
 
-  if (!isEnabled) {
+  if (!isEnabled && process.env.NODE_ENV === 'production') {
     return null;
   }
 
@@ -19,7 +20,10 @@ export const DraftStatusToast: React.FC<{ className?: string }> = ({
       )}
     >
       Draft Mode
-      <ExitDraftModeButton />
+      {isEnabled && <ExitDraftModeButton />}
+      {!isEnabled && process.env.NODE_ENV !== 'production' && (
+        <EnterDraftModeButton />
+      )}
     </span>
   );
 };
