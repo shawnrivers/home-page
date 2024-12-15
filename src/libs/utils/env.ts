@@ -11,13 +11,15 @@ const env = z.object({
   REVALIDATE_API_SECRET: z.string(),
 });
 
-const result = env.safeParse(process.env);
-if (!result.success) {
-  console.error(
-    'Error happened when parsing process.env:',
-    JSON.stringify(result.error.errors, null, 2),
-  );
-  throw new Error('process.env parsing error');
+export function parseProcessEnv() {
+  const result = env.safeParse(process.env);
+  if (!result.success) {
+    console.error(
+      'Error happened when parsing process.env:',
+      JSON.stringify(result.error.errors, null, 2),
+    );
+    throw new Error('process.env parsing error');
+  }
 }
 
 declare global {

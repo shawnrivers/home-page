@@ -1,10 +1,8 @@
-import { fileURLToPath } from 'node:url';
-import { createJiti } from 'jiti';
 import type { NextConfig } from 'next';
+import { parseProcessEnv } from './src/libs/utils/env';
 
 // Validate env vars at build time
-const jiti = createJiti(fileURLToPath(import.meta.url));
-jiti('./src/libs/utils/env.ts');
+parseProcessEnv();
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
