@@ -1,5 +1,5 @@
 import { notion } from '@/libs/api/notion/client';
-import { RichTextSchema } from '@/libs/api/notion/schema';
+import { RichTextSchema } from '@/libs/api/notion/schema/RichTextSchema';
 import { z } from 'zod';
 
 const BlocksSchema = z.object({
