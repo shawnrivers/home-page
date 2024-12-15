@@ -1,9 +1,13 @@
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 import type { NextRequest } from 'next/server';
+import { z } from 'zod';
+
+const ContentSchema = z.object({ Slug: z.string() });
 
 export async function POST(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const secret = searchParams.get('secret');
+  const headersList = await headers();
+  const secret = headersList.get('secret');
 
   if (secret !== process.env.REVALIDATE_API_SECRET) {
     return Response.json(
@@ -15,19 +19,19 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const content = await request.json();
+  const content = ContentSchema.safeParse(await request.json());
 
-  if (!content.Slug || typeof content.Slug !== 'string') {
+  if (!content.success) {
     return Response.json(
       {
         revalidated: false,
-        message: 'Missing Slug',
+        message: `Invalid content: ${JSON.stringify(content.error.errors, null, 2)}`,
       },
       { status: 400 },
     );
   }
 
-  const path = `/memo/${content.Slug}`;
+  const path = `/memo/${content.data.Slug}`;
 
   revalidatePath(path);
 
