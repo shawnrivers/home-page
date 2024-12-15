@@ -14,14 +14,19 @@ export async function GET(request: NextRequest) {
     return new Response('Invalid token', { status: 401 });
   }
 
-  if (path) {
-    revalidatePath(path, type ?? undefined);
-    return Response.json({ revalidated: true, now: Date.now() });
+  if (!path) {
+    return Response.json({
+      revalidated: false,
+      now: Date.now(),
+      message: 'Missing path to revalidate',
+    });
   }
 
+  revalidatePath(path, type ?? undefined);
+
   return Response.json({
-    revalidated: false,
+    revalidated: true,
     now: Date.now(),
-    message: 'Missing path to revalidate',
+    message: 'Revalidated',
   });
 }
