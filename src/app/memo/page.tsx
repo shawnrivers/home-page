@@ -53,7 +53,7 @@ export default async function MemoList() {
                 }
                 emoji={post.icon?.emoji}
                 imagePriority={index < 5}
-                className="w-full"
+                className="w-full h-full"
               />
             </li>
           );
