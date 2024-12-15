@@ -2,12 +2,12 @@ import type React from 'react';
 import type { Block } from '@/libs/api/notion/api/fetchBlocks';
 import type { fetchPostImages } from '@/features/post/utils/fetchPostImages';
 import { cn } from '@/libs/utils/classNames';
-import type { RichText } from '@/libs/api/notion/schema';
 import { PostImage } from '@/app/memo/_components/PostImage';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';
 import Prism from 'prismjs';
 import slugify from 'slugify';
 import { Fragment } from 'react';
+import type { RichText } from '@/libs/api/notion/schema/RichTextSchema';
 
 type Images = Awaited<ReturnType<typeof fetchPostImages>>;
 
