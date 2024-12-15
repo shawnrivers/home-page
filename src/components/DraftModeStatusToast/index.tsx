@@ -3,10 +3,10 @@ import { ExitDraftModeButton } from '@/components/DraftModeStatusToast/component
 import { cn } from '@/libs/utils/classNames';
 import { draftMode } from 'next/headers';
 
-export const DraftStatusToast: React.FC<{ className?: string }> = ({
+export const DraftStatusToast = async ({
   className,
-}) => {
-  const { isEnabled } = draftMode();
+}: { className?: string }) => {
+  const { isEnabled } = await draftMode();
 
   if (!isEnabled && process.env.NODE_ENV === 'production') {
     return null;

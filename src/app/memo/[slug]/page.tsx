@@ -22,11 +22,11 @@ import 'prismjs/components/prism-markdown';
 import slugify from 'slugify';
 
 interface MemoPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams(): Promise<
-  MemoPageProps['params'][]
+  Awaited<MemoPageProps['params']>[]
 > {
   const posts = await getPosts({ ignoreDraft: true });
   return (
@@ -36,9 +36,10 @@ export async function generateStaticParams(): Promise<
   );
 }
 
-export async function generateMetadata({
-  params,
-}: MemoPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  props: MemoPageProps,
+): Promise<Metadata> {
+  const params = await props.params;
   const { slug } = params;
   const post = await getPostBySlug(slug);
 
@@ -84,7 +85,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Post({ params }: MemoPageProps) {
+export default async function Post(props: MemoPageProps) {
+  const params = await props.params;
   const { slug } = params;
   const post = await getPostBySlug(slug);
   if (!post) {
