@@ -1,11 +1,11 @@
-const { createJiti } = require('jiti');
+import { createJiti } from 'jiti';
+import type { NextConfig } from 'next';
 
 // Validate env vars at build time
 const jiti = createJiti(__filename);
 jiti('./src/libs/utils/env.ts');
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -31,4 +31,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
