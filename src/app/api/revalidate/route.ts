@@ -11,22 +11,32 @@ export async function GET(request: NextRequest) {
   const type = TypeSchema.parse(searchParams.get('type'));
 
   if (secret !== process.env.REVALIDATE_API_SECRET) {
-    return new Response('Invalid token', { status: 401 });
+    return Response.json(
+      {
+        revalidated: false,
+        message: 'Invalid token',
+      },
+      { status: 401 },
+    );
   }
 
   if (!path) {
-    return Response.json({
-      revalidated: false,
-      now: Date.now(),
-      message: 'Missing path to revalidate',
-    });
+    return Response.json(
+      {
+        revalidated: false,
+        message: 'Missing path to revalidate',
+      },
+      { status: 400 },
+    );
   }
 
   revalidatePath(path, type ?? undefined);
 
-  return Response.json({
-    revalidated: true,
-    now: Date.now(),
-    message: 'Revalidated',
-  });
+  return Response.json(
+    {
+      revalidated: true,
+      message: 'Revalidated',
+    },
+    { status: 200 },
+  );
 }
