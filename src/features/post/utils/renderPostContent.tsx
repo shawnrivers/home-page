@@ -131,7 +131,7 @@ const renderBlock = ({
         return null;
       }
 
-      return (
+      const imageElement = (
         <PostImage
           priority
           publicId={image.public_id}
@@ -143,6 +143,19 @@ const renderBlock = ({
           className="mx-auto h-auto max-w-full rounded bg-white object-contain dark:bg-gray-900"
         />
       );
+
+      const caption = block.image.caption;
+
+      if (caption.length > 0) {
+        return (
+          <figure>
+            {imageElement}
+            <figcaption>{renderRichText(caption)}</figcaption>
+          </figure>
+        );
+      }
+
+      return imageElement;
     }
     default: {
       // @ts-expect-error Logging unknown block types on runtime.
