@@ -9,6 +9,7 @@ export const getPosts = cache(async (options = { ignoreDraft: false }) => {
   const { ignoreDraft } = options;
   const posts = await fetchMemoPosts({
     draft: ignoreDraft ? false : draftMode().isEnabled,
+    sorts: [{ property: 'Date', direction: 'descending' }],
   });
 
   const postCovers =
