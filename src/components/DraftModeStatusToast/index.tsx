@@ -13,17 +13,14 @@ export const DraftStatusToast = async ({
   }
 
   return (
-    <span
-      className={cn(
-        'fixed bottom-2 left-4 flex items-center gap-2 rounded border-2 border-gray-800 bg-gray-200 px-2 py-1 font-bold dark:border-white dark:bg-gray-700',
-        className,
-      )}
-    >
-      Draft Mode
-      {isEnabled && <ExitDraftModeButton />}
-      {!isEnabled && process.env.NODE_ENV !== 'production' && (
-        <EnterDraftModeButton />
-      )}
-    </span>
+    <aside className={cn('fixed bottom-2 left-4', className)}>
+      <span className="flex items-center gap-2 rounded border-2 border-gray-800 bg-gray-200 px-2 py-1 font-bold dark:border-white dark:bg-gray-700">
+        Draft Mode
+        {isEnabled && <ExitDraftModeButton />}
+        {!isEnabled && process.env.NODE_ENV !== 'production' && (
+          <EnterDraftModeButton />
+        )}
+      </span>
+    </aside>
   );
 };
