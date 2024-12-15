@@ -8,7 +8,7 @@ import { cache } from 'react';
 export const getPosts = cache(async (options = { ignoreDraft: false }) => {
   const { ignoreDraft } = options;
   const posts = await fetchMemoPosts({
-    draft: ignoreDraft ? false : draftMode().isEnabled,
+    draft: ignoreDraft ? false : (await draftMode()).isEnabled,
     sorts: [{ property: 'Date', direction: 'descending' }],
   });
 

@@ -7,7 +7,7 @@ import { draftMode } from 'next/headers';
 import { cache } from 'react';
 
 export const getPostBySlug = cache(async (slug: string) => {
-  const { isEnabled: isDraftEnabled } = draftMode();
+  const { isEnabled: isDraftEnabled } = await draftMode();
   const posts = await fetchMemoPosts({ draft: isDraftEnabled });
   const post = posts?.find(
     p => p.properties.Slug.rich_text[0]?.plain_text === slug,
