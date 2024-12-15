@@ -44,14 +44,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const path = `/memo/${slug}`;
+  const postPath = `/memo/${slug}`;
 
-  revalidatePath(path);
+  revalidatePath('/memo');
+  revalidatePath(postPath);
 
   return Response.json(
     {
       revalidated: true,
-      message: `Revalidate ${path}`,
+      message: `Revalidated /memo and ${postPath}`,
     },
     { status: 200 },
   );
