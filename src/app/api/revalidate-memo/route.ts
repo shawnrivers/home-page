@@ -2,6 +2,9 @@ import { MemoPostSchema } from '@/libs/api/notion/schema/MemoPostSchema';
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import type { NextRequest } from 'next/server';
+import { z } from 'zod';
+
+const ContentSchema = z.object({ data: MemoPostSchema });
 
 export async function POST(request: NextRequest) {
   const headersList = await headers();
@@ -17,7 +20,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const content = MemoPostSchema.safeParse(await request.json());
+  const content = ContentSchema.safeParse(await request.json());
 
   if (!content.success) {
     return Response.json(
@@ -29,7 +32,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const slug = content.data.properties.Slug.rich_text[0]?.plain_text;
+  const slug = content.data.data.properties.Slug.rich_text[0]?.plain_text;
 
   if (!slug) {
     return Response.json(
