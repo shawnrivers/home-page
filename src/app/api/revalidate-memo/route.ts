@@ -7,7 +7,7 @@ const ContentSchema = z.object({ Slug: z.string() });
 
 export async function POST(request: NextRequest) {
   const headersList = await headers();
-  const secret = headersList.get('secret');
+  const secret = headersList.get('X-Secret');
 
   if (secret !== process.env.REVALIDATE_API_SECRET) {
     return Response.json(
