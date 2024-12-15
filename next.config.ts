@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'node:url';
 import { createJiti } from 'jiti';
 import type { NextConfig } from 'next';
 
 // Validate env vars at build time
-const jiti = createJiti(__filename);
+const jiti = createJiti(fileURLToPath(import.meta.url));
 jiti('./src/libs/utils/env.ts');
 
 const nextConfig: NextConfig = {
