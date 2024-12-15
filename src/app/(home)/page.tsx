@@ -129,12 +129,13 @@ export default function Home() {
             <a href="https://eure.jp/" target="_blank" rel="noreferrer">
               Eureka
             </a>
-            . My primary focus is on <Emphasize>React</Emphasize> and{' '}
-            <Emphasize>Typescript</Emphasize>.
+            .
           </p>
           <p>
-            As an advocate for <Emphasize>web accessibility</Emphasize>, I{"'"}m
-            passionate about creating inclusive and user-friendly websites.
+            My primary focus is on <Emphasize>React</Emphasize>,{' '}
+            <Emphasize>Typescript</Emphasize>, and{' '}
+            <Emphasize>Accessibility</Emphasize>. I{"'"}m passionate about
+            creating inclusive and user-friendly websites.
           </p>
           <p>
             I speak <Emphasize>Chinese</Emphasize>,{' '}
@@ -184,5 +185,5 @@ export default function Home() {
 }
 
 const Emphasize: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <span className="font-bold uppercase">{children}</span>;
+  return <span className="font-bold uppercase italic">{children}</span>;
 };
