@@ -32,32 +32,36 @@ export const PostCard = <T extends string>(props: {
         className,
       )}
     >
-      <article>
-        {image ? (
-          <PostImage
-            priority={imagePriority}
-            publicId={image.publicId}
-            alt=""
-            width={600}
-            originalWidth={image.originalWidth}
-            originalHeight={image.originalHeight}
-            className="aspect-[3/2] h-auto w-full object-cover bg-gray-100"
-          />
-        ) : (
-          <div
-            aria-hidden
-            className="flex aspect-[3/2] h-auto w-full items-center justify-center bg-gray-100 p-4 text-7xl font-bold tracking-wider text-gray-500 dark:text-gray-300"
-          >
-            {emoji ?? 'NO IMAGE'}
-          </div>
-        )}
-        <div className="mx-4 mb-4 mt-2">
-          <h2 className="text-xl font-bold">{title}</h2>
-          {date && (
-            <div className="mt-1 text-base text-gray-500 dark:text-gray-300">
-              {formatDate(date)}
+      <article className="h-full flex flex-col justify-between">
+        <div className="hidden lg:block">
+          {image ? (
+            <PostImage
+              priority={imagePriority}
+              publicId={image.publicId}
+              alt=""
+              width={600}
+              originalWidth={image.originalWidth}
+              originalHeight={image.originalHeight}
+              className="aspect-[5/3] h-auto w-full object-cover bg-gray-100"
+            />
+          ) : (
+            <div
+              aria-hidden
+              className="flex aspect-[5/3] h-auto w-full items-center justify-center bg-gray-100 p-4 text-7xl font-bold tracking-wider text-gray-500 dark:text-gray-300"
+            >
+              {emoji ?? 'NO IMAGE'}
             </div>
           )}
+        </div>
+        <div className="px-4 pb-4 pt-2 flex-1 flex flex-col justify-between">
+          <div>
+            <h2 className="text-xl font-bold">{title}</h2>
+            {date && (
+              <div className="mt-1 text-base text-gray-500 dark:text-gray-300">
+                {formatDate(date)}
+              </div>
+            )}
+          </div>
           {tags.length > 0 && (
             <div className="mt-2 space-x-2">
               {tags.map(tag => (

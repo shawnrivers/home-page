@@ -8,7 +8,7 @@ export const PostTag: React.FC<{
   return (
     <span
       className={cn(
-        'inline-block rounded-3xl px-2.5 py-1.5 font-mono text-sm',
+        'inline-block rounded-3xl px-2.5 py-1 font-mono text-sm',
         getTagColor(color),
       )}
     >
