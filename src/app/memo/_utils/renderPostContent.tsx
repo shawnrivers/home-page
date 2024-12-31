@@ -99,7 +99,7 @@ const renderBlock = ({
       const highlightLanguage = getPrismLanguage(language);
 
       return (
-        <div className="relative ">
+        <div className="relative">
           <span className="absolute right-0 top-0 inline-block rounded-sm rounded-tr-md bg-gray-600 px-2 py-1 text-xs uppercase leading-none text-white selection:bg-gray-500">
             {language}
           </span>
@@ -186,7 +186,13 @@ function renderRichText(richText: RichText): React.ReactNode {
           underline && 'underline',
         )}
       >
-        {text.link ? <a href={text.link.url}>{text.content}</a> : text.content}
+        {text.link ? (
+          <a href={text.link.url} className="text-inherit">
+            {text.content}
+          </a>
+        ) : (
+          text.content
+        )}
       </Component>
     );
   });
