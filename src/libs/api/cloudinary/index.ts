@@ -31,7 +31,7 @@ export function fetchImages(fileNames: string[]): Promise<ResourceApiResponse> {
   );
   return cloudinary.api.resources_by_ids(prefixedFileNames, {
     resource_type: 'image',
-    max_results: 500,
+    max_results: 1000,
   });
 }
 
