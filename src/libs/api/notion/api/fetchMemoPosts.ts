@@ -19,9 +19,6 @@ export async function fetchMemoPosts(
     }[];
   }> = {},
 ): Promise<Posts> {
-  if (!process.env.NOTION_DATABASE_ID_BLOG)
-    throw new Error('NOTION_DATABASE_ID_BLOG is not defined.');
-
   const { draft = false, sorts } = params;
 
   const res = await notion.databases.query({

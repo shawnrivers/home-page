@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default async function Job() {
   const { blocks, images } = await fetchPostContent(
-    process.env.NOTION_PAGE_ID_JOB ?? '',
+    process.env.NOTION_PAGE_ID_JOB,
   );
 
   return (
