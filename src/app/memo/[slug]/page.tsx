@@ -19,7 +19,7 @@ import 'prismjs/components/prism-tsx';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-markdown';
-import slugify from 'slugify';
+import { generateSlugFromText } from '@/libs/utils/string';
 
 interface MemoPageProps {
   params: Promise<{ slug: string }>;
@@ -175,6 +175,6 @@ function getTableOfContent(blocks: Block[]): Toc[] {
         default:
           break;
       }
-      return { text, url: `#${slugify(text)}`, level };
+      return { text, url: `#${generateSlugFromText(text)}`, level };
     });
 }

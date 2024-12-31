@@ -1,5 +1,5 @@
-import slugify from 'slugify';
+import { generateSlugFromText } from '@/libs/utils/string';
 
 export function getCoverImageId(title: string): string {
-  return slugify(`${title} cover`);
+  return generateSlugFromText(`${title} cover`);
 }

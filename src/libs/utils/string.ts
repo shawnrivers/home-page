@@ -1,5 +1,6 @@
 import type React from 'react';
 import { isValidElement } from 'react';
+import slugify from 'slugify';
 
 export function convertNodeToString(node: React.ReactNode): string {
   if (node == null) {
@@ -22,4 +23,8 @@ export function convertNodeToString(node: React.ReactNode): string {
   }
 
   return node.toString();
+}
+
+export function generateSlugFromText(text: string): string {
+  return slugify(text, { lower: true, strict: true });
 }

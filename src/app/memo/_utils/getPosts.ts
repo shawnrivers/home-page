@@ -11,17 +11,17 @@ export const getPosts = cache(async (options = { ignoreDraft: false }) => {
     draft: ignoreDraft ? false : (await draftMode()).isEnabled,
     sorts: [{ property: 'Date', direction: 'descending' }],
   });
-
-  const postCovers =
+  const images = await fetchPostImages(
     posts
       ?.filter(post => post.cover)
+      .filter(post => post.cover != null)
       .map(post => ({
-        url: post.cover?.file.url ?? '',
         fileName: getCoverImageId(
           convertRichTextToPlainText(post.properties.Page.title),
         ),
-      })) ?? [];
-  const images = await fetchPostImages(postCovers);
+        url: post.cover?.file.url ?? '',
+      })) ?? [],
+  );
 
   return posts?.map(post => ({
     ...post,

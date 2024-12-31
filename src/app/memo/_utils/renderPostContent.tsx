@@ -5,9 +5,9 @@ import { cn } from '@/libs/utils/classNames';
 import { PostImage } from '@/app/memo/_components/PostImage';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';
 import Prism from 'prismjs';
-import slugify from 'slugify';
 import { Fragment } from 'react';
 import type { RichText } from '@/libs/api/notion/schema/RichTextSchema';
+import { generateSlugFromText } from '@/libs/utils/string';
 
 type Images = Awaited<ReturnType<typeof fetchPostImages>>;
 
@@ -49,21 +49,21 @@ const renderBlock = ({
     }
     case 'heading_1': {
       return (
-        <h1 id={slugify(convertRichTextToPlainText(block.heading_1.rich_text))}>
+        <h1 id={generateSlugFromRichText(block.heading_1.rich_text)}>
           {renderRichText(block.heading_1.rich_text)}
         </h1>
       );
     }
     case 'heading_2': {
       return (
-        <h2 id={slugify(convertRichTextToPlainText(block.heading_2.rich_text))}>
+        <h2 id={generateSlugFromRichText(block.heading_2.rich_text)}>
           {renderRichText(block.heading_2.rich_text)}
         </h2>
       );
     }
     case 'heading_3': {
       return (
-        <h3 id={slugify(convertRichTextToPlainText(block.heading_3.rich_text))}>
+        <h3 id={generateSlugFromRichText(block.heading_3.rich_text)}>
           {renderRichText(block.heading_3.rich_text)}
         </h3>
       );
@@ -164,6 +164,10 @@ const renderBlock = ({
     }
   }
 };
+
+function generateSlugFromRichText(richText: { plain_text: string }[]): string {
+  return generateSlugFromText(convertRichTextToPlainText(richText));
+}
 
 function renderRichText(richText: RichText): React.ReactNode {
   return richText.map((value, i) => {
