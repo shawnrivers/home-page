@@ -44,7 +44,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({
         <h3 id={headingId} className="text-xl font-bold uppercase">
           {heading}
         </h3>
-        <p className="text-sm">{description}</p>
+        <p className="text-sm tracking-wide">{description}</p>
         <span className="absolute -bottom-4 -right-4 inline-block rounded-full bg-gray-700 p-2 dark:bg-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"

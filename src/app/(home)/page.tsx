@@ -44,22 +44,51 @@ const bioList = [
   {
     heading: 'companies',
     items: [
-      { text: 'Eureka, Inc. (intern)' },
-      { text: 'SHOWROOM Inc. (intern)' },
-      { text: 'Eureka, Inc.', highlighted: true },
+      {
+        text: (
+          <>
+            <span className="font-semibold">Eureka</span>:
+            <br />
+            Front-end Engineer (intern)
+          </>
+        ),
+      },
+      {
+        text: (
+          <>
+            <span className="font-semibold">SHOWROOM</span>:
+            <br />
+            Front-end Engineer (intern)
+          </>
+        ),
+      },
+      {
+        text: (
+          <>
+            <span className="font-semibold">Eureka</span>:
+            <br />
+            Front-end Engineer,
+            <br />
+            <span className="font-semibold">Alumnote</span>:
+            <br />
+            Front-end Engineer (contractor)
+          </>
+        ),
+        highlighted: true,
+      },
     ],
   },
   {
     heading: 'education',
     items: [
-      { text: 'Northeastern University (China), Digital Media' },
-      { text: 'Nagoya University, Society and Media Studies' },
-      { text: 'University of Tokyo, Computer Graphics', highlighted: true },
+      { text: 'Northeastern University (China): Digital Media' },
+      { text: 'Nagoya University: Society and Media Studies' },
+      { text: 'University of Tokyo: Computer Graphics', highlighted: true },
     ],
   },
 ] satisfies {
   heading: string;
-  items: { text: string; highlighted?: boolean }[];
+  items: React.ComponentProps<typeof LinkedList>['items'];
 }[];
 
 export default function Home() {
@@ -77,7 +106,7 @@ export default function Home() {
           className="rounded-full border-4 border-gray-800 object-cover dark:border-gray-100"
         />
         <div className="mt-4 text-center sm:ml-4 sm:mt-0 sm:text-left">
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-2xl font-bold tracking-wide">
             Usho Ka |
             <br />
             Yuxiao He
@@ -123,7 +152,7 @@ export default function Home() {
         >
           &rdquo;
         </span>
-        <div className="space-y-4 rounded-lg border-2 border-dashed border-gray-900 p-4 text-base md:p-8 md:text-lg dark:border-white font-mono">
+        <div className="space-y-4 rounded-lg border-2 border-dashed border-gray-900 p-4 md:p-8 md:text-lg dark:border-white tracking-wide">
           <p>
             Hi, I{"'"}m Usho. I{"'"}m a Tokyo-based web developer at{' '}
             <a href="https://eure.jp/" target="_blank" rel="noreferrer">
@@ -185,5 +214,5 @@ export default function Home() {
 }
 
 const Emphasize: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <span className="font-bold uppercase italic">{children}</span>;
+  return <span className="font-bold uppercase">{children}</span>;
 };
