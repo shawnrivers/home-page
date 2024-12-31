@@ -13,7 +13,10 @@ export const DraftStatusToast = async ({
   }
 
   return (
-    <aside className={cn('fixed bottom-4 left-4', className)}>
+    <aside
+      aria-label="Draft Mode"
+      className={cn('fixed bottom-4 left-4', className)}
+    >
       <span className="flex items-center gap-2 rounded-lg border-2 border-gray-800 bg-gray-200 p-2 font-bold dark:border-white dark:bg-gray-700">
         Draft Mode
         {isEnabled && <ExitDraftModeButton />}
