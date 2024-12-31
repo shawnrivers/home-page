@@ -11,9 +11,9 @@ export function getTagColor(color: string): string {
     case 'green':
       return 'text-white bg-green-700';
     case 'default':
-      return 'text-white bg-gray-600';
+      return 'text-white bg-gray-700';
     default:
-      return 'text-white bg-gray-600';
+      return 'text-white bg-gray-700';
   }
 }
 
@@ -30,8 +30,8 @@ export function getTagCardBorderColor(color: string): string {
     case 'green':
       return 'border-green-500';
     case 'default':
-      return 'border-gray-500';
+      return 'border-gray-700';
     default:
-      return 'border-gray-500';
+      return 'border-gray-700';
   }
 }
