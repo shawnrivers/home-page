@@ -154,7 +154,7 @@ export default function Home() {
         </span>
         <div className="space-y-4 rounded-lg border-2 border-dashed border-gray-900 p-4 md:p-8 md:text-lg dark:border-white tracking-wide">
           <p>
-            Hi, I{"'"}m Usho. I{"'"}m a Tokyo-based web developer at{' '}
+            Hi, I{"'"}m Usho. I{"'"}m a Tokyo-based web front-end engineer at{' '}
             <a href="https://eure.jp/" target="_blank" rel="noreferrer">
               Eureka
             </a>
