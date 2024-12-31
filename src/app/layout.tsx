@@ -7,15 +7,15 @@ import {
   SkipNavLink,
 } from '@/components/SkipNavLink';
 import { cn } from '@/libs/utils/classNames';
-import { Inter, Source_Code_Pro } from 'next/font/google';
+import { Parkinsans, Source_Code_Pro } from 'next/font/google';
 import '@/libs/styles/globals.css';
 import type { Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
 
-const inter = Inter({
-  variable: '--font-inter',
+const inter = Parkinsans({
+  variable: '--font-parkinsans',
   subsets: ['latin'],
   display: 'swap',
 });

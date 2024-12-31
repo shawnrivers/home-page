@@ -64,7 +64,7 @@ const bioList = [
 
 export default function Home() {
   return (
-    <div className="mx-auto flex max-w-2xl flex-col items-center gap-10 pb-8 font-mono">
+    <div className="mx-auto flex max-w-2xl flex-col items-center gap-10 pb-8">
       <section className="mx-4 flex flex-col items-center justify-center sm:flex-row">
         <Image
           priority
@@ -123,7 +123,7 @@ export default function Home() {
         >
           &rdquo;
         </span>
-        <div className="space-y-4 rounded-lg border-2 border-dashed border-gray-900 p-4 text-base md:p-8 md:text-lg dark:border-white">
+        <div className="space-y-4 rounded-lg border-2 border-dashed border-gray-900 p-4 text-base md:p-8 md:text-lg dark:border-white font-mono">
           <p>
             Hi, I{"'"}m Usho. I{"'"}m a Tokyo-based web developer at{' '}
             <a href="https://eure.jp/" target="_blank" rel="noreferrer">
