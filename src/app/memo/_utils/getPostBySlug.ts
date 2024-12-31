@@ -1,6 +1,6 @@
 import { getCoverImageId } from '@/app/memo/_utils/cover';
-import { fetchPostContent } from '@/features/post/utils/fetchPostContent';
-import { fetchPostImages } from '@/features/post/utils/fetchPostImages';
+import { fetchPostContent } from '@/app/memo/_utils/fetchPostContent';
+import { fetchPostImages } from '@/app/memo/_utils/fetchPostImages';
 import { fetchMemoPosts } from '@/libs/api/notion/api/fetchMemoPosts';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';
 import { draftMode } from 'next/headers';

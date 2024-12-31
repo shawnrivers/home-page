@@ -1,6 +1,6 @@
 import type React from 'react';
 import type { Block } from '@/libs/api/notion/api/fetchBlocks';
-import type { fetchPostImages } from '@/features/post/utils/fetchPostImages';
+import type { fetchPostImages } from '@/app/memo/_utils/fetchPostImages';
 import { cn } from '@/libs/utils/classNames';
 import { PostImage } from '@/app/memo/_components/PostImage';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';

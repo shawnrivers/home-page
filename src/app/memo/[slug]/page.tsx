@@ -6,7 +6,7 @@ import { PostImage } from '@/app/memo/_components/PostImage';
 import { PostTag } from '@/app/memo/_components/PostTag';
 import { getPostBySlug } from '@/app/memo/_utils/getPostBySlug';
 import { getPosts } from '@/app/memo/_utils/getPosts';
-import { renderPostContent } from '@/features/post/utils/renderPostContent';
+import { renderPostContent } from '@/app/memo/_utils/renderPostContent';
 import { getImageUrl } from '@/libs/api/cloudinary';
 import { formatDate } from '@/libs/utils/date';
 import { sharedMetadata } from '@/libs/utils/meta';

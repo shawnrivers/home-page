@@ -1,5 +1,5 @@
-import { fetchPostContent } from '@/features/post/utils/fetchPostContent';
-import { renderPostContent } from '@/features/post/utils/renderPostContent';
+import { fetchPostContent } from '@/app/memo/_utils/fetchPostContent';
+import { renderPostContent } from '@/app/memo/_utils/renderPostContent';
 import { sharedMetadata } from '@/libs/utils/meta';
 import type { Metadata } from 'next';
 
