@@ -101,7 +101,7 @@ export default async function Post(props: MemoPageProps) {
       <div className="isolate mx-auto flex items-start justify-center gap-4">
         {tableOfContents.length > 0 && (
           <TableOfContents
-            className="sticky top-4 order-last hidden lg:block"
+            className="sticky top-4 max-h-[calc(100dvh-2rem)] order-last hidden lg:block"
             tableOfContents={tableOfContents}
           />
         )}
