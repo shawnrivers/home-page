@@ -4,7 +4,7 @@ import { useScroll } from '@/hooks/useScroll';
 import { cn } from '@/libs/utils/classNames';
 import { useCallback, useState } from 'react';
 
-export type Toc = { text: string; url: string; level: number };
+export type Toc = { text: string; id: string; level: number };
 
 export const TableOfContents: React.FC<{
   tableOfContents: Toc[];
@@ -13,11 +13,11 @@ export const TableOfContents: React.FC<{
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleScroll = useCallback(() => {
-    const headingTops: { text: string | null; top: number }[] = [];
+    const headingTops: { id: string; top: number }[] = [];
     // biome-ignore lint/complexity/noForEach: The array is small and the performance impact is negligible
     document.querySelectorAll('h2, h3').forEach(heading => {
       headingTops.push({
-        text: heading.textContent,
+        id: heading.id,
         top: heading.getBoundingClientRect().top,
       });
     });
@@ -28,7 +28,7 @@ export const TableOfContents: React.FC<{
     });
     if (!activeHeading) return;
     const activeIndex = tableOfContents.findIndex(
-      toc => toc.text === activeHeading.text,
+      toc => toc.id === activeHeading.id,
     );
     setActiveIndex(activeIndex);
   }, [tableOfContents]);
@@ -46,9 +46,9 @@ export const TableOfContents: React.FC<{
       <nav id="toc" aria-label="Table of contents">
         <ul className="flex flex-col gap-1 py-2">
           {tableOfContents.map((toc, index) => (
-            <li key={toc.url} className={cn('text-sm font-medium')}>
+            <li key={toc.id} className={cn('text-sm font-medium')}>
               <a
-                href={toc.url}
+                href={`#${toc.id}`}
                 aria-current={activeIndex === index ? 'location' : false}
                 className={cn(
                   'relative block px-2 text-base leading-[1.1] no-underline hover:underline',

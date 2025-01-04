@@ -148,7 +148,14 @@ export default async function Post(props: MemoPageProps) {
   );
 }
 
+type HeadingsBuffer = {
+  level: 1 | 2 | 3;
+  text: string;
+}[];
+
 function getTableOfContent(blocks: Block[]): Toc[] {
+  const headingsBuffer: HeadingsBuffer = [];
+
   return blocks
     .filter(
       block =>
@@ -157,24 +164,41 @@ function getTableOfContent(blocks: Block[]): Toc[] {
         block.type === 'heading_3',
     )
     .map(block => {
-      let text = '';
-      let level = 1;
       switch (block.type) {
-        case 'heading_1':
-          text = convertRichTextToPlainText(block.heading_1.rich_text);
-          level = 1;
-          break;
-        case 'heading_2':
-          text = convertRichTextToPlainText(block.heading_2.rich_text);
-          level = 2;
-          break;
-        case 'heading_3':
-          text = convertRichTextToPlainText(block.heading_3.rich_text);
-          level = 3;
-          break;
-        default:
-          break;
+        case 'heading_1': {
+          const text = convertRichTextToPlainText(block.heading_1.rich_text);
+          const level = 1;
+          headingsBuffer.push({ level, text });
+          return {
+            text,
+            id: generateSlugFromText(text),
+            level,
+          };
+        }
+        case 'heading_2': {
+          const text = convertRichTextToPlainText(block.heading_2.rich_text);
+          const level = 2;
+          headingsBuffer.push({ level, text });
+          return {
+            text,
+            id: generateSlugFromText(text),
+            level,
+          };
+        }
+        case 'heading_3': {
+          const text = convertRichTextToPlainText(block.heading_3.rich_text);
+          const level = 3;
+          const nearestHeading2 = headingsBuffer
+            .slice()
+            .reverse()
+            .find(heading => heading.level === 2);
+          headingsBuffer.push({ level, text });
+          return {
+            text,
+            id: generateSlugFromText(nearestHeading2?.text, text),
+            level,
+          };
+        }
       }
-      return { text, url: `#${generateSlugFromText(text)}`, level };
     });
 }

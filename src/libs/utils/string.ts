@@ -25,6 +25,9 @@ export function convertNodeToString(node: React.ReactNode): string {
   return node.toString();
 }
 
-export function generateSlugFromText(text: string): string {
-  return slugify(text, { lower: true, strict: true });
+export function generateSlugFromText(...text: (string | undefined)[]): string {
+  return slugify(text.filter(t => t !== '' && t !== undefined).join('-'), {
+    lower: true,
+    strict: true,
+  });
 }

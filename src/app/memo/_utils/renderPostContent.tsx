@@ -11,14 +11,20 @@ import { generateSlugFromText } from '@/libs/utils/string';
 
 type Images = Awaited<ReturnType<typeof fetchPostImages>>;
 
-export const renderPostContent = ({
+type HeadingsBuffer = {
+  level: 1 | 2 | 3;
+  text: string;
+}[];
+
+export function renderPostContent({
   blocks,
   images,
 }: {
   blocks: Block[];
   images: Images;
-}) => {
+}) {
   const listBuffer: React.ReactNode[] = [];
+  const headingsBuffer: HeadingsBuffer = [];
 
   return blocks.map((block, i) => (
     <Fragment key={block.id}>
@@ -27,43 +33,56 @@ export const renderPostContent = ({
         nextBlock: blocks[i + 1],
         images,
         listBuffer,
+        headingsBuffer,
       })}
     </Fragment>
   ));
-};
+}
 
-const renderBlock = ({
+function renderBlock({
   block,
   nextBlock,
   images,
   listBuffer,
+  headingsBuffer,
 }: {
   block: Block;
   nextBlock: Block | undefined;
   images: Images;
   listBuffer: React.ReactNode[];
-}) => {
+  headingsBuffer: HeadingsBuffer;
+}) {
   switch (block.type) {
     case 'paragraph': {
       return <p>{renderRichText(block.paragraph.rich_text)}</p>;
     }
     case 'heading_1': {
+      const text = convertRichTextToPlainText(block.heading_1.rich_text);
+      headingsBuffer.push({ level: 1, text });
       return (
-        <h1 id={generateSlugFromRichText(block.heading_1.rich_text)}>
+        <h1 id={generateSlugFromText(text)}>
           {renderRichText(block.heading_1.rich_text)}
         </h1>
       );
     }
     case 'heading_2': {
+      const text = convertRichTextToPlainText(block.heading_2.rich_text);
+      headingsBuffer.push({ level: 2, text });
       return (
-        <h2 id={generateSlugFromRichText(block.heading_2.rich_text)}>
+        <h2 id={generateSlugFromText(text)}>
           {renderRichText(block.heading_2.rich_text)}
         </h2>
       );
     }
     case 'heading_3': {
+      const text = convertRichTextToPlainText(block.heading_3.rich_text);
+      const nearestHeading2 = headingsBuffer
+        .slice()
+        .reverse()
+        .find(heading => heading.level === 2);
+      headingsBuffer.push({ level: 3, text });
       return (
-        <h3 id={generateSlugFromRichText(block.heading_3.rich_text)}>
+        <h3 id={generateSlugFromText(nearestHeading2?.text, text)}>
           {renderRichText(block.heading_3.rich_text)}
         </h3>
       );
@@ -163,10 +182,6 @@ const renderBlock = ({
       return null;
     }
   }
-};
-
-function generateSlugFromRichText(richText: { plain_text: string }[]): string {
-  return generateSlugFromText(convertRichTextToPlainText(richText));
 }
 
 function renderRichText(richText: RichText): React.ReactNode {
