@@ -114,13 +114,13 @@ function renderBlock({
       return <blockquote>{renderRichText(block.quote.rich_text)}</blockquote>;
     }
     case 'code': {
-      const { rich_text, language } = block.code;
+      const { rich_text, language, caption } = block.code;
       const highlightLanguage = getPrismLanguage(language);
 
       return (
         <div className="relative">
-          <span className="absolute right-0 top-0 inline-block rounded-sm rounded-tr-md bg-gray-600 px-2 py-1 text-xs uppercase leading-none text-white selection:bg-gray-500">
-            {language}
+          <span className="absolute right-0 top-0 inline-block font-mono rounded-sm rounded-tr-md rounded-bl-md bg-gray-700 px-2 py-1.5 text-xs leading-none text-white selection:bg-gray-500">
+            {caption.length > 0 ? renderRichText(caption) : language}
           </span>
           <pre
             // biome-ignore lint/a11y/noNoninteractiveTabindex: Should be focusable for keyboard navigation because it's potentially scrollable
