@@ -14,7 +14,7 @@ export const LinkedList: React.FC<LinkedListProps> = ({ items, className }) => {
           <div
             className={cn(
               'absolute -left-2 top-0 box-border h-[1.125rem] w-[1.125rem] rounded-[50%] border-[4px] border-white dark:border-gray-800',
-              item.highlighted ? 'bg-red-500' : 'bg-gray-400',
+              item.highlighted ? 'bg-red-400' : 'bg-gray-400',
             )}
           />
           <div
