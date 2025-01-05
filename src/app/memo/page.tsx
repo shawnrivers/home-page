@@ -29,14 +29,12 @@ export default async function MemoList() {
   return (
     <>
       <h1 className="sr-only">Memo</h1>
-      <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {posts?.map((post, index) => {
-          const title = convertRichTextToPlainText(post.properties.Page.title);
-
           return (
             <li key={post.id}>
               <PostCard
-                title={title}
+                title={convertRichTextToPlainText(post.properties.Page.title)}
                 href={`/memo/${convertRichTextToPlainText(
                   post.properties.Slug.rich_text,
                 )}`}

@@ -10,11 +10,11 @@ const navItems = [
   { label: 'Job', href: '/job', highlightRegex: /^\/job$/ },
 ] as const;
 
-export const Header: React.FC = () => {
+export const Header: React.FC<{ className?: string }> = ({ className }) => {
   const pathname = usePathname();
 
   return (
-    <header className="mb-8">
+    <header className={className}>
       <nav aria-label="main-nav">
         <ul className="flex flex-wrap items-center justify-center gap-2 p-4">
           {navItems.map(({ label, href, highlightRegex }) => {

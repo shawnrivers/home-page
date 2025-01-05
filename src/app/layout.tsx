@@ -44,22 +44,20 @@ export default function RootLayout({
         <SkipNavLink className="z-10" />
         <div
           id={SCROLL_CONTAINER_ID}
-          className="isolate flex h-full flex-col overflow-y-scroll"
+          className="isolate flex h-full flex-col overflow-y-scroll gap-10"
         >
-          <div className="flex-1">
+          <div className="flex-1 flex flex-col gap-6">
             <Header />
-            <DraftStatusToast className="z-10" />
             <main
               id={SKIP_NAV_MAIN_CONTENT_ID}
-              className="isolate mx-auto max-w-6xl px-6 pb-8"
+              className="isolate mx-auto max-w-6xl px-6"
             >
               {children}
             </main>
           </div>
-          <div>
-            <Footer />
-          </div>
+          <Footer />
         </div>
+        <DraftStatusToast className="z-10" />
         <A11yReporter />
         <Analytics />
         <SpeedInsights />
