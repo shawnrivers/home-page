@@ -4,10 +4,10 @@ import type { fetchPostImages } from '@/app/memo/_utils/fetchPostImages';
 import { cn } from '@/libs/utils/classNames';
 import { PostImage } from '@/app/memo/_components/PostImage';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';
-import Prism from 'prismjs';
 import { Fragment } from 'react';
 import type { RichText } from '@/libs/api/notion/schema/RichTextSchema';
 import { generateSlugFromText } from '@/libs/utils/string';
+import { highlightCodeToHtml } from '@/app/memo/_utils/highlighter';
 
 type Images = Awaited<ReturnType<typeof fetchPostImages>>;
 
@@ -115,29 +115,23 @@ function renderBlock({
     }
     case 'code': {
       const { rich_text, language, caption } = block.code;
-      const highlightLanguage = getPrismLanguage(language);
 
       return (
         <div className="relative">
-          <span className="absolute right-0 top-0 inline-block font-mono rounded-sm rounded-tr-md rounded-bl-md bg-gray-700 px-2 py-1.5 text-xs leading-none text-white selection:bg-gray-500">
+          <span className="absolute right-0 top-0 inline-block font-mono rounded-sm rounded-tr-md rounded-bl-md bg-gray-100 px-2 py-1.5 text-xs leading-none text-gray-900 dark:bg-gray-800 dark:text-white">
             {caption.length > 0 ? renderRichText(caption) : language}
           </span>
-          <pre
+          <div
             // biome-ignore lint/a11y/noNoninteractiveTabindex: Should be focusable for keyboard navigation because it's potentially scrollable
             tabIndex={0}
-            className="rounded-md bg-gray-800 !py-6 !leading-normal selection:bg-gray-600"
-          >
-            <code
-              // biome-ignore lint/security/noDangerouslySetInnerHtml: The data source is trusted
-              dangerouslySetInnerHTML={{
-                __html: Prism.highlight(
-                  convertRichTextToPlainText(rich_text),
-                  Prism.languages[highlightLanguage] as Prism.Grammar,
-                  highlightLanguage,
-                ),
-              }}
-            />
-          </pre>
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: The data source is trusted
+            dangerouslySetInnerHTML={{
+              __html: highlightCodeToHtml(
+                convertRichTextToPlainText(rich_text),
+                language,
+              ),
+            }}
+          />
         </div>
       );
     }
@@ -215,21 +209,4 @@ function renderRichText(richText: RichText): React.ReactNode {
       </Component>
     );
   });
-}
-
-function getPrismLanguage(lang: string): string {
-  switch (lang) {
-    case 'javascript':
-      return 'jsx';
-    case 'typescript':
-      return 'tsx';
-    case 'html':
-      return 'html';
-    case 'svg':
-      return 'svg';
-    case 'css':
-      return 'css';
-    default:
-      return 'markdown';
-  }
 }
