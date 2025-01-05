@@ -43,5 +43,10 @@
       "attributePosition": "auto",
       "bracketSpacing": true
     }
+  },
+  "css": {
+    "formatter": {
+      "enabled": true
+    }
   }
 }
