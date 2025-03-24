@@ -118,7 +118,7 @@ function renderBlock({
 
       return (
         <div className="relative">
-          <span className="absolute right-0 top-0 inline-block font-mono rounded-sm rounded-tr-md rounded-bl-md bg-gray-100 px-2 py-1.5 text-xs leading-none text-gray-900 dark:bg-gray-800 dark:text-white">
+          <span className="absolute right-0 top-0 inline-block font-mono rounded-xs rounded-tr-md rounded-bl-md bg-gray-100 px-2 py-1.5 text-xs leading-none text-gray-900 dark:bg-gray-800 dark:text-white">
             {caption.length > 0 ? renderRichText(caption) : language}
           </span>
           <div
@@ -153,7 +153,7 @@ function renderBlock({
           originalHeight={image.height}
           alt=""
           sizes="800px"
-          className="mx-auto h-auto max-w-full rounded bg-white object-contain dark:bg-gray-900"
+          className="mx-auto h-auto max-w-full rounded-sm bg-white object-contain dark:bg-gray-900"
         />
       );
 
@@ -193,7 +193,7 @@ function renderRichText(richText: RichText): React.ReactNode {
         className={cn(
           bold && 'font-bold',
           code &&
-            'rounded bg-gray-100 px-1.5 py-0.5 font-mono font-normal text-red-600 before:content-none after:content-none dark:bg-gray-800 dark:text-red-400',
+            'rounded-sm bg-gray-100 px-1.5 py-0.5 font-mono font-normal text-red-600 before:content-none after:content-none dark:bg-gray-800 dark:text-red-400',
           italic && 'italic',
           strikethrough && 'line-through',
           underline && 'underline',

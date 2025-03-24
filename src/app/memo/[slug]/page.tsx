@@ -124,7 +124,7 @@ export default async function Post(props: MemoPageProps) {
                 originalHeight={coverImage.height}
                 alt=""
                 sizes="800px"
-                className="mx-auto h-auto w-full rounded bg-white object-contain dark:bg-gray-900"
+                className="mx-auto h-auto w-full rounded-sm bg-white object-contain dark:bg-gray-900"
               />
             )}
           </div>
