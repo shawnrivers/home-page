@@ -53,7 +53,7 @@
   }
 
   a {
-    @apply underline hover:text-gray-400;
+    @apply underline hover:text-gray-400 transition motion-reduce:transition-none;
   }
 }
 

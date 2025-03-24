@@ -10,7 +10,7 @@ export const SocialLink: React.FC<{
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex items-center gap-1 text-gray-700 sm:justify-start dark:text-gray-300"
+      className="inline-flex items-center gap-1 text-gray-700 sm:justify-start dark:text-gray-300 hover:text-gray-400 transition motion-reduce:transition-none"
     >
       {icon}
       <span>{text}</span>

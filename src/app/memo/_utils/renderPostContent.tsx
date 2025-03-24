@@ -200,7 +200,10 @@ function renderRichText(richText: RichText): React.ReactNode {
         )}
       >
         {text.link ? (
-          <a href={text.link.url} className="text-inherit font-semibold">
+          <a
+            href={text.link.url}
+            className="text-inherit hover:text-gray-400 font-semibold"
+          >
             {text.content}
           </a>
         ) : (
