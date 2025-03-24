@@ -6,6 +6,9 @@ parseProcessEnv();
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: {
+    viewTransition: true,
+  },
   images: {
     remotePatterns: [
       {

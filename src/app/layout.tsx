@@ -13,6 +13,7 @@ import type { Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
+import { unstable_ViewTransition as ViewTransition } from 'react';
 
 const inter = Parkinsans({
   variable: '--font-parkinsans',
@@ -41,23 +42,25 @@ export default function RootLayout({
     <html lang="en" className={cn(inter.variable, sourceCodePro.variable)}>
       <head />
       <body>
-        <SkipNavLink className="z-10" />
-        <div
-          id={SCROLL_CONTAINER_ID}
-          className="isolate flex h-full flex-col overflow-y-scroll gap-10"
-        >
-          <div className="flex-1 flex flex-col gap-6">
-            <Header />
-            <main
-              id={SKIP_NAV_MAIN_CONTENT_ID}
-              className="isolate mx-auto max-w-6xl px-6"
-            >
-              {children}
-            </main>
+        <ViewTransition>
+          <SkipNavLink className="z-10" />
+          <div
+            id={SCROLL_CONTAINER_ID}
+            className="isolate flex h-full flex-col overflow-y-scroll gap-10"
+          >
+            <div className="flex-1 flex flex-col gap-6">
+              <Header />
+              <main
+                id={SKIP_NAV_MAIN_CONTENT_ID}
+                className="isolate mx-auto max-w-6xl px-6"
+              >
+                {children}
+              </main>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-        <DraftStatusToast className="z-10" />
+          <DraftStatusToast className="z-10" />
+        </ViewTransition>
         <A11yReporter />
         <Analytics />
         <SpeedInsights />
