@@ -48,11 +48,11 @@ export default function RootLayout({
             id={SCROLL_CONTAINER_ID}
             className="isolate flex h-full flex-col overflow-y-scroll gap-10"
           >
-            <div className="flex-1 flex flex-col gap-6">
+            <div className="flex-1">
               <Header />
               <main
                 id={SKIP_NAV_MAIN_CONTENT_ID}
-                className="isolate mx-auto max-w-6xl px-6"
+                className="isolate mx-auto max-w-6xl px-6 mt-6"
               >
                 {children}
               </main>

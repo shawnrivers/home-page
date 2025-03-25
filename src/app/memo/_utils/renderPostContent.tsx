@@ -117,13 +117,11 @@ function renderBlock({
       const { rich_text, language, caption } = block.code;
 
       return (
-        <div className="relative">
-          <span className="absolute right-0 top-0 inline-block font-mono rounded-xs rounded-tr-md rounded-bl-md bg-gray-100 px-2 py-1.5 text-xs leading-none text-gray-900 dark:bg-gray-800 dark:text-white">
+        <div className="relative isolate my-6">
+          <span className="absolute z-10 right-0 top-0 inline-block font-mono rounded-xs rounded-tr-md rounded-bl-md bg-gray-100 px-2 py-1.5 text-xs leading-none text-gray-900 dark:bg-gray-800 dark:text-white">
             {caption.length > 0 ? renderRichText(caption) : language}
           </span>
           <div
-            // biome-ignore lint/a11y/noNoninteractiveTabindex: Should be focusable for keyboard navigation because it's potentially scrollable
-            tabIndex={0}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: The data source is trusted
             dangerouslySetInnerHTML={{
               __html: highlightCodeToHtml(
@@ -131,6 +129,7 @@ function renderBlock({
                 language,
               ),
             }}
+            className="relative z-0 *:my-0 *:py-6"
           />
         </div>
       );
