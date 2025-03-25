@@ -152,7 +152,7 @@ export default function Home() {
         >
           &rdquo;
         </span>
-        <div className="space-y-4 rounded-lg border-2 border-dashed border-gray-900 p-4 md:p-8 md:text-lg dark:border-white tracking-wide">
+        <div className="space-y-4 rounded-lg border-2 border-dashed border-gray-900 p-4 md:p-8 md:text-lg dark:border-white tracking-wider">
           <p>Hey there! I{"'"}m Usho, a web front-end engineer in Tokyo.</p>
           <p>
             My primary focus is on <Emphasize>React</Emphasize>,{' '}
