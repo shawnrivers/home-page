@@ -154,11 +154,8 @@ export default function Home() {
         </span>
         <div className="space-y-4 rounded-lg border-2 border-dashed border-gray-900 p-4 md:p-8 md:text-lg dark:border-white tracking-wide">
           <p>
-            Hi, I{"'"}m Usho. I{"'"}m a Tokyo-based web front-end engineer at{' '}
-            <a href="https://eure.jp/" target="_blank" rel="noreferrer">
-              Eureka
-            </a>
-            .
+            Hey there! I{"'"}m Usho, a web front-end engineer web experiences in
+            Tokyo.
           </p>
           <p>
             My primary focus is on <Emphasize>React</Emphasize>,{' '}
@@ -167,8 +164,15 @@ export default function Home() {
             creating inclusive and user-friendly websites.
           </p>
           <p>
-            I speak <Emphasize>Chinese</Emphasize>,{' '}
-            <Emphasize>Japanese</Emphasize>, and <Emphasize>English</Emphasize>.
+            When not coding, you'll find me in{' '}
+            <a
+              href="https://genshin.hoyoverse.com/en/home"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Emphasize>Teyvat</Emphasize>
+            </a>
+            .
           </p>
         </div>
       </div>
