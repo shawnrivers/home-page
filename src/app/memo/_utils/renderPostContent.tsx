@@ -117,8 +117,8 @@ function renderBlock({
       const { rich_text, language, caption } = block.code;
 
       return (
-        <div className="relative isolate my-6">
-          <span className="absolute z-10 right-0 top-0 inline-block font-mono rounded-xs rounded-tr-md rounded-bl-md bg-gray-100 px-2 py-1.5 text-xs leading-none text-gray-900 dark:bg-gray-800 dark:text-white">
+        <div className="relative isolate my-6 border-2 border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+          <span className="absolute z-10 right-0 top-0 inline-block font-mono rounded-bl-lg px-2 py-1 text-xs leading-none dark:bg-gray-800 bg-gray-100 text-gray-900 border-l-2 border-b-2 border-gray-200 dark:border-gray-700 dark:text-white">
             {caption.length > 0 ? renderRichText(caption) : language}
           </span>
           <div
