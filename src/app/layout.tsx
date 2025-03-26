@@ -52,7 +52,7 @@ export default function RootLayout({
               <Header />
               <main
                 id={SKIP_NAV_MAIN_CONTENT_ID}
-                className="isolate mx-auto max-w-6xl px-6 mt-6"
+                className="isolate mx-auto max-w-6xl pl-[calc(env(safe-area-inset-left)+1.5rem)] pr-[calc(env(safe-area-inset-right)+1.5rem)] mt-6"
               >
                 {children}
               </main>

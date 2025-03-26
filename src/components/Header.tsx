@@ -16,7 +16,7 @@ export const Header: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <header className={className}>
       <nav aria-label="main-nav">
-        <ul className="flex flex-wrap items-center justify-center gap-2 p-4">
+        <ul className="flex flex-wrap items-center justify-center gap-2 pt-[calc(env(safe-area-inset-top)+1rem)] pl-[calc(env(safe-area-inset-left)+1rem)] pr-[calc(env(safe-area-inset-right)+1rem)] pb-4">
           {navItems.map(({ label, href, highlightRegex }) => {
             const isCurrent = highlightRegex.test(pathname ?? '');
             return (

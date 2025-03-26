@@ -6,8 +6,8 @@ export const Footer: React.FC = () => {
     currentYear === startYear ? currentYear : `${startYear}-${currentYear}`;
 
   return (
-    <footer className="bg-gray-800 py-4 text-center">
-      <p className="px-4 text-base text-white selection:bg-gray-600">
+    <footer className="bg-gray-800 pt-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pl-[calc(env(safe-area-inset-left)+1rem)] pr-[calc(env(safe-area-inset-right)+1rem)] text-center">
+      <p className="text-base text-white selection:bg-gray-600">
         Copyright @ {copyrightYears} Usho Ka (Yuxiao He). All rights reserved.
       </p>
     </footer>
