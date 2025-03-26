@@ -190,9 +190,9 @@ function renderRichText(richText: RichText): React.ReactNode {
       <Component
         key={i}
         className={cn(
-          bold && 'font-bold',
           code &&
             'rounded-sm bg-gray-100 px-1.5 py-0.5 font-mono font-normal text-red-600 before:content-none after:content-none dark:bg-gray-800 dark:text-red-400',
+          bold && 'font-bold',
           italic && 'italic',
           strikethrough && 'line-through',
           underline && 'underline',
