@@ -106,7 +106,7 @@ export default function Home() {
           className="rounded-full border-4 border-gray-800 object-cover dark:border-gray-100"
         />
         <div className="mt-4 text-center sm:ml-4 sm:mt-0 sm:text-left">
-          <h1 className="text-2xl font-bold tracking-wide">
+          <h1 className="text-2xl font-bold tracking-wide font-serif">
             Usho Ka |
             <br />
             Yuxiao He
@@ -142,13 +142,13 @@ export default function Home() {
       <div className="relative">
         <span
           aria-hidden
-          className="absolute -top-8 left-2 font-sans text-8xl font-bold select-none"
+          className="absolute -top-8 left-2 text-8xl font-bold select-none"
         >
           &ldquo;
         </span>
         <span
           aria-hidden
-          className="absolute bottom-[-4.5rem] right-2 font-sans text-8xl font-bold select-none"
+          className="absolute bottom-[-4.5rem] right-2 text-8xl font-bold select-none"
         >
           &rdquo;
         </span>

@@ -1,31 +1,36 @@
 import { A11yReporter } from '@/components/A11yReporter';
+import { DraftStatusToast } from '@/components/DraftModeStatusToast';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { DraftStatusToast } from '@/components/DraftModeStatusToast';
 import {
   SKIP_NAV_MAIN_CONTENT_ID,
   SkipNavLink,
 } from '@/components/SkipNavLink';
-import { cn } from '@/libs/utils/classNames';
-import { Parkinsans, Source_Code_Pro } from 'next/font/google';
+import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
 import '@/libs/styles/globals.css';
-import type { Viewport } from 'next';
+import { cn } from '@/libs/utils/classNames';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
+import type { Viewport } from 'next';
+import { Alegreya, Geist_Mono, Nunito_Sans } from 'next/font/google';
 import { unstable_ViewTransition as ViewTransition } from 'react';
 
-const inter = Parkinsans({
-  variable: '--font-parkinsans',
+const nunitoSans = Nunito_Sans({
+  variable: '--font-nunito-sans',
   subsets: ['latin'],
   display: 'swap',
 });
 
-const sourceCodePro = Source_Code_Pro({
-  variable: '--font-source-code-pro',
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
   subsets: ['latin'],
   display: 'swap',
-  style: ['normal', 'italic'],
+});
+
+const algreya = Alegreya({
+  variable: '--font-alegreya',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 export const viewport: Viewport = {
@@ -39,7 +44,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(inter.variable, sourceCodePro.variable)}>
+    <html
+      lang="en"
+      className={cn(nunitoSans.variable, geistMono.variable, algreya.variable)}
+    >
       <head />
       <body>
         <ViewTransition>

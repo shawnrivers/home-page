@@ -2,8 +2,9 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: var(--font-parkinsans);
-  --font-mono: var(--font-source-code-pro);
+  --font-sans: var(--font-nunito-sans);
+  --font-serif: var(--font-alegreya);
+  --font-mono: var(--font-geist-mono);
   --color-gray-50: var(--color-neutral-50);
   --color-gray-100: var(--color-neutral-100);
   --color-gray-200: var(--color-neutral-200);

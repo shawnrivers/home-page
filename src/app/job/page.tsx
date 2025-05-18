@@ -30,7 +30,7 @@ export default async function Job() {
   return (
     <>
       <div className="isolate mx-auto flex items-start justify-center">
-        <article className="prose prose-gray relative w-full break-words lg:prose-lg dark:prose-invert">
+        <article className="prose prose-gray relative w-full break-words lg:prose-lg dark:prose-invert prose-h1:font-serif prose-h2:font-serif prose-h3:font-serif">
           <h1>Job Experience</h1>
           <div>{renderPostContent({ blocks, images })}</div>
         </article>
