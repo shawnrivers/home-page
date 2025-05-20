@@ -47,31 +47,39 @@ const BIO_LIST = [
       {
         text: (
           <>
-            <span className="font-semibold">Eureka</span>:
+            <span className="font-bold">Eureka</span>:
             <br />
-            Front-end Engineer (intern)
+            <span className="text-gray-600 dark:text-gray-300">
+              Front-end Engineer (intern)
+            </span>
           </>
         ),
       },
       {
         text: (
           <>
-            <span className="font-semibold">SHOWROOM</span>:
+            <span className="font-bold">SHOWROOM</span>:
             <br />
-            Front-end Engineer (intern)
+            <span className="text-gray-600 dark:text-gray-300">
+              Front-end Engineer (intern)
+            </span>
           </>
         ),
       },
       {
         text: (
           <>
-            <span className="font-semibold">Eureka</span>:
+            <span className="font-bold">Eureka</span>:
             <br />
-            Front-end Engineer,
+            <span className="text-gray-600 dark:text-gray-300">
+              Front-end Engineer
+            </span>
             <br />
-            <span className="font-semibold">Alumnote</span>:
+            <span className="font-bold">Alumnote</span>:
             <br />
-            Front-end Engineer (contractor)
+            <span className="text-gray-600 dark:text-gray-300">
+              Front-end Engineer (contractor)
+            </span>
           </>
         ),
         highlighted: true,
@@ -81,9 +89,40 @@ const BIO_LIST = [
   {
     heading: 'education',
     items: [
-      { text: 'Northeastern University (China): Digital Media' },
-      { text: 'Nagoya University: Society and Media Studies' },
-      { text: 'University of Tokyo: Computer Graphics', highlighted: true },
+      {
+        text: (
+          <>
+            <span className="font-bold">Northeastern University (China)</span>:
+            <br />
+            <span className="text-gray-600 dark:text-gray-300">
+              Digital Media
+            </span>
+          </>
+        ),
+      },
+      {
+        text: (
+          <>
+            <span className="font-bold">Nagoya University</span>:
+            <br />
+            <span className="text-gray-600 dark:text-gray-300">
+              Society and Media Studies
+            </span>
+          </>
+        ),
+      },
+      {
+        text: (
+          <>
+            <span className="font-bold">University of Tokyo</span>:
+            <br />
+            <span className="text-gray-600 dark:text-gray-300">
+              Computer Graphics
+            </span>
+          </>
+        ),
+        highlighted: true,
+      },
     ],
   },
 ] satisfies {
