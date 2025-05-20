@@ -10,7 +10,7 @@ import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { XIcon } from '@/components/icons/XIcon';
 import { sharedMetadata } from '@/libs/utils/meta';
 import type { Metadata } from 'next';
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 
 export const metadata: Metadata = {
   ...sharedMetadata,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
 };
 
-const bioList = [
+const BIO_LIST = [
   {
     heading: 'locations',
     items: [
@@ -89,6 +89,27 @@ const bioList = [
 ] satisfies {
   heading: string;
   items: React.ComponentProps<typeof LinkedList>['items'];
+}[];
+
+const WORK_LIST = [
+  {
+    heading: 'NOGILIB',
+    description: 'A web application showing the information about Nogizaka46',
+    image: NogilibImage,
+    to: 'https://nogilib.vercel.app/',
+  },
+  {
+    heading: 'To Gif',
+    description:
+      'A simple web app that generates GIF from video file using FFmpeg WASM',
+    image: ToGifImage,
+    to: 'https://togif.vercel.app/',
+  },
+] satisfies {
+  heading: string;
+  description: string;
+  image: StaticImageData;
+  to: string;
 }[];
 
 export default function Home() {
@@ -178,7 +199,7 @@ export default function Home() {
           bio
         </HeadingAnchor>
         <div className="mt-4 flex flex-wrap items-stretch justify-center gap-4">
-          {bioList.map(bio => (
+          {BIO_LIST.map(bio => (
             <Sheet
               key={bio.heading}
               heading={bio.heading}
@@ -194,20 +215,16 @@ export default function Home() {
           works
         </HeadingAnchor>
         <div className="mt-4 flex flex-wrap justify-center gap-8">
-          <WorkCard
-            heading="NOGILIB"
-            description="A web application showing the information about Nogizaka46"
-            image={NogilibImage}
-            to="https://nogilib.vercel.app/"
-            className="flex-[1_1_20rem]"
-          />
-          <WorkCard
-            heading="To Gif"
-            description="A simple web app that generates GIF from video file using FFmpeg WASM"
-            image={ToGifImage}
-            to="https://togif.vercel.app/"
-            className="flex-[1_1_20rem]"
-          />
+          {WORK_LIST.map(work => (
+            <WorkCard
+              key={work.heading}
+              heading={work.heading}
+              description={work.description}
+              image={work.image}
+              to={work.to}
+              className="flex-[1_1_20rem] z-0 rotate-0 scale-100 hover:scale-110 hover:odd:-rotate-3 hover:even:rotate-3 duration-300 hover:z-10"
+            />
+          ))}
         </div>
       </section>
     </div>

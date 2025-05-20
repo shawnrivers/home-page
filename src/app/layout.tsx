@@ -54,7 +54,7 @@ export default function RootLayout({
           <SkipNavLink className="z-10" />
           <div
             id={SCROLL_CONTAINER_ID}
-            className="isolate flex h-full flex-col overflow-y-scroll gap-10"
+            className="isolate flex h-full flex-col overflow-y-scroll gap-10 overflow-x-hidden"
           >
             <div className="flex-1">
               <Header />
