@@ -1,6 +1,6 @@
 import { notion } from '@/libs/api/notion/client';
 import { RichTextSchema } from '@/libs/api/notion/schema/RichTextSchema';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 const BlocksSchema = z.object({
   object: z.literal('list'),

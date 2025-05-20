@@ -1,6 +1,6 @@
 import { PageSchema } from '@/libs/api/notion/schema/PageSchema';
 import { RichTextSchema } from '@/libs/api/notion/schema/RichTextSchema';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 export const MemoPostSchema = z
   .object({

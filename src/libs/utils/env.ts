@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 const env = z.object({
   NOTION_KEY: z.string(),
@@ -15,8 +15,7 @@ export function parseProcessEnv() {
   const result = env.safeParse(process.env);
   if (!result.success) {
     console.error(
-      'Error happened when parsing process.env:',
-      JSON.stringify(result.error.errors, null, 2),
+      `Error happened when parsing process.env: ${result.error.message}`,
     );
     throw new Error('process.env parsing error');
   }

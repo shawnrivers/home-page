@@ -2,7 +2,7 @@ import { MemoPostSchema } from '@/libs/api/notion/schema/MemoPostSchema';
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import type { NextRequest } from 'next/server';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 const ContentSchema = z.object({ data: MemoPostSchema });
 
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     return Response.json(
       {
         revalidated: false,
-        message: `Invalid content: ${JSON.stringify(content.error.errors, null, 2)}`,
+        message: `Invalid content: ${content.error.message}`,
       },
       { status: 400 },
     );
