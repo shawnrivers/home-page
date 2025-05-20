@@ -202,13 +202,13 @@ export default function Home() {
       <div className="relative">
         <span
           aria-hidden
-          className="absolute -top-8 left-2 text-8xl font-bold select-none"
+          className="absolute -top-8 left-2 text-8xl font-bold font-mono select-none"
         >
           &ldquo;
         </span>
         <span
           aria-hidden
-          className="absolute bottom-[-4.5rem] right-2 text-8xl font-bold select-none"
+          className="absolute bottom-[-4.5rem] right-2 text-8xl font-mono font-bold select-none"
         >
           &rdquo;
         </span>
