@@ -1,10 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap");
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: var(--font-nunito-sans);
-  --font-serif: var(--font-alegreya);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "TikTok Sans", sans-serif;
+  --font-sans--font-variation-settings: "slnt" 0, "wdth" 100;
+  --font-serif: "Alegreya", serif;
+  --font-mono: "Google Sans Code", monospace;
   --color-gray-50: var(--color-neutral-50);
   --color-gray-100: var(--color-neutral-100);
   --color-gray-200: var(--color-neutral-200);

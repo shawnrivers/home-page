@@ -1,3 +1,4 @@
+import '@/libs/styles/globals.css';
 import { A11yReporter } from '@/components/A11yReporter';
 import { DraftStatusToast } from '@/components/DraftModeStatusToast';
 import { Footer } from '@/components/Footer';
@@ -7,31 +8,10 @@ import {
   SkipNavLink,
 } from '@/components/SkipNavLink';
 import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
-import '@/libs/styles/globals.css';
-import { cn } from '@/libs/utils/classNames';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Viewport } from 'next';
-import { Alegreya, Geist_Mono, Nunito_Sans } from 'next/font/google';
 import { unstable_ViewTransition as ViewTransition } from 'react';
-
-const nunitoSans = Nunito_Sans({
-  variable: '--font-nunito-sans',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const algreya = Alegreya({
-  variable: '--font-alegreya',
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -44,10 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={cn(nunitoSans.variable, geistMono.variable, algreya.variable)}
-    >
+    <html lang="en">
       <head />
       <body>
         <ViewTransition>
