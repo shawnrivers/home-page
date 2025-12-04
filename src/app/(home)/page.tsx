@@ -1,3 +1,5 @@
+'use cache';
+
 import { LinkedList } from '@/app/(home)/_components/LinkedList';
 import { Sheet } from '@/app/(home)/_components/Sheet';
 import { SocialLink } from '@/app/(home)/_components/SocialLink';
@@ -151,7 +153,7 @@ const WORK_LIST = [
   to: string;
 }[];
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="mx-auto flex max-w-2xl flex-col items-center gap-10 pb-8">
       <section className="mx-4 flex flex-col items-center justify-center sm:flex-row">

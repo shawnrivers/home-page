@@ -1,3 +1,5 @@
+'use cache';
+
 import { PostCard } from '@/app/memo/_components/PostCard';
 import { getPosts } from '@/app/memo/_utils/getPosts';
 import { sharedMetadata } from '@/libs/utils/meta';
