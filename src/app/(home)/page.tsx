@@ -9,6 +9,7 @@ import NogilibImage from '@/app/(home)/_images/nogilib.png';
 import ToGifImage from '@/app/(home)/_images/to-gif.jpg';
 import { HeadingAnchor } from '@/components/HeadingAnchor';
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
+import { MediumIcon } from '@/components/icons/MediumIcon';
 import { XIcon } from '@/components/icons/XIcon';
 import { sharedMetadata } from '@/libs/utils/meta';
 import type { Metadata } from 'next';
@@ -160,12 +161,12 @@ export default async function Home() {
         <Image
           priority
           src={AvatarImage}
-          width="128"
-          height="128"
+          width="144"
+          height="144"
           alt=""
           role="presentation"
           placeholder="blur"
-          className="rounded-full border-4 border-gray-800 object-cover dark:border-gray-100"
+          className="rounded-full size-36 border-4 border-gray-800 object-cover dark:border-gray-100"
         />
         <div className="mt-4 text-center sm:ml-4 sm:mt-0 sm:text-left">
           <h1 className="text-2xl font-bold tracking-wide font-display">
@@ -196,6 +197,18 @@ export default async function Home() {
                   />
                 }
                 text="@shawnrivers"
+              />
+            </li>
+            <li className="flex">
+              <SocialLink
+                href="https://medium.com/@ushoka"
+                icon={
+                  <MediumIcon
+                    title="Medium"
+                    className="h-auto w-4 fill-current"
+                  />
+                }
+                text="@ushoka"
               />
             </li>
           </ul>
