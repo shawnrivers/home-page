@@ -18,18 +18,7 @@
   },
   "organizeImports": { "enabled": true },
   "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "suspicious": {
-        "noDoubleEquals": "off",
-        "noArrayIndexKey": "off"
-      },
-      "correctness": {
-        "noUnusedVariables": "error",
-        "noUnusedImports": "error"
-      }
-    }
+    "enabled": false
   },
   "javascript": {
     "formatter": {

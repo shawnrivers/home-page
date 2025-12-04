@@ -11,7 +11,7 @@ import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Viewport } from 'next';
-import { unstable_ViewTransition as ViewTransition } from 'react';
+import { ViewTransition } from 'react';
 
 export const viewport: Viewport = {
   width: 'device-width',
