@@ -221,7 +221,7 @@ export default function Home() {
             creating inclusive and user-friendly websites.
           </p>
           <p>
-            When not coding, you'll find me in{' '}
+            When not coding, you{"'"}ll find me in{' '}
             <a
               href="https://genshin.hoyoverse.com/en/home"
               target="_blank"
