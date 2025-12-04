@@ -166,7 +166,7 @@ export default function Home() {
           className="rounded-full border-4 border-gray-800 object-cover dark:border-gray-100"
         />
         <div className="mt-4 text-center sm:ml-4 sm:mt-0 sm:text-left">
-          <h1 className="text-2xl font-bold tracking-wide font-serif">
+          <h1 className="text-2xl font-bold tracking-wide font-display">
             Usho Ka |
             <br />
             Yuxiao He

@@ -100,7 +100,7 @@ export default async function Post(props: MemoPageProps) {
             tableOfContents={tableOfContents}
           />
         )}
-        <article className="prose prose-gray relative w-full break-words lg:prose-lg dark:prose-invert prose-figcaption:mt-[0.5em] prose-pre:m-0 prose-h1:font-serif prose-h2:font-serif prose-h3:font-serif">
+        <article className="prose prose-gray relative w-full break-words lg:prose-lg dark:prose-invert prose-figcaption:mt-[0.5em] prose-pre:m-0 prose-h1:font-display prose-h2:font-display prose-h3:font-display">
           <div className="mb-8">
             <time
               dateTime={properties.Date.date.start}
