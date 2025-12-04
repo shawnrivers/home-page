@@ -14,7 +14,6 @@ export const TableOfContents: React.FC<{
 
   const handleScroll = () => {
     const headingTops: { id: string; top: number }[] = [];
-    // biome-ignore lint/complexity/noForEach: The array is small and the performance impact is negligible
     document.querySelectorAll('h2, h3').forEach(heading => {
       headingTops.push({
         id: heading.id,
