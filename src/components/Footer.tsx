@@ -1,6 +1,11 @@
+import { cacheLife } from 'next/cache';
+
 const startYear = 2020;
 
-export const Footer: React.FC = () => {
+export const Footer: React.FC = async () => {
+  'use cache';
+  cacheLife('max');
+
   const currentYear = new Date().getFullYear();
   const copyrightYears =
     currentYear === startYear ? currentYear : `${startYear}-${currentYear}`;
