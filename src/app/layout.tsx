@@ -12,6 +12,26 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Viewport } from 'next';
 import { ViewTransition } from 'react';
+import { Google_Sans_Code, Outfit, TikTok_Sans } from 'next/font/google';
+import { cn } from '@/libs/utils/classNames';
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-outfit',
+});
+
+const googleSansCode = Google_Sans_Code({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-google-sans-code',
+});
+
+const tiktokSans = TikTok_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-tiktok-sans',
+});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -24,7 +44,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={cn(
+        outfit.variable,
+        googleSansCode.variable,
+        tiktokSans.variable,
+      )}
+    >
       <head />
       <body>
         <ViewTransition>
