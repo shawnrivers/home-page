@@ -1,3 +1,5 @@
+'use cache';
+
 import { fetchPostContent } from '@/app/memo/_utils/fetchPostContent';
 import { renderPostContent } from '@/app/memo/_utils/renderPostContent';
 import { sharedMetadata } from '@/libs/utils/meta';

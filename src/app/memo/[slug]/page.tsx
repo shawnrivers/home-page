@@ -1,3 +1,5 @@
+'use cache';
+
 import {
   TableOfContents,
   type Toc,
