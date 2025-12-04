@@ -1,5 +1,5 @@
 import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type ScrollDirection = 'up' | 'down' | null;
 
@@ -32,10 +32,10 @@ export function useScroll(onScroll?: () => void): {
     return () => scrollContainer?.removeEventListener('scroll', handleScroll);
   }, [onScroll]);
 
-  const scrollTo = useCallback((position: number) => {
+  const scrollTo = (position: number) => {
     const scrollContainer = document.getElementById(SCROLL_CONTAINER_ID);
     scrollContainer?.scrollTo({ top: position, behavior: 'smooth' });
-  }, []);
+  };
 
   return { scrollDirection, scrollTo };
 }

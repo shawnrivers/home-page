@@ -2,7 +2,7 @@
 
 import { useScroll } from '@/hooks/useScroll';
 import { cn } from '@/libs/utils/classNames';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 export type Toc = { text: string; id: string; level: number };
 
@@ -12,7 +12,7 @@ export const TableOfContents: React.FC<{
 }> = ({ tableOfContents, className }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleScroll = useCallback(() => {
+  const handleScroll = () => {
     const headingTops: { id: string; top: number }[] = [];
     // biome-ignore lint/complexity/noForEach: The array is small and the performance impact is negligible
     document.querySelectorAll('h2, h3').forEach(heading => {
@@ -31,7 +31,7 @@ export const TableOfContents: React.FC<{
       toc => toc.id === activeHeading.id,
     );
     setActiveIndex(activeIndex);
-  }, [tableOfContents]);
+  };
 
   useScroll(handleScroll);
 

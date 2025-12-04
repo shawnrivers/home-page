@@ -6,6 +6,7 @@ parseProcessEnv();
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  reactCompiler: true,
   experimental: {
     viewTransition: true,
   },
