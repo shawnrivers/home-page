@@ -122,7 +122,6 @@ function renderBlock({
             {caption.length > 0 ? renderRichText(caption) : language}
           </span>
           <div
-            // biome-ignore lint/security/noDangerouslySetInnerHtml: The data source is trusted
             dangerouslySetInnerHTML={{
               __html: highlightCodeToHtml(
                 convertRichTextToPlainText(rich_text),
