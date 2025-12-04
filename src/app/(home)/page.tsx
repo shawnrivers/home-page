@@ -170,7 +170,7 @@ export default async function Home() {
         />
         <div className="mt-4 text-center sm:ml-4 sm:mt-0 sm:text-left">
           <h1 className="text-2xl font-bold tracking-wide font-display">
-            Usho Ka |
+            Usho Ka <span className="text-gray-400 dark:text-gray-600">/</span>
             <br />
             Yuxiao He
           </h1>
