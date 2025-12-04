@@ -9,37 +9,46 @@
     "moduleDetection": "force",
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-
     /* Strictness */
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "forceConsistentCasingInFileNames": true,
-
     /* Transpiling */
     "module": "preserve",
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "noEmit": true,
-
     /* Environment */
-    "lib": ["dom", "dom.iterable", "esnext"],
-
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     /* Plugins*/
     "plugins": [
       {
         "name": "next"
       }
     ],
-
     /* Path */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
-
     /* Others */
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", ".next"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next"
+  ]
 }
