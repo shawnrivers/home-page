@@ -40,7 +40,7 @@ export const WorkCard: React.FC<WorkCardProps> = ({
         className="absolute left-1/2 inline-block size-24 -translate-x-1/2 overflow-hidden rounded-full border-4 border-gray-700 object-cover dark:border-white"
       />
       <article className="mt-12 flex h-[calc(100%-3rem)] flex-col items-center gap-4 rounded-lg border-2 border-gray-800 bg-white px-8 pb-4 pt-16 text-gray-900 shadow-md group-hover:shadow-xl transition motion-reduce:transition-none dark:border-white dark:bg-gray-800 dark:text-white duration-300">
-        <h3 id={headingId} className="text-xl font-bold uppercase">
+        <h3 id={headingId} className="text-xl font-bold font-display uppercase">
           {heading}
         </h3>
         <p className="text-sm tracking-wide">{description}</p>

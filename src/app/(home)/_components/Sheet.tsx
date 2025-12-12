@@ -18,7 +18,7 @@ export const Sheet: React.FC<SheetProps> = ({
         className,
       )}
     >
-      <h3 className="text-xl font-bold uppercase">{heading}</h3>
+      <h3 className="text-xl font-bold font-display uppercase">{heading}</h3>
       <div className="mt-2 border-t border-dashed border-gray-400 dark:border-gray-500" />
       <div className="mt-4 text-sm">{children}</div>
     </article>

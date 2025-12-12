@@ -249,7 +249,7 @@ export default async function Home() {
         </div>
       </div>
       <section className="flex flex-col items-center">
-        <HeadingAnchor as="h2" className="text-2xl font-bold">
+        <HeadingAnchor as="h2" className="text-2xl font-bold font-display">
           bio
         </HeadingAnchor>
         <div className="mt-4 flex flex-wrap items-stretch justify-center gap-4">
@@ -265,7 +265,7 @@ export default async function Home() {
         </div>
       </section>
       <section className="flex flex-col items-center">
-        <HeadingAnchor as="h2" className="text-2xl font-bold">
+        <HeadingAnchor as="h2" className="text-2xl font-bold font-display">
           works
         </HeadingAnchor>
         <div className="mt-4 flex flex-wrap justify-center gap-8">

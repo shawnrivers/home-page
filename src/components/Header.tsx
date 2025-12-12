@@ -16,7 +16,7 @@ export const Header: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <header className={className}>
       <nav aria-label="main-nav">
-        <ul className="flex flex-wrap items-center justify-center gap-2 pt-[calc(env(safe-area-inset-top)+1rem)] pl-[calc(env(safe-area-inset-left)+1rem)] pr-[calc(env(safe-area-inset-right)+1rem)] pb-4 font-display">
+        <ul className="flex flex-wrap items-center justify-center gap-2 pt-[calc(env(safe-area-inset-top)+1rem)] pl-[calc(env(safe-area-inset-left)+1rem)] pr-[calc(env(safe-area-inset-right)+1rem)] pb-4 \">
           {navItems.map(({ label, href, highlightRegex }) => {
             const isCurrent = highlightRegex.test(pathname ?? '/');
             return (
@@ -25,7 +25,7 @@ export const Header: React.FC<{ className?: string }> = ({ className }) => {
                   aria-current={isCurrent ? 'page' : undefined}
                   href={href}
                   className={cn(
-                    'p-2 text-xl font-bold uppercase',
+                    'p-2 text-xl font-bold font-display uppercase',
                     isCurrent && 'text-red-400 hover:text-red-500',
                   )}
                 >
