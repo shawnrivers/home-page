@@ -161,15 +161,15 @@ export default async function Home() {
         <Image
           preload
           src={AvatarImage}
-          width="144"
-          height="144"
+          width={160}
+          height={160}
           alt=""
           role="presentation"
           placeholder="blur"
-          className="rounded-full size-36 border-4 border-gray-800 object-cover dark:border-gray-100"
+          className="rounded-full size-40 border-4 border-gray-800 object-cover dark:border-gray-100"
         />
         <div className="mt-4 text-center sm:ml-4 sm:mt-0 sm:text-left">
-          <h1 className="text-2xl font-bold tracking-wide font-display">
+          <h1 className="text-3xl font-bold tracking-wide font-display">
             Usho Ka <span className="text-gray-400 dark:text-gray-600">/</span>
             <br />
             Yuxiao He
