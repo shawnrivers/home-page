@@ -205,7 +205,7 @@ export default async function Home() {
                 icon={
                   <MediumIcon
                     title="Medium"
-                    className="h-auto w-4 fill-current"
+                    className="h-auto w-4 -translate-x-0.5 fill-current"
                   />
                 }
                 text="@ushoka"
