@@ -55,7 +55,7 @@ export default async function MemoList() {
                     : undefined
                 }
                 emoji={post.icon?.emoji}
-                imagePriority={index < 5}
+                imagePreload={index < 5}
                 className="w-full h-full"
               />
             </li>

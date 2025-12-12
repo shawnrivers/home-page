@@ -16,11 +16,11 @@ export const PostCard = <T extends string>(props: {
     originalWidth: number;
     originalHeight: number;
   };
-  imagePriority?: boolean;
+  imagePreload?: boolean;
   emoji?: string;
   className?: string;
 }) => {
-  const { title, href, date, tags, image, imagePriority, emoji, className } =
+  const { title, href, date, tags, image, imagePreload, emoji, className } =
     props;
 
   return (
@@ -36,7 +36,7 @@ export const PostCard = <T extends string>(props: {
         <div className="hidden lg:block">
           {image ? (
             <PostImage
-              priority={imagePriority}
+              preload={imagePreload}
               publicId={image.publicId}
               alt=""
               width={600}
@@ -47,7 +47,7 @@ export const PostCard = <T extends string>(props: {
           ) : (
             <div
               aria-hidden
-              className="flex aspect-5/3 h-auto w-full items-center justify-center bg-gray-100 p-4 text-7xl font-bold tracking-wider text-gray-500 dark:text-gray-300"
+              className="flex aspect-5/3 h-auto w-full font-display items-center justify-center bg-gray-100 p-4 text-7xl font-bold tracking-wider text-gray-500 dark:text-gray-300"
             >
               {emoji ?? 'NO IMAGE'}
             </div>

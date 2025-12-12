@@ -120,7 +120,7 @@ export default async function Post(props: MemoPageProps) {
             <h1>{title}</h1>
             {coverImage && (
               <PostImage
-                priority
+                preload
                 publicId={coverImage.public_id}
                 originalWidth={coverImage.width}
                 originalHeight={coverImage.height}

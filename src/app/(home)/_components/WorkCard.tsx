@@ -6,7 +6,6 @@ type WorkCardProps = {
   heading: string;
   description: string;
   image: ImageProps['src'];
-  imagePriority?: boolean;
   to: string;
   className?: string;
 };

@@ -159,7 +159,7 @@ export default async function Home() {
     <div className="mx-auto flex max-w-2xl flex-col items-center gap-10 pb-8">
       <section className="mx-4 flex flex-col items-center justify-center sm:flex-row">
         <Image
-          priority
+          preload
           src={AvatarImage}
           width="144"
           height="144"
