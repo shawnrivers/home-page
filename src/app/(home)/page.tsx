@@ -141,7 +141,7 @@ const WORK_LIST = [
 
 export default async function Home() {
   return (
-    <div className="mx-auto flex max-w-2xl flex-col items-center gap-10 pb-8">
+    <div className="max-w-2xl mx-auto flex flex-col items-center gap-10 pb-8">
       <section className="mx-4 flex flex-col items-center justify-center sm:flex-row">
         <Image
           preload
@@ -237,12 +237,12 @@ export default async function Home() {
         <HeadingAnchor as="h2" className="text-2xl font-bold font-display">
           bio
         </HeadingAnchor>
-        <div className="mt-4 flex flex-wrap items-stretch justify-center gap-4">
+        <div className="mt-4 flex flex-wrap justify-center gap-8">
           {BIO_LIST.map(bio => (
             <Sheet
               key={bio.heading}
               heading={bio.heading}
-              className="flex-[1_1_16rem]"
+              className="flex-[1_1_100%] sm:flex-[1_0_20rem]"
             >
               <LinkedList items={bio.items} />
             </Sheet>
@@ -261,7 +261,7 @@ export default async function Home() {
               description={work.description}
               image={work.image}
               to={work.to}
-              className="flex-[1_1_20rem] z-0 rotate-0 scale-100 hover:scale-110 hover:odd:-rotate-3 hover:even:rotate-3 duration-300 hover:z-10"
+              className="flex-[1_1_100%] sm:flex-[1_0_20rem] z-0 rotate-0 scale-100 hover:scale-110 hover:odd:-rotate-3 hover:even:rotate-3 duration-300 hover:z-10"
             />
           ))}
         </div>
