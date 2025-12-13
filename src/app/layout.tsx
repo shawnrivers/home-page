@@ -1,5 +1,6 @@
 import '@/libs/styles/globals.css';
 import { A11yReporter } from '@/components/A11yReporter';
+import { AppBackground } from '@/components/AppBackground';
 import { DraftStatusToast } from '@/components/DraftModeStatusToast';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
@@ -53,29 +54,32 @@ export default function RootLayout({
       )}
     >
       <head />
-      <body>
-        <ViewTransition>
-          <SkipNavLink className="z-10" />
-          <div
-            id={SCROLL_CONTAINER_ID}
-            className="isolate flex h-full flex-col overflow-y-scroll gap-10 overflow-x-hidden"
-          >
-            <div className="flex-1">
-              <Header />
-              <main
-                id={SKIP_NAV_MAIN_CONTENT_ID}
-                className="isolate mx-auto max-w-6xl pl-[calc(env(safe-area-inset-left)+1.5rem)] pr-[calc(env(safe-area-inset-right)+1.5rem)] mt-6"
-              >
-                {children}
-              </main>
+      <body className="overflow-hidden">
+        <AppBackground />
+        <div className="relative z-10 h-full">
+          <ViewTransition>
+            <SkipNavLink className="z-10" />
+            <div
+              id={SCROLL_CONTAINER_ID}
+              className="isolate flex h-full flex-col overflow-y-scroll gap-10 overflow-x-hidden"
+            >
+              <div className="flex-1">
+                <Header />
+                <main
+                  id={SKIP_NAV_MAIN_CONTENT_ID}
+                  className="isolate mx-auto max-w-6xl pl-[calc(env(safe-area-inset-left)+1.5rem)] pr-[calc(env(safe-area-inset-right)+1.5rem)] mt-6"
+                >
+                  {children}
+                </main>
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-          <DraftStatusToast className="z-10" />
-        </ViewTransition>
-        <A11yReporter />
-        <Analytics />
-        <SpeedInsights />
+            <DraftStatusToast className="z-10" />
+          </ViewTransition>
+          <A11yReporter />
+          <Analytics />
+          <SpeedInsights />
+        </div>
       </body>
     </html>
   );
