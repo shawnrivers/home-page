@@ -36,15 +36,6 @@ export const metadata: Metadata = {
 
 const BIO_LIST = [
   {
-    heading: 'locations',
-    items: [
-      { text: 'Fuzhou, China' },
-      { text: 'Shenyang, China' },
-      { text: 'Nagoya, Japan' },
-      { text: 'Tokyo, Japan', highlighted: true },
-    ],
-  },
-  {
     heading: 'companies',
     items: [
       {
