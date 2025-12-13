@@ -77,12 +77,6 @@ const BIO_LIST = [
             <span className="text-gray-600 dark:text-gray-300">
               Front-end Engineer
             </span>
-            <br />
-            <span className="font-bold">Alumnote</span>:
-            <br />
-            <span className="text-gray-600 dark:text-gray-300">
-              Front-end Engineer (contractor)
-            </span>
           </>
         ),
         highlighted: true,
