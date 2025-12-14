@@ -38,7 +38,7 @@ export const TableOfContents: React.FC<{
     <aside
       aria-labelledby="toc"
       className={cn(
-        'w-60 max-w-max overflow-auto rounded-lg border-2 border-gray-500 bg-gray-50 p-2 dark:border-gray-100 dark:bg-gray-900 font-display',
+        'w-60 max-w-max overflow-auto rounded-lg border-2 border-dashed border-gray-500 bg-gray-50 p-2 dark:border-gray-100 dark:bg-gray-900 font-display',
         className,
       )}
     >
