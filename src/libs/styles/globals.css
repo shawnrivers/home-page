@@ -2,7 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: var(--font-tiktok-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-google-sans-flex), ui-sans-serif, system-ui,
+    sans-serif;
   --font-display: var(--font-outfit), ui-serif, Georgia, serif;
   --font-mono: var(--font-google-sans-code), ui-monospace, monospace;
 

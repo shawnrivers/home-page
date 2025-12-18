@@ -13,7 +13,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Viewport } from 'next';
 import { ViewTransition } from 'react';
-import { Google_Sans_Code, Outfit, TikTok_Sans } from 'next/font/google';
+import { Google_Sans_Code, Outfit, Google_Sans_Flex } from 'next/font/google';
 import { cn } from '@/libs/utils/classNames';
 
 const outfit = Outfit({
@@ -28,10 +28,10 @@ const googleSansCode = Google_Sans_Code({
   variable: '--font-google-sans-code',
 });
 
-const tiktokSans = TikTok_Sans({
+const googleSansFlex = Google_Sans_Flex({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-tiktok-sans',
+  variable: '--font-google-sans-flex',
 });
 
 export const viewport: Viewport = {
@@ -50,7 +50,7 @@ export default function RootLayout({
       className={cn(
         outfit.variable,
         googleSansCode.variable,
-        tiktokSans.variable,
+        googleSansFlex.variable,
       )}
     >
       <head />
