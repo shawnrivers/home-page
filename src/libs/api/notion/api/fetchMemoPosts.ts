@@ -1,6 +1,6 @@
+import { z } from 'zod/v4';
 import { notion } from '@/libs/api/notion/client';
 import { MemoPostSchema } from '@/libs/api/notion/schema/MemoPostSchema';
-import { z } from 'zod/v4';
 
 const MemoPostsSchema = z.object({
   object: z.literal('list'),

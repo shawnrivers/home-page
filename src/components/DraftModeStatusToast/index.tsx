@@ -1,11 +1,13 @@
+import { draftMode } from 'next/headers';
 import { EnterDraftModeButton } from '@/components/DraftModeStatusToast/components/EnterDraftModeButton';
 import { ExitDraftModeButton } from '@/components/DraftModeStatusToast/components/ExitDraftModeButton';
 import { cn } from '@/libs/utils/classNames';
-import { draftMode } from 'next/headers';
 
 export const DraftStatusToast = async ({
   className,
-}: { className?: string }) => {
+}: {
+  className?: string;
+}) => {
   const { isEnabled } = await draftMode();
 
   if (!isEnabled && process.env.NODE_ENV === 'production') {

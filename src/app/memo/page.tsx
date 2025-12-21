@@ -1,10 +1,10 @@
 'use cache';
 
+import type { Metadata } from 'next';
 import { PostCard } from '@/app/memo/_components/PostCard';
 import { getPosts } from '@/app/memo/_utils/getPosts';
-import { sharedMetadata } from '@/libs/utils/meta';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';
-import type { Metadata } from 'next';
+import { sharedMetadata } from '@/libs/utils/meta';
 
 export const metadata: Metadata = {
   ...sharedMetadata,

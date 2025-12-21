@@ -1,9 +1,9 @@
 'use cache';
 
+import type { Metadata } from 'next';
 import { fetchPostContent } from '@/app/memo/_utils/fetchPostContent';
 import { renderPostContent } from '@/app/memo/_utils/renderPostContent';
 import { sharedMetadata } from '@/libs/utils/meta';
-import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   ...sharedMetadata,
@@ -32,7 +32,7 @@ export default async function Job() {
   return (
     <>
       <div className="isolate mx-auto flex items-start justify-center max-w-2xl">
-        <article className="prose prose-neutral relative w-full break-words lg:prose-lg dark:prose-invert prose-h1:font-display prose-h2:font-display prose-h3:font-display">
+        <article className="prose prose-neutral relative w-full wrap-break-words lg:prose-lg dark:prose-invert prose-h1:font-display prose-h2:font-display prose-h3:font-display">
           <h1>Job Experience</h1>
           <div>{renderPostContent({ blocks, images })}</div>
         </article>

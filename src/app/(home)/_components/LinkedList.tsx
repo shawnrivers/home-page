@@ -1,5 +1,5 @@
-import { cn } from '@/libs/utils/classNames';
 import type React from 'react';
+import { cn } from '@/libs/utils/classNames';
 
 type LinkedListProps = {
   items: { text: React.ReactNode; highlighted?: boolean }[];
@@ -13,7 +13,7 @@ export const LinkedList: React.FC<LinkedListProps> = ({ items, className }) => {
         <li key={index} className="relative">
           <div
             className={cn(
-              'absolute -left-2 top-0 box-border h-[1.125rem] w-[1.125rem] rounded-[50%] border-[4px] border-white dark:border-gray-800',
+              'absolute -left-2 top-0 box-border h-4.5 w-4.5 rounded-[50%] border-4 border-white dark:border-gray-800',
               item.highlighted ? 'bg-red-400' : 'bg-gray-400',
             )}
           />

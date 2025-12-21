@@ -1,6 +1,6 @@
 import Image, { type ImageProps } from 'next/image';
-import { cn } from '@/libs/utils/classNames';
 import { useId } from 'react';
+import { cn } from '@/libs/utils/classNames';
 
 type WorkCardProps = {
   heading: string;

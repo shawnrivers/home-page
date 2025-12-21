@@ -1,6 +1,6 @@
+import type React from 'react';
 import { AccessibleSvg } from '@/components/AccessibleSvg';
 import type { SvgIconProps } from '@/components/icons/types';
-import type React from 'react';
 
 export const XIcon: React.FC<SvgIconProps> = props => {
   return (

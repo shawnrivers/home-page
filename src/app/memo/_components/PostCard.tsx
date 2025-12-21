@@ -1,10 +1,10 @@
+import type { Route } from 'next';
+import Link from 'next/link';
+import { PostImage } from '@/app/memo/_components/PostImage';
 import { PostTag } from '@/app/memo/_components/PostTag';
 import { getTagCardBorderColor } from '@/app/memo/_utils/tags';
-import { PostImage } from '@/app/memo/_components/PostImage';
 import { cn } from '@/libs/utils/classNames';
 import { formatDate } from '@/libs/utils/date';
-import Link from 'next/link';
-import type { Route } from 'next';
 
 export const PostCard = <T extends string>(props: {
   title: string;

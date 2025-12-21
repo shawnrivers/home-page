@@ -19,11 +19,7 @@
     "jsx": "react-jsx",
     "noEmit": true,
     /* Environment */
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     /* Plugins*/
     "plugins": [
       {
@@ -33,9 +29,7 @@
     /* Path */
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
     /* Others */
     "incremental": true
@@ -47,8 +41,5 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    ".next"
-  ]
+  "exclude": ["node_modules", ".next"]
 }

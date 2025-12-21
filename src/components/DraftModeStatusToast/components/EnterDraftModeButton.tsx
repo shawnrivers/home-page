@@ -1,6 +1,3 @@
-/**
- * Only render this component in non-production environment.
- */
 export const EnterDraftModeButton: React.FC = () => {
   return (
     <a

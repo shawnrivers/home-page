@@ -1,5 +1,7 @@
 'use cache';
 
+import type { Metadata } from 'next';
+import Image, { type StaticImageData } from 'next/image';
 import { LinkedList } from '@/app/(home)/_components/LinkedList';
 import { Sheet } from '@/app/(home)/_components/Sheet';
 import { SocialLink } from '@/app/(home)/_components/SocialLink';
@@ -12,8 +14,6 @@ import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { MediumIcon } from '@/components/icons/MediumIcon';
 import { XIcon } from '@/components/icons/XIcon';
 import { sharedMetadata } from '@/libs/utils/meta';
-import type { Metadata } from 'next';
-import Image, { type StaticImageData } from 'next/image';
 
 export const metadata: Metadata = {
   ...sharedMetadata,
@@ -208,7 +208,7 @@ export default async function Home() {
         </span>
         <span
           aria-hidden
-          className="absolute bottom-[-4.5rem] right-2 text-8xl font-mono font-bold select-none"
+          className="absolute -bottom-18 right-2 text-8xl font-mono font-bold select-none"
         >
           &rdquo;
         </span>

@@ -1,4 +1,9 @@
 import '@/libs/styles/globals.css';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import type { Viewport } from 'next';
+import { Google_Sans_Code, Google_Sans_Flex, Outfit } from 'next/font/google';
+import { ViewTransition } from 'react';
 import { A11yReporter } from '@/components/A11yReporter';
 import { AppBackground } from '@/components/AppBackground';
 import { DraftStatusToast } from '@/components/DraftModeStatusToast';
@@ -9,11 +14,6 @@ import {
   SkipNavLink,
 } from '@/components/SkipNavLink';
 import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import type { Viewport } from 'next';
-import { ViewTransition } from 'react';
-import { Google_Sans_Code, Outfit, Google_Sans_Flex } from 'next/font/google';
 import { cn } from '@/libs/utils/classNames';
 
 const outfit = Outfit({

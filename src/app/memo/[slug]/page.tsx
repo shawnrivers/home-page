@@ -1,21 +1,21 @@
 'use cache';
 
-import {
-  TableOfContents,
-  type Toc,
-} from '@/app/memo/[slug]/_components/TableOfContents';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { PostImage } from '@/app/memo/_components/PostImage';
 import { PostTag } from '@/app/memo/_components/PostTag';
 import { getPostBySlug } from '@/app/memo/_utils/getPostBySlug';
 import { getPosts } from '@/app/memo/_utils/getPosts';
 import { renderPostContent } from '@/app/memo/_utils/renderPostContent';
+import {
+  TableOfContents,
+  type Toc,
+} from '@/app/memo/[slug]/_components/TableOfContents';
 import { getImageUrl } from '@/libs/api/cloudinary';
-import { formatDate } from '@/libs/utils/date';
-import { sharedMetadata } from '@/libs/utils/meta';
 import type { Block } from '@/libs/api/notion/api/fetchBlocks';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { formatDate } from '@/libs/utils/date';
+import { sharedMetadata } from '@/libs/utils/meta';
 import { generateSlugFromText } from '@/libs/utils/string';
 
 interface MemoPageProps {
@@ -101,7 +101,7 @@ export default async function Post(props: MemoPageProps) {
             tableOfContents={tableOfContents}
           />
         )}
-        <article className="prose prose-neutral relative w-full break-words lg:prose-lg dark:prose-invert prose-figcaption:mt-[0.5em] prose-pre:m-0 prose-h1:font-display prose-h2:font-display prose-h3:font-display">
+        <article className="prose prose-neutral relative w-full wrap-break-words lg:prose-lg dark:prose-invert prose-figcaption:mt-[0.5em] prose-pre:m-0 prose-h1:font-display prose-h2:font-display prose-h3:font-display">
           <div className="mb-8">
             <time
               dateTime={properties.Date.date.start}
