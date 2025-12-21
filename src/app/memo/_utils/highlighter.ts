@@ -7,6 +7,7 @@ const HIGHLIGHTER_LANGUAGES = [
   'html',
   'css',
   'markdown',
+  'diff',
 ] satisfies Parameters<typeof createHighlighter>[0]['langs'];
 
 type HighLightLanguage = (typeof HIGHLIGHTER_LANGUAGES)[number];
@@ -26,6 +27,8 @@ function getHighlighterLanguage(lang: string): HighLightLanguage {
       return 'html';
     case 'css':
       return 'css';
+    case 'diff':
+      return 'diff';
     default:
       return 'plaintext';
   }
