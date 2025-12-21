@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NOTION_KEY: ${{ secrets.NOTION_KEY }}
-      NOTION_DATABASE_ID_BLOG: ${{ secrets.NOTION_DATABASE_ID_BLOG }}
       NOTION_PAGE_ID_JOB: ${{ secrets.NOTION_PAGE_ID_JOB }}
       CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
       CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}

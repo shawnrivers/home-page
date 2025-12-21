@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 const env = z.object({
   NOTION_KEY: z.string(),
-  NOTION_DATABASE_ID_BLOG: z.string(),
   NOTION_DATA_SOURCE_ID_MEMO: z.string(),
   NOTION_PAGE_ID_JOB: z.string(),
   CLOUDINARY_NAME: z.string(),
