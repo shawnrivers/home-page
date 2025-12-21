@@ -21,8 +21,8 @@ export async function fetchMemoPosts(
 ): Promise<Posts> {
   const { draft = false, sorts } = params;
 
-  const res = await notion.databases.query({
-    database_id: process.env.NOTION_DATABASE_ID_BLOG,
+  const res = await notion.dataSources.query({
+    data_source_id: process.env.NOTION_DATA_SOURCE_ID_MEMO,
     filter: !draft
       ? {
           property: 'Published',
