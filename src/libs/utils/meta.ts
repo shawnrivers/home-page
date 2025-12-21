@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const sharedMetadata: Metadata = {
-  metadataBase: new URL('https://usho.dev'),
+  metadataBase: 'https://usho.dev',
   icons: '/favicon.ico',
   twitter: {
     creator: '@yuxiao_he',

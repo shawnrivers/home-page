@@ -13,9 +13,9 @@ export const metadata: Metadata = {
     title: 'Job | Usho',
     description: "Usho's Job Experience",
     type: 'website',
-    url: 'https://usho.dev/job',
+    url: '/job',
     images: {
-      url: 'https://usho.dev/og-image.jpg',
+      url: '/og-image.jpg',
       type: 'image/jpeg',
       width: 1280,
       height: 640,

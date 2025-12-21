@@ -53,14 +53,13 @@ export async function generateMetadata(
   const { created_time, last_edited_time, properties, coverImage } = post;
   const postTitle = convertRichTextToPlainText(properties.Page.title);
   const title = `${postTitle} | Usho`;
-  const url = `https://usho.dev/memo/${slug}`;
 
   return {
     ...sharedMetadata,
     title,
     openGraph: {
       type: 'article',
-      url,
+      url: slug,
       title,
       authors: 'https://usho.dev',
       publishedTime: created_time,

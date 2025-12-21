@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     title: 'Memo | Usho',
     description: "Usho's memo",
     type: 'website',
-    url: 'https://usho.dev/memo',
+    url: '/memo',
     images: {
-      url: 'https://usho.dev/og-image.jpg',
+      url: '/og-image.jpg',
       type: 'image/jpeg',
       width: 1280,
       height: 640,

@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     title: 'Home | Usho',
     description: "Usho's home page",
     type: 'website',
-    url: 'https://usho.dev',
+    url: '/',
     images: {
-      url: 'https://usho.dev/og-image.jpg',
+      url: '/og-image.jpg',
       type: 'image/jpeg',
       width: 1280,
       height: 640,
