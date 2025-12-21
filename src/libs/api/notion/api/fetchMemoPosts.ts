@@ -1,4 +1,4 @@
-import { z } from 'zod/v4';
+import { z } from 'zod';
 import { notion } from '@/libs/api/notion/client';
 import { MemoPostSchema } from '@/libs/api/notion/schema/MemoPostSchema';
 

@@ -1,7 +1,7 @@
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import type { NextRequest } from 'next/server';
-import { z } from 'zod/v4';
+import { z } from 'zod';
 import { MemoPostSchema } from '@/libs/api/notion/schema/MemoPostSchema';
 
 const ContentSchema = z.object({ data: MemoPostSchema });
