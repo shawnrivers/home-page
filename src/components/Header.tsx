@@ -12,6 +12,7 @@ const navItems = [
 
 export const Header: React.FC<{ className?: string }> = ({ className }) => {
   const pathname = usePathname();
+  console.log('🚀 ~ Header ~ pathname:', pathname);
 
   return (
     <header className={className}>
