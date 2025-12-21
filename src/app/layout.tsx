@@ -76,9 +76,9 @@ export default function RootLayout({
             </div>
             <DraftStatusToast className="z-10" />
           </ViewTransition>
-          <A11yReporter />
-          <Analytics />
-          <SpeedInsights />
+          {process.env.NODE_ENV !== 'production' && <A11yReporter />}
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+          {process.env.NODE_ENV === 'production' && <SpeedInsights />}
         </div>
       </body>
     </html>

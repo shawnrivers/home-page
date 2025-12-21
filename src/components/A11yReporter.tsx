@@ -8,7 +8,7 @@ let initialized = false;
 
 export const A11yReporter: React.FC = () => {
   useEffect(() => {
-    if (initialized || process.env.NODE_ENV === 'production') return;
+    if (initialized) return;
     (async () => {
       const axe = (await import('@axe-core/react')).default;
       await axe(React, ReactDOM, 1000);
