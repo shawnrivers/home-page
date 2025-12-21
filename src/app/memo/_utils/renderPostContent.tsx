@@ -151,7 +151,7 @@ function renderBlock({
           originalHeight={image.height}
           alt=""
           sizes="800px"
-          className="mx-auto h-auto max-w-full rounded-sm bg-white object-contain dark:bg-gray-900"
+          className="mx-auto h-auto max-w-full rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white object-contain dark:bg-gray-900"
         />
       );
 
