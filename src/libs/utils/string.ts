@@ -25,9 +25,15 @@ export function convertNodeToString(node: React.ReactNode): string {
   return node.toString();
 }
 
+const SLUG_SEPARATOR = '-';
+
 export function generateSlugFromText(...text: (string | undefined)[]): string {
-  return slugify(text.filter(t => t !== '' && t !== undefined).join('-'), {
-    lower: true,
-    strict: true,
-  });
+  return slugify(
+    text.filter(t => t !== '' && t !== undefined).join(SLUG_SEPARATOR),
+    {
+      replacement: SLUG_SEPARATOR,
+      lower: true,
+      strict: true,
+    },
+  );
 }
