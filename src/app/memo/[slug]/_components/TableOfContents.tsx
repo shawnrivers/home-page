@@ -55,7 +55,7 @@ export const TableOfContents: React.FC<{
                     ? 'ml-4 py-0.5 text-sm text-gray-600 dark:text-gray-300'
                     : 'py-1',
                   activeIndex === index && 'text-red-400 before:bg-red-400',
-                  'before:absolute before:bottom-0 before:left-0 before:top-0 before:block before:w-0.75 before:rounded-sm before:transition-colors before:content-[""]',
+                  'before:absolute before:bottom-1 before:left-0 before:top-1 before:block before:w-0.75 before:rounded-sm before:transition-colors before:content-[""]',
                 )}
               >
                 {toc.text}
