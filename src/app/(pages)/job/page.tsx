@@ -1,8 +1,8 @@
 'use cache';
 
 import type { Metadata } from 'next';
-import { fetchPostContent } from '@/app/memo/_utils/fetchPostContent';
-import { renderPostContent } from '@/app/memo/_utils/renderPostContent';
+import { fetchPostContent } from '@/app/(pages)/memo/_utils/fetchPostContent';
+import { renderPostContent } from '@/app/(pages)/memo/_utils/renderPostContent';
 import { sharedMetadata } from '@/libs/utils/meta';
 
 export const metadata: Metadata = {

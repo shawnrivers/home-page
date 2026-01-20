@@ -1,8 +1,8 @@
 'use cache';
 
 import type { Metadata } from 'next';
-import { PostCard } from '@/app/memo/_components/PostCard';
-import { getPosts } from '@/app/memo/_utils/getPosts';
+import { PostCard } from '@/app/(pages)/memo/_components/PostCard';
+import { getPosts } from '@/app/(pages)/memo/_utils/getPosts';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';
 import { sharedMetadata } from '@/libs/utils/meta';
 

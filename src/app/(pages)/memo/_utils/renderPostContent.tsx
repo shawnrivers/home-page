@@ -1,8 +1,8 @@
 import type React from 'react';
 import { Fragment } from 'react';
-import { PostImage } from '@/app/memo/_components/PostImage';
-import type { fetchPostImages } from '@/app/memo/_utils/fetchPostImages';
-import { highlightCodeToHtml } from '@/app/memo/_utils/highlighter';
+import { PostImage } from '@/app/(pages)/memo/_components/PostImage';
+import type { fetchPostImages } from '@/app/(pages)/memo/_utils/fetchPostImages';
+import { highlightCodeToHtml } from '@/app/(pages)/memo/_utils/highlighter';
 import type { Block } from '@/libs/api/notion/api/fetchBlocks';
 import type { RichText } from '@/libs/api/notion/schema/RichTextSchema';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';

@@ -2,15 +2,15 @@
 
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { PostImage } from '@/app/memo/_components/PostImage';
-import { PostTag } from '@/app/memo/_components/PostTag';
-import { getPostBySlug } from '@/app/memo/_utils/getPostBySlug';
-import { getPosts } from '@/app/memo/_utils/getPosts';
-import { renderPostContent } from '@/app/memo/_utils/renderPostContent';
+import { PostImage } from '@/app/(pages)/memo/_components/PostImage';
+import { PostTag } from '@/app/(pages)/memo/_components/PostTag';
+import { getPostBySlug } from '@/app/(pages)/memo/_utils/getPostBySlug';
+import { getPosts } from '@/app/(pages)/memo/_utils/getPosts';
+import { renderPostContent } from '@/app/(pages)/memo/_utils/renderPostContent';
 import {
   TableOfContents,
   type Toc,
-} from '@/app/memo/[slug]/_components/TableOfContents';
+} from '@/app/(pages)/memo/[slug]/_components/TableOfContents';
 import { getImageUrl } from '@/libs/api/cloudinary';
 import type { Block } from '@/libs/api/notion/api/fetchBlocks';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';

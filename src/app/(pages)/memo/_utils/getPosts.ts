@@ -1,7 +1,7 @@
 import { draftMode } from 'next/headers';
 import { cache } from 'react';
-import { getCoverImageId } from '@/app/memo/_utils/cover';
-import { fetchPostImages } from '@/app/memo/_utils/fetchPostImages';
+import { getCoverImageId } from '@/app/(pages)/memo/_utils/cover';
+import { fetchPostImages } from '@/app/(pages)/memo/_utils/fetchPostImages';
 import { fetchMemoPosts } from '@/libs/api/notion/api/fetchMemoPosts';
 import { convertRichTextToPlainText } from '@/libs/api/notion/utils';
 

@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { fetchPostImages } from '@/app/memo/_utils/fetchPostImages';
+import { fetchPostImages } from '@/app/(pages)/memo/_utils/fetchPostImages';
 import { fetchBlocks } from '@/libs/api/notion/api/fetchBlocks';
 
 export const fetchPostContent = cache(async (id: string) => {

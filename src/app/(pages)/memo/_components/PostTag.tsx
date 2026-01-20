@@ -1,4 +1,4 @@
-import { getTagColor } from '@/app/memo/_utils/tags';
+import { getTagColor } from '@/app/(pages)/memo/_utils/tags';
 import { cn } from '@/libs/utils/classNames';
 
 export const PostTag: React.FC<{
