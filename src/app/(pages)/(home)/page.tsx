@@ -1,14 +1,11 @@
 'use cache';
 
 import type { Metadata } from 'next';
-import Image, { type StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { LinkedList } from '@/app/(pages)/(home)/_components/LinkedList';
 import { Sheet } from '@/app/(pages)/(home)/_components/Sheet';
 import { SocialLink } from '@/app/(pages)/(home)/_components/SocialLink';
-import { WorkCard } from '@/app/(pages)/(home)/_components/WorkCard';
 import AvatarImage from '@/app/(pages)/(home)/_images/avatar.jpg';
-import NogilibImage from '@/app/(pages)/(home)/_images/nogilib.png';
-import ToGifImage from '@/app/(pages)/(home)/_images/to-gif.jpg';
 import { HeadingAnchor } from '@/components/HeadingAnchor';
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { MediumIcon } from '@/components/icons/MediumIcon';
@@ -118,27 +115,6 @@ const BIO_LIST = [
   items: React.ComponentProps<typeof LinkedList>['items'];
 }[];
 
-const WORK_LIST = [
-  {
-    heading: 'NOGILIB',
-    description: 'A web application showing the information about Nogizaka46',
-    image: NogilibImage,
-    to: 'https://nogilib.vercel.app/',
-  },
-  {
-    heading: 'To Gif',
-    description:
-      'A simple web app that generates GIF from video file using FFmpeg WASM',
-    image: ToGifImage,
-    to: 'https://togif.vercel.app/',
-  },
-] satisfies {
-  heading: string;
-  description: string;
-  image: StaticImageData;
-  to: string;
-}[];
-
 export default async function Home() {
   return (
     <div className="max-w-2xl mx-auto flex flex-col items-center gap-10 pb-8">
@@ -246,23 +222,6 @@ export default async function Home() {
             >
               <LinkedList items={bio.items} />
             </Sheet>
-          ))}
-        </div>
-      </section>
-      <section className="flex flex-col items-center">
-        <HeadingAnchor as="h2" className="text-2xl font-bold font-display">
-          works
-        </HeadingAnchor>
-        <div className="mt-4 flex flex-wrap justify-center gap-8">
-          {WORK_LIST.map(work => (
-            <WorkCard
-              key={work.heading}
-              heading={work.heading}
-              description={work.description}
-              image={work.image}
-              to={work.to}
-              className="flex-[1_1_100%] sm:flex-[1_0_20rem] z-0 rotate-0 scale-100 hover:scale-110 hover:odd:-rotate-3 hover:even:rotate-3 duration-300 hover:z-10"
-            />
           ))}
         </div>
       </section>
