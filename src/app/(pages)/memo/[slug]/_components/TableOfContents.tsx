@@ -1,38 +1,95 @@
 'use client';
 
-import { useState } from 'react';
+import { useLayoutEffect, useState, useRef, useCallback } from 'react';
 import { useScroll } from '@/hooks/useScroll';
+import { SCROLL_CONTAINER_ID } from '@/libs/constants/scroll';
 import { cn } from '@/libs/utils/classNames';
 
 export type Toc = { text: string; id: string; level: number };
+
+function findActiveIndexFromScrollPosition(tableOfContents: Toc[]): number {
+  const scrollContainer = document.getElementById(SCROLL_CONTAINER_ID);
+  if (!scrollContainer) return 0;
+
+  const containerTop = scrollContainer.getBoundingClientRect().top;
+
+  const headingTops: { id: string; top: number }[] = [];
+  document.querySelectorAll('h2, h3').forEach(heading => {
+    const relativeTop = heading.getBoundingClientRect().top - containerTop;
+    headingTops.push({
+      id: heading.id,
+      top: relativeTop,
+    });
+  });
+
+  const activeHeading = headingTops.find((heading, index) => {
+    const currentTop = heading.top;
+    const nextTop = headingTops[index + 1]?.top;
+    return currentTop <= 0 && (nextTop == undefined || nextTop > 0);
+  });
+
+  if (!activeHeading) return 0;
+  const foundIndex = tableOfContents.findIndex(
+    toc => toc.id === activeHeading.id,
+  );
+  return foundIndex >= 0 ? foundIndex : 0;
+}
+
+function scrollToHashFragment(hash: string): boolean {
+  const targetElement = document.getElementById(hash);
+  if (!targetElement) return false;
+
+  const scrollContainer = document.getElementById(SCROLL_CONTAINER_ID);
+  if (!scrollContainer) return false;
+
+  const containerRect = scrollContainer.getBoundingClientRect();
+  const targetRect = targetElement.getBoundingClientRect();
+  const currentScrollTop = scrollContainer.scrollTop;
+  const targetScrollTop =
+    currentScrollTop + (targetRect.top - containerRect.top);
+
+  scrollContainer.scrollTo({
+    top: targetScrollTop,
+    behavior: 'instant',
+  });
+
+  return true;
+}
 
 export const TableOfContents: React.FC<{
   tableOfContents: Toc[];
   className?: string;
 }> = ({ tableOfContents, className }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const hasInitialized = useRef(false);
 
-  const handleScroll = () => {
-    const headingTops: { id: string; top: number }[] = [];
-    document.querySelectorAll('h2, h3').forEach(heading => {
-      headingTops.push({
-        id: heading.id,
-        top: heading.getBoundingClientRect().top,
-      });
-    });
-    const activeHeading = headingTops.find((heading, index) => {
-      const currentTop = heading.top;
-      const nextTop = headingTops[index + 1]?.top ?? 0;
-      return currentTop <= 10 && (nextTop > 10 || nextTop == null);
-    });
-    if (!activeHeading) return;
-    const activeIndex = tableOfContents.findIndex(
-      toc => toc.id === activeHeading.id,
-    );
-    setActiveIndex(activeIndex);
-  };
+  const handleScroll = useCallback(() => {
+    const newActiveIndex = findActiveIndexFromScrollPosition(tableOfContents);
+    setActiveIndex(newActiveIndex);
+  }, [tableOfContents]);
 
   useScroll(handleScroll);
+
+  // Handle initial fragment scroll and sync active index with URL hash.
+  useLayoutEffect(() => {
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
+
+    const hash = window.location.hash.slice(1); // Remove the '#'
+
+    if (hash) {
+      const hashIndex = tableOfContents.findIndex(toc => toc.id === hash);
+
+      if (hashIndex >= 0) {
+        scrollToHashFragment(hash);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setActiveIndex(hashIndex);
+        return;
+      }
+    }
+
+    handleScroll();
+  }, [tableOfContents, handleScroll]);
 
   return (
     <aside
