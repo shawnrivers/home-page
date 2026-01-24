@@ -100,26 +100,42 @@ export const TableOfContents: React.FC<{
       )}
     >
       <nav id="toc" aria-label="Table of contents">
-        <ul className="flex flex-col gap-1 py-2">
-          {tableOfContents.map((toc, index) => (
-            <li key={toc.id} className={cn('text-sm font-medium')}>
-              <a
-                href={`#${toc.id}`}
-                aria-current={activeIndex === index ? 'location' : false}
-                className={cn(
-                  'relative block px-2 text-base leading-[1.1] no-underline hover:underline',
-                  toc.level === 3
-                    ? 'ml-4 py-0.5 text-sm text-gray-600 dark:text-gray-300'
-                    : 'py-1',
-                  activeIndex === index && 'text-red-400 before:bg-red-400',
-                  'before:absolute before:bottom-1 before:left-0 before:top-1 before:block before:w-0.75 before:rounded-sm before:transition-colors before:content-[""]',
-                )}
-              >
-                {toc.text}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="relative">
+          <span
+            aria-hidden="true"
+            className={cn(
+              'pointer-events-none absolute hidden w-0.75 rounded-sm bg-red-400 transition-[top,bottom,left,right,opacity] duration-200 ease-out',
+              '[@supports(position-anchor:--toc-active)]:block',
+              '[@supports(position-anchor:--toc-active)]:opacity-100',
+              '[@supports(position-anchor:--toc-active)]:[position-anchor:--toc-active]',
+              '[@supports(position-anchor:--toc-active)]:top-[calc(anchor(top)+0.25rem)]',
+              '[@supports(position-anchor:--toc-active)]:bottom-[calc(anchor(bottom)+0.25rem)]',
+              '[@supports(position-anchor:--toc-active)]:left-[calc(anchor(left)+0px)]',
+            )}
+          />
+          <ul className="flex flex-col gap-1 py-2">
+            {tableOfContents.map((toc, index) => (
+              <li key={toc.id} className={cn('text-sm font-medium')}>
+                <a
+                  href={`#${toc.id}`}
+                  aria-current={activeIndex === index ? 'location' : false}
+                  className={cn(
+                    'relative block px-2 text-base leading-[1.1] no-underline hover:underline',
+                    toc.level === 3
+                      ? 'ml-4 py-0.5 text-sm text-gray-600 dark:text-gray-300'
+                      : 'py-1',
+                    activeIndex === index &&
+                      'text-red-400 dark:text-red-400 before:bg-red-400 [@supports(position-anchor:--toc-active)]:[anchor-name:--toc-active]',
+                    'before:absolute before:bottom-1 before:left-0 before:top-1 before:block before:w-0.75 before:rounded-sm before:transition-colors before:content-[""]',
+                    '[@supports(position-anchor:--toc-active)]:before:hidden',
+                  )}
+                >
+                  {toc.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
     </aside>
   );
