@@ -18,7 +18,8 @@ function findActiveIndexFromScrollPosition(tableOfContents: Toc[]): number {
     const relativeTop = heading.getBoundingClientRect().top - containerTop;
     headingTops.push({
       id: heading.id,
-      top: relativeTop,
+      // Math.round to prevent fractional scroll positions
+      top: Math.round(relativeTop),
     });
   });
 
@@ -49,7 +50,8 @@ function scrollToHashFragment(hash: string): boolean {
     currentScrollTop + (targetRect.top - containerRect.top);
 
   scrollContainer.scrollTo({
-    top: targetScrollTop,
+    // Math.round to prevent fractional scroll positions
+    top: Math.round(targetScrollTop),
     behavior: 'instant',
   });
 
