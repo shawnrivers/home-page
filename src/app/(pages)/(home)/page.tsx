@@ -150,14 +150,14 @@ export default async function Home() {
             </li>
             <li className="flex">
               <SocialLink
-                href="https://github.com/shawnrivers"
+                href="https://github.com/ushoka"
                 icon={
                   <GitHubIcon
                     title="GitHub"
                     className="h-auto w-4 fill-current"
                   />
                 }
-                text="@shawnrivers"
+                text="@ushoka"
               />
             </li>
             <li className="flex">
